@@ -22,6 +22,14 @@ class EditField extends StatefulWidget {
 
 class _EditFieldState extends State<EditField> {
   bool _showPassword = false;
+  @override
+  void initState() {
+    if (widget.isPassword) {
+      _showPassword = true;
+    }
+    super.initState();
+  }
+
   void _togglevisibility() {
     setState(() {
       _showPassword = !_showPassword;
@@ -34,7 +42,7 @@ class _EditFieldState extends State<EditField> {
       controller: widget.controller,
       keyboardType: widget.inputType,
       // inputFormatters:<TextInputFormatter>[formater],
-      obscureText: !_showPassword,
+      obscureText: _showPassword,
       cursorColor: AppTheme.nearlyBlack,
       maxLength: widget.maxLength,
       decoration: InputDecoration(

@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ]),
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.lerp(Radius.circular(50),
-                                      Radius.circular(60), 5)!,
+                                      Radius.circular(50), 5)!,
                                   bottomRight: Radius.lerp(Radius.circular(50),
                                       Radius.circular(50), 5)!),
                             ),
