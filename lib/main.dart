@@ -1,8 +1,12 @@
 import 'package:dazllapp/UI/forgot_password.dart/forgot_password_screen.dart';
 import 'package:dazllapp/UI/home/homepage.dart';
+import 'package:dazllapp/UI/homepage/professionals_homepage.dart';
+import 'package:dazllapp/UI/homepage/realtor_homepage.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
+
+import 'UI/homepage/customer/home/customer_homepage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +45,7 @@ class MyApp extends StatelessWidget {
         accentColor: primaryColor,
         dividerColor: Colors.transparent,
       ),
-      home: LoginScreen(),
+      home: ProfessionalsHomepage(),
     );
   }
 }

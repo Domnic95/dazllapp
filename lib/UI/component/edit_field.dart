@@ -34,7 +34,7 @@ class _EditFieldState extends State<EditField> {
       controller: widget.controller,
       keyboardType: widget.inputType,
       // inputFormatters:<TextInputFormatter>[formater],
-      obscureText: !_showPassword,
+      obscureText: _showPassword,
       cursorColor: AppTheme.nearlyBlack,
       maxLength: widget.maxLength,
       decoration: InputDecoration(
