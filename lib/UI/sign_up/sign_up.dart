@@ -13,11 +13,28 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _fNameControllre = TextEditingController();
+  final _PfNameControllre = TextEditingController();
+  final _CfNameControllre = TextEditingController();
+  final _addressController = TextEditingController();
+  final _PcompanyaddressController = TextEditingController();
+  final _PcompanycityController = TextEditingController();
+  final _PcompanynameController = TextEditingController();
+  final _addressController1 = TextEditingController();
   final _lNameControllre = TextEditingController();
+  final _ClNameControllre = TextEditingController();
+  final _PlNameControllre = TextEditingController();
   final _mobileNoControllre = TextEditingController();
+  final _CmobileNoControllre = TextEditingController();
+  final _PmobileNoControllre = TextEditingController();
   final _emailController = TextEditingController();
+  final _CemailController = TextEditingController();
+  final _PemailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _CpasswordController = TextEditingController();
+  final _PpasswordController = TextEditingController();
   final _passwordAgainController = TextEditingController();
+  final _CpasswordAgainController = TextEditingController();
+  final _PpasswordAgainController = TextEditingController();
   // List<ServiceType> servicesType = [];
   List<DropdownMenuItem> items = [
     DropdownMenuItem(
@@ -29,6 +46,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _showPassword = false;
   bool _showAgainPassword = false;
   int value = 0;
+  String dropdownValue = "Realtor";
+  int curruntindex = 0;
+  List<String> DropsDownvalue = [
+    'Realtor',
+    'Professional',
+    'Customer',
+  ];
 
   void _togglevisibility() {
     setState(() {
@@ -79,7 +103,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ]),
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.lerp(Radius.circular(50),
-                                      Radius.circular(60), 5)!,
+                                      Radius.circular(50), 5)!,
                                   bottomRight: Radius.lerp(Radius.circular(50),
                                       Radius.circular(50), 5)!),
                             ),
@@ -127,74 +151,319 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: ButtonTheme(
+              child: DropdownButton<String>(
+                isExpanded: true,
+                value: dropdownValue,
+
+                icon: const Icon(Icons.expand_more),
+                iconSize: 24,
+                elevation: 16,
+                // style: const TextStyle(color: Colors.deepPurple),
+                underline: Container(
+                  height: 2,
+                  // color: Colors.deepPurpleAccent,
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownValue = newValue!;
+                    curruntindex = DropsDownvalue.indexOf(newValue);
+                    print(curruntindex);
+                  });
+                },
+                items: DropsDownvalue.map((String value) {
+                  return new DropdownMenuItem<String>(
+                    value: value,
+                    child: new Text(value),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
           SizedBox(
             height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Row(
-              children: [
-                Flexible(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      right: 5,
+          (curruntindex == 0)
+              ? (Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: Row(
+                        children: [
+                          Flexible(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                right: 5,
+                              ),
+                              child: EditField(
+                                controller: _fNameControllre,
+                                hint: "First Name",
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                left: 5,
+                              ),
+                              child: EditField(
+                                controller: _lNameControllre,
+                                hint: "Second Name",
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    child: EditField(
-                      controller: _fNameControllre,
-                      hint: "First Name",
+                    Padding(
+                        padding: EdgeInsets.only(left: 25, right: 25, top: 20),
+                        child: Column(
+                          children: [
+                            EditField(
+                              controller: _emailController,
+                              hint: "Email address",
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            EditField(
+                              controller: _passwordController,
+                              hint: "Create Password",
+                              isPassword: true,
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            EditField(
+                              controller: _passwordAgainController,
+                              hint: "Confrim Password",
+                              isPassword: true,
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            EditField(
+                              controller: _addressController,
+                              hint: "Real Estate Agency Affiliation (name)",
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: EditField(
+                                    controller: _addressController1,
+                                    hint:
+                                        "Real Estate Agency Affiliation (name)",
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: EditField(
+                                    hint: "Zip Code",
+                                    inputType: TextInputType.number,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: EditField(
+                                    hint: "State",
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            EditField(
+                              controller: _mobileNoControllre,
+                              hint: "Mobile Phone Number",
+                              inputType: TextInputType.phone,
+                              maxLength: 10,
+                            ),
+                          ],
+                        ))
+                  ],
+                ))
+              : (Column()),
+          (curruntindex == 1)
+              ? (Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: Row(
+                        children: [
+                          Flexible(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                right: 5,
+                              ),
+                              child: EditField(
+                                controller: _PfNameControllre,
+                                hint: "First Name",
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                left: 5,
+                              ),
+                              child: EditField(
+                                controller: _PlNameControllre,
+                                hint: "Second Name",
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ),
-                Flexible(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      left: 5,
+                    Padding(
+                        padding: EdgeInsets.only(left: 25, right: 25, top: 20),
+                        child: Column(
+                          children: [
+                            EditField(
+                              controller: _PemailController,
+                              hint: "Email address",
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            EditField(
+                              controller: _PpasswordController,
+                              hint: "Create Password",
+                              isPassword: true,
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            EditField(
+                              controller: _PpasswordAgainController,
+                              hint: "Confrim Password",
+                              isPassword: true,
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            EditField(
+                              controller: _PcompanynameController,
+                              hint: "Company Name",
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            EditField(
+                              controller: _PcompanyaddressController,
+                              hint: "Company Street Address",
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: EditField(
+                                    controller: _PcompanycityController,
+                                    hint: "Company City",
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: EditField(
+                                    hint: "Zip Code",
+                                    inputType: TextInputType.number,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: EditField(
+                                    hint: "State",
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            EditField(
+                              controller: _PmobileNoControllre,
+                              hint: "Mobile Phone Number",
+                              inputType: TextInputType.phone,
+                              maxLength: 10,
+                            ),
+                          ],
+                        ))
+                  ],
+                ))
+              : (Column()),
+          (curruntindex == 2)
+              ? (Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: Row(
+                        children: [
+                          Flexible(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                right: 5,
+                              ),
+                              child: EditField(
+                                controller: _CfNameControllre,
+                                hint: "First Name",
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                left: 5,
+                              ),
+                              child: EditField(
+                                controller: _ClNameControllre,
+                                hint: "Second Name",
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    child: EditField(
-                      controller: _lNameControllre,
-                      hint: "Last Name",
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          Padding(
-              padding: EdgeInsets.only(left: 25, right: 25, top: 20),
-              child: Column(
-                children: [
-                  EditField(
-                    controller: _emailController,
-                    hint: "Email",
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                  EditField(
-                    hint: "Zip Code",
-                    inputType: TextInputType.number,
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                  EditField(
-                    controller: _mobileNoControllre,
-                    hint: "Mobile Number",
-                    inputType: TextInputType.phone,
-                    maxLength: 10,
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                  EditField(
-                    controller: _passwordController,
-                    hint: "Create Password",
-                    isPassword: true,
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                  EditField(
-                    controller: _passwordAgainController,
-                    hint: "Confrim Password",
-                    isPassword: true,
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                ],
-              )),
+                    Padding(
+                        padding: EdgeInsets.only(left: 25, right: 25, top: 20),
+                        child: Column(
+                          children: [
+                            EditField(
+                              controller: _CmobileNoControllre,
+                              hint: "Mobile Phone Number",
+                              inputType: TextInputType.phone,
+                              maxLength: 10,
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: EditField(
+                                    controller: _CemailController,
+                                    hint: "Email address",
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: EditField(
+                                    hint: "Zip Code",
+                                    inputType: TextInputType.number,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            EditField(
+                              controller: _CpasswordController,
+                              hint: "Create Password",
+                              isPassword: true,
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            EditField(
+                              controller: _CpasswordAgainController,
+                              hint: "Confrim Password",
+                              isPassword: true,
+                            ),
+                          ],
+                        ))
+                  ],
+                ))
+              : (Column()),
           // Padding(
           //   padding: EdgeInsets.only(left: 55, right: 55, top: 20),
           //   child: Column(
