@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         accentColor: primaryColor,
         dividerColor: Colors.transparent,
       ),
-      home: ProfessionalsHomepage(),
+      // home: ProfessionalsHomepage(),
     );
   }
 }
