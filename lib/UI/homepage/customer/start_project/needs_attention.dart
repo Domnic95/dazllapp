@@ -1,6 +1,7 @@
 import 'package:dazllapp/UI/component/edit_field.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/tell_us_more.dart';
 import 'package:dazllapp/config/app_theme.dart';
+import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,10 +26,10 @@ class _NeedAttentionState extends State<NeedAttention> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          leading: Container(),
-          elevation: 0,
-        ),
+        // appBar: AppBar(
+        //   leading: Container(),
+        //   elevation: 0,
+        // ),
         body: Container(
           child: Column(
             children: [
@@ -43,10 +44,10 @@ class _NeedAttentionState extends State<NeedAttention> {
                 child: Center(
                   child: Text(
                     "What needs attention?",
-                    style: TextStyle(
-                        color: AppTheme.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontSize: 16,
+                          color: lightColor.withOpacity(.9),
+                        ),
                   ),
                 ),
               ),
@@ -211,14 +212,16 @@ class _NeedAttentionState extends State<NeedAttention> {
                         height: size.height * 0.25,
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  color: AppTheme.grey.withOpacity(0.3),
-                                  blurRadius: 3,
-                                  spreadRadius: 1,
-                                  offset: Offset(3, 3))
-                            ],
-                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                                color: AppTheme.colorPrimary, width: 2),
+                            // boxShadow: [
+                            //   BoxShadow(
+                            //       color: AppTheme.grey.withOpacity(0.3),
+                            //       blurRadius: 3,
+                            //       spreadRadius: 1,
+                            //       offset: Offset(3, 3))
+                            // ],
+                            borderRadius: BorderRadius.circular(10),
                             color: Colors.white),
                         child: TextFormField(
                           controller: _Attentioncontroller,
@@ -227,7 +230,7 @@ class _NeedAttentionState extends State<NeedAttention> {
                           textInputAction: TextInputAction.done,
                           cursorColor: AppTheme.colorPrimary,
                           decoration: InputDecoration(
-                              hintText: "add note to inspection report",
+                              hintText: "Add note to inspection report",
                               focusedBorder: UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Colors.transparent)),
@@ -270,10 +273,13 @@ class _NeedAttentionState extends State<NeedAttention> {
                             ),
                             Text(
                               "Previous",
-                              style: TextStyle(
-                                  color: AppTheme.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                    fontSize: 18,
+                                    color: lightColor.withOpacity(.9),
+                                  ),
                             )
                           ],
                         ),
@@ -287,10 +293,13 @@ class _NeedAttentionState extends State<NeedAttention> {
                           children: [
                             Text(
                               "Next",
-                              style: TextStyle(
-                                  color: AppTheme.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                    fontSize: 18,
+                                    color: lightColor.withOpacity(.9),
+                                  ),
                             ),
                             Icon(
                               Icons.arrow_forward_ios,

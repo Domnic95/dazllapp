@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'DAZL',
       theme: ThemeData(
         fontFamily: 'OpenSans',
@@ -45,7 +46,9 @@ class MyApp extends StatelessWidget {
         accentColor: primaryColor,
         dividerColor: Colors.transparent,
       ),
-      // home: ProfessionalsHomepage(),dfgfgfg fg fgf
+      home: LoginScreen(
+        index: 0,
+      ),
     );
   }
 }

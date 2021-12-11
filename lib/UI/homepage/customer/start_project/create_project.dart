@@ -1,6 +1,7 @@
 import 'package:dazllapp/UI/homepage/customer/home/delegrate.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/needs_attention.dart';
 import 'package:dazllapp/config/app_theme.dart';
+import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -18,10 +19,10 @@ class _CreateProjectState extends State<CreateProject> {
     final size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(
-        leading: Container(),
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   leading: Container(),
+      //   elevation: 0,
+      // ),
       body: Container(
         child: Column(
           children: [
@@ -35,11 +36,11 @@ class _CreateProjectState extends State<CreateProject> {
                   color: AppTheme.colorPrimary),
               child: Center(
                 child: Text(
-                  "Create a project",
-                  style: TextStyle(
-                      color: AppTheme.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
+                  "Create a Project",
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        fontSize: 16,
+                        color: lightColor.withOpacity(.9),
+                      ),
                 ),
               ),
             ),
@@ -48,7 +49,7 @@ class _CreateProjectState extends State<CreateProject> {
             ),
             Expanded(
               child: GridView.builder(
-                  itemCount: CreatePlan.length,
+                  itemCount: CreatePlans.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       crossAxisSpacing: 10,
@@ -69,21 +70,33 @@ class _CreateProjectState extends State<CreateProject> {
                         });
                       },
                       child: Card(
-                        color: select.contains(index)
-                            ? Colors.blueGrey[100]
+                        color: Colors.white,
+                        elevation: select.contains(index) ? 5 : 0,
+                        shadowColor: select.contains(index)
+                            ? teamRed.withOpacity(0.5)
                             : Colors.white,
-                        elevation: 5,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            Image.asset(
+                              "${CreatePlans[index].image}",
+                              width: 50,
+                              color: teamRed,
+                            ),
                             Center(
                               child: Text(
-                                CreatePlan[index],
+                                CreatePlans[index].name,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: teamRed,
+                                    ),
                               ),
                             ),
                           ],
@@ -117,10 +130,11 @@ class _CreateProjectState extends State<CreateProject> {
                         ),
                         Text(
                           "Previous",
-                          style: TextStyle(
-                              color: AppTheme.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 18,
+                                    color: lightColor.withOpacity(.9),
+                                  ),
                         )
                       ],
                     ),
@@ -134,10 +148,11 @@ class _CreateProjectState extends State<CreateProject> {
                       children: [
                         Text(
                           "Next",
-                          style: TextStyle(
-                              color: AppTheme.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 18,
+                                    color: lightColor.withOpacity(.9),
+                                  ),
                         ),
                         Icon(
                           Icons.arrow_forward_ios,
@@ -157,12 +172,18 @@ class _CreateProjectState extends State<CreateProject> {
   }
 }
 
-List CreatePlan = [
-  "Room 1",
-  "Room 2",
-  "Bedroom",
-  "Kitchen",
-  " Living Room",
-  "Bathroom",
-  "Dining Room",
+class CreatePlan {
+  String image;
+  String name;
+  CreatePlan({required this.image, required this.name});
+}
+
+List<CreatePlan> CreatePlans = [
+  CreatePlan(image: "assets/images/room.png", name: "Room 1"),
+  CreatePlan(image: "assets/images/room.png", name: "Room 2"),
+  CreatePlan(image: "assets/images/bedroom.png", name: "Bedroom"),
+  CreatePlan(image: "assets/images/kitchen.png", name: "Kitchen"),
+  CreatePlan(image: "assets/images/living_room.png", name: "Living Room"),
+  CreatePlan(image: "assets/images/bath_room.png", name: "Bathroom"),
+  CreatePlan(image: "assets/images/dinnertable.png", name: "Dining Room"),
 ];

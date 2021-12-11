@@ -1,4 +1,6 @@
+import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
+import 'package:dazllapp/UI/login/login_screen.dart';
 
 import 'delegrate.dart';
 import 'package:dazllapp/model/selection.dart';
@@ -23,6 +25,15 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                    (route) => false);
+              },
+              icon: Icon(Icons.logout))
+        ],
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
@@ -70,7 +81,7 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
 }
 
 List<Selection> Selections = [
-  Selection(image: "assets/images/start.png", name: "start a project"),
-  Selection(image: "assets/images/my_project.png", name: "my projects"),
-  Selection(image: "assets/images/inspire.png", name: "get inspired"),
+  Selection(image: "assets/images/start.png", name: "Start a project"),
+  Selection(image: "assets/images/my_project.png", name: "My projects"),
+  Selection(image: "assets/images/inspire.png", name: "Get inspired"),
 ];

@@ -1,3 +1,5 @@
+import 'package:dazllapp/UI/home/homepage.dart';
+import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/model/selection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,15 @@ class _RealtorHomePageState extends State<RealtorHomePage> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                    (route) => false);
+              },
+              icon: Icon(Icons.logout))
+        ],
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
@@ -57,10 +68,10 @@ class _RealtorHomePageState extends State<RealtorHomePage> {
 }
 
 List<Selection> Selections = [
-  Selection(image: "assets/images/create.png", name: "create a phd"),
-  Selection(image: "assets/images/complete.png", name: "completed phd"),
-  Selection(image: "assets/images/account.png", name: "my account"),
-  Selection(image: "assets/images/start.png", name: "start a project"),
-  Selection(image: "assets/images/document.png", name: "my documents"),
-  Selection(image: "assets/images/inspire.png", name: "get inspired"),
+  Selection(image: "assets/images/create.png", name: "Create a phd"),
+  Selection(image: "assets/images/complete.png", name: "Completed phd"),
+  Selection(image: "assets/images/account.png", name: "My account"),
+  Selection(image: "assets/images/start.png", name: "Start a project"),
+  Selection(image: "assets/images/document.png", name: "My documents"),
+  Selection(image: "assets/images/inspire.png", name: "Get inspired"),
 ];

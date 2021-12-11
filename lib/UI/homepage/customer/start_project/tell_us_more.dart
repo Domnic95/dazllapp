@@ -1,4 +1,5 @@
 import 'package:dazllapp/config/app_theme.dart';
+import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -17,10 +18,10 @@ class _TellusMoreState extends State<TellusMore> {
     final size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(
-        leading: Container(),
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   leading: Container(),
+      //   elevation: 0,
+      // ),
       body: Container(
         child: Column(
           children: [
@@ -34,11 +35,11 @@ class _TellusMoreState extends State<TellusMore> {
                   color: AppTheme.colorPrimary),
               child: Center(
                 child: Text(
-                  "What needs attention?",
-                  style: TextStyle(
-                      color: AppTheme.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
+                  "Tell Us More",
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        fontSize: 16,
+                        color: lightColor.withOpacity(.9),
+                      ),
                 ),
               ),
             ),
@@ -73,7 +74,7 @@ class _TellusMoreState extends State<TellusMore> {
                             //       spreadRadius: 1,
                             //       offset: Offset(3, 3))
                             // ],
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(10),
                             color: Colors.white),
                         child: TextFormField(
                           controller: _cabinetController,
@@ -82,7 +83,7 @@ class _TellusMoreState extends State<TellusMore> {
                           textInputAction: TextInputAction.done,
                           cursorColor: AppTheme.colorPrimary,
                           decoration: InputDecoration(
-                              hintText: "add note to inspection report",
+                              hintText: "Add note to inspection report",
                               focusedBorder: UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Colors.transparent)),
@@ -110,7 +111,7 @@ class _TellusMoreState extends State<TellusMore> {
                             //       spreadRadius: 1,
                             //       offset: Offset(3, 3))
                             // ],
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(10),
                             color: Colors.white),
                         child: TextFormField(
                           controller: _inspectionController,
@@ -165,23 +166,27 @@ class _TellusMoreState extends State<TellusMore> {
                                       mainAxisSpacing: 10,
                                       crossAxisCount: 3),
                               itemBuilder: (context, index) {
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    color: AppTheme.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: AppTheme.grey.withOpacity(0.5),
-                                        blurRadius: 3,
-                                        offset: Offset(3, 3),
-                                      ),
-                                    ],
-                                    image: DecorationImage(
-                                      image: NetworkImage(images[index]),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                );
+                                return index == 0
+                                    ? Container()
+                                    : Container(
+                                        decoration: BoxDecoration(
+                                          color: AppTheme.white,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: AppTheme.grey
+                                                  .withOpacity(0.5),
+                                              blurRadius: 3,
+                                              offset: Offset(3, 3),
+                                            ),
+                                          ],
+                                          image: DecorationImage(
+                                            image: NetworkImage(images[index]),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      );
                               })),
                     ],
                   ),
@@ -213,27 +218,29 @@ class _TellusMoreState extends State<TellusMore> {
                         ),
                         Text(
                           "Previous",
-                          style: TextStyle(
-                              color: AppTheme.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 18,
+                                    color: lightColor.withOpacity(.9),
+                                  ),
                         )
                       ],
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => TellusMore()));
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (context) => TellusMore()));
                     },
                     child: Row(
                       children: [
                         Text(
                           "Next",
-                          style: TextStyle(
-                              color: AppTheme.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 18,
+                                    color: lightColor.withOpacity(.9),
+                                  ),
                         ),
                         Icon(
                           Icons.arrow_forward_ios,
@@ -254,7 +261,6 @@ class _TellusMoreState extends State<TellusMore> {
 }
 
 List images = [
-  "https://icon-library.com/images/add-photo-icon/add-photo-icon-29.jpg",
   "https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG91c2V8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
   "https://images.unsplash.com/photo-1549517045-bc93de075e53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8aG91c2V8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
   "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8aG91c2V8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",

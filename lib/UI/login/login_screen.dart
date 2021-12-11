@@ -2,12 +2,17 @@ import 'dart:io';
 
 import 'package:dazllapp/UI/forgot_password.dart/forgot_password_screen.dart';
 import 'package:dazllapp/UI/home/homepage.dart';
+import 'package:dazllapp/UI/homepage/customer/home/customer_homepage.dart';
+import 'package:dazllapp/UI/homepage/professionals_homepage.dart';
+import 'package:dazllapp/UI/homepage/realtor_homepage.dart';
 import 'package:dazllapp/UI/sign_up/sign_up.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
+  int index;
+  LoginScreen({required this.index});
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -234,7 +239,16 @@ class _LoginScreenState extends State<LoginScreen> {
               // _passwordController.text = "12345678",
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) {
-                return HomePage();
+                if (widget.index == 0) {
+                  return RealtorHomePage();
+                }
+                if (widget.index == 1) {
+                  return ProfessionalsHomepage();
+                }
+                if (widget.index == 2) {
+                  return CustomerHomepage();
+                }
+                return Container();
               })),
               if (_emailController.text.toString().isEmpty)
                 {

@@ -1,3 +1,5 @@
+import 'package:dazllapp/UI/home/homepage.dart';
+import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +19,15 @@ class __ProfessionalsHomepageState extends State<ProfessionalsHomepage> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                    (route) => false);
+              },
+              icon: Icon(Icons.logout))
+        ],
         centerTitle: true,
       ),
       body: Container(

@@ -1,3 +1,4 @@
+import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -45,22 +46,32 @@ class ServicesWidget extends StatelessWidget {
                                 Colors.black.withOpacity(.2), BlendMode.darken),
                           ),
                           borderRadius: BorderRadius.circular(10)),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: darkRed,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10))),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 4),
-                            child: Text(
-                              "Read More \n or Sign Up",
-                              style: textTheme.bodyText1!
-                                  .copyWith(color: lightColor, fontSize: 10),
-                              textAlign: TextAlign.center,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen(
+                                        index: i,
+                                      )),
+                              (route) => false);
+                        },
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: darkRed,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10))),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 4),
+                              child: Text(
+                                "Read More \n or Sign Up",
+                                style: textTheme.bodyText1!
+                                    .copyWith(color: lightColor, fontSize: 10),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                         ),
