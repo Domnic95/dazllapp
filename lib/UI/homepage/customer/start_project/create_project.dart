@@ -48,62 +48,83 @@ class _CreateProjectState extends State<CreateProject> {
               height: size.height * 0.02,
             ),
             Expanded(
-              child: GridView.builder(
-                  itemCount: CreatePlans.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10),
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        if (select.contains(index)) {
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: GridView.builder(
+                    itemCount: CreatePlans.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10),
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          if (select.contains(index)) {
+                            setState(() {
+                              select.remove(index);
+                              currentindex = index;
+                            });
+                            return;
+                          }
                           setState(() {
-                            select.remove(index);
+                            select.add(index);
                             currentindex = index;
                           });
-                          return;
-                        }
-                        setState(() {
-                          select.add(index);
-                          currentindex = index;
-                        });
-                      },
-                      child: Card(
-                        color: Colors.white,
-                        elevation: select.contains(index) ? 5 : 0,
-                        shadowColor: select.contains(index)
-                            ? teamRed.withOpacity(0.5)
-                            : Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "${CreatePlans[index].image}",
-                              width: 50,
-                              color: teamRed,
+                        },
+                        child: Card(
+                          elevation: 5,
+                          // shadowColor: select.contains(index)
+                          //     ? teamRed.withOpacity(0.5)
+                          //     : Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: AppTheme.white,
+                                boxShadow: [
+                                  select.contains(index)
+                                      ? BoxShadow(
+                                          color: AppTheme.colorPrimary
+                                              .withOpacity(0.5),
+                                          spreadRadius: 2,
+                                          blurRadius: 3)
+                                      : BoxShadow(),
+                                ]),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "${CreatePlans[index].image}",
+                                  width: 50,
+                                  color: teamRed,
+                                ),
+                                (index > 2)
+                                    ? SizedBox(
+                                        height: 8,
+                                      )
+                                    : Container(),
+                                Center(
+                                  child: Text(
+                                    CreatePlans[index].name,
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: teamRed,
+                                        ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            Center(
-                              child: Text(
-                                CreatePlans[index].name,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: teamRed,
-                                    ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    );
-                  }),
+                      );
+                    }),
+              ),
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),

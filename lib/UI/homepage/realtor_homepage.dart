@@ -1,5 +1,7 @@
 import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
+import 'package:dazllapp/config/app_theme.dart';
+import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/model/selection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +18,19 @@ class _RealtorHomePageState extends State<RealtorHomePage> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        elevation: 5,
+        leading: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: Image.asset(
+            "assets/images/navigation.png",
+          ),
+        ),
         centerTitle: true,
         title: Text(
-          "REAL STATE PROFESSIONAL",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          "Real State Professional",
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1!
+              .copyWith(fontSize: 16, color: darkTextColor.withOpacity(.9)),
         ),
         actions: [
           IconButton(
@@ -52,11 +60,15 @@ class _RealtorHomePageState extends State<RealtorHomePage> {
                     Image.asset(
                       Selections[index].image,
                       width: 80,
+                      color: AppTheme.colorPrimary,
                     ),
                     Text(
                       Selections[index].name,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: AppTheme.colorPrimary,
+                          ),
                     ),
                   ],
                 ),

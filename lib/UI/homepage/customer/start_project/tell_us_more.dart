@@ -3,6 +3,7 @@ import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 
 class TellusMore extends StatefulWidget {
   @override
@@ -46,7 +47,10 @@ class _TellusMoreState extends State<TellusMore> {
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -55,8 +59,11 @@ class _TellusMoreState extends State<TellusMore> {
                       ),
                       Text(
                         "Cabinets",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: darkTextColor,
+                            ),
                       ),
                       SizedBox(
                         height: 10,
@@ -66,7 +73,8 @@ class _TellusMoreState extends State<TellusMore> {
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
                             border: Border.all(
-                                color: AppTheme.colorPrimary, width: 2),
+                                color: AppTheme.grey.withOpacity(0.5),
+                                width: 2),
                             // boxShadow: [
                             //   BoxShadow(
                             //       color: AppTheme.grey.withOpacity(0.3),
@@ -103,7 +111,8 @@ class _TellusMoreState extends State<TellusMore> {
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
                             border: Border.all(
-                                color: AppTheme.colorPrimary, width: 2),
+                                color: AppTheme.grey.withOpacity(0.5),
+                                width: 2),
                             // boxShadow: [
                             //   BoxShadow(
                             //       color: AppTheme.grey.withOpacity(0.3),
@@ -135,28 +144,19 @@ class _TellusMoreState extends State<TellusMore> {
                       SizedBox(
                         height: 20,
                       ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: AppTheme.colorPrimary),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          child: Text(
-                            "Upload Image",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
-                                color: AppTheme.white),
-                          ),
-                        ),
+                      Text(
+                        "Upload Image",
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: darkTextColor,
+                            ),
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       Container(
-                          height: size.height * 0.3,
+                          height: size.height * 0.35,
                           child: GridView.builder(
                               itemCount: images.length,
                               gridDelegate:
@@ -167,7 +167,29 @@ class _TellusMoreState extends State<TellusMore> {
                                       crossAxisCount: 3),
                               itemBuilder: (context, index) {
                                 return index == 0
-                                    ? Container()
+                                    ? Container(
+                                        decoration: BoxDecoration(
+                                          color: AppTheme.white,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: AppTheme.grey
+                                                  .withOpacity(0.5),
+                                              blurRadius: 3,
+                                              offset: Offset(3, 3),
+                                            ),
+                                          ],
+                                        ),
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.add_circle_outline,
+                                            color: AppTheme.colorPrimary
+                                                .withOpacity(0.7),
+                                            size: 50,
+                                          ),
+                                        ),
+                                      )
                                     : Container(
                                         decoration: BoxDecoration(
                                           color: AppTheme.white,
@@ -235,7 +257,7 @@ class _TellusMoreState extends State<TellusMore> {
                     child: Row(
                       children: [
                         Text(
-                          "Next",
+                          "Finish & Save",
                           style:
                               Theme.of(context).textTheme.bodyText1!.copyWith(
                                     fontSize: 18,

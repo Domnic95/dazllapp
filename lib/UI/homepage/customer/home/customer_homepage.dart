@@ -1,6 +1,8 @@
 import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
+import 'package:dazllapp/config/app_theme.dart';
+import 'package:dazllapp/constant/colors.dart';
 
 import 'delegrate.dart';
 import 'package:dazllapp/model/selection.dart';
@@ -17,13 +19,19 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        elevation: 5,
+        leading: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: Image.asset(
+            "assets/images/navigation.png",
+          ),
+        ),
         centerTitle: true,
         title: Text(
           "HOMEOWNERS",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1!
+              .copyWith(fontSize: 16, color: darkTextColor.withOpacity(.9)),
         ),
         actions: [
           IconButton(
@@ -36,46 +44,51 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
         ],
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-        child: GridView.builder(
-            itemCount: Selections.length,
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCountAndCentralizedLastElement(
-                    itemCount: Selections.length,
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10),
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  if (index == 0) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CreateProject()));
-                  }
-                },
-                child: Card(
-                  // color: Colors.blueGrey[100],
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        Selections[index].image,
-                        width: 80,
+          margin: EdgeInsets.only(left: 15, right: 15, top: 15),
+          child: ListView.builder(
+              itemCount: Selections.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    if (index == 0) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CreateProject()));
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 30),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              Selections[index].image,
+                              color: AppTheme.colorPrimary,
+                              width: 100,
+                            ),
+                            Text(
+                              Selections[index].name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20,
+                                    color: AppTheme.colorPrimary,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        Selections[index].name,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              );
-            }),
-      ),
+                );
+              })),
     ));
   }
 }

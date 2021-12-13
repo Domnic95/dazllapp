@@ -96,9 +96,14 @@ class _NeedAttentionState extends State<NeedAttention> {
                                           },
                                           child: Text(
                                             "Counter",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16,
+                                                  color: AppTheme.darkerText,
+                                                ),
                                           )),
                                     ],
                                   ),
@@ -139,9 +144,14 @@ class _NeedAttentionState extends State<NeedAttention> {
                                           },
                                           child: Text(
                                             "Cabinets",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16,
+                                                  color: AppTheme.darkerText,
+                                                ),
                                           )),
                                     ],
                                   ),
@@ -182,9 +192,14 @@ class _NeedAttentionState extends State<NeedAttention> {
                                           },
                                           child: Text(
                                             "Floors",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16,
+                                                  color: AppTheme.darkerText,
+                                                ),
                                           )),
                                     ],
                                   ),
@@ -213,7 +228,8 @@ class _NeedAttentionState extends State<NeedAttention> {
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
                             border: Border.all(
-                                color: AppTheme.colorPrimary, width: 2),
+                                color: AppTheme.grey.withOpacity(0.5),
+                                width: 2),
                             // boxShadow: [
                             //   BoxShadow(
                             //       color: AppTheme.grey.withOpacity(0.3),
@@ -231,6 +247,7 @@ class _NeedAttentionState extends State<NeedAttention> {
                           cursorColor: AppTheme.colorPrimary,
                           decoration: InputDecoration(
                               hintText: "Add note to inspection report",
+                              hintStyle: Theme.of(context).textTheme.bodyText1,
                               focusedBorder: UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Colors.transparent)),
