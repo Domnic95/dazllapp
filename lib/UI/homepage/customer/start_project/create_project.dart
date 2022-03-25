@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:dazllapp/UI/homepage/customer/home/delegrate.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/needs_attention.dart';
 import 'package:dazllapp/config/app_theme.dart';

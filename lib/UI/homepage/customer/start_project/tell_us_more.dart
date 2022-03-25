@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/cupertino.dart';

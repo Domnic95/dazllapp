@@ -18,13 +18,14 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+      drawer: drawer(context),
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(14.0),
-          child: Image.asset(
-            "assets/images/navigation.png",
-          ),
-        ),
+        // leading: Padding(
+        //   padding: const EdgeInsets.all(14.0),
+        //   child: Image.asset(
+        //     "assets/images/navigation.png",
+        //   ),
+        // ),
         centerTitle: true,
         title: Text(
           "HOMEOWNERS",

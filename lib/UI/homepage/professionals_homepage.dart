@@ -14,13 +14,14 @@ class __ProfessionalsHomepageState extends State<ProfessionalsHomepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: drawer(context),
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(14.0),
-          child: Image.asset(
-            "assets/images/navigation.png",
-          ),
-        ),
+        // leading: Padding(
+        //   padding: const EdgeInsets.all(14.0),
+        //   child: Image.asset(
+        //     "assets/images/navigation.png",
+        //   ),
+        // ),
         centerTitle: true,
         title: Text(
           "Service Professional",

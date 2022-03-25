@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';

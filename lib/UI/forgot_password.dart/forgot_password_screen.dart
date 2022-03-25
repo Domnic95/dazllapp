@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:dazllapp/UI/component/common_button.dart';
 import 'package:dazllapp/UI/component/edit_field.dart';
 import 'package:dazllapp/config/app_theme.dart';
@@ -28,6 +30,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                         Container(
                             height: size.height * 0.33,
                             width: size.width,
+                            // ignore: unnecessary_new
                             decoration: new BoxDecoration(
                               gradient: LinearGradient(
                                   begin: Alignment.bottomRight,

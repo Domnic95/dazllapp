@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, unnecessary_new, sized_box_for_whitespace, avoid_print
+
 import 'dart:io';
 
 import 'package:dazllapp/UI/forgot_password.dart/forgot_password_screen.dart';
@@ -7,8 +9,11 @@ import 'package:dazllapp/UI/homepage/professionals_homepage.dart';
 import 'package:dazllapp/UI/homepage/realtor_homepage.dart';
 import 'package:dazllapp/UI/sign_up/sign_up.dart';
 import 'package:dazllapp/config/app_theme.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../config/api.dart';
 
 class LoginScreen extends StatefulWidget {
   int index;
@@ -22,7 +27,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   // SharedPreferences prefs;
   bool _showPassword = false;
-
+  String dropdownValue = "Realtor";
+  int curruntindex = 0;
+  List<String> DropsDownvalue = [
+    'Realtor',
+    'Professional',
+    'Customer',
+  ];
   void _togglevisibility() {
     setState(() {
       _showPassword = !_showPassword;
@@ -107,6 +118,37 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           SizedBox(height: size.height * 0.03),
           SizedBox(height: size.height * 0.03),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: ButtonTheme(
+              child: DropdownButton<String>(
+                isExpanded: true,
+                value: dropdownValue,
+
+                icon: const Icon(Icons.expand_more),
+                iconSize: 24,
+                elevation: 16,
+                // style: const TextStyle(color: Colors.deepPurple),
+                underline: Container(
+                  height: 2,
+                  // color: Colors.deepPurpleAccent,
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownValue = newValue!;
+                    curruntindex = DropsDownvalue.indexOf(newValue);
+                    print(curruntindex);
+                  });
+                },
+                items: DropsDownvalue.map((String value) {
+                  return new DropdownMenuItem<String>(
+                    value: value,
+                    child: new Text(value),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
           Padding(
               padding: EdgeInsets.only(left: 25, right: 25),
               child: Column(
@@ -230,66 +272,126 @@ class _LoginScreenState extends State<LoginScreen> {
                     RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                         side: BorderSide(color: AppTheme.colorPrimary)))),
-            onPressed: () async => {
+            onPressed: () async {
               // _emailController.text = "tire@roadrunnersclub.net",
               // _passwordController.text = "123456",
               // _emailController.text = "apitest24@mail.com",
               // _passwordController.text = "12345678",
               // _emailController.text = "apitest24@mail.com",
               // _passwordController.text = "12345678",
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) {
-                if (widget.index == 0) {
-                  return RealtorHomePage();
-                }
-                if (widget.index == 1) {
-                  return ProfessionalsHomepage();
-                }
-                if (widget.index == 2) {
-                  return CustomerHomepage();
-                }
-                return Container();
-              })),
-              if (_emailController.text.toString().isEmpty)
-                {
-                  showAlertDialog(
-                      context: context,
-                      title: "Require Email",
-                      content: "Please Enter Email Id",
-                      defaultActionText: "OK")
-                }
-              else if (_passwordController.text.toString().isEmpty)
-                {
-                  showAlertDialog(
-                      context: context,
-                      title: "Require Password",
-                      content: "Please Enter Password",
-                      defaultActionText: "OK")
-                }
-              else
-                {
-                  // bloc.loginReq(
-                  //     _emailController.text.toString(),
-                  //     _passwordController.text.toString(),
-                  //     await _getId(),
-                  //     context),
-                  // if (snap.hasData)
-                  //   {
-                  //     prefs = await SharedPreferences.getInstance(),
-                  //     prefs.setString(SharedPrefsKeys.ACCESS_TOKEN,
-                  //         snap.data.accessToken),
+              // Navigator.pushReplacement(context,
+              //     MaterialPageRoute(builder: (context) {
+              //   if (widget.index == 0) {
+              //     return RealtorHomePage();
+              //   }
+              //   if (widget.index == 1) {
+              //     return ProfessionalsHomepage();
+              //   }
+              //   if (widget.index == 2) {
+              //     return CustomerHomepage();
+              //   }
+              //   return Container();
+              // })),
+              // if (_emailController.text.toString().isEmpty) {
+              //   showAlertDialog(
+              //       context: context,
+              //       title: "Require Email",
+              //       content: "Please Enter Email Id",
+              //       defaultActionText: "OK");
+              // } else if (_passwordController.text.toString().isEmpty) {
+              //   showAlertDialog(
+              //       context: context,
+              //       title: "Require Password",
+              //       content: "Please Enter Password",
+              //       defaultActionText: "OK");
+              // } else {
+              // bloc.loginReq(
+              //     _emailController.text.toString(),
+              //     _passwordController.text.toString(),
+              //     await _getId(),
+              //     context),
+              // if (snap.hasData)
+              //   {
+              //     prefs = await SharedPreferences.getInstance(),
+              //     prefs.setString(SharedPrefsKeys.ACCESS_TOKEN,
+              //         snap.data.accessToken),
 
-                  //     // prefs.setString(SharedPrefsKeys.CURRENCY,
-                  //     //     snap.data.currency)
-                  //     // bloc.userProfileReq(await _getId(), context,snap.data.access_token,snap.data.token_type),
+              //     // prefs.setString(SharedPrefsKeys.CURRENCY,
+              //     //     snap.data.currency)
+              //     // bloc.userProfileReq(await _getId(), context,snap.data.access_token,snap.data.token_type),
 
-                  //     //  getProfile()
-                  //   }
-                }
+              //     //  getProfile()
+              //   }
+              //}
+              if (_emailController.text.isEmpty &&
+                  _passwordController.text.isEmpty) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text('Fill Fields')));
+              }
+              login();
             },
           ),
         ],
       );
+  Dio dio = Dio(BaseOptions(baseUrl: base_url));
+  Future<String> login() async {
+    String url = login_realtor;
+    try {
+      switch (curruntindex) {
+        case 0:
+          curruntindex == 0;
+          url = login_realtor;
+          break;
+        case 1:
+          curruntindex == 1;
+          url = login_professional;
+          break;
+        case 2:
+          curruntindex == 2;
+          url = login_customer;
+          break;
+
+        default:
+      }
+
+      final response = await dio.post(url,
+          // curruntindex == 0
+          //     ? login_realtor
+          //     : curruntindex == 1
+          //         ? login_professional
+          //         : curruntindex == 2
+          //             ? login_realtor
+          //             : "",
+          data: {
+            "email": _emailController.text,
+            "password": _passwordController.text,
+          });
+
+      if (response.statusCode == 200) {
+        if (curruntindex == 0) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => RealtorHomePage()));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('Login Sucessfully')));
+        } else if (curruntindex == 1) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ProfessionalsHomepage()));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('Login Sucessfully')));
+        } else if (curruntindex == 2) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CustomerHomepage()));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('Login Sucessfully')));
+        }
+      } else {
+        print('fail');
+      }
+    } catch (e) {
+      print((e as DioError).response!.data.toString());
+    }
+    return "";
+  }
 
   // Widget submitButton(String emailId, String password) =>
   //     StreamBuilder<LoginResponse>(

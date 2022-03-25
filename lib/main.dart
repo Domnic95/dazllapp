@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:dazllapp/UI/forgot_password.dart/forgot_password_screen.dart';
 import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/professionals_homepage.dart';

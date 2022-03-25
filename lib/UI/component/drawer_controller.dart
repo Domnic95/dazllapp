@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_if_null_operators
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -56,6 +58,7 @@ class _DrawerUserControllerState extends State<DrawerUserController>
           curve: Curves.fastOutSlowIn);
     scrollController =
         ScrollController(initialScrollOffset: widget.drawerWidth);
+    // ignore: avoid_single_cascade_in_expression_statements
     scrollController
       ..addListener(() {
         if (scrollController.offset <= 0) {
@@ -361,6 +364,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              // ignore: prefer_const_literals_to_create_immutables
                               children: [
                                 Padding(
                                   padding:

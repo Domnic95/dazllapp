@@ -1,10 +1,18 @@
+// ignore_for_file: prefer_const_constructors, unused_local_variable, non_constant_identifier_names, use_key_in_widget_constructors, unused_element, avoid_print
+
 import 'dart:developer';
 import 'dart:io';
 import 'package:dazllapp/UI/component/edit_field.dart';
+import 'package:dazllapp/UI/homepage/customer/home/customer_homepage.dart';
+import 'package:dazllapp/UI/homepage/professionals_homepage.dart';
+import 'package:dazllapp/UI/homepage/realtor_homepage.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+
+import '../../config/api.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -93,6 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Container(
                             height: size.height * 0.33,
                             width: size.width,
+                            // ignore: unnecessary_new
                             decoration: new BoxDecoration(
                               gradient: LinearGradient(
                                   begin: Alignment.bottomRight,
@@ -249,7 +258,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   child: EditField(
                                     controller: _addressController1,
                                     hint:
-                                        "Real Estate Agency Affiliation (name)",
+                                        "Real Estate Agency Affiliation (city)",
                                   ),
                                 ),
                                 SizedBox(
@@ -513,6 +522,92 @@ class _SignUpScreenState extends State<SignUpScreen> {
     ));
   }
 
+  Dio dio = Dio(BaseOptions(baseUrl: base_url));
+  Future<void> signupRealtor() async {
+    try {
+      final response = await dio.post(signup_realtor, data: {
+        "check_box": true,
+        "city_of_real_state_agency": _addressController1.text,
+        "confirm_password": "!Admin@2021",
+        "email": _emailController.text,
+        "first_name": _fNameControllre.text,
+        "last_name": _lNameControllre.text,
+        "password": "!Admin@2021",
+        "phone_number": _mobileNoControllre.text,
+        "real_state_agency_name": _addressController.text,
+        "state": "test",
+        "zip_code": "1234"
+      });
+
+      if (response.statusCode == 200) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => RealtorHomePage()));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Registerd Sucessfully')));
+      } else {
+        print('fail');
+      }
+    } catch (e) {
+      print((e as DioError).response!.data.toString());
+    }
+  }
+
+  Future<void> signupProfessional() async {
+    try {
+      final response = await dio.post(signup_professional, data: {
+        "check_box": true,
+        "company_city": _PcompanycityController.text,
+        "company_name": _PcompanynameController.text,
+        "company_street_address": _PcompanyaddressController.text,
+        "confirm_password": "!Amin@2021",
+        "email": _PemailController.text,
+        "first_name": _PfNameControllre.text,
+        "last_name": _PlNameControllre.text,
+        "password": "!Amin@2021",
+        "phone_number": _PmobileNoControllre.text,
+        "state": "test",
+        "zip_code": "1234"
+      });
+
+      if (response.statusCode == 201) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ProfessionalsHomepage()));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Registerd Sucessfully')));
+      } else {
+        print('fail');
+      }
+    } catch (e) {
+      print((e as DioError).response!.data.toString());
+    }
+  }
+
+  Future<void> signupCustomer() async {
+    try {
+      final response = await dio.post(signup_customer, data: {
+        "check_box": true,
+        "confirm_password": "Advik@123#",
+        "email": _CemailController.text,
+        "first_name": _CfNameControllre.text,
+        "last_name": _ClNameControllre.text,
+        "password": "Advik@123#",
+        "phone_number": _CmobileNoControllre.text,
+        "zip_code": "1234"
+      });
+
+      if (response.statusCode == 201) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => CustomerHomepage()));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Registerd Sucessfully')));
+      } else {
+        print('fail');
+      }
+    } catch (e) {
+      print((e as DioError).response!.data.toString());
+    }
+  }
+
   Widget submitButton(String fName, String lName, String emailId,
           String mobileNum, String password) =>
       ElevatedButton(
@@ -528,70 +623,70 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                     side: BorderSide(color: AppTheme.colorPrimary)))),
-        onPressed: () async => {
-          if (_fNameControllre.text.toString().isEmpty)
-            {
-              showAlertDialog(
-                  context: context,
-                  title: "Require First Name",
-                  content: "Please Enter First Name",
-                  defaultActionText: "OK")
-            }
-          else if (_lNameControllre.text.toString().isEmpty)
-            {
-              showAlertDialog(
-                  context: context,
-                  title: "Require Last Name",
-                  content: "Please Enter Last Name",
-                  defaultActionText: "OK")
-            }
-          else if (_emailController.text.toString().isEmpty)
-            {
-              showAlertDialog(
-                  context: context,
-                  title: "Require Email",
-                  content: "Please Enter Email Id",
-                  defaultActionText: "OK")
-            }
-          else if (_mobileNoControllre.text.toString().isEmpty)
-            {
-              showAlertDialog(
-                  context: context,
-                  title: "Require Mobile Number",
-                  content: "Please Enter Mobile Number",
-                  defaultActionText: "OK")
-            }
-          else if (_passwordController.text.toString().isEmpty)
-            {
-              showAlertDialog(
-                  context: context,
-                  title: "Require Password",
-                  content: "Please Enter Password",
-                  defaultActionText: "OK")
-            }
-          else if (_passwordController.text != _passwordAgainController.text)
-            {
-              showAlertDialog(
-                  context: context,
-                  title: "Password",
-                  content: "Password does not match",
-                  defaultActionText: "OK")
-            }
-          else if (value == 0)
-            {
-              showAlertDialog(
-                  context: context,
-                  title: "Require Service Type",
-                  content: "Please Select Service Type",
-                  defaultActionText: "OK")
-            }
-          else
-            {
-              // bloc.signUpReq(fName, lName, emailId, mobileNum, password,
-              //     await _getId(), context, value),
-              // getProfile(),
-              // prefs = await SharedPreferences.getInstance(),
-            }
+        onPressed: () async {
+          if (_fNameControllre.text.isEmpty) {
+            showAlertDialog(
+                context: context,
+                title: "Require First Name",
+                content: "Please Enter First Name",
+                defaultActionText: "OK");
+          } else if (_lNameControllre.text.toString().isEmpty) {
+            showAlertDialog(
+                context: context,
+                title: "Require Last Name",
+                content: "Please Enter Last Name",
+                defaultActionText: "OK");
+          } else if (_emailController.text.toString().isEmpty) {
+            showAlertDialog(
+                context: context,
+                title: "Require Email",
+                content: "Please Enter Email Id",
+                defaultActionText: "OK");
+          } else if (_mobileNoControllre.text.toString().isEmpty) {
+            showAlertDialog(
+                context: context,
+                title: "Require Mobile Number",
+                content: "Please Enter Mobile Number",
+                defaultActionText: "OK");
+          } else if (_passwordController.text.toString().isEmpty) {
+            showAlertDialog(
+                context: context,
+                title: "Require Password",
+                content: "Please Enter Password",
+                defaultActionText: "OK");
+          } else if (_passwordController.text !=
+              _passwordAgainController.text) {
+            showAlertDialog(
+                context: context,
+                title: "Password",
+                content: "Password does not match",
+                defaultActionText: "OK");
+          } else if (value == 0) {
+            showAlertDialog(
+                context: context,
+                title: "Require Service Type",
+                content: "Please Select Service Type",
+                defaultActionText: "OK");
+          } else {
+            // bloc.signUpReq(fName, lName, emailId, mobileNum, password,
+            //     await _getId(), context, value),
+            // getProfile(),
+            // prefs = await SharedPreferences.getInstance(),
+          }
+          if (_emailController.text.isEmpty &&
+              _CemailController.text.isEmpty &&
+              _PemailController.text.isEmpty) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('Fill Fields')));
+          }
+          if (curruntindex == 0) {
+            // print(curruntindex);
+            signupRealtor();
+          } else if (curruntindex == 1) {
+            signupProfessional();
+          } else if (curruntindex == 2) {
+            signupCustomer();
+          } else {}
         },
       );
 
@@ -669,6 +764,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     ));
   }
 }
+
 
 // Future<bool> showAlertDialog({
 //   @required BuildContext context,
