@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 const base_url = 'https://api.menuj.com/api/';
 const signup_realtor = 'realtor/register';
 const signup_professional = 'professional/register';

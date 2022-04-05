@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:dazllapp/UI/component/edit_field.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/tell_us_more.dart';
 import 'package:dazllapp/config/app_theme.dart';

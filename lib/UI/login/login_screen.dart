@@ -14,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../config/api.dart';
+import '../../config/apicall.dart';
 
 class LoginScreen extends StatefulWidget {
   int index;
@@ -239,7 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
           submitButton(_emailController.text.toString(),
               _passwordController.text.toString()),
           SizedBox(height: size.height * 0.03),
-          AlreadyHaveAnAccountCheck(
+          AlreadyHaveAnAccountCheck(  
             press: () {
               Navigator.push(
                 context,
@@ -328,70 +329,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text('Fill Fields')));
               }
-              login();
+              login(
+                curruntindex,
+                _emailController.text,
+                _passwordController.text,
+                context,
+              );
+              //login();
             },
           ),
         ],
       );
-  Dio dio = Dio(BaseOptions(baseUrl: base_url));
-  Future<String> login() async {
-    String url = login_realtor;
-    try {
-      switch (curruntindex) {
-        case 0:
-          curruntindex == 0;
-          url = login_realtor;
-          break;
-        case 1:
-          curruntindex == 1;
-          url = login_professional;
-          break;
-        case 2:
-          curruntindex == 2;
-          url = login_customer;
-          break;
-
-        default:
-      }
-
-      final response = await dio.post(url,
-          // curruntindex == 0
-          //     ? login_realtor
-          //     : curruntindex == 1
-          //         ? login_professional
-          //         : curruntindex == 2
-          //             ? login_realtor
-          //             : "",
-          data: {
-            "email": _emailController.text,
-            "password": _passwordController.text,
-          });
-
-      if (response.statusCode == 200) {
-        if (curruntindex == 0) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => RealtorHomePage()));
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Login Sucessfully')));
-        } else if (curruntindex == 1) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ProfessionalsHomepage()));
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Login Sucessfully')));
-        } else if (curruntindex == 2) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => CustomerHomepage()));
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Login Sucessfully')));
-        }
-      } else {
-        print('fail');
-      }
-    } catch (e) {
-      print((e as DioError).response!.data.toString());
-    }
-    return "";
-  }
 
   // Widget submitButton(String emailId, String password) =>
   //     StreamBuilder<LoginResponse>(

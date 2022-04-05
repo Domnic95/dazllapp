@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 import '../../config/api.dart';
+import '../../config/apicall.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -522,92 +523,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     ));
   }
 
-  Dio dio = Dio(BaseOptions(baseUrl: base_url));
-  Future<void> signupRealtor() async {
-    try {
-      final response = await dio.post(signup_realtor, data: {
-        "check_box": true,
-        "city_of_real_state_agency": _addressController1.text,
-        "confirm_password": "!Admin@2021",
-        "email": _emailController.text,
-        "first_name": _fNameControllre.text,
-        "last_name": _lNameControllre.text,
-        "password": "!Admin@2021",
-        "phone_number": _mobileNoControllre.text,
-        "real_state_agency_name": _addressController.text,
-        "state": "test",
-        "zip_code": "1234"
-      });
-
-      if (response.statusCode == 200) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => RealtorHomePage()));
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Registerd Sucessfully')));
-      } else {
-        print('fail');
-      }
-    } catch (e) {
-      print((e as DioError).response!.data.toString());
-    }
-  }
-
-  Future<void> signupProfessional() async {
-    try {
-      final response = await dio.post(signup_professional, data: {
-        "check_box": true,
-        "company_city": _PcompanycityController.text,
-        "company_name": _PcompanynameController.text,
-        "company_street_address": _PcompanyaddressController.text,
-        "confirm_password": "!Amin@2021",
-        "email": _PemailController.text,
-        "first_name": _PfNameControllre.text,
-        "last_name": _PlNameControllre.text,
-        "password": "!Amin@2021",
-        "phone_number": _PmobileNoControllre.text,
-        "state": "test",
-        "zip_code": "1234"
-      });
-
-      if (response.statusCode == 201) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ProfessionalsHomepage()));
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Registerd Sucessfully')));
-      } else {
-        print('fail');
-      }
-    } catch (e) {
-      print((e as DioError).response!.data.toString());
-    }
-  }
-
-  Future<void> signupCustomer() async {
-    try {
-      final response = await dio.post(signup_customer, data: {
-        "check_box": true,
-        "confirm_password": "Advik@123#",
-        "email": _CemailController.text,
-        "first_name": _CfNameControllre.text,
-        "last_name": _ClNameControllre.text,
-        "password": "Advik@123#",
-        "phone_number": _CmobileNoControllre.text,
-        "zip_code": "1234"
-      });
-
-      if (response.statusCode == 201) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => CustomerHomepage()));
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Registerd Sucessfully')));
-      } else {
-        print('fail');
-      }
-    } catch (e) {
-      print((e as DioError).response!.data.toString());
-    }
-  }
-
   Widget submitButton(String fName, String lName, String emailId,
           String mobileNum, String password) =>
       ElevatedButton(
@@ -681,11 +596,46 @@ class _SignUpScreenState extends State<SignUpScreen> {
           }
           if (curruntindex == 0) {
             // print(curruntindex);
-            signupRealtor();
+            // signupRealtor();
+            signupRealtor(
+              curruntindex,
+              context,
+              _addressController1.text,
+              _passwordAgainController.text,
+              _emailController.text,
+              _fNameControllre.text,
+              _lNameControllre.text,
+              _passwordController.text,
+              _mobileNoControllre.text,
+              _addressController.text,
+            );
           } else if (curruntindex == 1) {
-            signupProfessional();
+            // signupProfessional();
+            signupProfessional(
+              curruntindex,
+              context,
+              _PcompanycityController.text,
+              _PcompanynameController.text,
+              _PcompanyaddressController.text,
+              _PpasswordAgainController.text,
+              _PemailController.text,
+              _PfNameControllre.text,
+              _PlNameControllre.text,
+              _PpasswordController.text,
+              _PmobileNoControllre.text,
+            );
           } else if (curruntindex == 2) {
-            signupCustomer();
+            //   signupCustomer();
+            signupCustomer(
+              curruntindex,
+              context,
+              _CpasswordAgainController.text,
+              _CemailController.text,
+              _CfNameControllre.text,
+              _ClNameControllre.text,
+              _CpasswordController.text,
+              _CmobileNoControllre.text,
+            );
           } else {}
         },
       );
