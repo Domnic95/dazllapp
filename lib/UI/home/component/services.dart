@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:dazllapp/UI/login/login_screen.dart';
+import 'package:dazllapp/config/global.dart';
 import 'package:dazllapp/constant/colors.dart';
+import 'package:dazllapp/constant/spkeys.dart';
 import 'package:flutter/material.dart';
 
 class ServiceModel {
@@ -50,12 +52,13 @@ class ServicesWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10)),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => LoginScreen(
-                                        index: i,
-                                      )),
-                              (route) => false);
+                          if (SpHelpers.getInt(SharedPrefsKeys.key_current) != i) {
+                            Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen(
+                                          index: i,
+                                        )));
+                          }
                         },
                         child: Align(
                           alignment: Alignment.bottomCenter,

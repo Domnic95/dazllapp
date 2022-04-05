@@ -31,13 +31,7 @@ class __ProfessionalsHomepageState extends State<ProfessionalsHomepage> {
               .copyWith(fontSize: 16, color: darkTextColor.withOpacity(.9)),
         ),
         actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                    (route) => false);
-              },
-              icon: Icon(Icons.logout))
+          
         ],
       ),
       body: Container(

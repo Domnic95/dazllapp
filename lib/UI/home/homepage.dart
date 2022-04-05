@@ -97,49 +97,68 @@ class _HomePageState extends State<HomePage> {
 }
 
 Widget drawer(BuildContext context) {
-  return Drawer(
-    child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  //Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => LoginScreen(index: 0)));
-                },
-                icon: Icon(
-                  Icons.logout,
-                ),
+  return SafeArea(
+    child: Drawer(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+          
+            GestureDetector(onTap: (){
+            Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()),
+                              (route) => false);
+            },
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                       Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()),
+                              (route) => false);
+                    },
+                    icon: Icon(Icons.home),
+                  ),
+                  Text(
+                    'Home',
+                    style: TextStyle(fontSize: 16),
+                  )
+                ],
               ),
-              Text(
-                'Logout',
-                style: TextStyle(fontSize: 16),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
-                },
-                icon: Icon(Icons.home),
+            ),
+            GestureDetector(
+              onTap: () {
+                 Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen(index: 0)),
+                              (route) => false);
+              },
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                       Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen(index: 0)),
+                              (route) => false);
+                    },
+                    icon: Icon(
+                      Icons.logout,
+                    ),
+                  ),
+                  Text(
+                    'Logout',
+                    style: TextStyle(fontSize: 16),
+                  )
+                ],
               ),
-              Text(
-                'Home',
-                style: TextStyle(fontSize: 16),
-              )
-            ],
-          )
-        ],
+            ),
+          ],
+        ),
       ),
     ),
   );

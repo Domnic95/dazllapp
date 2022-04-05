@@ -35,13 +35,7 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
               .copyWith(fontSize: 16, color: darkTextColor.withOpacity(.9)),
         ),
         actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                    (route) => false);
-              },
-              icon: Icon(Icons.logout))
+         
         ],
       ),
       body: Container(

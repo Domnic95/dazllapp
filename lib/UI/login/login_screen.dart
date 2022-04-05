@@ -9,6 +9,8 @@ import 'package:dazllapp/UI/homepage/professionals_homepage.dart';
 import 'package:dazllapp/UI/homepage/realtor_homepage.dart';
 import 'package:dazllapp/UI/sign_up/sign_up.dart';
 import 'package:dazllapp/config/app_theme.dart';
+import 'package:dazllapp/constant/colors.dart';
+import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,13 +25,18 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
+
 class _LoginScreenState extends State<LoginScreen> {
+ 
+ int curruntindex = 0;
+bool keep_me_logged_in = false; 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
   // SharedPreferences prefs;
   bool _showPassword = false;
   String dropdownValue = "Realtor";
-  int curruntindex = 0;
+
   List<String> DropsDownvalue = [
     'Realtor',
     'Professional',
@@ -207,10 +214,27 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
+                  Row(crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Row(
+                        children: [
+                          Checkbox(activeColor: teamRed,
+                              value: keep_me_logged_in,
+                              onChanged: (v) {
+                                
+                                keep_me_logged_in = v ?? false;
+                                setState(() {});
+                               
+                              }),
+                          Text(
+                            "Keep me login",
+                            style: TextStyle(
+                              fontFamily: AppTheme.fontName,
+                            ),
+                          ),
+                        ],
+                      ),
                       Padding(
                           padding: EdgeInsets.only(top: 10),
                           child: InkWell(
@@ -240,7 +264,7 @@ class _LoginScreenState extends State<LoginScreen> {
           submitButton(_emailController.text.toString(),
               _passwordController.text.toString()),
           SizedBox(height: size.height * 0.03),
-          AlreadyHaveAnAccountCheck(  
+          AlreadyHaveAnAccountCheck(
             press: () {
               Navigator.push(
                 context,
@@ -329,11 +353,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text('Fill Fields')));
               }
+
               login(
                 curruntindex,
                 _emailController.text,
                 _passwordController.text,
-                context,
+                context,keep_me_logged_in
               );
               //login();
             },

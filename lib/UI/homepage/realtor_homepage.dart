@@ -2,6 +2,7 @@ import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/constant/colors.dart';
+import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dazllapp/model/selection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,11 @@ class RealtorHomePage extends StatefulWidget {
 }
 
 class _RealtorHomePageState extends State<RealtorHomePage> {
+  @override
+  void initState() {
+    super.initState();
+   // print(SpHelpers.getBool(keep_me_logged_in.toString()));
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,13 +40,7 @@ class _RealtorHomePageState extends State<RealtorHomePage> {
               .copyWith(fontSize: 16, color: darkTextColor.withOpacity(.9)),
         ),
         actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                    (route) => false);
-              },
-              icon: Icon(Icons.logout))
+         
         ],
       ),
       body: Container(

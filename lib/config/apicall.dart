@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, non_constant_identifier_names
 
+import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/api.dart';
+import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +13,11 @@ import '../UI/homepage/realtor_homepage.dart';
 // login
 
 Dio dio = Dio(BaseOptions(baseUrl: base_url));
-Future<String> login(index, email, password, context) async {
+Future<String> login(index, email, password, context, keepmelogin) async {
+  SpHelpers.setBool(SharedPrefsKeys.key_keep_me_logged_in, keepmelogin);
+  SpHelpers.setInt(SharedPrefsKeys.key_current, index);
+  print(SpHelpers.getBool(SharedPrefsKeys.key_keep_me_logged_in).toString());
+   print("apidata"+SpHelpers.getInt(SharedPrefsKeys.key_current).toString());
   String url = login_realtor;
   try {
     switch (index) {
@@ -149,7 +155,7 @@ Future<void> signupProfessional(
       "state": "test",
       "zip_code": "1234"
     });
-    
+
     if (response.statusCode == 201) {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => ProfessionalsHomepage()));
