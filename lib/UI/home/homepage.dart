@@ -1,11 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:math';
+
 import 'package:dazllapp/UI/component/banner.dart';
 import 'package:dazllapp/UI/home/categorycard.dart';
 import 'package:dazllapp/UI/home/component/GetInspiredWidget.dart';
 import 'package:dazllapp/UI/home/component/on_trend_widget.dart';
 import 'package:dazllapp/UI/home/component/services.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/strings.dart';
 import 'package:dazllapp/model/category.dart';
@@ -105,21 +108,19 @@ Widget drawer(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-          
-            GestureDetector(onTap: (){
-            Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()),
-                              (route) => false);
-            },
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                    (route) => false);
+              },
               child: Row(
                 children: [
                   IconButton(
                     onPressed: () {
-                       Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()),
-                              (route) => false);
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) => HomePage()),
+                          (route) => false);
                     },
                     icon: Icon(Icons.home),
                   ),
@@ -132,24 +133,15 @@ Widget drawer(BuildContext context) {
             ),
             GestureDetector(
               onTap: () {
-                 Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => LoginScreen(index: 0)),
-                              (route) => false);
+                 logOut(context);
+                // Navigator.of(context).pushAndRemoveUntil(
+                //     MaterialPageRoute(
+                //         builder: (context) => LoginScreen(index: 0)),
+                //     (route) => false);
               },
               child: Row(
                 children: [
-                  IconButton(
-                    onPressed: () {
-                       Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => LoginScreen(index: 0)),
-                              (route) => false);
-                    },
-                    icon: Icon(
-                      Icons.logout,
-                    ),
-                  ),
+                  Icon(Icons.logout),
                   Text(
                     'Logout',
                     style: TextStyle(fontSize: 16),

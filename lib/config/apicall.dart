@@ -5,19 +5,23 @@ import 'package:dazllapp/config/api.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../UI/homepage/customer/home/customer_homepage.dart';
 import '../UI/homepage/professionals_homepage.dart';
 import '../UI/homepage/realtor_homepage.dart';
 
 // login
+bool islogin = false;
+bool loading = false;
 
 Dio dio = Dio(BaseOptions(baseUrl: base_url));
 Future<String> login(index, email, password, context, keepmelogin) async {
+
+  
+
   SpHelpers.setBool(SharedPrefsKeys.key_keep_me_logged_in, keepmelogin);
   SpHelpers.setInt(SharedPrefsKeys.key_current, index);
-  print(SpHelpers.getBool(SharedPrefsKeys.key_keep_me_logged_in).toString());
-   print("apidata"+SpHelpers.getInt(SharedPrefsKeys.key_current).toString());
   String url = login_realtor;
   try {
     switch (index) {
@@ -49,8 +53,13 @@ Future<String> login(index, email, password, context, keepmelogin) async {
           "email": email,
           "password": password,
         });
-
+    print(response.data);
     if (response.statusCode == 200) {
+      SpHelpers.setPref( SharedPrefsKeys.key_token, response.data['data']['token']);
+      islogin = true;
+      print("token sp=" +
+          SpHelpers.getString(SharedPrefsKeys.key_token).toString());
+      //SpHelpers.setString();
       if (index == 0) {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => RealtorHomePage()));
@@ -69,6 +78,7 @@ Future<String> login(index, email, password, context, keepmelogin) async {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Login Sucessfully'), backgroundColor: Colors.green));
       }
+      loading = false;
     } else {
       print('fail');
     }
@@ -79,6 +89,21 @@ Future<String> login(index, email, password, context, keepmelogin) async {
         backgroundColor: Colors.red));
   }
   return "";
+}
+
+//logout
+logOut(BuildContext context) async {
+  islogin = false;
+  SpHelpers.removePref();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.remove(SharedPrefsKeys.key_token);
+  await prefs.remove(SharedPrefsKeys.key_current);
+  await prefs.remove(SharedPrefsKeys.key_keep_me_logged_in);
+  print("Log out successfully");
+
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => LoginScreen(index: 0)),
+      (route) => false);
 }
 
 //sign up
@@ -112,7 +137,7 @@ Future<void> signupRealtor(
 
     if (response.statusCode == 200) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => RealtorHomePage()));
+          context, MaterialPageRoute(builder: (context) => LoginScreen(index: 0,)));
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Registerd Sucessfully'),
           backgroundColor: Colors.green));
@@ -158,7 +183,7 @@ Future<void> signupProfessional(
 
     if (response.statusCode == 201) {
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => ProfessionalsHomepage()));
+          MaterialPageRoute(builder: (context) => LoginScreen(index: 0,)));
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Registerd Sucessfully'),
           backgroundColor: Colors.green));
@@ -180,7 +205,7 @@ Future<void> signupCustomer(
   email,
   fname,
   lname,
-  password,
+  password, 
   mobile,
 ) async {
   try {
@@ -194,10 +219,9 @@ Future<void> signupCustomer(
       "phone_number": mobile,
       "zip_code": "1234"
     });
-
     if (response.statusCode == 201) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => CustomerHomepage()));
+          context, MaterialPageRoute(builder: (context) => LoginScreen(index: 0,)));
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Registerd Sucessfully'),
           backgroundColor: Colors.green));
@@ -209,5 +233,28 @@ Future<void> signupCustomer(
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text((e as DioError).response!.data['message']),
         backgroundColor: Colors.red));
+  }
+}
+
+
+//forgot
+
+ forgotpassword( email, String text) async {
+ try {
+    final response = await dio.post(forgot_password, data: {
+     "email": email,
+     });
+    if (response.statusCode == 201) {
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text('Registerd Sucessfully'),
+      //     backgroundColor: Colors.green));
+    } else {
+      print('fail');
+    }
+  } catch (e) {
+    //print((e as DioError).response!.data.toString());
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //     content: Text((e as DioError).response!.data['message']),
+    //     backgroundColor: Colors.red));
   }
 }

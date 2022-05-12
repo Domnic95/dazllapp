@@ -4,11 +4,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPrefsKeys {
   static String key_keep_me_logged_in = "keep_me_logged_in";
   static String key_current = "current";
+  static String key_token = "token";
 }
 
 class SpHelpers {
-  static setPref() async {
+  static setPref(String name, String data) async {
     sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString(name, data);
+  }
+
+  static removePref() {
+    sharedPreferences.clear();
   }
 
   static int? getInt(String key) {

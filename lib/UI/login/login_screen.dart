@@ -214,7 +214,7 @@ bool keep_me_logged_in = false;
                       ),
                     ),
                   ),
-                  Row(crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
@@ -236,7 +236,7 @@ bool keep_me_logged_in = false;
                         ],
                       ),
                       Padding(
-                          padding: EdgeInsets.only(top: 10),
+                          padding: EdgeInsets.only(top: 0),
                           child: InkWell(
                               onTap: () {
                                 Navigator.push(
@@ -245,10 +245,10 @@ bool keep_me_logged_in = false;
                                     builder: (BuildContext context) =>
                                         ForgotPasswordScreen(),
                                   ),
-                                );
+                                );   
                               },
                               child: Text(
-                                'Forget Password?',
+                                'Forgot Password?',
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   fontFamily: AppTheme.fontName,

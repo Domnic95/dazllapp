@@ -111,9 +111,9 @@ class _WelcomeState extends State<Welcome> {
 
   Future<void> initPrefs() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await SpHelpers.setPref();
+   // await SpHelpers.setPref();
     if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) != null) {
-      print("+++++++++++++++" +sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in).toString());
+     // print(sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in).toString());
     if( sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) == true&&sharedPreferences.getInt(SharedPrefsKeys.key_current)==0)
        {    Navigator.pushReplacement(
               context,

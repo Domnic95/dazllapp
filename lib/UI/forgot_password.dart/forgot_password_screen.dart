@@ -2,12 +2,15 @@
 
 import 'package:dazllapp/UI/component/common_button.dart';
 import 'package:dazllapp/UI/component/edit_field.dart';
+import 'package:dazllapp/UI/login/login_screen.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
+import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
-  const ForgotPasswordScreen({Key? key}) : super(key: key);
-
+   ForgotPasswordScreen({Key? key}) : super(key: key);
+  TextEditingController forgotemail = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -93,6 +96,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 25),
             child: EditField(
               hint: "Email",
+              controller: forgotemail,
             ),
           ),
 
@@ -115,7 +119,7 @@ class ForgotPasswordScreen extends StatelessWidget {
           //           setState(() {});
           //         },
           //       ),
-          //     ],        
+          //     ],
           //   ),
           // ),
           SizedBox(height: size.height * 0.03),
@@ -127,7 +131,22 @@ class ForgotPasswordScreen extends StatelessWidget {
           //     _passwordController.text.toString()),
           CommonButton(
             label: "Submit",
+            onTap: forgotpassword(
+              context,forgotemail.text
+            ),
           ),
+          TextButton(
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => LoginScreen(index: 0)),
+                    (route) => false);
+              },
+              child: Text(
+                "Back to Login",
+                style: TextStyle(color: darkRed),
+              ))
         ],
       ),
     ));
