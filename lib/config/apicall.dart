@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, non_constant_identifier_names
+// ignore_for_file: prefer_const_constructors, avoid_print, non_constant_identifier_names, prefer_final_fields
 
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/api.dart';
@@ -9,17 +9,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../UI/homepage/customer/home/customer_homepage.dart';
 import '../UI/homepage/professionals_homepage.dart';
-import '../UI/homepage/realtor_homepage.dart';
+import '../UI/homepage/realtor/realtor_homepage.dart';
 
 // login
 bool islogin = false;
 bool loading = false;
 
+class DioClient {
+  Dio _dio = Dio(BaseOptions(baseUrl: base_url));
+
+  Future<dynamic> getRequest(
+      {required String apiEnd, Map<String, dynamic>? queryParameter}) async {
+    try {
+      final res = await _dio.get(apiEnd, queryParameters: queryParameter);
+      return res;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
+}
+
 Dio dio = Dio(BaseOptions(baseUrl: base_url));
 Future<String> login(index, email, password, context, keepmelogin) async {
-
-  
-
   SpHelpers.setBool(SharedPrefsKeys.key_keep_me_logged_in, keepmelogin);
   SpHelpers.setInt(SharedPrefsKeys.key_current, index);
   String url = login_realtor;
@@ -55,10 +66,11 @@ Future<String> login(index, email, password, context, keepmelogin) async {
         });
     print(response.data);
     if (response.statusCode == 200) {
-      SpHelpers.setPref( SharedPrefsKeys.key_token, response.data['data']['token']);
+      SpHelpers.setPref(
+          SharedPrefsKeys.key_token, response.data['data']['token']);
       islogin = true;
-      print("token sp=" +
-          SpHelpers.getString(SharedPrefsKeys.key_token).toString());
+      // print("token sp=" +
+      //     SpHelpers.getString(SharedPrefsKeys.key_token).toString());
       //SpHelpers.setString();
       if (index == 0) {
         Navigator.push(context,
@@ -137,7 +149,11 @@ Future<void> signupRealtor(
 
     if (response.statusCode == 200) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginScreen(index: 0,)));
+          context,
+          MaterialPageRoute(
+              builder: (context) => LoginScreen(
+                    index: 0,
+                  )));
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Registerd Sucessfully'),
           backgroundColor: Colors.green));
@@ -182,8 +198,12 @@ Future<void> signupProfessional(
     });
 
     if (response.statusCode == 201) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => LoginScreen(index: 0,)));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => LoginScreen(
+                    index: 0,
+                  )));
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Registerd Sucessfully'),
           backgroundColor: Colors.green));
@@ -205,7 +225,7 @@ Future<void> signupCustomer(
   email,
   fname,
   lname,
-  password, 
+  password,
   mobile,
 ) async {
   try {
@@ -221,7 +241,11 @@ Future<void> signupCustomer(
     });
     if (response.statusCode == 201) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginScreen(index: 0,)));
+          context,
+          MaterialPageRoute(
+              builder: (context) => LoginScreen(
+                    index: 0,
+                  )));
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Registerd Sucessfully'),
           backgroundColor: Colors.green));
@@ -236,14 +260,13 @@ Future<void> signupCustomer(
   }
 }
 
-
 //forgot
 
- forgotpassword( email, String text) async {
- try {
+forgotpassword(email, String text) async {
+  try {
     final response = await dio.post(forgot_password, data: {
-     "email": email,
-     });
+      "email": email,
+    });
     if (response.statusCode == 201) {
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //     content: Text('Registerd Sucessfully'),

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -47,12 +49,12 @@ class _EditFieldState extends State<EditField> {
       maxLength: widget.maxLength,
       decoration: InputDecoration(
           hintText: widget.hint,
-          hintStyle: new TextStyle(
+          hintStyle: TextStyle(
               color: AppTheme.darkerText,
               fontFamily: AppTheme.fontName,
               fontSize: 15,
               fontWeight: FontWeight.w400),
-          labelStyle: new TextStyle(
+          labelStyle: TextStyle(
               color: const Color(0xFF424242),
               fontFamily: AppTheme.fontName,
               fontSize: 15),
@@ -60,7 +62,7 @@ class _EditFieldState extends State<EditField> {
           focusedBorder:
               UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
           border: UnderlineInputBorder(
-              borderSide: new BorderSide(color: Colors.red)),
+              borderSide: BorderSide(color: Colors.red)),
           suffixIcon: widget.isPassword
               ? GestureDetector(
                   onTap: () {

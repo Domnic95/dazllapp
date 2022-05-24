@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, sized_box_for_whitespace
 
 import 'package:dazllapp/UI/component/common_button.dart';
 import 'package:dazllapp/UI/component/edit_field.dart';
@@ -131,7 +131,7 @@ class ForgotPasswordScreen extends StatelessWidget {
           //     _passwordController.text.toString()),
           CommonButton(
             label: "Submit",
-            onTap: forgotpassword(
+            onTap:  forgotpassword(
               context,forgotemail.text
             ),
           ),

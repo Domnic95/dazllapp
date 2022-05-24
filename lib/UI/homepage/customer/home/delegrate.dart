@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, unnecessary_null_comparison
+
 import 'package:flutter/rendering.dart';
 import 'dart:math';
 

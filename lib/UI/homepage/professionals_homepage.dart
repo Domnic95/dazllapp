@@ -1,7 +1,10 @@
+// ignore_for_file: unused_import, unnecessary_import, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors, non_constant_identifier_names
+
 import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/constant/colors.dart';
+import 'package:dazllapp/model/selection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -30,9 +33,7 @@ class __ProfessionalsHomepageState extends State<ProfessionalsHomepage> {
               .bodyText1!
               .copyWith(fontSize: 16, color: darkTextColor.withOpacity(.9)),
         ),
-        actions: [
-          
-        ],
+        actions: [],
       ),
       body: Container(
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -79,17 +80,22 @@ class __ProfessionalsHomepageState extends State<ProfessionalsHomepage> {
   }
 }
 
-class Selection {
-  String image;
-  String name;
-  Selection({
-    required this.image,
-    required this.name,
-  });
-}
+// class Selection {
+//   String image;
+//   String name;
+//   Selection({
+//     required this.image,
+//     required this.name,
+//   });
+// }
 
 List<Selection> Selections = [
   Selection(
-      image: "assets/images/opportunities.png", name: "Project Opportunities"),
-  Selection(image: "assets/images/profile.png", name: "My Company Profile"),
+    image: "assets/images/opportunities.png",
+    name: "Project Opportunities",
+  ),
+  Selection(
+    image: "assets/images/profile.png",
+    name: "My Company Profile",
+  ),
 ];

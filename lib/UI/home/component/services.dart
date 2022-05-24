@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_import, sized_box_for_whitespace
 
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/global.dart';

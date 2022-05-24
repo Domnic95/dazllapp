@@ -1,18 +1,11 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable, non_constant_identifier_names, use_key_in_widget_constructors, unused_element, avoid_print
+// ignore_for_file: prefer_const_constructors, unused_local_variable, non_constant_identifier_names, use_key_in_widget_constructors, unused_element, avoid_print, unnecessary_import, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
-import 'dart:developer';
-import 'dart:io';
 import 'package:dazllapp/UI/component/edit_field.dart';
-import 'package:dazllapp/UI/homepage/customer/home/customer_homepage.dart';
-import 'package:dazllapp/UI/homepage/professionals_homepage.dart';
-import 'package:dazllapp/UI/homepage/realtor_homepage.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 
-import '../../config/api.dart';
 import '../../config/apicall.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -184,9 +177,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   });
                 },
                 items: DropsDownvalue.map((String value) {
-                  return new DropdownMenuItem<String>(
+                  return DropdownMenuItem<String>(
                     value: value,
-                    child: new Text(value),
+                    child: Text(value),
                   );
                 }).toList(),
               ),
@@ -697,7 +690,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           padding: EdgeInsets.only(top: 5),
         ),
         CircularProgressIndicator(
-          valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
         )
       ],
     ));

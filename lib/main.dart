@@ -1,20 +1,20 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, prefer_const_literals_to_create_immutables, avoid_print, prefer_const_constructors_in_immutables
 
 import 'package:dazllapp/UI/homepage/professionals_homepage.dart';
-import 'package:dazllapp/UI/homepage/realtor_homepage.dart';
+import 'package:dazllapp/UI/homepage/realtor/realtor_homepage.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:dazllapp/constant/spkeys.dart';
 import 'UI/homepage/customer/home/customer_homepage.dart';
 import 'config/global.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 // Future<void> initPrefs() async {
@@ -84,6 +84,7 @@ class MyApp extends StatelessWidget {
           accentColor: primaryColor,
           dividerColor: Colors.transparent,
         ),
+        routes: {},
         home: Welcome()
         //key_keep_me_logged_in=="true"?RealtorHomePage():LoginScreen(index: 0)
         );
@@ -111,43 +112,51 @@ class _WelcomeState extends State<Welcome> {
 
   Future<void> initPrefs() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-   // await SpHelpers.setPref();
-    if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) != null) {
-     // print(sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in).toString());
-    if( sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) == true&&sharedPreferences.getInt(SharedPrefsKeys.key_current)==0)
-       {    Navigator.pushReplacement(
-              context,
-              MaterialPageRoute<dynamic>(
-                builder: (BuildContext context) => RealtorHomePage(),
-              ),
-            );
-        }
-     if( sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) == true&&sharedPreferences.getInt(SharedPrefsKeys.key_current)==1)
-       {    Navigator.pushReplacement(
-              context,
-              MaterialPageRoute<dynamic>(
-                builder: (BuildContext context) => ProfessionalsHomepage(),
-              ),
-            );
-        }
+    // await SpHelpers.setPref();
+    if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) !=
+        null) {
+      // print(sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in).toString());
+      if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) ==
+              true &&
+          sharedPreferences.getInt(SharedPrefsKeys.key_current) == 0) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute<dynamic>(
+            builder: (BuildContext context) => RealtorHomePage(),
+          ),
+        );
+      }
+      if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) ==
+              true &&
+          sharedPreferences.getInt(SharedPrefsKeys.key_current) == 1) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute<dynamic>(
+            builder: (BuildContext context) => ProfessionalsHomepage(),
+          ),
+        );
+      }
 
-     if( sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) == true&&sharedPreferences.getInt(SharedPrefsKeys.key_current)==2)
-       {    Navigator.pushReplacement(
-              context,
-              MaterialPageRoute<dynamic>(
-                builder: (BuildContext context) => CustomerHomepage(),
-              ),
-            );
-        }   
-      if( sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) == false)
-       {    Navigator.pushReplacement(
-              context,
-              MaterialPageRoute<dynamic>(
-                builder: (BuildContext context) => LoginScreen(index: 0),
-              ),
-            );
-        }
-         
+      if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) ==
+              true &&
+          sharedPreferences.getInt(SharedPrefsKeys.key_current) == 2) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute<dynamic>(
+            builder: (BuildContext context) => CustomerHomepage(),
+          ),
+        );
+      }
+      if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) ==
+          false) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute<dynamic>(
+            builder: (BuildContext context) => LoginScreen(index: 0),
+          ),
+        );
+      }
+
       //if (sharedPreferences.getBool(key)) {
       //       Navigator.pushReplacement(
       //         context,
@@ -174,13 +183,13 @@ class _WelcomeState extends State<Welcome> {
       // }
     } else {
       Navigator.pushReplacement(
-              context,
-              MaterialPageRoute<dynamic>(
-                builder: (BuildContext context) => LoginScreen(
-                  index: 0,
-                ),
-              ),
-            );
+        context,
+        MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) => LoginScreen(
+            index: 0,
+          ),
+        ),
+      );
     }
   }
 }

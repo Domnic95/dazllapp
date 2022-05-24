@@ -1,14 +1,14 @@
-// ignore_for_file: prefer_const_constructors, prefer_if_null_operators
+// ignore_for_file: prefer_const_constructors, prefer_if_null_operators, constant_identifier_names, avoid_single_cascade_in_expression_statements, unnecessary_null_comparison, empty_catches, avoid_unnecessary_containers, prefer_adjacent_string_concatenation, sized_box_for_whitespace, unnecessary_new
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 enum DrawerIndex {
   HOME,
-  // Payment,
+  Payment,
   YourServices,
   Wallet,
-  // Passbook,
+  Passbook,
   Settings,
   Help,
   Refer,
@@ -58,7 +58,7 @@ class _DrawerUserControllerState extends State<DrawerUserController>
           curve: Curves.fastOutSlowIn);
     scrollController =
         ScrollController(initialScrollOffset: widget.drawerWidth);
-    // ignore: avoid_single_cascade_in_expression_statements
+    
     scrollController
       ..addListener(() {
         if (scrollController.offset <= 0) {
@@ -274,11 +274,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
         labelName: 'Home',
         icon: Icon(Icons.home),
       ),
-      /*DrawerList(
+      DrawerList(
         index: DrawerIndex.Payment,
         labelName: 'Payment',
         icon: Icon(CupertinoIcons.creditcard),
-      ),*/
+      ),
       DrawerList(
         index: DrawerIndex.YourServices,
         labelName: 'Your Services',
@@ -289,11 +289,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
         labelName: 'Wallet',
         icon: Icon(Icons.account_balance_wallet_outlined),
       ),
-      /* DrawerList(
+      DrawerList(
         index: DrawerIndex.Passbook,
         labelName: 'Passbook',
         icon: Icon(CupertinoIcons.book),
-      ),*/
+      ),
       DrawerList(
         index: DrawerIndex.Settings,
         labelName: 'Settings',
@@ -315,13 +315,13 @@ class _HomeDrawerState extends State<HomeDrawer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.blue,
         body: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topRight,
-                  colors: [Colors.red, Colors.red])),
+          // decoration: BoxDecoration(
+          //     gradient: LinearGradient(
+          //         begin: Alignment.bottomCenter,
+          //         end: Alignment.topRight,
+          //         colors: [Colors.red, Colors.red])),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -354,7 +354,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                             .value /
                                         360),
                                     child: Image.asset(
-                                      'assets/images/userImage.png',
+                                      'assets/images/image1.png',
                                       height: 50,
                                       width: 50,
                                     ),

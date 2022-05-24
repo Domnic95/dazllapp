@@ -1,24 +1,42 @@
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, avoid_types_as_parameter_names, unused_local_variable, unused_import, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
-import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/app_theme.dart';
+import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
-
-import 'delegrate.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dazllapp/model/selection.dart';
 import 'package:flutter/material.dart';
 
-class CustomerHomepage extends StatefulWidget {
+class CustomerHomepage extends StatefulHookWidget {
   @override
   _CustomerHomepageState createState() => _CustomerHomepageState();
 }
 
-class _CustomerHomepageState extends State<CustomerHomepage> {
+class _CustomerHomepageState extends State<CustomerHomepage> 
+//with TickerProviderStateMixin
+{
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _roomsprovider = useProvider(roomsprovider);
     return SafeArea(
         child: Scaffold(
-      drawer: drawer(context),
+      drawer:
+          //  HomeDrawer(
+          //   screenIndex: DrawerIndex.HOME,
+          //   iconAnimationController:
+          //       AnimationController(vsync: this, duration: Duration(seconds: 2)),
+          //   callBackIndex: (DrawerIndex) {},
+          // ),
+          drawer(context),
       appBar: AppBar(
         // leading: Padding(
         //   padding: const EdgeInsets.all(14.0),
@@ -34,9 +52,7 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
               .bodyText1!
               .copyWith(fontSize: 16, color: darkTextColor.withOpacity(.9)),
         ),
-        actions: [
-         
-        ],
+        actions: [],
       ),
       body: Container(
           margin: EdgeInsets.only(left: 15, right: 15, top: 15),

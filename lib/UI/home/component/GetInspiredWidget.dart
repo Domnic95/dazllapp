@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_const_constructors_in_immutables, sized_box_for_whitespace
+
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
 

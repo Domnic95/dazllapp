@@ -1,23 +1,39 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, unused_local_variable, deprecated_member_use, use_key_in_widget_constructors, avoid_unnecessary_containers, curly_braces_in_flow_control_structures, non_constant_identifier_names
 
-import 'package:dazllapp/UI/homepage/customer/home/delegrate.dart';
+
 import 'package:dazllapp/UI/homepage/customer/start_project/needs_attention.dart';
 import 'package:dazllapp/config/app_theme.dart';
+import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/all.dart';
 
-class CreateProject extends StatefulWidget {
+int? roomid;
+int? featureid;
+
+class CreateProject extends StatefulHookWidget {
   @override
   _CreateProjectState createState() => _CreateProjectState();
 }
 
 class _CreateProjectState extends State<CreateProject> {
-  Set select = {};
+  @override
+  void initState() {
+    super.initState();
+    loaddata();
+  }
+
+  loaddata() async {
+    await context.read(roomsprovider).getRooms();
+  }
+
+  // Set select = {};
   int currentindex = -1;
+
   @override
   Widget build(BuildContext context) {
+    final _roomsNotifier = useProvider(roomsprovider);
     final size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
@@ -46,69 +62,83 @@ class _CreateProjectState extends State<CreateProject> {
                 ),
               ),
             ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
+            // SizedBox(
+            //   height: size.height * 0.02,
+            // ),
             Expanded(
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                color: AppTheme.white,
+                margin: EdgeInsets.only(
+                  // top: size.height * 0.02,
+                  left: 10,
+                  right: 10,
+                  // bottom: size.height * 0.01
+                ),
                 child: GridView.builder(
-                    itemCount: CreatePlans.length,
+                    itemCount: _roomsNotifier.listOfRoom.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
+                        crossAxisCount: 2,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10),
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          if (select.contains(index)) {
-                            setState(() {
-                              select.remove(index);
-                              currentindex = index;
-                            });
-                            return;
-                          }
                           setState(() {
-                            select.add(index);
-                            currentindex = index;
+                            if (currentindex == index) {
+                              // select.remove(index);
+                              currentindex = -1;
+                              //  return;
+                            } else
+                              // if (select.isEmpty) {
+                              // setState(() {
+                              //  select.add(index);
+                              currentindex = index;
+                            //currentindex = _roomsNotifier.listOfRoom[index].id;
+                            roomid = _roomsNotifier.listOfRoom[index].id;
                           });
+                          //  log('jjdcjnb = ' + currentindex.toString());
+                          // });
+                          // }
                         },
                         child: Card(
-                          elevation: 5,
+                          // elevation: 1,
                           // shadowColor: select.contains(index)
                           //     ? teamRed.withOpacity(0.5)
                           //     : Colors.white,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                              borderRadius: BorderRadius.circular(15)),
                           child: Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: AppTheme.white,
+                                borderRadius: BorderRadius.circular(15),
+                                color: currentindex == index
+                                    ? AppTheme.shadowcolor
+                                    : AppTheme.light_grey,
                                 boxShadow: [
-                                  select.contains(index)
+                                  currentindex == index
+                                      //   select.contains(index)
                                       ? BoxShadow(
                                           color: AppTheme.colorPrimary
                                               .withOpacity(0.5),
                                           spreadRadius: 2,
-                                          blurRadius: 3)
+                                          // blurRadius: 3
+                                        )
                                       : BoxShadow(),
                                 ]),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  "${CreatePlans[index].image}",
+                                Image.network(
+                                  _roomsNotifier.listOfRoom[index].image
+                                      .toString(),
                                   width: 50,
                                   color: teamRed,
                                 ),
-                                (index > 2)
-                                    ? SizedBox(
-                                        height: 8,
-                                      )
-                                    : Container(),
+                                SizedBox(
+                                  height: 8,
+                                ),
                                 Center(
                                   child: Text(
-                                    CreatePlans[index].name,
+                                    _roomsNotifier.listOfRoom[index].name,
                                     textAlign: TextAlign.center,
                                     style: Theme.of(context)
                                         .textTheme
@@ -164,24 +194,34 @@ class _CreateProjectState extends State<CreateProject> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => NeedAttention()));
+                      currentindex == -1
+                          ? SizedBox()
+                          : Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => NeedAttention()));
+                      _roomsNotifier.listOfoption.clear();
+                      _roomsNotifier.listOfissues.clear();
                     },
                     child: Row(
                       children: [
-                        Text(
-                          "Next",
-                          style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    fontSize: 18,
-                                    color: lightColor.withOpacity(.9),
-                                  ),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          size: 20,
-                          color: AppTheme.white,
-                        ),
+                        currentindex == -1
+                            ? SizedBox()
+                            : Text(
+                                "Next",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                      fontSize: 18,
+                                      color: lightColor.withOpacity(.9),
+                                    ),
+                              ),
+                        currentindex == -1
+                            ? SizedBox()
+                            : Icon(
+                                Icons.arrow_forward_ios,
+                                size: 20,
+                                color: AppTheme.white,
+                              ),
                       ],
                     ),
                   ),
@@ -197,16 +237,51 @@ class _CreateProjectState extends State<CreateProject> {
 
 class CreatePlan {
   String image;
-  String name;
-  CreatePlan({required this.image, required this.name});
+  // String name;
+  CreatePlan({
+    required this.image,
+    //required this.name
+  });
 }
 
 List<CreatePlan> CreatePlans = [
-  CreatePlan(image: "assets/images/room.png", name: "Room 1"),
-  CreatePlan(image: "assets/images/room.png", name: "Room 2"),
-  CreatePlan(image: "assets/images/bedroom.png", name: "Bedroom"),
-  CreatePlan(image: "assets/images/kitchen.png", name: "Kitchen"),
-  CreatePlan(image: "assets/images/living_room.png", name: "Living Room"),
-  CreatePlan(image: "assets/images/bath_room.png", name: "Bathroom"),
-  CreatePlan(image: "assets/images/dinnertable.png", name: "Dining Room"),
+  CreatePlan(
+    image: "assets/images/kitchen.png",
+  ),
+  CreatePlan(
+    image: "assets/images/bedroom.png",
+  ),
+  CreatePlan(
+    image: "assets/images/bath_room.png",
+  ),
+  CreatePlan(
+    image: "assets/images/kitchen.png",
+  ),
+  CreatePlan(
+    image: "assets/images/living_room.png",
+  ),
+  CreatePlan(
+    image: "assets/images/bath_room.png",
+  ),
+  CreatePlan(
+    image: "assets/images/dinnertable.png",
+  ),
+  CreatePlan(
+    image: "assets/images/dinnertable.png",
+  ),
+  CreatePlan(
+    image: "assets/images/bedroom.png",
+  ),
+  CreatePlan(
+    image: "assets/images/dinnertable.png",
+  ),
+  CreatePlan(
+    image: "assets/images/dinnertable.png",
+  ),
+  CreatePlan(
+    image: "assets/images/dinnertable.png",
+  ),
+  CreatePlan(
+    image: "assets/images/dinnertable.png",
+  ),
 ];

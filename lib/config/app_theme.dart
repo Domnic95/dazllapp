@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -11,7 +13,7 @@ class AppTheme {
   static const Color grey = Color(0xFF3A5160);
   static const Color grey61 = Color(0xFF616161);
   static const Color dark_grey = Color(0xFF313A44);
-
+  static const Color light_grey = Color.fromARGB(255, 245, 245, 245);
   static const Color darkText = Color(0xFF253840);
   static const Color greyF5 = Color(0xFFF5F5F5);
   static const Color darkerText = Color(0xFF17262A);
@@ -20,6 +22,7 @@ class AppTheme {
   static const Color dismissibleBackground = Color(0xFF364A54);
   static const Color chipBackground = Color(0xFFEEF1F3);
   static const Color spacer = Color(0xFFF2F2F2);
+  static const Color shadowcolor = Color.fromARGB(255, 255, 225, 227);
   static const Color colorPrimary = Color(0xFFce2029);
   static const Color colorPrimaryDark = Color(0xFFce2029);
   static const String fontName = 'OpenSans';

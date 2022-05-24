@@ -1,8 +1,7 @@
 
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, must_be_immutable, use_key_in_widget_constructors, prefer_adjacent_string_concatenation
 
 import 'package:dazllapp/model/category.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatefulWidget{

@@ -1,21 +1,17 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_new, sized_box_for_whitespace, avoid_print
+// ignore_for_file: prefer_const_constructors, unnecessary_new, sized_box_for_whitespace, avoid_print, deprecated_member_use, unused_catch_clause, prefer_const_literals_to_create_immutables, unnecessary_import, must_be_immutable, non_constant_identifier_names, use_key_in_widget_constructors, unused_element
 
 import 'dart:io';
 
 import 'package:dazllapp/UI/forgot_password.dart/forgot_password_screen.dart';
-import 'package:dazllapp/UI/home/homepage.dart';
-import 'package:dazllapp/UI/homepage/customer/home/customer_homepage.dart';
-import 'package:dazllapp/UI/homepage/professionals_homepage.dart';
-import 'package:dazllapp/UI/homepage/realtor_homepage.dart';
 import 'package:dazllapp/UI/sign_up/sign_up.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/constant/colors.dart';
-import 'package:dazllapp/constant/spkeys.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:upgrader/upgrader.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../../config/api.dart';
 import '../../config/apicall.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -25,11 +21,9 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-
 class _LoginScreenState extends State<LoginScreen> {
- 
- int curruntindex = 0;
-bool keep_me_logged_in = false; 
+  int curruntindex = 0;
+  bool keep_me_logged_in = false;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -48,235 +42,273 @@ bool keep_me_logged_in = false;
     });
   }
 
+  onIOS() {
+    String url = '';
+    try {
+      launch(url);
+    } on PlatformException catch (e) {
+      launch(url);
+    } finally {
+      launch(url);
+    }
+  }
+
+  onAndroid() {
+    String appPackageName = 'com.app.dazllapp';
+    try {
+      launch("market://details?id=" + appPackageName);
+    } on PlatformException catch (e) {
+      launch("https://play.google.com/store/apps/details?id=" + appPackageName);
+    } finally {
+      launch("https://play.google.com/store/apps/details?id=" + appPackageName);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            height: size.height / 3,
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                Positioned(
-                    top: 0,
-                    left: 0,
-                    child: Stack(
-                      children: [
-                        Container(
-                            height: size.height * 0.33,
-                            width: size.width,
-                            decoration: new BoxDecoration(
-                              gradient: LinearGradient(
-                                  begin: Alignment.bottomRight,
-                                  end: Alignment.centerLeft,
-                                  colors: [
-                                    AppTheme.colorPrimary,
-                                    AppTheme.colorPrimaryDark
-                                  ]),
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.lerp(Radius.circular(50),
-                                      Radius.circular(50), 5)!,
-                                  bottomRight: Radius.lerp(Radius.circular(50),
-                                      Radius.circular(50), 5)!),
-                            ),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Image.asset(
-                                  "assets/images/dotsbg.png",
-                                  width: 200,
-                                  height: 200,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Center(
-                                      child: Text(
-                                        'Welcome Back!',
-                                        style: TextStyle(
-                                            color: AppTheme.white,
-                                            fontFamily: AppTheme.fontName,
-                                            fontWeight: FontWeight.w800,
-                                            fontSize: 35),
+        body: UpgradeAlert(
+      upgrader: Upgrader(
+        showReleaseNotes: false,
+        minAppVersion: '0.0.0',
+        dialogStyle: Platform.isAndroid
+            ? UpgradeDialogStyle.material
+            : UpgradeDialogStyle.cupertino,
+        // durationUntilAlertAgain: Duration(seconds: 30),
+        onUpdate: () => Platform.isAndroid ? onAndroid() : onIOS(),
+        showLater: false,
+        showIgnore: false,
+        messages: MyEnglishMessages(),
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              height: size.height / 3,
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Positioned(
+                      top: 0,
+                      left: 0,
+                      child: Stack(
+                        children: [
+                          Container(
+                              height: size.height * 0.33,
+                              width: size.width,
+                              decoration: new BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.bottomRight,
+                                    end: Alignment.centerLeft,
+                                    colors: [
+                                      AppTheme.colorPrimary,
+                                      AppTheme.colorPrimaryDark
+                                    ]),
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.lerp(Radius.circular(50),
+                                        Radius.circular(50), 5)!,
+                                    bottomRight: Radius.lerp(
+                                        Radius.circular(50),
+                                        Radius.circular(50),
+                                        5)!),
+                              ),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Image.asset(
+                                    "assets/images/dotsbg.png",
+                                    width: 200,
+                                    height: 200,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Center(
+                                        child: Text(
+                                          'Welcome Back!',
+                                          style: TextStyle(
+                                              color: AppTheme.white,
+                                              fontFamily: AppTheme.fontName,
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 35),
+                                        ),
                                       ),
-                                    ),
-                                    Center(
-                                      child: Text(
-                                        'Signin to your account',
-                                        style: TextStyle(
-                                            color: AppTheme.white,
-                                            fontFamily: AppTheme.fontName,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 18),
-                                      ),
-                                    )
-                                  ],
-                                )
-                              ],
-                            )),
-                      ],
-                    )),
-              ],
-            ),
-          ),
-          SizedBox(height: size.height * 0.03),
-          SizedBox(height: size.height * 0.03),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: ButtonTheme(
-              child: DropdownButton<String>(
-                isExpanded: true,
-                value: dropdownValue,
-
-                icon: const Icon(Icons.expand_more),
-                iconSize: 24,
-                elevation: 16,
-                // style: const TextStyle(color: Colors.deepPurple),
-                underline: Container(
-                  height: 2,
-                  // color: Colors.deepPurpleAccent,
-                ),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    dropdownValue = newValue!;
-                    curruntindex = DropsDownvalue.indexOf(newValue);
-                    print(curruntindex);
-                  });
-                },
-                items: DropsDownvalue.map((String value) {
-                  return new DropdownMenuItem<String>(
-                    value: value,
-                    child: new Text(value),
-                  );
-                }).toList(),
+                                      Center(
+                                        child: Text(
+                                          'Signin to your account',
+                                          style: TextStyle(
+                                              color: AppTheme.white,
+                                              fontFamily: AppTheme.fontName,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 18),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              )),
+                        ],
+                      )),
+                ],
               ),
             ),
-          ),
-          Padding(
-              padding: EdgeInsets.only(left: 25, right: 25),
-              child: Column(
-                children: [
-                  TextField(
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    // inputFormatters:<TextInputFormatter>[formater],
-                    cursorColor: AppTheme.nearlyBlack,
+            SizedBox(height: size.height * 0.03),
+            SizedBox(height: size.height * 0.03),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: ButtonTheme(
+                child: DropdownButton<String>(
+                  isExpanded: true,
+                  value: dropdownValue,
 
-                    decoration: InputDecoration(
-                        hintText: "Email",
+                  icon: const Icon(Icons.expand_more),
+                  iconSize: 24,
+                  elevation: 16,
+                  // style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 2,
+                    // color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownValue = newValue!;
+                      curruntindex = DropsDownvalue.indexOf(newValue);
+                      print(curruntindex);
+                    });
+                  },
+                  items: DropsDownvalue.map((String value) {
+                    return new DropdownMenuItem<String>(
+                      value: value,
+                      child: new Text(value),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.only(left: 25, right: 25),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      // inputFormatters:<TextInputFormatter>[formater],
+                      cursorColor: AppTheme.nearlyBlack,
+
+                      decoration: InputDecoration(
+                          hintText: "Email",
+                          hintStyle: new TextStyle(
+                              color: AppTheme.darkerText,
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400),
+                          labelStyle: new TextStyle(
+                              color: const Color(0xFF424242),
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 15),
+                          border: new UnderlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.red))),
+                    ),
+                    SizedBox(height: size.height * 0.03),
+                    TextField(
+                      controller: _passwordController,
+                      keyboardType: TextInputType.text,
+                      // inputFormatters:<TextInputFormatter>[formater],
+                      obscureText: !_showPassword,
+                      cursorColor: AppTheme.nearlyBlack,
+                      decoration: InputDecoration(
                         hintStyle: new TextStyle(
                             color: AppTheme.darkerText,
                             fontFamily: AppTheme.fontName,
                             fontSize: 15,
                             fontWeight: FontWeight.w400),
+                        hintText: "Password",
                         labelStyle: new TextStyle(
                             color: const Color(0xFF424242),
                             fontFamily: AppTheme.fontName,
-                            fontSize: 15),
+                            fontSize: 12),
                         border: new UnderlineInputBorder(
-                            borderSide: new BorderSide(color: Colors.red))),
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                  TextField(
-                    controller: _passwordController,
-                    keyboardType: TextInputType.text,
-                    // inputFormatters:<TextInputFormatter>[formater],
-                    obscureText: !_showPassword,
-                    cursorColor: AppTheme.nearlyBlack,
-                    decoration: InputDecoration(
-                      hintStyle: new TextStyle(
-                          color: AppTheme.darkerText,
-                          fontFamily: AppTheme.fontName,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400),
-                      hintText: "Password",
-                      labelStyle: new TextStyle(
-                          color: const Color(0xFF424242),
-                          fontFamily: AppTheme.fontName,
-                          fontSize: 12),
-                      border: new UnderlineInputBorder(
-                          borderSide: new BorderSide(color: Colors.red)),
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          _togglevisibility();
-                        },
-                        child: Icon(
-                          _showPassword
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          color: Colors.red,
+                            borderSide: new BorderSide(color: Colors.red)),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            _togglevisibility();
+                          },
+                          child: Icon(
+                            _showPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Colors.red,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Row(crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Checkbox(activeColor: teamRed,
-                              value: keep_me_logged_in,
-                              onChanged: (v) {
-                                
-                                keep_me_logged_in = v ?? false;
-                                setState(() {});
-                               
-                              }),
-                          Text(
-                            "Keep me login",
-                            style: TextStyle(
-                              fontFamily: AppTheme.fontName,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Checkbox(
+                                activeColor: teamRed,
+                                value: keep_me_logged_in,
+                                onChanged: (v) {
+                                  keep_me_logged_in = v ?? false;
+                                  setState(() {});
+                                }),
+                            Text(
+                              "Keep me login",
+                              style: TextStyle(
+                                fontFamily: AppTheme.fontName,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(top: 0),
-                          child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<dynamic>(
-                                    builder: (BuildContext context) =>
-                                        ForgotPasswordScreen(),
+                          ],
+                        ),
+                        Padding(
+                            padding: EdgeInsets.only(top: 0),
+                            child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute<dynamic>(
+                                      builder: (BuildContext context) =>
+                                          ForgotPasswordScreen(),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  'Forgot Password?',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    fontFamily: AppTheme.fontName,
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.underline,
                                   ),
-                                );   
-                              },
-                              child: Text(
-                                'Forgot Password?',
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  fontFamily: AppTheme.fontName,
-                                  color: Colors.blue,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              )))
-                    ],
-                  )
-                ],
-              )),
-          SizedBox(height: size.height * 0.03),
-          submitButton(_emailController.text.toString(),
-              _passwordController.text.toString()),
-          SizedBox(height: size.height * 0.03),
-          AlreadyHaveAnAccountCheck(
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return SignUpScreen();
-                  },
-                ),
-              );
-            },
-          ),
-        ],
+                                )))
+                      ],
+                    )
+                  ],
+                )),
+            SizedBox(height: size.height * 0.03),
+            submitButton(_emailController.text.toString(),
+                _passwordController.text.toString()),
+            SizedBox(height: size.height * 0.03),
+            AlreadyHaveAnAccountCheck(
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return SignUpScreen();
+                    },
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     ));
   }
@@ -352,14 +384,10 @@ bool keep_me_logged_in = false;
                   _passwordController.text.isEmpty) {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text('Fill Fields')));
+              } else {
+                login(curruntindex, _emailController.text,
+                    _passwordController.text, context, keep_me_logged_in);
               }
-
-              login(
-                curruntindex,
-                _emailController.text,
-                _passwordController.text,
-                context,keep_me_logged_in
-              );
               //login();
             },
           ),
@@ -658,5 +686,32 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
         // )
       ],
     );
+  }
+}
+
+class MyEnglishMessages extends UpgraderMessages {
+  /// Override the message function to provide custom language localization.
+  @override
+  String? message(UpgraderMessage messageKey) {
+    if (languageCode == 'en') {
+      switch (messageKey) {
+        case UpgraderMessage.body:
+          return 'New version of {{appName}} is available!';
+        case UpgraderMessage.buttonTitleIgnore:
+          return 'Ignore';
+        case UpgraderMessage.buttonTitleLater:
+          return 'Later';
+        case UpgraderMessage.buttonTitleUpdate:
+          return 'Update Now';
+        case UpgraderMessage.prompt:
+          return '';
+        case UpgraderMessage.releaseNotes:
+          return 'Release Notes';
+        case UpgraderMessage.title:
+          return 'Update Available!';
+      }
+    }
+    // Messages that are not provided above can still use the default values.
+    return super.message(messageKey);
   }
 }

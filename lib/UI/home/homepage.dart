@@ -1,18 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, avoid_unnecessary_containers
 
-import 'dart:math';
 
 import 'package:dazllapp/UI/component/banner.dart';
-import 'package:dazllapp/UI/home/categorycard.dart';
 import 'package:dazllapp/UI/home/component/GetInspiredWidget.dart';
 import 'package:dazllapp/UI/home/component/on_trend_widget.dart';
 import 'package:dazllapp/UI/home/component/services.dart';
-import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/constant/colors.dart';
-import 'package:dazllapp/constant/strings.dart';
-import 'package:dazllapp/model/category.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -133,11 +127,7 @@ Widget drawer(BuildContext context) {
             ),
             GestureDetector(
               onTap: () {
-                 logOut(context);
-                // Navigator.of(context).pushAndRemoveUntil(
-                //     MaterialPageRoute(
-                //         builder: (context) => LoginScreen(index: 0)),
-                //     (route) => false);
+                logoutdilouge(context);
               },
               child: Row(
                 children: [
@@ -152,6 +142,32 @@ Widget drawer(BuildContext context) {
           ],
         ),
       ),
+    ),
+  );
+}
+
+logoutdilouge(BuildContext context) {
+  return showDialog<String>(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      title: Text('Are You Sure?'),
+      actionsPadding: EdgeInsets.zero,
+      actions: [
+        ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('No')),
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: Colors.red),
+            onPressed: () {
+              logOut(context);
+            },
+            child: Text(
+              'Yes',
+              style: TextStyle(color: Colors.white),
+            ))
+      ],
     ),
   );
 }
