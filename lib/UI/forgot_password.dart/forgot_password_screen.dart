@@ -9,7 +9,7 @@ import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
-   ForgotPasswordScreen({Key? key}) : super(key: key);
+  ForgotPasswordScreen({Key? key}) : super(key: key);
   TextEditingController forgotemail = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -130,11 +130,10 @@ class ForgotPasswordScreen extends StatelessWidget {
           //     _mobileNoControllre.text.toString(),
           //     _passwordController.text.toString()),
           CommonButton(
-            label: "Submit",
-            onTap:  forgotpassword(
-              context,forgotemail.text
-            ),
-          ),
+              label: "Submit",
+              onTap: () {
+                forgotpassword(context, forgotemail.text);
+              }),
           TextButton(
               onPressed: () {
                 Navigator.pushAndRemoveUntil(

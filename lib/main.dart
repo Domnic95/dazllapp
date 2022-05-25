@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use, prefer_const_literals_to_create_immutables, avoid_print, prefer_const_constructors_in_immutables
 
-import 'package:dazllapp/UI/homepage/professionals_homepage.dart';
+import 'package:dazllapp/UI/homepage/professional/professionals_homepage.dart';
 import 'package:dazllapp/UI/homepage/realtor/realtor_homepage.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/constant/colors.dart';

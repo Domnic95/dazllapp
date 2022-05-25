@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../UI/homepage/customer/home/customer_homepage.dart';
-import '../UI/homepage/professionals_homepage.dart';
+import '../UI/homepage/professional/professionals_homepage.dart';
 import '../UI/homepage/realtor/realtor_homepage.dart';
 
 // login
@@ -262,7 +262,7 @@ Future<void> signupCustomer(
 
 //forgot
 
-forgotpassword(email, String text) async {
+Future<String> forgotpassword(email, String text) async {
   try {
     final response = await dio.post(forgot_password, data: {
       "email": email,
@@ -280,4 +280,5 @@ forgotpassword(email, String text) async {
     //     content: Text((e as DioError).response!.data['message']),
     //     backgroundColor: Colors.red));
   }
+  return "";
 }

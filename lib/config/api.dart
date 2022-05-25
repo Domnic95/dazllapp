@@ -14,3 +14,4 @@ const featureoption = 'featureOptions/1';
 const imageurl = 'https://res.cloudinary.com/dev-gnome/image/upload/';
 const featureOption = 'featureoptionlist/';
 const featureIssues = 'featureoissueslist/';
+const profile_url = 'company-from-professional';

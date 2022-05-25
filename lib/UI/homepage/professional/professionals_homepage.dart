@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import, unnecessary_import, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors, non_constant_identifier_names
 
 import 'package:dazllapp/UI/home/homepage.dart';
+import 'package:dazllapp/UI/homepage/professional/company_profile.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -16,6 +17,7 @@ class ProfessionalsHomepage extends StatefulWidget {
 class __ProfessionalsHomepageState extends State<ProfessionalsHomepage> {
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       drawer: drawer(context),
       appBar: AppBar(
@@ -40,41 +42,50 @@ class __ProfessionalsHomepageState extends State<ProfessionalsHomepage> {
           child: ListView.builder(
               itemCount: Selections.length,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    //color: Colors.grey[300],
+                return GestureDetector(
+                    onTap: () {
+                      if (index == 1) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Company_profile()));
+                      }
+                    },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 30),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            Selections[index].image,
-                            width: 80,
-                            color: AppTheme.colorPrimary,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            Selections[index].name,
-                            textAlign: TextAlign.center,
-                            style:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Card(
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        //color: Colors.grey[300],
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                Selections[index].image,
+                                width: 80,
+                                color: AppTheme.colorPrimary,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                Selections[index].name,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                       color: AppTheme.colorPrimary,
                                     ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                );
+                    ));
               })),
     );
   }
