@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, non_constant_identifier_names, prefer_final_fields
 
+
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/api.dart';
 import 'package:dazllapp/constant/spkeys.dart';
@@ -67,10 +68,13 @@ Future<String> login(index, email, password, context, keepmelogin) async {
     print(response.data);
     if (response.statusCode == 200) {
       SpHelpers.setPref(
+          SharedPrefsKeys.Prof_id, response.data['data']['id'].toString());
+
+      SpHelpers.setPref(
           SharedPrefsKeys.key_token, response.data['data']['token']);
+
       islogin = true;
-      // print("token sp=" +
-      //     SpHelpers.getString(SharedPrefsKeys.key_token).toString());
+      // log("Pro Id=" + SpHelpers.getString(SharedPrefsKeys.Prof_id).toString());
       //SpHelpers.setString();
       if (index == 0) {
         Navigator.push(context,
@@ -111,6 +115,7 @@ logOut(BuildContext context) async {
   await prefs.remove(SharedPrefsKeys.key_token);
   await prefs.remove(SharedPrefsKeys.key_current);
   await prefs.remove(SharedPrefsKeys.key_keep_me_logged_in);
+  await prefs.remove(SharedPrefsKeys.Prof_id);
   print("Log out successfully");
 
   Navigator.of(context).pushAndRemoveUntil(

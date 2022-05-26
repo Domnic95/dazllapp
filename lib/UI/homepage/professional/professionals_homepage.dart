@@ -1,10 +1,13 @@
 // ignore_for_file: unused_import, unnecessary_import, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors, non_constant_identifier_names
 
+import 'dart:developer';
+
 import 'package:dazllapp/UI/home/homepage.dart';
-import 'package:dazllapp/UI/homepage/professional/company_profile.dart';
+import 'package:dazllapp/UI/homepage/professional/Company_profile/company_profile.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/constant/colors.dart';
+import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dazllapp/model/selection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +20,6 @@ class ProfessionalsHomepage extends StatefulWidget {
 class __ProfessionalsHomepageState extends State<ProfessionalsHomepage> {
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       drawer: drawer(context),
       appBar: AppBar(
@@ -45,6 +47,9 @@ class __ProfessionalsHomepageState extends State<ProfessionalsHomepage> {
                 return GestureDetector(
                     onTap: () {
                       if (index == 1) {
+                        // log("Pro Id=" +
+                        //     SpHelpers.getString(SharedPrefsKeys.Prof_id)
+                        //         .toString());
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Company_profile()));
                       }

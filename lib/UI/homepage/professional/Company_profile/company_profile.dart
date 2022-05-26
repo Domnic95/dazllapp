@@ -1,5 +1,6 @@
-// ignore_for_file: camel_case_types, prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, deprecated_member_use
+// ignore_for_file: camel_case_types, prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, deprecated_member_use, unused_import
 
+import 'package:dazllapp/UI/homepage/professional/Company_profile/Edit_profile.dart';
 import 'package:dazllapp/UI/homepage/professional/webview_screen.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -73,13 +74,21 @@ class _Company_profileState extends State<Company_profile> {
                           color: Colors.white,
                         ),
                       ),
-                      Text(
-                        _profileNotifier.profiles.yearsInBusiness.toString(),
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.white,
-                        ),
-                      ),
+                      _profileNotifier.profiles.yearsInBusiness.toString() ==
+                              'null'
+                          ? Text(
+                              'Add your Years in Bussiness',
+                              style:
+                                  TextStyle(fontSize: 13, color: Colors.white),
+                            )
+                          : Text(
+                              _profileNotifier.profiles.yearsInBusiness
+                                  .toString(),
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white,
+                              ),
+                            ),
                     ],
                   ),
                 ],
@@ -103,13 +112,21 @@ class _Company_profileState extends State<Company_profile> {
                               'INFORMATION : ',
                               style: TextStyle(fontSize: 15),
                             ),
-                            CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 14,
-                              child: Icon(
-                                Icons.edit,
-                                size: 14,
-                                color: AppTheme.colorPrimary,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Edit_profile()));
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 14,
+                                child: Icon(
+                                  Icons.edit,
+                                  size: 14,
+                                  color: AppTheme.colorPrimary,
+                                ),
                               ),
                             ),
                           ],
@@ -130,12 +147,22 @@ class _Company_profileState extends State<Company_profile> {
                                     fontSize: 14,
                                   ),
                                 ),
-                                subtitle: Text(
-                                  _profileNotifier.profiles.name.toString(),
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                  ),
-                                ),
+                                subtitle:
+                                    _profileNotifier.profiles.name.toString() ==
+                                            'null'
+                                        ? Text(
+                                            'Add your Name',
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                            ),
+                                          )
+                                        : Text(
+                                            _profileNotifier.profiles.name
+                                                .toString(),
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                            ),
+                                          ),
                               ),
                               Padding(
                                 padding:
@@ -154,12 +181,22 @@ class _Company_profileState extends State<Company_profile> {
                                     fontSize: 14,
                                   ),
                                 ),
-                                subtitle: Text(
-                                  _profileNotifier.profiles.phone.toString(),
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                  ),
-                                ),
+                                subtitle: _profileNotifier.profiles.phone
+                                            .toString() ==
+                                        'null'
+                                    ? Text(
+                                        'Add your Phone No',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        ),
+                                      )
+                                    : Text(
+                                        _profileNotifier.profiles.phone
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        ),
+                                      ),
                               ),
                               Padding(
                                 padding:
@@ -178,12 +215,22 @@ class _Company_profileState extends State<Company_profile> {
                                     fontSize: 14,
                                   ),
                                 ),
-                                subtitle: Text(
-                                  _profileNotifier.profiles.email.toString(),
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                  ),
-                                ),
+                                subtitle: _profileNotifier.profiles.email
+                                            .toString() ==
+                                        'null'
+                                    ? Text(
+                                        'Add your Email',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        ),
+                                      )
+                                    : Text(
+                                        _profileNotifier.profiles.email
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        ),
+                                      ),
                               ),
                               Padding(
                                 padding:
@@ -202,12 +249,22 @@ class _Company_profileState extends State<Company_profile> {
                                     fontSize: 14,
                                   ),
                                 ),
-                                subtitle: Text(
-                                  _profileNotifier.profiles.address.toString(),
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                  ),
-                                ),
+                                subtitle: _profileNotifier.profiles.address
+                                            .toString() ==
+                                        'null'
+                                    ? Text(
+                                        'Add your Address',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        ),
+                                      )
+                                    : Text(
+                                        _profileNotifier.profiles.address
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        ),
+                                      ),
                               ),
                               Padding(
                                 padding:
@@ -226,13 +283,24 @@ class _Company_profileState extends State<Company_profile> {
                                     fontSize: 14,
                                   ),
                                 ),
-                                subtitle: Text(
-                                  _profileNotifier.profiles.businessLicence
-                                      .toString(),
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                  ),
-                                ),
+                                subtitle: _profileNotifier
+                                            .profiles.businessLicence
+                                            .toString() ==
+                                        'null'
+                                    ? Text(
+                                        'Add your Bussiness Licence',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        ),
+                                      )
+                                    : Text(
+                                        _profileNotifier
+                                            .profiles.businessLicence
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        ),
+                                      ),
                               ),
                               Padding(
                                 padding:
@@ -249,13 +317,24 @@ class _Company_profileState extends State<Company_profile> {
                                     fontSize: 14,
                                   ),
                                 ),
-                                subtitle: Text(
-                                  _profileNotifier.profiles.insuranceCertificate
-                                      .toString(),
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                  ),
-                                ),
+                                subtitle: _profileNotifier
+                                            .profiles.insuranceCertificate
+                                            .toString() ==
+                                        'null'
+                                    ? Text(
+                                        'Add your Insurance Certificate',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        ),
+                                      )
+                                    : Text(
+                                        _profileNotifier
+                                            .profiles.insuranceCertificate
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        ),
+                                      ),
                               ),
                               Padding(
                                 padding:
@@ -273,9 +352,13 @@ class _Company_profileState extends State<Company_profile> {
                                   ),
                                 ),
                                 subtitle: _profileNotifier
-                                            .profiles.projectPortfolio
-                                            .toString() ==
-                                        '[]'
+                                                .profiles.projectPortfolio
+                                                .toString() ==
+                                            'null' ||
+                                        _profileNotifier
+                                                .profiles.projectPortfolio
+                                                .toString() ==
+                                            '[]'
                                     ? Text(
                                         'Add your Project portfolio',
                                         style: TextStyle(
@@ -306,13 +389,22 @@ class _Company_profileState extends State<Company_profile> {
                                     fontSize: 14,
                                   ),
                                 ),
-                                subtitle: Text(
-                                  _profileNotifier.profiles.references
-                                      .toString(),
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                  ),
-                                ),
+                                subtitle: _profileNotifier.profiles.references
+                                            .toString() ==
+                                        'null'
+                                    ? Text(
+                                        'Add your References',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        ),
+                                      )
+                                    : Text(
+                                        _profileNotifier.profiles.references
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        ),
+                                      ),
                               ),
                               Padding(
                                 padding:
@@ -325,11 +417,15 @@ class _Company_profileState extends State<Company_profile> {
                                 onTap: () {
                                   String url = _profileNotifier.profiles.website
                                       .toString();
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              webview_screen(url)));
+                                  _profileNotifier.profiles.website
+                                              .toString() !=
+                                          'null'
+                                      ? Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  webview_screen(url)))
+                                      : null;
                                 },
                                 leading: Icon(Icons.webhook_sharp),
                                 title: Text(
@@ -338,13 +434,23 @@ class _Company_profileState extends State<Company_profile> {
                                     fontSize: 14,
                                   ),
                                 ),
-                                subtitle: Text(
-                                  _profileNotifier.profiles.website.toString(),
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: Colors.blue,
-                                  ),
-                                ),
+                                subtitle: _profileNotifier.profiles.website
+                                            .toString() ==
+                                        'null'
+                                    ? Text(
+                                        'Add your Website',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        ),
+                                      )
+                                    : Text(
+                                        _profileNotifier.profiles.website
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          color: Colors.blue,
+                                        ),
+                                      ),
                               ),
                             ],
                           ),

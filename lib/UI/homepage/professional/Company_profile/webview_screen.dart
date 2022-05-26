@@ -14,10 +14,12 @@ class webview_screen extends StatefulWidget {
 class _webview_screenState extends State<webview_screen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: WebView(
-        javascriptMode: JavascriptMode.unrestricted,
-        initialUrl: widget.url,
+    return SafeArea(
+      child: Scaffold(
+        body: WebView(
+          javascriptMode: JavascriptMode.unrestricted,
+          initialUrl: widget.url,
+        ),
       ),
     );
   }

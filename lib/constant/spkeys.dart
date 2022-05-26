@@ -7,6 +7,7 @@ class SharedPrefsKeys {
   static String key_keep_me_logged_in = "keep_me_logged_in";
   static String key_current = "current";
   static String key_token = "token";
+  static String Prof_id = "pro_id";
 }
 
 class SpHelpers {

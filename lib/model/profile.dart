@@ -44,8 +44,9 @@ class Profile {
         references: json["references"],
         description: json["description"],
         businessLicence: json["business_licence"],
-        projectPortfolio:
-            List<dynamic>.from(json["project_portfolio"].map((x) => x)),
+        projectPortfolio: json["project_portfolio"] == null
+            ? null
+            : List<dynamic>.from(json["project_portfolio"].map((x) => x)),
         yearsInBusiness: json["years_in_business"],
         insuranceCertificate: json["insurance_certificate"],
       );
@@ -59,7 +60,8 @@ class Profile {
         "references": references,
         "description": description,
         "business_licence": businessLicence,
-        "project_portfolio": List<dynamic>.from(projectPortfolio!.map((x) => x)),
+        "project_portfolio":
+            List<dynamic>.from(projectPortfolio!.map((x) => x)),
         "years_in_business": yearsInBusiness,
         "insurance_certificate": insuranceCertificate,
       };
