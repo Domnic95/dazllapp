@@ -16,12 +16,33 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
+// class Alldata {
+//   List<File> imgFile = [];
+//   List<String> currentoptionselected = <String>[];
+//   List<String> currentissueselected = <String>[];
+//   List<TextEditingController> PhotoDescrptionController = [];
+
+//   Alldata(
+//       {required this.PhotoDescrptionController,
+//       required this.currentissueselected,
+//       required this.currentoptionselected,
+//       required this.imgFile});
+// }
+
 class NeedAttention extends StatefulHookWidget {
   @override
   _NeedAttentionState createState() => _NeedAttentionState();
 }
 
 class _NeedAttentionState extends State<NeedAttention> {
+  // List<Alldata> alldata = [
+  //   Alldata(
+  //       PhotoDescrptionController: _PhotoDescrptionController,
+  //       currentissueselected: currentissueselected,
+  //       currentoptionselected: currentoptionselected,
+  //       imgFile: imgFile)
+  // ];
+
   List<File> imgFile = [];
   List<File> selectphoto = [];
   File? file;
@@ -394,7 +415,6 @@ class _NeedAttentionState extends State<NeedAttention> {
                                       onTap: () {
                                         // log('hjhjf' +
                                         //     _DescrptionController[index].text);
-
                                         showOptionsDialog(context, index);
                                         // imgFile.removeWhere((element) =>
                                         //     ["", 0].contains(element));
@@ -489,15 +509,9 @@ class _NeedAttentionState extends State<NeedAttention> {
                                                           : selectphoto.add(
                                                               imgFile[index]);
                                                       _PhotoDescrptionController[
-                                                                              index]
-                                                                          .text ==
-                                                                      '' &&
-                                                                  imgFile[index] !=
-                                                                      null ||
-                                                              imgFile[index]
-                                                                      .toString() !=
-                                                                  File('')
-                                                                      .toString()
+                                                                      index]
+                                                                  .text ==
+                                                              ''
                                                           ? _addphotodescription
                                                               .add('')
                                                           : _addphotodescription
@@ -762,62 +776,6 @@ class _NeedAttentionState extends State<NeedAttention> {
             ),
           );
         });
-  }
-
-  Widget addphoto(int index, Size size) {
-    return GestureDetector(
-      onTap: () {
-        log('djdkjij' + imgFile.toString());
-        showOptionsDialog(context, index);
-      },
-      child: Container(
-        child: Row(
-          children: [
-            Container(
-              padding: EdgeInsets.only(top: 7, bottom: 7, left: 12, right: 12),
-              decoration: BoxDecoration(
-                  color: AppTheme.colorPrimary.withOpacity(0.4),
-                  borderRadius: BorderRadius.circular(15)),
-              child: imgFile[index] == null ||
-                      imgFile[index].toString() == File('').toString()
-                  ? Text('+ Photos')
-                  : Image.file(
-                      imgFile[index],
-                      height: 30,
-                      width: 50,
-                      fit: BoxFit.cover,
-                    ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.only(left: 7),
-                height: size.height * 0.05,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: AppTheme.grey.withOpacity(0.5), width: 2),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white),
-                child: TextFormField(
-                  controller: _PhotoDescrptionController[index],
-                  textInputAction: TextInputAction.done,
-                  cursorColor: AppTheme.colorPrimary,
-                  decoration: InputDecoration(
-                      hintText: "Add Photo Description",
-                      hintStyle: TextStyle(fontSize: 14),
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent)),
-                      enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent)),
-                      border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent))),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   void openCamera(index) async {
