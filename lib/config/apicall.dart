@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, non_constant_identifier_names, prefer_final_fields
 
-
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/api.dart';
 import 'package:dazllapp/constant/spkeys.dart';
@@ -23,6 +22,16 @@ class DioClient {
       {required String apiEnd, Map<String, dynamic>? queryParameter}) async {
     try {
       final res = await _dio.get(apiEnd, queryParameters: queryParameter);
+      return res;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
+
+  Future<dynamic> PostwithFormData(
+      {required String apiEnd, Map<String, dynamic>? Data}) async {
+    try {
+      final res = await _dio.post(apiEnd, data: Data);
       return res;
     } on DioError catch (e) {
       return e.response;

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_new, sized_box_for_whitespace, avoid_print, deprecated_member_use, unused_catch_clause, prefer_const_literals_to_create_immutables, unnecessary_import, must_be_immutable, non_constant_identifier_names, use_key_in_widget_constructors, unused_element
 
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dazllapp/UI/forgot_password.dart/forgot_password_screen.dart';
@@ -9,6 +10,9 @@ import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -36,10 +40,110 @@ class _LoginScreenState extends State<LoginScreen> {
     'Professional',
     'Customer',
   ];
+
+  @override
+  void initState() {
+    //  getversion();
+    super.initState();
+  }
+
   void _togglevisibility() {
     setState(() {
       _showPassword = !_showPassword;
     });
+  }
+
+  Future getversion() async {
+    // final _version = context.read(versionProvider);
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String CheckversionAndroid = "0.0.0";
+    String CheckversionIos = "00";
+    String version = packageInfo.version;
+    bool isVersionGreaterThan(String newVersion, String currentVersion) {
+      List<String> currentV = currentVersion.split(".");
+      List<String> newV = newVersion.split(".");
+      bool a = false;
+      for (var i = 0; i <= 2; i++) {
+        a = int.parse(newV[i]) > int.parse(currentV[i]);
+        if (int.parse(newV[i]) != int.parse(currentV[i])) break;
+      }
+      return a;
+    }
+
+    // String appName = packageInfo.appName;
+    // String packageName = packageInfo.packageName;
+    // String buildNumber = packageInfo.buildNumber;
+    // log('appName1' + andr.toString());
+    log('appName3' + CheckversionAndroid);
+    log('appName4' + CheckversionIos);
+    log("appName " +
+        isVersionGreaterThan(version, CheckversionAndroid).toString());
+    log("appName " + isVersionGreaterThan(version, CheckversionIos).toString());
+    isVersionGreaterThan(
+            version, Platform.isAndroid ? CheckversionAndroid : CheckversionIos)
+        ? Container()
+        : _showMyDialog();
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(25.0))),
+            contentPadding:
+                EdgeInsets.only(bottom: 0, left: 20, right: 20, top: 10),
+            title: Center(
+                child: Text(
+              'Update App ?',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            )),
+            content: Container(
+              width: 220,
+              height: 175,
+              child: Column(
+                children: [
+                  Lottie.asset(
+                    'assets/lottie/dazl.json',
+                    height: 110,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'A new version of DAZL is available! Kindly Update',
+                    style: TextStyle(fontSize: 13),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              Center(
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(AppTheme.colorPrimary),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ))),
+                  child: Text('UPDATE NOW',
+                      style: TextStyle(fontSize: 14, color: Colors.white)),
+                  onPressed: () {
+                    Platform.isAndroid ? onAndroid() : onIOS();
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   onIOS() {
@@ -68,20 +172,22 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: UpgradeAlert(
-      upgrader: Upgrader(
-        showReleaseNotes: false,
-        minAppVersion: '0.0.0',
-        dialogStyle: Platform.isAndroid
-            ? UpgradeDialogStyle.material
-            : UpgradeDialogStyle.cupertino,
-        // durationUntilAlertAgain: Duration(seconds: 30),
-        onUpdate: () => Platform.isAndroid ? onAndroid() : onIOS(),
-        showLater: false,
-        showIgnore: false,
-        messages: MyEnglishMessages(),
-      ),
-      child: SingleChildScrollView(
+      body:
+          //   UpgradeAlert(
+          // upgrader: Upgrader(
+          //   showReleaseNotes: false,
+          //   minAppVersion: '0.0.0',
+          //   dialogStyle: Platform.isAndroid
+          //       ? UpgradeDialogStyle.material
+          //       : UpgradeDialogStyle.cupertino,
+          //   // durationUntilAlertAgain: Duration(seconds: 30),
+          //   onUpdate: () => Platform.isAndroid ? onAndroid() : onIOS(),
+          //   showLater: false,
+          //   showIgnore: false,
+          //   messages: MyEnglishMessages(),
+          // ),
+          //child:
+          SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -188,109 +294,119 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            Padding(
-                padding: EdgeInsets.only(left: 25, right: 25),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      // inputFormatters:<TextInputFormatter>[formater],
-                      cursorColor: AppTheme.nearlyBlack,
+            Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 25, right: 25),
+                  child: TextField(
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    // inputFormatters:<TextInputFormatter>[formater],
+                    cursorColor: AppTheme.nearlyBlack,
 
-                      decoration: InputDecoration(
-                          hintText: "Email",
-                          hintStyle: new TextStyle(
-                              color: AppTheme.darkerText,
-                              fontFamily: AppTheme.fontName,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400),
-                          labelStyle: new TextStyle(
-                              color: const Color(0xFF424242),
-                              fontFamily: AppTheme.fontName,
-                              fontSize: 15),
-                          border: new UnderlineInputBorder(
-                              borderSide: new BorderSide(color: Colors.red))),
-                    ),
-                    SizedBox(height: size.height * 0.03),
-                    TextField(
-                      controller: _passwordController,
-                      keyboardType: TextInputType.text,
-                      // inputFormatters:<TextInputFormatter>[formater],
-                      obscureText: !_showPassword,
-                      cursorColor: AppTheme.nearlyBlack,
-                      decoration: InputDecoration(
+                    decoration: InputDecoration(
+                        hintText: "Email",
                         hintStyle: new TextStyle(
                             color: AppTheme.darkerText,
                             fontFamily: AppTheme.fontName,
                             fontSize: 15,
                             fontWeight: FontWeight.w400),
-                        hintText: "Password",
                         labelStyle: new TextStyle(
                             color: const Color(0xFF424242),
                             fontFamily: AppTheme.fontName,
-                            fontSize: 12),
+                            fontSize: 15),
                         border: new UnderlineInputBorder(
-                            borderSide: new BorderSide(color: Colors.red)),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            _togglevisibility();
-                          },
-                          child: Icon(
-                            _showPassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: Colors.red,
-                          ),
+                            borderSide: new BorderSide(color: Colors.red))),
+                  ),
+                ),
+                SizedBox(height: size.height * 0.03),
+                Padding(
+                  padding: EdgeInsets.only(left: 25, right: 25),
+                  child: TextField(
+                    controller: _passwordController,
+                    keyboardType: TextInputType.text,
+                    // inputFormatters:<TextInputFormatter>[formater],
+                    obscureText: !_showPassword,
+                    cursorColor: AppTheme.nearlyBlack,
+                    decoration: InputDecoration(
+                      hintStyle: new TextStyle(
+                          color: AppTheme.darkerText,
+                          fontFamily: AppTheme.fontName,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400),
+                      hintText: "Password",
+                      labelStyle: new TextStyle(
+                          color: const Color(0xFF424242),
+                          fontFamily: AppTheme.fontName,
+                          fontSize: 12),
+                      border: new UnderlineInputBorder(
+                          borderSide: new BorderSide(color: Colors.red)),
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          _togglevisibility();
+                        },
+                        child: Icon(
+                          _showPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.red,
                         ),
                       ),
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                                activeColor: teamRed,
-                                value: keep_me_logged_in,
-                                onChanged: (v) {
-                                  keep_me_logged_in = v ?? false;
-                                  setState(() {});
-                                }),
-                            Text(
-                              "Keep me login",
-                              style: TextStyle(
-                                fontFamily: AppTheme.fontName,
-                              ),
+                  ),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 15, right: 15),
+                      child: Row(
+                        children: [
+                          Checkbox(
+                              activeColor: teamRed,
+                              value: keep_me_logged_in,
+                              onChanged: (v) {
+                                keep_me_logged_in = v ?? false;
+                                setState(() {});
+                              }),
+                          Text(
+                            "Keep me login",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: AppTheme.fontName,
                             ),
-                          ],
-                        ),
-                        Padding(
-                            padding: EdgeInsets.only(top: 0),
-                            child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute<dynamic>(
-                                      builder: (BuildContext context) =>
-                                          ForgotPasswordScreen(),
-                                    ),
-                                  );
-                                },
-                                child: Text(
-                                  'Forgot Password?',
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                    fontFamily: AppTheme.fontName,
-                                    color: Colors.blue,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                )))
-                      ],
-                    )
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(left: 15, right: 15),
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute<dynamic>(
+                                  builder: (BuildContext context) =>
+                                      ForgotPasswordScreen(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Forgot Password?',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize:
+                                    AppTheme.textTheme.bodySmall!.fontSize,
+                                fontFamily: AppTheme.fontName,
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline,
+                              ),
+                            )))
                   ],
-                )),
+                )
+              ],
+            ),
             SizedBox(height: size.height * 0.03),
             submitButton(_emailController.text.toString(),
                 _passwordController.text.toString()),
@@ -310,7 +426,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ],
         ),
       ),
-    ));
+      // )
+    );
   }
 
   Widget submitButton(String emailId, String password) => Column(
@@ -686,32 +803,5 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
         // )
       ],
     );
-  }
-}
-
-class MyEnglishMessages extends UpgraderMessages {
-  /// Override the message function to provide custom language localization.
-  @override
-  String? message(UpgraderMessage messageKey) {
-    if (languageCode == 'en') {
-      switch (messageKey) {
-        case UpgraderMessage.body:
-          return 'New version of {{appName}} is available!';
-        case UpgraderMessage.buttonTitleIgnore:
-          return 'Ignore';
-        case UpgraderMessage.buttonTitleLater:
-          return 'Later';
-        case UpgraderMessage.buttonTitleUpdate:
-          return 'Update Now';
-        case UpgraderMessage.prompt:
-          return '';
-        case UpgraderMessage.releaseNotes:
-          return 'Release Notes';
-        case UpgraderMessage.title:
-          return 'Update Available!';
-      }
-    }
-    // Messages that are not provided above can still use the default values.
-    return super.message(messageKey);
   }
 }

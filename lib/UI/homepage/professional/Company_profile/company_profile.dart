@@ -1,7 +1,7 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, deprecated_member_use, unused_import
 
 import 'package:dazllapp/UI/homepage/professional/Company_profile/Edit_profile.dart';
-import 'package:dazllapp/UI/homepage/professional/webview_screen.dart';
+import 'package:dazllapp/UI/homepage/professional/Company_profile/webview_screen.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -44,8 +44,7 @@ class _Company_profileState extends State<Company_profile> {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.only(top: 10),
-              height: size.height * 0.08,
+              height: size.height * 0.09,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
@@ -53,11 +52,12 @@ class _Company_profileState extends State<Company_profile> {
                   ),
                   color: AppTheme.colorPrimary),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Company Profile",
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 16,
+                          fontSize: 14,
                           color: lightColor.withOpacity(.9),
                         ),
                   ),
@@ -79,7 +79,7 @@ class _Company_profileState extends State<Company_profile> {
                           ? Text(
                               'Add your Years in Bussiness',
                               style:
-                                  TextStyle(fontSize: 13, color: Colors.white),
+                                  TextStyle(fontSize: 12, color: Colors.white),
                             )
                           : Text(
                               _profileNotifier.profiles.yearsInBusiness

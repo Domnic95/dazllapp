@@ -39,7 +39,7 @@ class __ProfessionalsHomepageState extends State<ProfessionalsHomepage> {
         ),
         actions: [],
       ),
-      body: Container(
+      body: Container(  
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: ListView.builder(
               itemCount: Selections.length,
