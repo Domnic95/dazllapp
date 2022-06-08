@@ -2,11 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <key>NSCameraUsageDescription</key>
-    <key>NSMicrophoneUsageDescription</key>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Dazl need to access microphone</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Dazl need to access camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Dazl need to access gallery</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

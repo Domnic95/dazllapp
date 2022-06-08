@@ -491,13 +491,7 @@ class _NeedAttentionState extends State<NeedAttention> {
                                                       _PhotoDescrptionController[
                                                                               index]
                                                                           .text ==
-                                                                      '' &&
-                                                                  imgFile[index] !=
-                                                                      null ||
-                                                              imgFile[index]
-                                                                      .toString() !=
-                                                                  File('')
-                                                                      .toString()
+                                                                      '' 
                                                           ? _addphotodescription
                                                               .add('')
                                                           : _addphotodescription
