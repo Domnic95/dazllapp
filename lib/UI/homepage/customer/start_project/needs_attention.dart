@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dazllapp/UI/component/edit_field.dart';
+import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/tell_us_more.dart';
 import 'package:dazllapp/config/api.dart';
@@ -22,7 +23,7 @@ class NeedAttention extends StatefulHookWidget {
 }
 
 class _NeedAttentionState extends State<NeedAttention> {
-  List<File> imgFile = [];
+  List<List<File>> imgFile = [];
   List<File> selectphoto = [];
   File? file;
   final imgPicker = ImagePicker();
@@ -38,6 +39,8 @@ class _NeedAttentionState extends State<NeedAttention> {
   List<String> _addphotodescription = [];
   // List<Widget> _addphoto = [];
   int indexs = 0;
+  bool loading = true;
+  bool view = true;
 
   @override
   void initState() {
@@ -46,8 +49,43 @@ class _NeedAttentionState extends State<NeedAttention> {
   }
 
   loaddata() async {
-    await context.read(roomsprovider).getRoomsFeature(roomid);
-    await context.read(roomsprovider).getFeatureOptionIssues();
+    final _roomsfeature = context.read(roomsprovider);
+    await _roomsfeature.getRoomsFeature(roomid);
+    await _roomsfeature.getFeatureOptionIssues();
+
+    print('loadta Length = ${_roomsfeature.listOfFeature.length}');
+    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+      currentoptionselected.add('');
+    }
+    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+      c.add(0);
+    }
+    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+      featureId.add(0);
+    }
+    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+      featureoptionid.add(0);
+    }
+    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+      currentissueselected.add('');
+    }
+    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+      _addphotodescription.add('');
+    }
+    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+      _DescrptionController.add(TextEditingController());
+    }
+    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+      _PhotoDescrptionController.add(TextEditingController());
+    }
+    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+      imgFile.add([]);
+      // imgFile[i].add(File(""));
+
+    }
+    setState(() {
+      loading = false;
+    });
   }
 
   // bool view = false;
@@ -57,658 +95,687 @@ class _NeedAttentionState extends State<NeedAttention> {
     final _roomsfeature = useProvider(roomsprovider);
     final size = MediaQuery.of(context).size;
     return SafeArea(
-      child: Scaffold(
-        // floatingActionButton: Padding(
-        //   padding:
-        //       EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 14),
-        //   child: Align(
-        //     alignment: Alignment.bottomRight,
-        //     child: FloatingActionButton.extended(
-        //       onPressed: () {
-        //         setState(() {
-        //           view = true;
-        //         });
-        //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        //             elevation: 0.3,
-        //             backgroundColor: Colors.transparent,
-        //             dismissDirection: DismissDirection.none,
-        //             duration: Duration(days: 5),
-        //             content: Column(
-        //               children: [
-        //                 Expanded(
-        //                   child: GestureDetector(
-        //                     onTap: () {
-        //                       ScaffoldMessenger.of(context)
-        //                           .hideCurrentSnackBar();
-        //                       setState(() {
-        //                         view = false;
-        //                       });
-        //                     },
-        //                     child: Container(
-        //                       color: Colors.transparent,
-        //                     ),
-        //                   ),
-        //                 ),
-        //                 Container(
-        //                   margin: EdgeInsets.only(bottom: 30),
-        //                   height: size.height * 0.12,
-        //                   padding: EdgeInsets.only(left: 15),
-        //                   decoration: BoxDecoration(
-        //                       border: Border.all(
-        //                           color: AppTheme.grey.withOpacity(0.5),
-        //                           width: 2),
-        //                       // boxShadow: [
-        //                       //   BoxShadow(
-        //                       //       color: AppTheme.grey.withOpacity(0.3),
-        //                       //       blurRadius: 3,
-        //                       //       spreadRadius: 1,
-        //                       //       offset: Offset(3, 3))
-        //                       // ],
-        //                       borderRadius: BorderRadius.circular(10),
-        //                       color: Colors.white),
-        //                   child: Stack(
-        //                     children: [
-        //                       TextFormField(
-        //                         controller: _Attentioncontroller,
-        //                         minLines: 2,
-        //                         maxLines: 100,
-        //                         textInputAction: TextInputAction.done,
-        //                         cursorColor: AppTheme.colorPrimary,
-        //                         decoration: InputDecoration(
-        //                             hintText: "Add note to inspection report",
-        //                             hintStyle:
-        //                                 Theme.of(context).textTheme.bodyText1,
-        //                             focusedBorder: UnderlineInputBorder(
-        //                                 borderSide: BorderSide(
-        //                                     color: Colors.transparent)),
-        //                             enabledBorder: UnderlineInputBorder(
-        //                                 borderSide: BorderSide(
-        //                                     color: Colors.transparent)),
-        //                             border: UnderlineInputBorder(
-        //                                 borderSide: BorderSide(
-        //                                     color: Colors.transparent))),
-        //                       ),
-        //                       Align(
-        //                         alignment: Alignment.centerRight,
-        //                         child: Container(
-        //                           decoration: BoxDecoration(
-        //                               color: AppTheme.colorPrimary,
-        //                               borderRadius: BorderRadius.only(
-        //                                   bottomLeft: Radius.circular(10),
-        //                                   topLeft: Radius.circular(10))),
-        //                           child: IconButton(
-        //                             icon: Icon(
-        //                               Icons.arrow_forward_ios,
-        //                               color: Colors.white,
-        //                             ),
-        //                             onPressed: () {
-        //                               ScaffoldMessenger.of(context)
-        //                                   .hideCurrentSnackBar();
-        //                               setState(() {
-        //                                 view = false;
-        //                               });
-        //                             },
-        //                           ),
-        //                           width: 50,
-        //                         ),
-        //                       )
-        //                     ],
-        //                   ),
-        //                 ),
-        //               ],
-        //             )));
-        //       },
-        //       backgroundColor: view == true
-        //           ? Colors.transparent.withOpacity(0)
-        //           : AppTheme.colorPrimary,
-        //       elevation: 0,
-        //       label: Text(
-        //         'Want to Add Comment?',
-        //         style: TextStyle(
-        //             fontSize: MediaQuery.of(context).size.height / 55),
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        //  resizeToAvoidBottomInset: false,
-        // appBar: AppBar(
-        //   leading: Container(),
-        //   elevation: 0,
-        // ),
-        body: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                height: size.height * 0.08,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    ),
-                    color: AppTheme.colorPrimary),
-                child: Center(
-                  child: Text(
-                    "What items in this room would you like to dazl up ?",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 12,
-                          color: lightColor.withOpacity(.9),
-                        ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-              Expanded(
-                // height: size.height * 0.63,
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: _roomsfeature.listOfFeature.length,
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      height: 10,
-                    );
-                  },
-                  itemBuilder: (BuildContext context, int index) {
-                    for (int i = 0; i < 20; i++) {
-                      currentoptionselected.add('');
-                    }
-                    for (int i = 0; i < 20; i++) {
-                      c.add(0);
-                    }
-                    for (int i = 0; i < 1; i++) {
-                      featureId.add(0);
-                    }
-                    for (int i = 0; i < 1; i++) {
-                      featureoptionid.add(0);
-                    }
-                    for (int i = 0; i < 20; i++) {
-                      currentissueselected.add('');
-                    }
-                    for (int i = 0; i < 20; i++) {
-                      _DescrptionController.add(
-                          TextEditingController(text: ''));
-                    }
-                    for (int i = 0; i < 20; i++) {
-                      _PhotoDescrptionController.add(TextEditingController());
-                    }
-                    for (int i = 0; i < 20; i++) {
-                      imgFile.add(File(""));
-                    }
-                    return Column(
-                      children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                                activeColor: AppTheme.colorPrimary,
-                                value: select.contains(index),
-                                onChanged: (val) {
-                                  setState(() {
-                                    if (select.contains(index)) {
-                                      select.remove(index);
-                                      currentoptionselected[index] = '';
-                                      currentissueselected[index] = '';
-                                      _DescrptionController[index].clear();
-                                      _PhotoDescrptionController[index].clear();
-                                      // currentindex = index;
-                                    } else {
-                                      select.add(index);
-                                      featureId[index] =
-                                          _roomsfeature.listOfFeature[index].id;
-                                      _DescrptionController.add(
-                                          TextEditingController());
-                                      _PhotoDescrptionController.add(
-                                          TextEditingController());
-                                      imgFile.add(File(""));
-                                    }
-                                  });
-                                }),
-                            Text(
-                              _roomsfeature.listOfFeature[index].name,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                    color: AppTheme.darkerText,
+      child: loading
+          ? LoadingWidget()
+          : Scaffold(
+              // floatingActionButton: Padding(
+              //   padding:
+              //       EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 14),
+              //   child: Align(
+              //     alignment: Alignment.bottomRight,
+              //     child: FloatingActionButton.extended(
+              //       onPressed: () {
+              //         setState(() {
+              //           view = true;
+              //         });
+              //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //             elevation: 0.3,
+              //             backgroundColor: Colors.transparent,
+              //             dismissDirection: DismissDirection.none,
+              //             duration: Duration(days: 5),
+              //             content: Column(
+              //               children: [
+              //                 Expanded(
+              //                   child: GestureDetector(
+              //                     onTap: () {
+              //                       ScaffoldMessenger.of(context)
+              //                           .hideCurrentSnackBar();
+              //                       setState(() {
+              //                         view = false;
+              //                       });
+              //                     },
+              //                     child: Container(
+              //                       color: Colors.transparent,
+              //                     ),
+              //                   ),
+              //                 ),
+              //                 Container(
+              //                   margin: EdgeInsets.only(bottom: 30),
+              //                   height: size.height * 0.12,
+              //                   padding: EdgeInsets.only(left: 15),
+              //                   decoration: BoxDecoration(
+              //                       border: Border.all(
+              //                           color: AppTheme.grey.withOpacity(0.5),
+              //                           width: 2),
+              //                       // boxShadow: [
+              //                       //   BoxShadow(
+              //                       //       color: AppTheme.grey.withOpacity(0.3),
+              //                       //       blurRadius: 3,
+              //                       //       spreadRadius: 1,
+              //                       //       offset: Offset(3, 3))
+              //                       // ],
+              //                       borderRadius: BorderRadius.circular(10),
+              //                       color: Colors.white),
+              //                   child: Stack(
+              //                     children: [
+              //                       TextFormField(
+              //                         controller: _Attentioncontroller,
+              //                         minLines: 2,
+              //                         maxLines: 100,
+              //                         textInputAction: TextInputAction.done,
+              //                         cursorColor: AppTheme.colorPrimary,
+              //                         decoration: InputDecoration(
+              //                             hintText: "Add note to inspection report",
+              //                             hintStyle:
+              //                                 Theme.of(context).textTheme.bodyText1,
+              //                             focusedBorder: UnderlineInputBorder(
+              //                                 borderSide: BorderSide(
+              //                                     color: Colors.transparent)),
+              //                             enabledBorder: UnderlineInputBorder(
+              //                                 borderSide: BorderSide(
+              //                                     color: Colors.transparent)),
+              //                             border: UnderlineInputBorder(
+              //                                 borderSide: BorderSide(
+              //                                     color: Colors.transparent))),
+              //                       ),
+              //                       Align(
+              //                         alignment: Alignment.centerRight,
+              //                         child: Container(
+              //                           decoration: BoxDecoration(
+              //                               color: AppTheme.colorPrimary,
+              //                               borderRadius: BorderRadius.only(
+              //                                   bottomLeft: Radius.circular(10),
+              //                                   topLeft: Radius.circular(10))),
+              //                           child: IconButton(
+              //                             icon: Icon(
+              //                               Icons.arrow_forward_ios,
+              //                               color: Colors.white,
+              //                             ),
+              //                             onPressed: () {
+              //                               ScaffoldMessenger.of(context)
+              //                                   .hideCurrentSnackBar();
+              //                               setState(() {
+              //                                 view = false;
+              //                               });
+              //                             },
+              //                           ),
+              //                           width: 50,
+              //                         ),
+              //                       )
+              //                     ],
+              //                   ),
+              //                 ),
+              //               ],
+              //             )));
+              //       },
+              //       backgroundColor: view == true
+              //           ? Colors.transparent.withOpacity(0)
+              //           : AppTheme.colorPrimary,
+              //       elevation: 0,
+              //       label: Text(
+              //         'Want to Add Comment?',
+              //         style: TextStyle(
+              //             fontSize: MediaQuery.of(context).size.height / 55),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              //  resizeToAvoidBottomInset: false,
+              // appBar: AppBar(
+              //   leading: Container(),
+              //   elevation: 0,
+              // ),
+              body: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      height: size.height * 0.08,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                          color: AppTheme.colorPrimary),
+                      child: Center(
+                        child: Text(
+                          "What items in this room would you like to dazl up ?",
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 12,
+                                    color: lightColor.withOpacity(.9),
                                   ),
-                            )
-                          ],
                         ),
-                        select.contains(index)
-                            ? Container(
-                                padding: EdgeInsets.only(left: 15, right: 15),
-                                //color: Colors.amber,
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          currentoptionselected[index] != ''
-                                              ? MainAxisAlignment.spaceAround
-                                              : MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: size.width / 2.3,
-                                          decoration: BoxDecoration(
-                                              // color: Colors.blue,
-                                              // borderRadius:
-                                              //     BorderRadius.circular(20)
-                                              ),
-                                          child: DropdownButton<String>(
-                                            isExpanded: true,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            hint:
-                                                currentoptionselected[index] ==
-                                                        ''
-                                                    ? Text('Select Option')
-                                                    : Text(
-                                                        currentoptionselected[
-                                                            index]),
-                                            items: _roomsfeature.listOfoption
-                                                .where((c) =>
-                                                    c.featureId ==
-                                                    featureId[index])
-                                                .map((dropdownselect) {
-                                              return DropdownMenuItem<String>(
-                                                child:
-                                                    Text(dropdownselect.name),
-                                                value: dropdownselect.name,
-                                                onTap: () {
-                                                  c[index] = dropdownselect.id;
-                                                },
-                                              );
-                                            }).toList(),
-                                            onChanged:
-                                                (newselectedvalue) async {
-                                              currentoptionselected[index] =
-                                                  newselectedvalue!;
-                                              featureoptionid[index] = c[index];
-                                              indexs = index;
-                                              currentoptionselectedid
-                                                  .add(c[index]);
-
-                                              setState(() {});
-                                            },
-                                          ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
+                    Expanded(
+                      // height: size.height * 0.63,
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: _roomsfeature.listOfFeature.length,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return SizedBox(
+                            height: 10,
+                          );
+                        },
+                        itemBuilder: (BuildContext context, int index) {
+                          return Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Checkbox(
+                                      activeColor: AppTheme.colorPrimary,
+                                      value: select.contains(index),
+                                      onChanged: (val) {
+                                        setState(() {
+                                          if (select.contains(index)) {
+                                            select.remove(index);
+                                            currentoptionselected[index] = '';
+                                            currentissueselected[index] = '';
+                                            imgFile[index].clear();
+                                            _DescrptionController[index]
+                                                .clear();
+                                            _PhotoDescrptionController[index]
+                                                .clear();
+                                            // currentindex = index;
+                                          } else {
+                                            select.add(index);
+                                            featureId[index] = _roomsfeature
+                                                .listOfFeature[index].id;
+                                          }
+                                        });
+                                      }),
+                                  Text(
+                                    _roomsfeature.listOfFeature[index].name,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          color: AppTheme.darkerText,
                                         ),
-                                        currentoptionselected[index] != ''
-                                            ? Column(
-                                                children: [
-                                                  Container(
-                                                    width: size.width / 2.3,
-                                                    decoration: BoxDecoration(
-                                                        // color: Colors.red,
-                                                        // borderRadius:
-                                                        //     BorderRadius.circular(20)
-                                                        ),
-                                                    child:
-                                                        DropdownButton<String>(
-                                                      isExpanded: true,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                      hint: currentissueselected[
-                                                                  index] ==
-                                                              ''
-                                                          ? Text('Select issue')
-                                                          : Text(
-                                                              currentissueselected[
-                                                                  index]),
-                                                      items: _roomsfeature
-                                                          .listOfissues
-                                                          .where((e) =>
-                                                              e.featureOptionId ==
-                                                              c[index])
-                                                          .map(
-                                                              (dropdownselect) {
-                                                        return DropdownMenuItem<
-                                                            String>(
-                                                          child: Text(
-                                                              dropdownselect
-                                                                  .name),
-                                                          value: dropdownselect
-                                                              .name,
-                                                        );
-                                                      }).toList(),
-                                                      onChanged:
-                                                          (newselectedvalue) {
-                                                        currentissueselected[
-                                                                index] =
-                                                            newselectedvalue!;
-                                                        setState(() {});
-                                                      },
+                                  )
+                                ],
+                              ),
+                              select.contains(index)
+                                  ? Container(
+                                      padding:
+                                          EdgeInsets.only(left: 15, right: 15),
+                                      //color: Colors.amber,
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                currentoptionselected[index] !=
+                                                        ''
+                                                    ? MainAxisAlignment
+                                                        .spaceAround
+                                                    : MainAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: size.width / 2.3,
+                                                decoration: BoxDecoration(
+                                                    // color: Colors.blue,
+                                                    // borderRadius:
+                                                    //     BorderRadius.circular(20)
                                                     ),
-                                                  ),
-                                                ],
-                                              )
-                                            : Container()
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        // log('hjhjf' +
-                                        //     _DescrptionController[index].text);
+                                                child: DropdownButton<String>(
+                                                  isExpanded: true,
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  hint: currentoptionselected[
+                                                              index] ==
+                                                          ''
+                                                      ? Text('Select Option')
+                                                      : Text(
+                                                          currentoptionselected[
+                                                              index]),
+                                                  items: _roomsfeature
+                                                      .listOfoption
+                                                      .where((c) =>
+                                                          c.featureId ==
+                                                          featureId[index])
+                                                      .map((dropdownselect) {
+                                                    return DropdownMenuItem<
+                                                        String>(
+                                                      child: Text(
+                                                          dropdownselect.name),
+                                                      value:
+                                                          dropdownselect.name,
+                                                      onTap: () {
+                                                        c[index] =
+                                                            dropdownselect.id;
+                                                      },
+                                                    );
+                                                  }).toList(),
+                                                  onChanged:
+                                                      (newselectedvalue) async {
+                                                    currentoptionselected[
+                                                            index] =
+                                                        newselectedvalue!;
+                                                    featureoptionid[index] =
+                                                        c[index];
+                                                    indexs = index;
+                                                    currentoptionselectedid
+                                                        .add(c[index]);
 
-                                        showOptionsDialog(context, index);
-                                        // imgFile.removeWhere((element) =>
-                                        //     ["", 0].contains(element));
-                                        //  log('djdkjij' + imgFile.toString());
-                                      },
-                                      child: Container(
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                                padding: EdgeInsets.only(
-                                                    top: 7,
-                                                    bottom: 7,
-                                                    left: 12,
-                                                    right: 12),
-                                                decoration: BoxDecoration(
-                                                    color: AppTheme.colorPrimary
-                                                        .withOpacity(0.4),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15)),
-                                                child: Text('+ Photos')),
-                                            SizedBox(width: 10),
-                                            Expanded(
-                                              child: Container(
-                                                padding:
-                                                    EdgeInsets.only(left: 7),
-                                                height: size.height * 0.05,
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: AppTheme.grey
-                                                            .withOpacity(0.5),
-                                                        width: 2),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15),
-                                                    color: Colors.white),
-                                                child: TextFormField(
-                                                  controller:
-                                                      _PhotoDescrptionController[
-                                                          index],
-                                                  textInputAction:
-                                                      TextInputAction.done,
-                                                  cursorColor:
-                                                      AppTheme.colorPrimary,
-                                                  decoration: InputDecoration(
-                                                      hintText:
-                                                          "Add Photo Description",
-                                                      hintStyle: TextStyle(
-                                                          fontSize: 14),
-                                                      focusedBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .transparent)),
-                                                      enabledBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .transparent)),
-                                                      border: UnderlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color: Colors
-                                                                  .transparent))),
+                                                    setState(() {});
+                                                  },
                                                 ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            CircleAvatar(
-                                              radius: 18,
-                                              backgroundColor: AppTheme
-                                                  .colorPrimary
-                                                  .withOpacity(0.6),
-                                              child: IconButton(
-                                                  onPressed: () {
-                                                    imgFile.removeWhere(
-                                                        (element) => ["", 0]
-                                                            .contains(element));
-                                                    _DescrptionController
-                                                        .removeWhere(
-                                                            (element) => ['', 0]
-                                                                .contains(
-                                                                    element));
-                                                    setState(() {
-                                                      imgFile[index] == null ||
-                                                              imgFile[index]
-                                                                      .toString() ==
-                                                                  File('')
-                                                                      .toString()
-                                                          ? null
-                                                          : selectphoto.add(
-                                                              imgFile[index]);
-                                                      _PhotoDescrptionController[
-                                                                              index]
-                                                                          .text ==
-                                                                      '' 
-                                                          ? _addphotodescription
-                                                              .add('')
-                                                          : _addphotodescription
-                                                              .add(
-                                                                  _PhotoDescrptionController[
-                                                                          index]
-                                                                      .text);
-                                                    });
-                                                    log('fnfkj' +
-                                                        selectphoto.toString());
-                                                    log('fnfkj' +
-                                                        _addphotodescription
-                                                            .toString());
-                                                    _PhotoDescrptionController[
-                                                            index]
-                                                        .clear();
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.send,
-                                                    color: Colors.white,
-                                                    size: 18,
-                                                  )),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    imgFile[index] == null ||
-                                            imgFile[index].toString() ==
-                                                File('').toString()
-                                        ? SizedBox()
-                                        : ListView.separated(
-                                            separatorBuilder: (context, index) {
-                                              return SizedBox(
-                                                height: 10,
-                                              );
+                                              currentoptionselected[index] != ''
+                                                  ? Column(
+                                                      children: [
+                                                        Container(
+                                                          width:
+                                                              size.width / 2.3,
+                                                          decoration: BoxDecoration(
+                                                              // color: Colors.red,
+                                                              // borderRadius:
+                                                              //     BorderRadius.circular(20)
+                                                              ),
+                                                          child: DropdownButton<
+                                                              String>(
+                                                            isExpanded: true,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20),
+                                                            hint: currentissueselected[
+                                                                        index] ==
+                                                                    ''
+                                                                ? Text(
+                                                                    'Select issue')
+                                                                : Text(
+                                                                    currentissueselected[
+                                                                        index]),
+                                                            items: _roomsfeature
+                                                                .listOfissues
+                                                                .where((e) =>
+                                                                    e.featureOptionId ==
+                                                                    c[index])
+                                                                .map(
+                                                                    (dropdownselect) {
+                                                              return DropdownMenuItem<
+                                                                  String>(
+                                                                child: Text(
+                                                                    dropdownselect
+                                                                        .name),
+                                                                value:
+                                                                    dropdownselect
+                                                                        .name,
+                                                              );
+                                                            }).toList(),
+                                                            onChanged:
+                                                                (newselectedvalue) {
+                                                              currentissueselected[
+                                                                      index] =
+                                                                  newselectedvalue!;
+                                                              setState(() {});
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  : Container()
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              // log('hjhjf' +
+                                              //     _DescrptionController[index].text);
+                                              showOptionsDialog(context, index);
+                                              // imgFile.removeWhere((element) =>
+                                              //     ["", 0].contains(element));
+                                              //  log('djdkjij' + imgFile.toString());
                                             },
-                                            shrinkWrap: true,
-                                            physics:
-                                                NeverScrollableScrollPhysics(),
-                                            itemCount: selectphoto.length,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return Row(
+                                            child: Container(
+                                              child: Row(
                                                 children: [
                                                   Container(
-                                                    height: 60,
-                                                    width: 60,
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        fit: BoxFit.cover,
-                                                        image: FileImage(
-                                                          selectphoto[index],
-                                                        ),
+                                                      padding: EdgeInsets.only(
+                                                          top: 7,
+                                                          bottom: 7,
+                                                          left: 12,
+                                                          right: 12),
+                                                      decoration: BoxDecoration(
+                                                          color: AppTheme
+                                                              .colorPrimary
+                                                              .withOpacity(0.4),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      15)),
+                                                      child: Text('+ Photos')),
+                                                  SizedBox(width: 10),
+                                                  Expanded(
+                                                    child: Container(
+                                                      padding: EdgeInsets.only(
+                                                          left: 7),
+                                                      height:
+                                                          size.height * 0.05,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: AppTheme
+                                                                  .grey
+                                                                  .withOpacity(
+                                                                      0.5),
+                                                              width: 2),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                          color: Colors.white),
+                                                      child: TextFormField(
+                                                        controller:
+                                                            _PhotoDescrptionController[
+                                                                index],
+                                                        // textInputAction:
+                                                        //     TextInputAction.done,
+                                                        cursorColor: AppTheme
+                                                            .colorPrimary,
+                                                        decoration: InputDecoration(
+                                                            hintText:
+                                                                "Add Photo Description",
+                                                            hintStyle: TextStyle(
+                                                                fontSize: 14),
+                                                            focusedBorder: UnderlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    color: Colors
+                                                                        .transparent)),
+                                                            enabledBorder: UnderlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    color: Colors
+                                                                        .transparent)),
+                                                            border: UnderlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    color: Colors
+                                                                        .transparent))),
                                                       ),
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    width: 20,
+                                                    width: 5,
                                                   ),
-                                                  Expanded(
-                                                    child: _addphotodescription[
-                                                                index] ==
-                                                            ''
-                                                        ? Text('None')
-                                                        : Text(
-                                                            _addphotodescription[
-                                                                index]),
+                                                  CircleAvatar(
+                                                    radius: 18,
+                                                    backgroundColor: AppTheme
+                                                        .colorPrimary
+                                                        .withOpacity(0.6),
+                                                    child: IconButton(
+                                                        onPressed: () {
+                                                          // imgFile.removeWhere(
+                                                          //     (element) => [[], 0]
+                                                          //         .contains(element));
+                                                          _PhotoDescrptionController
+                                                              .removeWhere(
+                                                                  (element) => [
+                                                                        '',
+                                                                        0
+                                                                      ].contains(
+                                                                          element));
+                                                          _addphotodescription
+                                                              .removeWhere(
+                                                                  (element) => [
+                                                                        '',
+                                                                        0
+                                                                      ].contains(
+                                                                          element));
+                                                          setState(() {
+                                                            view = false;
+                                                            // imgFile[index] == null ||
+                                                            //         imgFile[index]
+                                                            //                 .toString() ==
+                                                            //             File('')
+                                                            //                 .toString()
+                                                            //     ? null
+                                                            //     : selectphoto.add(
+                                                            //         imgFile[index]);
+                                                            _PhotoDescrptionController[
+                                                                            index]
+                                                                        .text ==
+                                                                    ''
+                                                                ? null
+                                                                : _addphotodescription.add(
+                                                                    _PhotoDescrptionController[
+                                                                            index]
+                                                                        .text);
+                                                          });
+                                                          log('fnfkj' +
+                                                              imgFile
+                                                                  .toString());
+                                                          // log('fnfkj' +
+                                                          //     _addphotodescription
+                                                          //         .toString());
+                                                          _PhotoDescrptionController[
+                                                                  index]
+                                                              .clear();
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.send,
+                                                          color: Colors.white,
+                                                          size: 18,
+                                                        )),
                                                   )
                                                 ],
-                                              );
-                                            },
+                                              ),
+                                            ),
                                           ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Container(
-                                      height: size.height * 0.12,
-                                      padding: EdgeInsets.only(left: 15),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: AppTheme.grey
-                                                  .withOpacity(0.5),
-                                              width: 2),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.white),
-                                      child: TextFormField(
-                                        controller:
-                                            _DescrptionController[index],
-                                        minLines: 2,
-                                        maxLines: 100,
-                                        textInputAction: TextInputAction.done,
-                                        cursorColor: AppTheme.colorPrimary,
-                                        decoration: InputDecoration(
-                                            hintText:
-                                                "Add note to inspection report",
-                                            hintStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1,
-                                            focusedBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.transparent)),
-                                            enabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.transparent)),
-                                            border: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color:
-                                                        Colors.transparent))),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          imgFile[index] == null ||
+                                                  imgFile[index].toString() ==
+                                                      File('').toString()
+                                              ? SizedBox()
+                                              :
+                                              // view
+                                              //     ? SizedBox()
+                                              //     :
+                                              ListView.separated(
+                                                  separatorBuilder:
+                                                      (context, subIndex) {
+                                                    return SizedBox(
+                                                      height: 10,
+                                                    );
+                                                  },
+                                                  shrinkWrap: true,
+                                                  physics:
+                                                      NeverScrollableScrollPhysics(),
+                                                  itemCount:
+                                                      imgFile[index].length,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int subIndex) {
+                                                    return ListTile(
+                                                      leading: Container(
+                                                        height: 60,
+                                                        width: 60,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          image:
+                                                              DecorationImage(
+                                                            fit: BoxFit.cover,
+                                                            image: FileImage(
+                                                              imgFile[index]
+                                                                  [subIndex],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      title: _addphotodescription[
+                                                                  subIndex] ==
+                                                              ''
+                                                          ? Text('')
+                                                          : Text(
+                                                              _addphotodescription[
+                                                                  subIndex]),
+                                                      trailing: IconButton(
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              // imgFile[subIndex]
+                                                              //     .clear();
+                                                            });
+                                                          },
+                                                          icon: Icon(
+                                                            Icons.cancel,
+                                                            size: 20,
+                                                          )),
+                                                    );
+                                                  },
+                                                ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Container(
+                                            height: size.height * 0.12,
+                                            padding: EdgeInsets.only(left: 15),
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: AppTheme.grey
+                                                        .withOpacity(0.5),
+                                                    width: 2),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Colors.white),
+                                            child: TextFormField(
+                                              controller:
+                                                  _DescrptionController[index],
+                                              minLines: 2,
+                                              maxLines: 100,
+                                              textInputAction:
+                                                  TextInputAction.done,
+                                              cursorColor:
+                                                  AppTheme.colorPrimary,
+                                              decoration: InputDecoration(
+                                                  hintText:
+                                                      "Add note to inspection report",
+                                                  hintStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText1,
+                                                  focusedBorder:
+                                                      UnderlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Colors
+                                                                  .transparent)),
+                                                  enabledBorder:
+                                                      UnderlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Colors
+                                                                  .transparent)),
+                                                  border: UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors
+                                                              .transparent))),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : Container()
-                      ],
-                    );
-                  },
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  height: size.height * 0.08,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                      color: AppTheme.colorPrimary),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.arrow_back_ios,
-                              size: 20,
-                              color: AppTheme.white,
-                            ),
-                            Text(
-                              "Previous",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(
-                                    fontSize: 18,
-                                    color: lightColor.withOpacity(.9),
-                                  ),
-                            )
-                          ],
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          // currentoptionselected[indexs] == null ||
-                          //         currentoptionselected[indexs] == ""
-                          //     ? ScaffoldMessenger.of(context)
-                          //         .showSnackBar(SnackBar(
-                          //         content: Text('Select Option'),
-                          //       ))
-                          //     :
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => TellusMore(
-                                currentoptionselected: currentoptionselected,
-                                currentissueselected: currentissueselected,
-                                imgFile: imgFile,
-                                DescrptionController: _DescrptionController,
-                              ),
-                            ),
+                                    )
+                                  : Container()
+                            ],
                           );
                         },
-                        child: Row(
-                          children: [
-                            Text(
-                              "Next",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(
-                                    fontSize: 18,
-                                    color: lightColor.withOpacity(.9),
-                                  ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        height: size.height * 0.08,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
                             ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              size: 20,
-                              color: AppTheme.white,
+                            color: AppTheme.colorPrimary),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.arrow_back_ios,
+                                    size: 20,
+                                    color: AppTheme.white,
+                                  ),
+                                  Text(
+                                    "Previous",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(
+                                          fontSize: 18,
+                                          color: lightColor.withOpacity(.9),
+                                        ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                // currentoptionselected[indexs] == null ||
+                                //         currentoptionselected[indexs] == ""
+                                //     ? ScaffoldMessenger.of(context)
+                                //         .showSnackBar(SnackBar(
+                                //         content: Text('Select Option'),
+                                //       ))
+                                //     :
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => TellusMore(
+                                      currentoptionselected:
+                                          currentoptionselected,
+                                      currentissueselected:
+                                          currentissueselected,
+                                      imgFile: imgFile,
+                                      DescrptionController:
+                                          _DescrptionController,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Next",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(
+                                          fontSize: 18,
+                                          color: lightColor.withOpacity(.9),
+                                        ),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 20,
+                                    color: AppTheme.white,
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 
-  Future<void> showOptionsDialog(BuildContext context, index) {
+  Future<void> showOptionsDialog(
+    BuildContext context,
+    index,
+  ) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -734,7 +801,9 @@ class _NeedAttentionState extends State<NeedAttention> {
                       ],
                     ),
                     onTap: () {
-                      openCamera(index);
+                      openCamera(
+                        index,
+                      );
                     },
                   ),
                   GestureDetector(
@@ -748,7 +817,9 @@ class _NeedAttentionState extends State<NeedAttention> {
                       ],
                     ),
                     onTap: () {
-                      openGallery(index);
+                      openGallery(
+                        index,
+                      );
                     },
                   ),
                 ],
@@ -758,74 +829,78 @@ class _NeedAttentionState extends State<NeedAttention> {
         });
   }
 
-  Widget addphoto(int index, Size size) {
-    return GestureDetector(
-      onTap: () {
-        log('djdkjij' + imgFile.toString());
-        showOptionsDialog(context, index);
-      },
-      child: Container(
-        child: Row(
-          children: [
-            Container(
-              padding: EdgeInsets.only(top: 7, bottom: 7, left: 12, right: 12),
-              decoration: BoxDecoration(
-                  color: AppTheme.colorPrimary.withOpacity(0.4),
-                  borderRadius: BorderRadius.circular(15)),
-              child: imgFile[index] == null ||
-                      imgFile[index].toString() == File('').toString()
-                  ? Text('+ Photos')
-                  : Image.file(
-                      imgFile[index],
-                      height: 30,
-                      width: 50,
-                      fit: BoxFit.cover,
-                    ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.only(left: 7),
-                height: size.height * 0.05,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: AppTheme.grey.withOpacity(0.5), width: 2),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white),
-                child: TextFormField(
-                  controller: _PhotoDescrptionController[index],
-                  textInputAction: TextInputAction.done,
-                  cursorColor: AppTheme.colorPrimary,
-                  decoration: InputDecoration(
-                      hintText: "Add Photo Description",
-                      hintStyle: TextStyle(fontSize: 14),
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent)),
-                      enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent)),
-                      border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent))),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget addphoto(int index, Size size) {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       log('djdkjij' + imgFile.toString());
+  //       showOptionsDialog(context, index);
+  //     },
+  //     child: Container(
+  //       child: Row(
+  //         children: [
+  //           Container(
+  //             padding: EdgeInsets.only(top: 7, bottom: 7, left: 12, right: 12),
+  //             decoration: BoxDecoration(
+  //                 color: AppTheme.colorPrimary.withOpacity(0.4),
+  //                 borderRadius: BorderRadius.circular(15)),
+  //             child: imgFile[index] == null ||
+  //                     imgFile[index].toString() == File('').toString()
+  //                 ? Text('+ Photos')
+  //                 : Image.file(
+  //                     imgFile[index],
+  //                     height: 30,
+  //                     width: 50,
+  //                     fit: BoxFit.cover,
+  //                   ),
+  //           ),
+  //           SizedBox(width: 10),
+  //           Expanded(
+  //             child: Container(
+  //               padding: EdgeInsets.only(left: 7),
+  //               height: size.height * 0.05,
+  //               decoration: BoxDecoration(
+  //                   border: Border.all(
+  //                       color: AppTheme.grey.withOpacity(0.5), width: 2),
+  //                   borderRadius: BorderRadius.circular(15),
+  //                   color: Colors.white),
+  //               child: TextFormField(
+  //                 controller: _PhotoDescrptionController[index],
+  //                 textInputAction: TextInputAction.done,
+  //                 cursorColor: AppTheme.colorPrimary,
+  //                 decoration: InputDecoration(
+  //                     hintText: "Add Photo Description",
+  //                     hintStyle: TextStyle(fontSize: 14),
+  //                     focusedBorder: UnderlineInputBorder(
+  //                         borderSide: BorderSide(color: Colors.transparent)),
+  //                     enabledBorder: UnderlineInputBorder(
+  //                         borderSide: BorderSide(color: Colors.transparent)),
+  //                     border: UnderlineInputBorder(
+  //                         borderSide: BorderSide(color: Colors.transparent))),
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  void openCamera(index) async {
+  void openCamera(
+    int index,
+  ) async {
     var imgCamera = await imgPicker.getImage(source: ImageSource.camera);
     setState(() {
-      imgFile[index] = File(imgCamera!.path);
+      imgFile[index].add(File(imgCamera!.path));
     });
     Navigator.of(context).pop();
   }
 
-  void openGallery(index) async {
+  void openGallery(
+    int index,
+  ) async {
     var imgGallery = await imgPicker.getImage(source: ImageSource.gallery);
     setState(() {
-      imgFile[index] = File(imgGallery!.path);
+      imgFile[index].add(File(imgGallery!.path));
     });
     Navigator.of(context).pop();
   }

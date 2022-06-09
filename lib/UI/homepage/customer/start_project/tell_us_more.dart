@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class TellusMore extends StatefulWidget {
   List<String> currentoptionselected;
   List<String> currentissueselected;
-  List<File> imgFile;
+  List imgFile;
   List<TextEditingController> DescrptionController;
   TellusMore(
       {required this.currentoptionselected,
