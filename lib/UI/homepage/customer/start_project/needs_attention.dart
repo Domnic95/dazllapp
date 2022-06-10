@@ -36,7 +36,7 @@ class _NeedAttentionState extends State<NeedAttention> {
   List<int> select = [];
   List<TextEditingController> _DescrptionController = [];
   List<TextEditingController> _PhotoDescrptionController = [];
-  List<String> _addphotodescription = [];
+  List<List<String>> _addphotodescription = [];
   // List<Widget> _addphoto = [];
   int indexs = 0;
   bool loading = true;
@@ -53,7 +53,7 @@ class _NeedAttentionState extends State<NeedAttention> {
     await _roomsfeature.getRoomsFeature(roomid);
     await _roomsfeature.getFeatureOptionIssues();
 
-    print('loadta Length = ${_roomsfeature.listOfFeature.length}');
+    // print('loadta Length = ${_roomsfeature.listOfFeature.length}');
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
       currentoptionselected.add('');
     }
@@ -70,7 +70,7 @@ class _NeedAttentionState extends State<NeedAttention> {
       currentissueselected.add('');
     }
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      _addphotodescription.add('');
+      _addphotodescription.add([]);
     }
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
       _DescrptionController.add(TextEditingController());
@@ -80,8 +80,9 @@ class _NeedAttentionState extends State<NeedAttention> {
     }
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
       imgFile.add([]);
-      // imgFile[i].add(File(""));
-
+    }
+    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+      _addphotodescription.add([]);
     }
     setState(() {
       loading = false;
@@ -98,123 +99,6 @@ class _NeedAttentionState extends State<NeedAttention> {
       child: loading
           ? LoadingWidget()
           : Scaffold(
-              // floatingActionButton: Padding(
-              //   padding:
-              //       EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 14),
-              //   child: Align(
-              //     alignment: Alignment.bottomRight,
-              //     child: FloatingActionButton.extended(
-              //       onPressed: () {
-              //         setState(() {
-              //           view = true;
-              //         });
-              //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              //             elevation: 0.3,
-              //             backgroundColor: Colors.transparent,
-              //             dismissDirection: DismissDirection.none,
-              //             duration: Duration(days: 5),
-              //             content: Column(
-              //               children: [
-              //                 Expanded(
-              //                   child: GestureDetector(
-              //                     onTap: () {
-              //                       ScaffoldMessenger.of(context)
-              //                           .hideCurrentSnackBar();
-              //                       setState(() {
-              //                         view = false;
-              //                       });
-              //                     },
-              //                     child: Container(
-              //                       color: Colors.transparent,
-              //                     ),
-              //                   ),
-              //                 ),
-              //                 Container(
-              //                   margin: EdgeInsets.only(bottom: 30),
-              //                   height: size.height * 0.12,
-              //                   padding: EdgeInsets.only(left: 15),
-              //                   decoration: BoxDecoration(
-              //                       border: Border.all(
-              //                           color: AppTheme.grey.withOpacity(0.5),
-              //                           width: 2),
-              //                       // boxShadow: [
-              //                       //   BoxShadow(
-              //                       //       color: AppTheme.grey.withOpacity(0.3),
-              //                       //       blurRadius: 3,
-              //                       //       spreadRadius: 1,
-              //                       //       offset: Offset(3, 3))
-              //                       // ],
-              //                       borderRadius: BorderRadius.circular(10),
-              //                       color: Colors.white),
-              //                   child: Stack(
-              //                     children: [
-              //                       TextFormField(
-              //                         controller: _Attentioncontroller,
-              //                         minLines: 2,
-              //                         maxLines: 100,
-              //                         textInputAction: TextInputAction.done,
-              //                         cursorColor: AppTheme.colorPrimary,
-              //                         decoration: InputDecoration(
-              //                             hintText: "Add note to inspection report",
-              //                             hintStyle:
-              //                                 Theme.of(context).textTheme.bodyText1,
-              //                             focusedBorder: UnderlineInputBorder(
-              //                                 borderSide: BorderSide(
-              //                                     color: Colors.transparent)),
-              //                             enabledBorder: UnderlineInputBorder(
-              //                                 borderSide: BorderSide(
-              //                                     color: Colors.transparent)),
-              //                             border: UnderlineInputBorder(
-              //                                 borderSide: BorderSide(
-              //                                     color: Colors.transparent))),
-              //                       ),
-              //                       Align(
-              //                         alignment: Alignment.centerRight,
-              //                         child: Container(
-              //                           decoration: BoxDecoration(
-              //                               color: AppTheme.colorPrimary,
-              //                               borderRadius: BorderRadius.only(
-              //                                   bottomLeft: Radius.circular(10),
-              //                                   topLeft: Radius.circular(10))),
-              //                           child: IconButton(
-              //                             icon: Icon(
-              //                               Icons.arrow_forward_ios,
-              //                               color: Colors.white,
-              //                             ),
-              //                             onPressed: () {
-              //                               ScaffoldMessenger.of(context)
-              //                                   .hideCurrentSnackBar();
-              //                               setState(() {
-              //                                 view = false;
-              //                               });
-              //                             },
-              //                           ),
-              //                           width: 50,
-              //                         ),
-              //                       )
-              //                     ],
-              //                   ),
-              //                 ),
-              //               ],
-              //             )));
-              //       },
-              //       backgroundColor: view == true
-              //           ? Colors.transparent.withOpacity(0)
-              //           : AppTheme.colorPrimary,
-              //       elevation: 0,
-              //       label: Text(
-              //         'Want to Add Comment?',
-              //         style: TextStyle(
-              //             fontSize: MediaQuery.of(context).size.height / 55),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              //  resizeToAvoidBottomInset: false,
-              // appBar: AppBar(
-              //   leading: Container(),
-              //   elevation: 0,
-              // ),
               body: Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -266,6 +150,7 @@ class _NeedAttentionState extends State<NeedAttention> {
                                             currentoptionselected[index] = '';
                                             currentissueselected[index] = '';
                                             imgFile[index].clear();
+                                            _addphotodescription[index].clear();
                                             _DescrptionController[index]
                                                 .clear();
                                             _PhotoDescrptionController[index]
@@ -419,12 +304,7 @@ class _NeedAttentionState extends State<NeedAttention> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              // log('hjhjf' +
-                                              //     _DescrptionController[index].text);
                                               showOptionsDialog(context, index);
-                                              // imgFile.removeWhere((element) =>
-                                              //     ["", 0].contains(element));
-                                              //  log('djdkjij' + imgFile.toString());
                                             },
                                             child: Container(
                                               child: Row(
@@ -500,52 +380,14 @@ class _NeedAttentionState extends State<NeedAttention> {
                                                         .withOpacity(0.6),
                                                     child: IconButton(
                                                         onPressed: () {
-                                                          // imgFile.removeWhere(
-                                                          //     (element) => [[], 0]
-                                                          //         .contains(element));
-                                                          _PhotoDescrptionController
-                                                              .removeWhere(
-                                                                  (element) => [
-                                                                        '',
-                                                                        0
-                                                                      ].contains(
-                                                                          element));
-                                                          _addphotodescription
-                                                              .removeWhere(
-                                                                  (element) => [
-                                                                        '',
-                                                                        0
-                                                                      ].contains(
-                                                                          element));
-                                                          setState(() {
-                                                            view = false;
-                                                            // imgFile[index] == null ||
-                                                            //         imgFile[index]
-                                                            //                 .toString() ==
-                                                            //             File('')
-                                                            //                 .toString()
-                                                            //     ? null
-                                                            //     : selectphoto.add(
-                                                            //         imgFile[index]);
-                                                            _PhotoDescrptionController[
-                                                                            index]
-                                                                        .text ==
-                                                                    ''
-                                                                ? null
-                                                                : _addphotodescription.add(
-                                                                    _PhotoDescrptionController[
-                                                                            index]
-                                                                        .text);
-                                                          });
-                                                          log('fnfkj' +
-                                                              imgFile
-                                                                  .toString());
-                                                          // log('fnfkj' +
-                                                          //     _addphotodescription
-                                                          //         .toString());
-                                                          _PhotoDescrptionController[
-                                                                  index]
-                                                              .clear();
+                                                          if (imgGallery !=
+                                                              null) {
+                                                            textphoto(index);
+                                                          }
+                                                          if (imgCamera !=
+                                                              null) {
+                                                            photocamera(index);
+                                                          }
                                                         },
                                                         icon: Icon(
                                                           Icons.send,
@@ -564,11 +406,7 @@ class _NeedAttentionState extends State<NeedAttention> {
                                                   imgFile[index].toString() ==
                                                       File('').toString()
                                               ? SizedBox()
-                                              :
-                                              // view
-                                              //     ? SizedBox()
-                                              //     :
-                                              ListView.separated(
+                                              : ListView.separated(
                                                   separatorBuilder:
                                                       (context, subIndex) {
                                                     return SizedBox(
@@ -583,44 +421,66 @@ class _NeedAttentionState extends State<NeedAttention> {
                                                   itemBuilder:
                                                       (BuildContext context,
                                                           int subIndex) {
-                                                    return ListTile(
-                                                      leading: Container(
-                                                        height: 60,
-                                                        width: 60,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                          image:
-                                                              DecorationImage(
-                                                            fit: BoxFit.cover,
-                                                            image: FileImage(
-                                                              imgFile[index]
-                                                                  [subIndex],
+                                                    return imgFile[index][
+                                                                    subIndex] ==
+                                                                File('') ||
+                                                            _addphotodescription[
+                                                                        index][
+                                                                    subIndex] ==
+                                                                ''
+                                                        ? SizedBox()
+                                                        : ListTile(
+                                                            leading: Container(
+                                                              height: 60,
+                                                              width: 60,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                                image:
+                                                                    DecorationImage(
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                  image:
+                                                                      FileImage(
+                                                                    imgFile[index]
+                                                                        [
+                                                                        subIndex],
+                                                                  ),
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      title: _addphotodescription[
-                                                                  subIndex] ==
-                                                              ''
-                                                          ? Text('')
-                                                          : Text(
-                                                              _addphotodescription[
-                                                                  subIndex]),
-                                                      trailing: IconButton(
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              // imgFile[subIndex]
-                                                              //     .clear();
-                                                            });
-                                                          },
-                                                          icon: Icon(
-                                                            Icons.cancel,
-                                                            size: 20,
-                                                          )),
-                                                    );
+                                                            title: _addphotodescription[
+                                                                        subIndex] ==
+                                                                    ''
+                                                                ? Text('')
+                                                                : Text(_addphotodescription[
+                                                                        index]
+                                                                    [subIndex]),
+                                                            trailing:
+                                                                IconButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      setState(
+                                                                          () {
+                                                                        imgFile[index]
+                                                                            .removeAt(subIndex);
+                                                                        _addphotodescription[index]
+                                                                            .removeAt(subIndex);
+                                                                      });
+                                                                      log(_addphotodescription
+                                                                          .toString());
+                                                                      log(imgFile
+                                                                          .toString());
+                                                                    },
+                                                                    icon: Icon(
+                                                                      Icons
+                                                                          .cancel,
+                                                                      size: 20,
+                                                                    )),
+                                                          );
                                                   },
                                                 ),
                                           SizedBox(
@@ -719,28 +579,21 @@ class _NeedAttentionState extends State<NeedAttention> {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () {
-                                // currentoptionselected[indexs] == null ||
-                                //         currentoptionselected[indexs] == ""
-                                //     ? ScaffoldMessenger.of(context)
-                                //         .showSnackBar(SnackBar(
-                                //         content: Text('Select Option'),
-                                //       ))
-                                //     :
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => TellusMore(
-                                      currentoptionselected:
-                                          currentoptionselected,
-                                      currentissueselected:
-                                          currentissueselected,
-                                      imgFile: imgFile,
-                                      DescrptionController:
-                                          _DescrptionController,
-                                    ),
-                                  ),
-                                );
-                              },
+                              // onTap: () {
+                              //   Navigator.of(context).push(
+                              //     MaterialPageRoute(
+                              //       builder: (context) => TellusMore(
+                              //         currentoptionselected:
+                              //             currentoptionselected,
+                              //         currentissueselected:
+                              //             currentissueselected,
+                              //         imgFile: imgFile,
+                              //         DescrptionController:
+                              //             _DescrptionController,
+                              //       ),
+                              //     ),
+                              //   );
+                              // },
                               child: Row(
                                 children: [
                                   Text(
@@ -829,79 +682,174 @@ class _NeedAttentionState extends State<NeedAttention> {
         });
   }
 
-  // Widget addphoto(int index, Size size) {
-  //   return GestureDetector(
-  //     onTap: () {
-  //       log('djdkjij' + imgFile.toString());
-  //       showOptionsDialog(context, index);
-  //     },
-  //     child: Container(
-  //       child: Row(
-  //         children: [
-  //           Container(
-  //             padding: EdgeInsets.only(top: 7, bottom: 7, left: 12, right: 12),
-  //             decoration: BoxDecoration(
-  //                 color: AppTheme.colorPrimary.withOpacity(0.4),
-  //                 borderRadius: BorderRadius.circular(15)),
-  //             child: imgFile[index] == null ||
-  //                     imgFile[index].toString() == File('').toString()
-  //                 ? Text('+ Photos')
-  //                 : Image.file(
-  //                     imgFile[index],
-  //                     height: 30,
-  //                     width: 50,
-  //                     fit: BoxFit.cover,
-  //                   ),
-  //           ),
-  //           SizedBox(width: 10),
-  //           Expanded(
-  //             child: Container(
-  //               padding: EdgeInsets.only(left: 7),
-  //               height: size.height * 0.05,
-  //               decoration: BoxDecoration(
-  //                   border: Border.all(
-  //                       color: AppTheme.grey.withOpacity(0.5), width: 2),
-  //                   borderRadius: BorderRadius.circular(15),
-  //                   color: Colors.white),
-  //               child: TextFormField(
-  //                 controller: _PhotoDescrptionController[index],
-  //                 textInputAction: TextInputAction.done,
-  //                 cursorColor: AppTheme.colorPrimary,
-  //                 decoration: InputDecoration(
-  //                     hintText: "Add Photo Description",
-  //                     hintStyle: TextStyle(fontSize: 14),
-  //                     focusedBorder: UnderlineInputBorder(
-  //                         borderSide: BorderSide(color: Colors.transparent)),
-  //                     enabledBorder: UnderlineInputBorder(
-  //                         borderSide: BorderSide(color: Colors.transparent)),
-  //                     border: UnderlineInputBorder(
-  //                         borderSide: BorderSide(color: Colors.transparent))),
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
+  late var imgCamera;
   void openCamera(
     int index,
   ) async {
-    var imgCamera = await imgPicker.getImage(source: ImageSource.camera);
-    setState(() {
-      imgFile[index].add(File(imgCamera!.path));
-    });
+    imgCamera = await imgPicker.getImage(source: ImageSource.camera);
     Navigator.of(context).pop();
   }
 
+  late var imgGallery;
   void openGallery(
     int index,
   ) async {
-    var imgGallery = await imgPicker.getImage(source: ImageSource.gallery);
-    setState(() {
-      imgFile[index].add(File(imgGallery!.path));
-    });
+    imgGallery = await imgPicker.getImage(source: ImageSource.gallery);
     Navigator.of(context).pop();
   }
+
+  void textphoto(int index) {
+    setState(() {
+      if (_PhotoDescrptionController[index].text.isEmpty ||
+          imgGallery == null) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Add description or Photo'),
+        ));
+      } else {
+        _addphotodescription[index].add(_PhotoDescrptionController[index].text);
+        imgFile[index].add(File(imgGallery.path));
+        _PhotoDescrptionController[index].clear();
+        imgGallery = null;
+        log(imgGallery.toString());
+        log(imgFile.toString());
+        log(_addphotodescription.toString());
+      }
+    });
+  }
+
+  void photocamera(int index) {
+    setState(() {
+      if (_PhotoDescrptionController[index].text.isEmpty || imgCamera == null) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Add description or Photo'),
+        ));
+      } else {
+        _addphotodescription[index].add(_PhotoDescrptionController[index].text);
+        imgFile[index].add(File(imgCamera.path));
+        _PhotoDescrptionController[index].clear();
+        imgCamera = null;
+        log(imgCamera.toString());
+        log(imgFile.toString());
+        log(_addphotodescription.toString());
+      }
+    });
+  }
 }
+
+// floatingActionButton: Padding(
+//   padding:
+//       EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 14),
+//   child: Align(
+//     alignment: Alignment.bottomRight,
+//     child: FloatingActionButton.extended(
+//       onPressed: () {
+//         setState(() {
+//           view = true;
+//         });
+//         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//             elevation: 0.3,
+//             backgroundColor: Colors.transparent,
+//             dismissDirection: DismissDirection.none,
+//             duration: Duration(days: 5),
+//             content: Column(
+//               children: [
+//                 Expanded(
+//                   child: GestureDetector(
+//                     onTap: () {
+//                       ScaffoldMessenger.of(context)
+//                           .hideCurrentSnackBar();
+//                       setState(() {
+//                         view = false;
+//                       });
+//                     },
+//                     child: Container(
+//                       color: Colors.transparent,
+//                     ),
+//                   ),
+//                 ),
+//                 Container(
+//                   margin: EdgeInsets.only(bottom: 30),
+//                   height: size.height * 0.12,
+//                   padding: EdgeInsets.only(left: 15),
+//                   decoration: BoxDecoration(
+//                       border: Border.all(
+//                           color: AppTheme.grey.withOpacity(0.5),
+//                           width: 2),
+//                       // boxShadow: [
+//                       //   BoxShadow(
+//                       //       color: AppTheme.grey.withOpacity(0.3),
+//                       //       blurRadius: 3,
+//                       //       spreadRadius: 1,
+//                       //       offset: Offset(3, 3))
+//                       // ],
+//                       borderRadius: BorderRadius.circular(10),
+//                       color: Colors.white),
+//                   child: Stack(
+//                     children: [
+//                       TextFormField(
+//                         controller: _Attentioncontroller,
+//                         minLines: 2,
+//                         maxLines: 100,
+//                         textInputAction: TextInputAction.done,
+//                         cursorColor: AppTheme.colorPrimary,
+//                         decoration: InputDecoration(
+//                             hintText: "Add note to inspection report",
+//                             hintStyle:
+//                                 Theme.of(context).textTheme.bodyText1,
+//                             focusedBorder: UnderlineInputBorder(
+//                                 borderSide: BorderSide(
+//                                     color: Colors.transparent)),
+//                             enabledBorder: UnderlineInputBorder(
+//                                 borderSide: BorderSide(
+//                                     color: Colors.transparent)),
+//                             border: UnderlineInputBorder(
+//                                 borderSide: BorderSide(
+//                                     color: Colors.transparent))),
+//                       ),
+//                       Align(
+//                         alignment: Alignment.centerRight,
+//                         child: Container(
+//                           decoration: BoxDecoration(
+//                               color: AppTheme.colorPrimary,
+//                               borderRadius: BorderRadius.only(
+//                                   bottomLeft: Radius.circular(10),
+//                                   topLeft: Radius.circular(10))),
+//                           child: IconButton(
+//                             icon: Icon(
+//                               Icons.arrow_forward_ios,
+//                               color: Colors.white,
+//                             ),
+//                             onPressed: () {
+//                               ScaffoldMessenger.of(context)
+//                                   .hideCurrentSnackBar();
+//                               setState(() {
+//                                 view = false;
+//                               });
+//                             },
+//                           ),
+//                           width: 50,
+//                         ),
+//                       )
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             )));
+//       },
+//       backgroundColor: view == true
+//           ? Colors.transparent.withOpacity(0)
+//           : AppTheme.colorPrimary,
+//       elevation: 0,
+//       label: Text(
+//         'Want to Add Comment?',
+//         style: TextStyle(
+//             fontSize: MediaQuery.of(context).size.height / 55),
+//       ),
+//     ),
+//   ),
+// ),
+//  resizeToAvoidBottomInset: false,
+// appBar: AppBar(
+//   leading: Container(),
+//   elevation: 0,
+// ),
