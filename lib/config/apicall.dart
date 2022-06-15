@@ -2,6 +2,7 @@
 
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/api.dart';
+import 'package:dazllapp/config/global.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +16,25 @@ import '../UI/homepage/realtor/realtor_homepage.dart';
 bool islogin = false;
 bool loading = false;
 
-class DioClient {
-  Dio _dio = Dio(BaseOptions(baseUrl: base_url));
+class CustomInterCeptor extends Interceptor {
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    if (sharedPreferences.containsKey(SharedPrefsKeys.key_token)) {
+      String _user_Token =
+          sharedPreferences.getString(SharedPrefsKeys.key_token)!;
 
+      options.headers = {'Authorization': "Bearer ${_user_Token}"};
+    }
+
+    // print(user_Token);
+    // options.headers = {'Authorization': "Bearer ${temporaryToken}"};
+    super.onRequest(options, handler);
+  }
+}
+
+class DioClient {
+  Dio _dio = Dio(BaseOptions(baseUrl: base_url))
+    ..interceptors.add(CustomInterCeptor());
   Future<dynamic> getRequest(
       {required String apiEnd, Map<String, dynamic>? queryParameter}) async {
     try {
@@ -37,7 +54,28 @@ class DioClient {
       return e.response;
     }
   }
+
+ Future<dynamic> FormData(
+      {required String apiEnd, Data}) async {
+    try {
+      final res = await _dio.post(apiEnd, data: Data);
+      return res;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
+
+  Future<dynamic> rawwithFormData(
+      {required String apiEnd, List<Map<String, dynamic>>? Data}) async {
+    try {
+      final res = await _dio.post(apiEnd, data: Data);
+      return res;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
 }
+
 
 Dio dio = Dio(BaseOptions(baseUrl: base_url));
 Future<String> login(index, email, password, context, keepmelogin) async {

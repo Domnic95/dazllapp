@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, unused_local_variable, deprecated_member_use, use_key_in_widget_constructors, avoid_unnecessary_containers, curly_braces_in_flow_control_structures, non_constant_identifier_names
 
-
 import 'package:dazllapp/UI/homepage/customer/start_project/needs_attention.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -10,7 +9,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 
 int? roomid;
-int? featureid;
 
 class CreateProject extends StatefulHookWidget {
   @override
@@ -85,26 +83,13 @@ class _CreateProjectState extends State<CreateProject> {
                         onTap: () {
                           setState(() {
                             if (currentindex == index) {
-                              // select.remove(index);
                               currentindex = -1;
-                              //  return;
                             } else
-                              // if (select.isEmpty) {
-                              // setState(() {
-                              //  select.add(index);
                               currentindex = index;
-                            //currentindex = _roomsNotifier.listOfRoom[index].id;
                             roomid = _roomsNotifier.listOfRoom[index].id;
                           });
-                          //  log('jjdcjnb = ' + currentindex.toString());
-                          // });
-                          // }
                         },
                         child: Card(
-                          // elevation: 1,
-                          // shadowColor: select.contains(index)
-                          //     ? teamRed.withOpacity(0.5)
-                          //     : Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
                           child: Container(
@@ -115,7 +100,6 @@ class _CreateProjectState extends State<CreateProject> {
                                     : AppTheme.light_grey,
                                 boxShadow: [
                                   currentindex == index
-                                      //   select.contains(index)
                                       ? BoxShadow(
                                           color: AppTheme.colorPrimary
                                               .withOpacity(0.5),

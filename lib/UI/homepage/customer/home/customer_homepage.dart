@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names, avoid_types_as_parameter_names, unused_local_variable, unused_import, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:dazllapp/UI/home/homepage.dart';
+import 'package:dazllapp/UI/homepage/customer/my_project/myproject.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -16,7 +17,7 @@ class CustomerHomepage extends StatefulHookWidget {
   _CustomerHomepageState createState() => _CustomerHomepageState();
 }
 
-class _CustomerHomepageState extends State<CustomerHomepage> 
+class _CustomerHomepageState extends State<CustomerHomepage>
 //with TickerProviderStateMixin
 {
   @override
@@ -64,6 +65,10 @@ class _CustomerHomepageState extends State<CustomerHomepage>
                     if (index == 0) {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => CreateProject()));
+                    }
+                    if (index == 1) {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => myproject()));
                     }
                   },
                   child: Padding(

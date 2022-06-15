@@ -15,3 +15,6 @@ const imageurl = 'https://res.cloudinary.com/dev-gnome/image/upload/';
 const featureOption = 'featureoptionlist/';
 const featureIssues = 'featureoissueslist/';
 const profile_url = 'company-from-professional';
+const create_projet = 'projects';
+const uploadimage = "projectImages";
+const my_project = "projects/customers";

@@ -1,11 +1,15 @@
 // ignore_for_file: unused_local_variable, curly_braces_in_flow_control_structures
 
+import 'dart:developer';
+import 'dart:io';
 
 import 'package:dazllapp/config/api.dart';
 import 'package:dazllapp/config/providers/base_notifier.dart';
 import 'package:dazllapp/model/FeatureOptionIssue.dart';
 import 'package:dazllapp/model/Features.dart';
 import 'package:dazllapp/model/Rooms.dart';
+import 'package:dazllapp/model/project.dart';
+import 'package:dio/dio.dart';
 
 class CustomerNotifier extends BaseNotifier {
   List<Room> listOfRoom = [];
@@ -13,6 +17,9 @@ class CustomerNotifier extends BaseNotifier {
   List<FeatureoptionIssue> listOfFeatureOptionissues = [];
   List<FeatureOption> listOfoption = [];
   List<Featureissue> listOfissues = [];
+  List<Project> listofproject = [];
+  List<Roominfo> listofRoomsinfo = [];
+  List<Featureinfo> listofFeatureinfo = [];
 
   Future getRooms() async {
     final res = await dioClient.getRequest(apiEnd: rooms);
@@ -53,4 +60,56 @@ class CustomerNotifier extends BaseNotifier {
     }
     notifyListeners();
   }
+
+  Future<int> createproject(List<Map<String, dynamic>> data) async {
+    final res =
+        await dioClient.rawwithFormData(apiEnd: create_projet, Data: data);
+
+    log(res.toString());
+    log(data.toString());
+    return res.data['project_id'];
+  }
+
+  Future uploadimages(int projectId, List files) async {
+    FormData formData = FormData.fromMap({
+      "images[]": files
+          .map((item) => MultipartFile.fromFileSync(item.path,
+              filename: item.path.split('/').last))
+          .toList(),
+      "projectID": projectId.toString()
+    });
+    final response =
+        await dioClient.FormData(apiEnd: uploadimage, Data: formData);
+    log("images = " + response.data.toString());
+    log("projectID" + projectId.toString());
+    log("images" + files.toString());
+  }
+
+  Future myproject() async {
+    final res = await dioClient.getRequest(apiEnd: my_project);
+    // log("hekkokod" + res.toString());
+    listofproject =
+        List<Project>.from(res.data['data'].map((x) => Project.fromJson(x)));
+    log('listof' + res.data.toString());
+    for (int a = 0; a < res.data['data'].length; a++) {
+      for (int b = 0; b < res.data['data'][a]['roominfo'].length; b++) {
+        listofRoomsinfo
+            .add(Roominfo.fromJson(res.data['data'][a]['roominfo'][b]));
+      }
+    }
+    log('listof' + res.data.toString());
+    for (int c = 0; c < res.data['data'].length; c++) {
+      for (int d = 0; d < res.data['data'][c]['roominfo'].length; d++) {
+        for (int e = 0;
+            e < res.data['data'][c]['roominfo'][d]['feature'].length;
+            e++) {
+          listofFeatureinfo.add(Featureinfo.fromJson(
+              res.data['data'][c]['roominfo'][d]['feature'][e]));
+        }
+      }
+    }
+    log('listof' + res.data.toString());
+  }
+
+  notifyListeners();
 }

@@ -24,23 +24,22 @@ class NeedAttention extends StatefulHookWidget {
 
 class _NeedAttentionState extends State<NeedAttention> {
   List<List<File>> imgFile = [];
-  List<File> selectphoto = [];
-  File? file;
   final imgPicker = ImagePicker();
   List<int> featureId = <int>[];
   List<int> featureoptionid = <int>[];
+  List<int> featureissueid = <int>[];
   List<String> currentoptionselected = <String>[];
-  List<int> currentoptionselectedid = <int>[];
   List<String> currentissueselected = <String>[];
-  List<int> c = <int>[];
+  List<int> currenoptionselectedid = <int>[];
+  List<int> currentissueselectedid = <int>[];
   List<int> select = [];
   List<TextEditingController> _DescrptionController = [];
   List<TextEditingController> _PhotoDescrptionController = [];
   List<List<String>> _addphotodescription = [];
-  // List<Widget> _addphoto = [];
   int indexs = 0;
+  List<String> _description = <String>[];
   bool loading = true;
-  bool view = true;
+  File? imagefile;
 
   @override
   void initState() {
@@ -53,18 +52,23 @@ class _NeedAttentionState extends State<NeedAttention> {
     await _roomsfeature.getRoomsFeature(roomid);
     await _roomsfeature.getFeatureOptionIssues();
 
-    // print('loadta Length = ${_roomsfeature.listOfFeature.length}');
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
       currentoptionselected.add('');
     }
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      c.add(0);
+      currenoptionselectedid.add(0);
+    }
+    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+      currentissueselectedid.add(0);
     }
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
       featureId.add(0);
     }
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
       featureoptionid.add(0);
+    }
+    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+      featureissueid.add(0);
     }
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
       currentissueselected.add('');
@@ -84,12 +88,13 @@ class _NeedAttentionState extends State<NeedAttention> {
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
       _addphotodescription.add([]);
     }
+    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+      _description.add('');
+    }
     setState(() {
       loading = false;
     });
   }
-
-  // bool view = false;
 
   @override
   Widget build(BuildContext context) {
@@ -151,10 +156,15 @@ class _NeedAttentionState extends State<NeedAttention> {
                                             currentissueselected[index] = '';
                                             imgFile[index].clear();
                                             _addphotodescription[index].clear();
+                                            featureId[index] = 0;
+                                            featureoptionid[index] = 0;
+                                            featureissueid[index] = 0;
+                                            _description[index] = '';
                                             _DescrptionController[index]
                                                 .clear();
                                             _PhotoDescrptionController[index]
                                                 .clear();
+                                            indexs = 0;
                                             // currentindex = index;
                                           } else {
                                             select.add(index);
@@ -222,7 +232,8 @@ class _NeedAttentionState extends State<NeedAttention> {
                                                       value:
                                                           dropdownselect.name,
                                                       onTap: () {
-                                                        c[index] =
+                                                        currenoptionselectedid[
+                                                                index] =
                                                             dropdownselect.id;
                                                       },
                                                     );
@@ -233,10 +244,8 @@ class _NeedAttentionState extends State<NeedAttention> {
                                                             index] =
                                                         newselectedvalue!;
                                                     featureoptionid[index] =
-                                                        c[index];
-                                                    indexs = index;
-                                                    currentoptionselectedid
-                                                        .add(c[index]);
+                                                        currenoptionselectedid[
+                                                            index];
 
                                                     setState(() {});
                                                   },
@@ -272,7 +281,8 @@ class _NeedAttentionState extends State<NeedAttention> {
                                                                 .listOfissues
                                                                 .where((e) =>
                                                                     e.featureOptionId ==
-                                                                    c[index])
+                                                                    currenoptionselectedid[
+                                                                        index])
                                                                 .map(
                                                                     (dropdownselect) {
                                                               return DropdownMenuItem<
@@ -283,6 +293,12 @@ class _NeedAttentionState extends State<NeedAttention> {
                                                                 value:
                                                                     dropdownselect
                                                                         .name,
+                                                                onTap: () {
+                                                                  currentissueselectedid[
+                                                                          index] =
+                                                                      dropdownselect
+                                                                          .id;
+                                                                },
                                                               );
                                                             }).toList(),
                                                             onChanged:
@@ -290,6 +306,11 @@ class _NeedAttentionState extends State<NeedAttention> {
                                                               currentissueselected[
                                                                       index] =
                                                                   newselectedvalue!;
+                                                              featureissueid[
+                                                                      index] =
+                                                                  currentissueselectedid[
+                                                                      index];
+                                                              indexs = index;
                                                               setState(() {});
                                                             },
                                                           ),
@@ -304,7 +325,16 @@ class _NeedAttentionState extends State<NeedAttention> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              showOptionsDialog(context, index);
+                                              featureoptionid[index] == 0 ||
+                                                      featureissueid[index] == 0
+                                                  ? ScaffoldMessenger.of(
+                                                          context)
+                                                      .showSnackBar(SnackBar(
+                                                      content: Text(
+                                                          'Select Option And issue'),
+                                                    ))
+                                                  : showOptionsDialog(
+                                                      context, index);
                                             },
                                             child: Container(
                                               child: Row(
@@ -470,10 +500,6 @@ class _NeedAttentionState extends State<NeedAttention> {
                                                                         _addphotodescription[index]
                                                                             .removeAt(subIndex);
                                                                       });
-                                                                      log(_addphotodescription
-                                                                          .toString());
-                                                                      log(imgFile
-                                                                          .toString());
                                                                     },
                                                                     icon: Icon(
                                                                       Icons
@@ -497,35 +523,86 @@ class _NeedAttentionState extends State<NeedAttention> {
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                                 color: Colors.white),
-                                            child: TextFormField(
-                                              controller:
-                                                  _DescrptionController[index],
-                                              minLines: 2,
-                                              maxLines: 100,
-                                              textInputAction:
-                                                  TextInputAction.done,
-                                              cursorColor:
-                                                  AppTheme.colorPrimary,
-                                              decoration: InputDecoration(
-                                                  hintText:
-                                                      "Add note to inspection report",
-                                                  hintStyle: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText1,
-                                                  focusedBorder:
-                                                      UnderlineInputBorder(
+                                            child: Stack(
+                                              children: [
+                                                TextFormField(
+                                                  controller:
+                                                      _DescrptionController[
+                                                          index],
+                                                  minLines: 2,
+                                                  maxLines: 100,
+                                                  textInputAction:
+                                                      TextInputAction.done,
+                                                  cursorColor:
+                                                      AppTheme.colorPrimary,
+                                                  decoration: InputDecoration(
+                                                      hintText:
+                                                          "Add note to inspection report",
+                                                      hintStyle:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText1,
+                                                      focusedBorder:
+                                                          UnderlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: Colors
+                                                                      .transparent)),
+                                                      enabledBorder:
+                                                          UnderlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: Colors
+                                                                      .transparent)),
+                                                      border: UnderlineInputBorder(
                                                           borderSide: BorderSide(
                                                               color: Colors
-                                                                  .transparent)),
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color: Colors
-                                                                  .transparent)),
-                                                  border: UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: Colors
-                                                              .transparent))),
+                                                                  .transparent))),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          AppTheme.colorPrimary,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        bottomLeft:
+                                                            Radius.circular(10),
+                                                        topLeft:
+                                                            Radius.circular(10),
+                                                      ),
+                                                    ),
+                                                    child: IconButton(
+                                                      icon: Icon(
+                                                        Icons.arrow_forward_ios,
+                                                        color: Colors.white,
+                                                      ),
+                                                      onPressed: () {
+                                                        _DescrptionController[
+                                                                    index]
+                                                                .text
+                                                                .isEmpty
+                                                            ? ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                                    SnackBar(
+                                                                content: Text(
+                                                                    'Add description'),
+                                                              ))
+                                                            : _description[
+                                                                    index] =
+                                                                _DescrptionController[
+                                                                        index]
+                                                                    .text;
+                                                        _DescrptionController[
+                                                                index]
+                                                            .clear();
+                                                      },
+                                                    ),
+                                                    width: 50,
+                                                  ),
+                                                )
+                                              ],
                                             ),
                                           ),
                                         ],
@@ -579,40 +656,52 @@ class _NeedAttentionState extends State<NeedAttention> {
                               ),
                             ),
                             GestureDetector(
-                              // onTap: () {
-                              //   Navigator.of(context).push(
-                              //     MaterialPageRoute(
-                              //       builder: (context) => TellusMore(
-                              //         currentoptionselected:
-                              //             currentoptionselected,
-                              //         currentissueselected:
-                              //             currentissueselected,
-                              //         imgFile: imgFile,
-                              //         DescrptionController:
-                              //             _DescrptionController,
-                              //       ),
-                              //     ),
-                              //   );
-                              // },
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "Next",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          fontSize: 18,
-                                          color: lightColor.withOpacity(.9),
+                              onTap: () {
+                                removeempty();
+                                // log('sdsdd = ' + roomid.toString());
+                                // log('sdsdd = ' + featureId.toString());
+                                // log('sdsdd = ' + featureoptionid.toString());
+                                // log('sdsdd = ' + featureissueid.toString());
+                                // log('sdsdd = ' + imgFile.toString());
+                                // log('sdsdd = ' +
+                                //     _addphotodescription.toString());
+                                // log('sdsdd = ' + _description.toString());
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => TellusMore(
+                                      featureid: featureId,
+                                      featureoptionid: featureoptionid,
+                                      featureissueid: featureissueid,
+                                      imgFile: imgFile,
+                                      addphotodescription: _addphotodescription,
+                                      Descrption: _description,
+                                      image: imagefile,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: featureissueid[indexs] == 0
+                                  ? SizedBox()
+                                  : Row(
+                                      children: [
+                                        Text(
+                                          "Next",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .copyWith(
+                                                fontSize: 18,
+                                                color:
+                                                    lightColor.withOpacity(.9),
+                                              ),
                                         ),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 20,
-                                    color: AppTheme.white,
-                                  ),
-                                ],
-                              ),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          size: 20,
+                                          color: AppTheme.white,
+                                        ),
+                                      ],
+                                    ),
                             ),
                           ],
                         ),
@@ -687,6 +776,7 @@ class _NeedAttentionState extends State<NeedAttention> {
     int index,
   ) async {
     imgCamera = await imgPicker.getImage(source: ImageSource.camera);
+
     Navigator.of(context).pop();
   }
 
@@ -695,6 +785,7 @@ class _NeedAttentionState extends State<NeedAttention> {
     int index,
   ) async {
     imgGallery = await imgPicker.getImage(source: ImageSource.gallery);
+    imagefile = File(imgGallery.path);
     Navigator.of(context).pop();
   }
 
@@ -710,9 +801,6 @@ class _NeedAttentionState extends State<NeedAttention> {
         imgFile[index].add(File(imgGallery.path));
         _PhotoDescrptionController[index].clear();
         imgGallery = null;
-        log(imgGallery.toString());
-        log(imgFile.toString());
-        log(_addphotodescription.toString());
       }
     });
   }
@@ -728,11 +816,17 @@ class _NeedAttentionState extends State<NeedAttention> {
         imgFile[index].add(File(imgCamera.path));
         _PhotoDescrptionController[index].clear();
         imgCamera = null;
-        log(imgCamera.toString());
-        log(imgFile.toString());
-        log(_addphotodescription.toString());
       }
     });
+  }
+
+  void removeempty() {
+    featureId.removeWhere((element) => ["", 0].contains(element));
+    featureoptionid.removeWhere((element) => ["", 0].contains(element));
+    featureissueid.removeWhere((element) => ["", 0].contains(element));
+    imgFile.removeWhere((element) => element.length == 0);
+    _addphotodescription.removeWhere((element) => element.length == 0);
+    _description.removeWhere((element) => ["", 0].contains(element));
   }
 }
 
