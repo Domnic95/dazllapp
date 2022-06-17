@@ -43,12 +43,12 @@ class _Company_profileState extends State<Company_profile> {
   Widget build(BuildContext context) {
     final _profileNotifier = useProvider(profileprovider);
     final size = MediaQuery.of(context).size;
-    return loading
-        ? LoadingWidget()
-        : Scaffold(
-            backgroundColor: Colors.grey.shade100,
-            body: SafeArea(
-              child: Column(
+    return SafeArea(
+      child: loading
+          ? LoadingWidget()
+          : Scaffold(
+              backgroundColor: Colors.grey.shade100,
+              body: Column(
                 children: [
                   Container(
                     height: size.height * 0.09,
@@ -558,6 +558,6 @@ class _Company_profileState extends State<Company_profile> {
                 ],
               ),
             ),
-          );
+    );
   }
 }

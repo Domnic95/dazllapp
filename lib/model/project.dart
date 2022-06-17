@@ -93,8 +93,8 @@ class Roominfo {
     required this.feature,
   });
 
-  int roomId;
-  String roomName;
+  int? roomId;
+  String? roomName;
   List<Featureinfo> feature;
 
   factory Roominfo.fromJson(Map<String, dynamic> json) => Roominfo(

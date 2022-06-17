@@ -70,9 +70,9 @@ class _TellusMoreState extends State<TellusMore> {
         "features": widget.featureid[i].toString(),
         "inspectionNotes":
             //"test",
-            widget.Descrption[i].isNotEmpty
+            widget.Descrption[i].toString() != ''
                 ? widget.Descrption[i].toString()
-                : "",
+                : "test",
         "issuetext": "test",
         "roomId": roomid
       };

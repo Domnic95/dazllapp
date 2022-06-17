@@ -170,6 +170,7 @@ class _NeedAttentionState extends State<NeedAttention> {
                                             select.add(index);
                                             featureId[index] = _roomsfeature
                                                 .listOfFeature[index].id;
+                                            indexs = 0;
                                           }
                                         });
                                       }),
