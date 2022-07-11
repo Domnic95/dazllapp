@@ -17,21 +17,20 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TellusMore extends StatefulHookWidget {
-  File? image;
   List<int> featureid;
   List<int> featureoptionid;
-  List<int> featureissueid;
+  List<List<int>> featureissueid;
   List<List<File>> imgFile;
   List<List<String>> addphotodescription;
   List<String> Descrption;
-  TellusMore(
-      {required this.featureid,
-      required this.featureoptionid,
-      required this.featureissueid,
-      required this.imgFile,
-      required this.Descrption,
-      required this.addphotodescription,
-      required this.image});
+  TellusMore({
+    required this.featureid,
+    required this.featureoptionid,
+    required this.featureissueid,
+    required this.imgFile,
+    required this.Descrption,
+    required this.addphotodescription,
+  });
 
   @override
   _TellusMoreState createState() => _TellusMoreState();
@@ -94,7 +93,7 @@ class _TellusMoreState extends State<TellusMore> {
   @override
   Widget build(BuildContext context) {
     //  log('message' + widget.Descrption.toString());
-    final _roomsNotifier = useProvider(roomsprovider);
+    final _roomsNotifier = useProvider(customernotifier);
     final size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
@@ -169,14 +168,34 @@ class _TellusMoreState extends State<TellusMore> {
                                           SizedBox(
                                             width: 10,
                                           ),
-                                          // widget.featureissueid == []
-                                          //     ? Text('null')
-                                          //     :
-                                          Text(
-                                              "FeatureIssueid = " +
-                                                  widget.featureissueid[index]
-                                                      .toString(),
-                                              style: TextStyle()),
+                                          Expanded(
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              itemCount: widget
+                                                  .featureissueid[index].length,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int subindex) {
+                                                return Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                        "FeatureIssueid = " +
+                                                            widget
+                                                                .featureissueid[
+                                                                    index]
+                                                                    [subindex]
+                                                                .toString(),
+                                                        style: TextStyle()),
+                                                    SizedBox(
+                                                      height: 5,
+                                                    )
+                                                  ],
+                                                );
+                                              },
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       widget.imgFile == [[]]
@@ -307,11 +326,11 @@ class _TellusMoreState extends State<TellusMore> {
                                   load();
                                   images();
                                   final projectId = await context
-                                      .read(roomsprovider)
+                                      .read(customernotifier)
                                       .createproject(listData);
 
                                   await context
-                                      .read(roomsprovider)
+                                      .read(customernotifier)
                                       .uploadimages(projectId, _file);
                                   setState(() {
                                     loading = false;
@@ -368,163 +387,3 @@ List images = [
   "https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aG91c2V8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
   "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
 ];
-// child: Column(
-                          //   crossAxisAlignment: CrossAxisAlignment.start,
-                          //   children: [
-                          //     ListView.builder(
-                          //       itemCount: 2,
-                          //       itemBuilder: (BuildContext context, int index) {
-                          //         return Text(
-                          //           widget.currentoptionselected[index],
-                          //           style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          //                 fontSize: 20,
-                          //                 fontWeight: FontWeight.w600,
-                          //                 color: darkTextColor,
-                          //               ),
-                          //         );
-                          //       },
-                          //     ),
-                          //     SizedBox(
-                          //       height: 10,
-                          //     ),
-                          //     SizedBox(
-                          //       height: 10,
-                          //     ),
-                          //     Container(
-                          //       height: size.height * 0.07,
-                          //       padding: EdgeInsets.symmetric(horizontal: 15),
-                          //       decoration: BoxDecoration(
-                          //           border: Border.all(
-                          //               color: AppTheme.grey.withOpacity(0.5), width: 2),
-                          //           // boxShadow: [
-                          //           //   BoxShadow(
-                          //           //       color: AppTheme.grey.withOpacity(0.3),
-                          //           //       blurRadius: 3,
-                          //           //       spreadRadius: 1,
-                          //           //       offset: Offset(3, 3))
-                          //           // ],
-                          //           borderRadius: BorderRadius.circular(10),
-                          //           color: Colors.white),
-                          //       child: TextFormField(
-                          //         controller: _cabinetController,
-                          //         minLines: 2,
-                          //         maxLines: 100,
-                          //         textInputAction: TextInputAction.done,
-                          //         cursorColor: AppTheme.colorPrimary,
-                          //         decoration: InputDecoration(
-                          //             hintText: "Add note to inspection report",
-                          //             focusedBorder: UnderlineInputBorder(
-                          //                 borderSide:
-                          //                     BorderSide(color: Colors.transparent)),
-                          //             enabledBorder: UnderlineInputBorder(
-                          //                 borderSide:
-                          //                     BorderSide(color: Colors.transparent)),
-                          //             border: UnderlineInputBorder(
-                          //                 borderSide:
-                          //                     BorderSide(color: Colors.transparent))),
-                          //       ),
-                          //     ),
-                          //     SizedBox(
-                          //       height: 25,
-                          //     ),
-                          //     Container(
-                          //       height: size.height * 0.25,
-                          //       padding: EdgeInsets.symmetric(horizontal: 15),
-                          //       decoration: BoxDecoration(
-                          //           border: Border.all(
-                          //               color: AppTheme.grey.withOpacity(0.5), width: 2),
-                          //           // boxShadow: [
-                          //           //   BoxShadow(
-                          //           //       color: AppTheme.grey.withOpacity(0.3),
-                          //           //       blurRadius: 3,
-                          //           //       spreadRadius: 1,
-                          //           //       offset: Offset(3, 3))
-                          //           // ],
-                          //           borderRadius: BorderRadius.circular(10),
-                          //           color: Colors.white),
-                          //       child: TextFormField(
-                          //         controller: _inspectionController,
-                          //         minLines: 2,
-                          //         maxLines: 100,
-                          //         textInputAction: TextInputAction.done,
-                          //         cursorColor: AppTheme.colorPrimary,
-                          //         decoration: InputDecoration(
-                          //             hintText: "add note to inspection report",
-                          //             focusedBorder: UnderlineInputBorder(
-                          //                 borderSide:
-                          //                     BorderSide(color: Colors.transparent)),
-                          //             enabledBorder: UnderlineInputBorder(
-                          //                 borderSide:
-                          //                     BorderSide(color: Colors.transparent)),
-                          //             border: UnderlineInputBorder(
-                          //                 borderSide:
-                          //                     BorderSide(color: Colors.transparent))),
-                          //       ),
-                          //     ),
-                          //     SizedBox(
-                          //       height: 20,
-                          //     ),
-                          //     Text(
-                          //       "Upload Image",
-                          //       style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          //             fontSize: 20,
-                          //             fontWeight: FontWeight.w600,
-                          //             color: darkTextColor,
-                          //           ),
-                          //     ),
-                          //     SizedBox(
-                          //       height: 20,
-                          //     ),
-                          //     Container(
-                          //         height: size.height * 0.35,
-                          //         child: GridView.builder(
-                          //             itemCount: images.length,
-                          //             gridDelegate:
-                          //                 SliverGridDelegateWithFixedCrossAxisCount(
-                          //                     // mainAxisExtent: 10,
-                          //                     crossAxisSpacing: 10,
-                          //                     mainAxisSpacing: 10,
-                          //                     crossAxisCount: 3),
-                          //             itemBuilder: (context, index) {
-                          //               return index == 0
-                          //                   ? Container(
-                          //                       decoration: BoxDecoration(
-                          //                         color: AppTheme.white,
-                          //                         borderRadius: BorderRadius.circular(20),
-                          //                         boxShadow: [
-                          //                           BoxShadow(
-                          //                             color: AppTheme.grey.withOpacity(0.5),
-                          //                             blurRadius: 3,
-                          //                             offset: Offset(3, 3),
-                          //                           ),
-                          //                         ],
-                          //                       ),
-                          //                       child: Center(
-                          //                         child: Icon(
-                          //                           Icons.add_circle_outline,
-                          //                           color: AppTheme.colorPrimary
-                          //                               .withOpacity(0.7),
-                          //                           size: 50,
-                          //                         ),
-                          //                       ),
-                          //                     )
-                          //                   : Container(
-                          //                       decoration: BoxDecoration(
-                          //                         color: AppTheme.white,
-                          //                         borderRadius: BorderRadius.circular(20),
-                          //                         boxShadow: [
-                          //                           BoxShadow(
-                          //                             color: AppTheme.grey.withOpacity(0.5),
-                          //                             blurRadius: 3,
-                          //                             offset: Offset(3, 3),
-                          //                           ),
-                          //                         ],
-                          //                         image: DecorationImage(
-                          //                           image: NetworkImage(images[index]),
-                          //                           fit: BoxFit.cover,
-                          //                         ),
-                          //                       ),
-                          //                     );
-                          //             })),
-                          //   ],
-                          // ),

@@ -18,10 +18,11 @@ class Project_Details extends StatefulHookWidget {
 }
 
 class _Project_DetailsState extends State<Project_Details> {
+  List<String> list = [];
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final projectprovider = useProvider(roomsprovider);
+    final projectprovider = useProvider(customernotifier);
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -48,11 +49,11 @@ class _Project_DetailsState extends State<Project_Details> {
               SizedBox(
                 height: 10,
               ),
-              projectprovider.listofproject[widget.index].images.isEmpty
+              projectprovider.listofproject[widget.index].images!.isEmpty
                   ? SizedBox()
                   : CarouselSlider.builder(
                       itemCount: projectprovider
-                          .listofproject[widget.index].images.length,
+                          .listofproject[widget.index].images!.length,
                       itemBuilder: (BuildContext context, int itemIndex,
                               int pageViewIndex) =>
                           Container(
@@ -61,7 +62,7 @@ class _Project_DetailsState extends State<Project_Details> {
                             image: DecorationImage(
                                 image: NetworkImage(projectprovider
                                     .listofproject[widget.index]
-                                    .images[itemIndex]
+                                    .images![itemIndex]
                                     .url),
                                 fit: BoxFit.cover),
                             borderRadius: BorderRadius.circular(15),
@@ -99,14 +100,14 @@ class _Project_DetailsState extends State<Project_Details> {
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: projectprovider
-                      .listofproject[widget.index].roominfo.length,
+                      .listofproject[widget.index].roominfo!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       child: ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: projectprovider.listofproject[widget.index]
-                            .roominfo[index].feature.length,
+                            .roominfo![index].feature!.length,
                         itemBuilder: (BuildContext context, int subindex) {
                           return Padding(
                             padding: EdgeInsets.only(left: 10, right: 10),
@@ -122,8 +123,8 @@ class _Project_DetailsState extends State<Project_Details> {
                                   title: Text(
                                       projectprovider
                                           .listofproject[widget.index]
-                                          .roominfo[index]
-                                          .feature[subindex]
+                                          .roominfo![index]
+                                          .feature![subindex]
                                           .featureName,
                                       style: TextStyle(
                                           color: AppTheme.colorPrimary,
@@ -138,8 +139,8 @@ class _Project_DetailsState extends State<Project_Details> {
                                           "Feature Option : " +
                                               projectprovider
                                                   .listofproject[widget.index]
-                                                  .roominfo[index]
-                                                  .feature[subindex]
+                                                  .roominfo![index]
+                                                  .feature![subindex]
                                                   .featureoption,
                                           style: TextStyle(
                                             fontSize: 14,
@@ -148,23 +149,43 @@ class _Project_DetailsState extends State<Project_Details> {
                                         SizedBox(
                                           height: 5,
                                         ),
-                                        Text(
-                                          "Feature Issue : " +
-                                              projectprovider
-                                                  .listofproject[widget.index]
-                                                  .roominfo[index]
-                                                  .feature[subindex]
-                                                  .featureissue,
-                                        ),
-                                        SizedBox(
-                                          height: 5,
+                                        ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: projectprovider
+                                              .listofproject[widget.index]
+                                              .roominfo![index]
+                                              .feature![subindex]
+                                              .featureissue!
+                                              .length,
+                                          itemBuilder: (BuildContext context,
+                                              int subsubindex) {
+                                            return Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    "Feature Issue ${subsubindex + 1} : " +
+                                                        projectprovider
+                                                            .listofproject[
+                                                                widget.index]
+                                                            .roominfo![index]
+                                                            .feature![subindex]
+                                                            .featureissue![
+                                                                subsubindex]
+                                                            .name),
+                                                SizedBox(
+                                                  height: 5,
+                                                )
+                                              ],
+                                            );
+                                          },
                                         ),
                                         Text(
                                           "Inspection Notes : " +
                                               projectprovider
                                                   .listofproject[widget.index]
-                                                  .roominfo[index]
-                                                  .feature[subindex]
+                                                  .roominfo![index]
+                                                  .feature![subindex]
                                                   .inspectionNotes,
                                         ),
                                         SizedBox(
@@ -174,8 +195,8 @@ class _Project_DetailsState extends State<Project_Details> {
                                           "Issue text : " +
                                               projectprovider
                                                   .listofproject[widget.index]
-                                                  .roominfo[index]
-                                                  .feature[subindex]
+                                                  .roominfo![index]
+                                                  .feature![subindex]
                                                   .issuetext,
                                         )
                                       ],

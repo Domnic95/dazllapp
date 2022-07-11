@@ -6,7 +6,7 @@ import 'dart:developer';
 import 'package:dazllapp/config/api.dart';
 import 'package:dazllapp/config/providers/base_notifier.dart';
 import 'package:dazllapp/constant/spkeys.dart';
-import 'package:dazllapp/model/profile.dart';
+import 'package:dazllapp/model/Professional/profile.dart';
 
 class ProfessionalNotifier extends BaseNotifier {
   Profile profiles = Profile();

@@ -15,6 +15,7 @@ import '../UI/homepage/realtor/realtor_homepage.dart';
 // login
 bool islogin = false;
 bool loading = false;
+int? realtorid;
 
 class CustomInterCeptor extends Interceptor {
   @override
@@ -55,8 +56,7 @@ class DioClient {
     }
   }
 
- Future<dynamic> FormData(
-      {required String apiEnd, Data}) async {
+  Future<dynamic> FormData({required String apiEnd, Data}) async {
     try {
       final res = await _dio.post(apiEnd, data: Data);
       return res;
@@ -75,7 +75,6 @@ class DioClient {
     }
   }
 }
-
 
 Dio dio = Dio(BaseOptions(baseUrl: base_url));
 Future<String> login(index, email, password, context, keepmelogin) async {
@@ -114,6 +113,7 @@ Future<String> login(index, email, password, context, keepmelogin) async {
         });
     print(response.data);
     if (response.statusCode == 200) {
+      realtorid = response.data['data']['id'];
       SpHelpers.setPref(
           SharedPrefsKeys.Prof_id, response.data['data']['id'].toString());
 

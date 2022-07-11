@@ -22,7 +22,7 @@ class _Edit_profileState extends State<Edit_profile> {
   }
 
   loaddata() async {
-    await context.read(profileprovider).getprofile();
+    await context.read(professionaltifier).getprofile();
   }
 
   final _yearsinbussiness = TextEditingController();
@@ -36,7 +36,7 @@ class _Edit_profileState extends State<Edit_profile> {
   final _website = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final _profileNotifier = useProvider(profileprovider);
+    final _profileNotifier = useProvider(professionaltifier);
     _yearsinbussiness.text =
         _profileNotifier.profiles.yearsInBusiness.toString() != 'null'
             ? _profileNotifier.profiles.yearsInBusiness.toString()

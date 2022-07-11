@@ -27,7 +27,7 @@ class _CustomerHomepageState extends State<CustomerHomepage>
 
   @override
   Widget build(BuildContext context) {
-    final _roomsprovider = useProvider(roomsprovider);
+    final _roomsprovider = useProvider(customernotifier);
     return SafeArea(
         child: Scaffold(
       drawer:

@@ -397,7 +397,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 fontSize:
-                                    AppTheme.textTheme.bodySmall!.fontSize,
+                                    AppTheme.textTheme.bodyText1!.fontSize,
                                 fontFamily: AppTheme.fontName,
                                 color: Colors.blue,
                                 decoration: TextDecoration.underline,

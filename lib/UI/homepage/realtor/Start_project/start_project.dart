@@ -1,22 +1,24 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, unused_local_variable, deprecated_member_use, use_key_in_widget_constructors, avoid_unnecessary_containers, curly_braces_in_flow_control_structures, non_constant_identifier_names
-
-import 'package:dazllapp/UI/homepage/customer/start_project/needs_attention.dart';
+import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
+import 'package:dazllapp/UI/homepage/realtor/Start_project/select_feature.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-int? roomid;
+class Start_project extends StatefulHookWidget {
+  int customerid;
+  Start_project({
+    required this.customerid,
+    Key? key,
+  }) : super(key: key);
 
-class CreateProject extends StatefulHookWidget {
   @override
-  _CreateProjectState createState() => _CreateProjectState();
+  State<Start_project> createState() => _Start_projectState();
 }
 
-class _CreateProjectState extends State<CreateProject> {
-  @override
+class _Start_projectState extends State<Start_project> {
   void initState() {
     super.initState();
     loaddata();
@@ -28,7 +30,6 @@ class _CreateProjectState extends State<CreateProject> {
 
   // Set select = {};
   int currentindex = -1;
-
   @override
   Widget build(BuildContext context) {
     final _roomsNotifier = useProvider(customernotifier);
@@ -178,10 +179,13 @@ class _CreateProjectState extends State<CreateProject> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      currentindex == -1
-                          ? SizedBox()
-                          : Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => NeedAttention()));
+                      currentindex == -1;
+                      // ? SizedBox()
+                      // :
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Select_feature(
+                                cutomerid: widget.customerid,
+                              )));
                       _roomsNotifier.listOfoption.clear();
                       _roomsNotifier.listOfissues.clear();
                     },
@@ -216,56 +220,6 @@ class _CreateProjectState extends State<CreateProject> {
         ),
       ),
     ));
+    ;
   }
 }
-
-class CreatePlan {
-  String image;
-  // String name;
-  CreatePlan({
-    required this.image,
-    //required this.name
-  });
-}
-
-List<CreatePlan> CreatePlans = [
-  CreatePlan(
-    image: "assets/images/kitchen.png",
-  ),
-  CreatePlan(
-    image: "assets/images/bedroom.png",
-  ),
-  CreatePlan(
-    image: "assets/images/bath_room.png",
-  ),
-  CreatePlan(
-    image: "assets/images/kitchen.png",
-  ),
-  CreatePlan(
-    image: "assets/images/living_room.png",
-  ),
-  CreatePlan(
-    image: "assets/images/bath_room.png",
-  ),
-  CreatePlan(
-    image: "assets/images/dinnertable.png",
-  ),
-  CreatePlan(
-    image: "assets/images/dinnertable.png",
-  ),
-  CreatePlan(
-    image: "assets/images/bedroom.png",
-  ),
-  CreatePlan(
-    image: "assets/images/dinnertable.png",
-  ),
-  CreatePlan(
-    image: "assets/images/dinnertable.png",
-  ),
-  CreatePlan(
-    image: "assets/images/dinnertable.png",
-  ),
-  CreatePlan(
-    image: "assets/images/dinnertable.png",
-  ),
-];

@@ -33,8 +33,8 @@ class Featureoption {
       };
 }
 
-class Featureissue {
-  Featureissue({
+class FeatureIssue {
+  FeatureIssue({
     required this.id,
     required this.iid,
     required this.name,
@@ -56,7 +56,7 @@ class Featureissue {
   DateTime updatedAt;
   FeatureoptionIssue serviceType;
 
-  factory Featureissue.fromJson(Map<String, dynamic> json) => Featureissue(
+  factory FeatureIssue.fromJson(Map<String, dynamic> json) => FeatureIssue(
         id: json["id"],
         iid: json["id"].toString(),
         name: json["name"],
@@ -81,15 +81,15 @@ class Featureissue {
 }
 
 class FeatureOption {
-  FeatureOption({
-    required this.id,
-    required this.iid,
-    required this.name,
-    required this.featureId,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.featureissues,
-  });
+  FeatureOption(
+      {required this.id,
+      required this.iid,
+      required this.name,
+      required this.featureId,
+      required this.createdAt,
+      required this.updatedAt,
+      required this.featureissues,
+      required this.featureBoolList});
 
   int id;
   String iid;
@@ -97,18 +97,26 @@ class FeatureOption {
   int featureId;
   DateTime createdAt;
   DateTime updatedAt;
-  List<Featureissue> featureissues;
+  List<FeatureIssue> featureissues;
+  List<bool> featureBoolList;
 
-  factory FeatureOption.fromJson(Map<String, dynamic> json) => FeatureOption(
-        id: json["id"],
-        name: json["name"],
-        featureId: json["feature_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        featureissues: List<Featureissue>.from(
-            json["featureissues"].map((x) => Featureissue.fromJson(x))),
-        iid: json["id"].toString(),
-      );
+  factory FeatureOption.fromJson(Map<String, dynamic> json) {
+    List<bool> fake = [];
+    for (int i = 0; i < json["featureissues"].length; i++) {
+      fake.add(false);
+    }
+    return FeatureOption(
+      id: json["id"],
+      name: json["name"],
+      featureId: json["feature_id"],
+      createdAt: DateTime.parse(json["created_at"]),
+      updatedAt: DateTime.parse(json["updated_at"]),
+      featureBoolList: fake,
+      featureissues: List<FeatureIssue>.from(
+          json["featureissues"].map((x) => FeatureIssue.fromJson(x))),
+      iid: json["id"].toString(),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,

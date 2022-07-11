@@ -1,28 +1,33 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, curly_braces_in_flow_control_structures, prefer_if_null_operators, prefer_typing_uninitialized_variables, sized_box_for_whitespace, unnecessary_null_comparison, unused_import, unnecessary_import, use_key_in_widget_constructors, non_constant_identifier_names, prefer_final_fields, deprecated_member_use, prefer_const_literals_to_create_immutables
+// ignore_for_file: deprecated_member_use
 
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:dazllapp/UI/component/edit_field.dart';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
-import 'package:dazllapp/UI/homepage/customer/start_project/tell_us_more.dart';
-import 'package:dazllapp/config/api.dart';
+import 'package:dazllapp/UI/homepage/realtor/Start_project/select_customer.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-class NeedAttention extends StatefulHookWidget {
+class Select_feature extends StatefulHookWidget {
+  int? cutomerid;
+  Select_feature({
+    required this.cutomerid,
+    Key? key,
+  }) : super(key: key);
+
   @override
-  _NeedAttentionState createState() => _NeedAttentionState();
+  State<Select_feature> createState() => _Select_featureState();
 }
 
-class _NeedAttentionState extends State<NeedAttention> {
+class _Select_featureState extends State<Select_feature> {
+  List<Map<String, dynamic>> listData = [];
   List<List<String>> FeatureissueName = [];
   List<List<int>> FeatureissueId = [];
   List<List<int>> featureissueId = [];
@@ -41,6 +46,7 @@ class _NeedAttentionState extends State<NeedAttention> {
   int indexs = 0;
   List<String> _description = <String>[];
   bool loading = true;
+  List<File> _file = [];
 
   @override
   void initState() {
@@ -98,6 +104,37 @@ class _NeedAttentionState extends State<NeedAttention> {
     setState(() {
       loading = false;
     });
+  }
+
+  load() {
+    for (int i = 0; i < featureId.length; i++) {
+      Map<String, dynamic> _map = {
+        "realtor_id": realtorid,
+        "customer_id": widget.cutomerid,
+        "featureOption": featureoptionid[i].toString(),
+        "featureOptionIssues": FeatureissueId[i].toString(),
+        "features": featureId[i].toString(),
+        "inspectionNotes":
+            //"test",
+            _description[i].toString() != ''
+                ? _description[i].toString()
+                : "test",
+        "issuetext": "test",
+        "roomId": roomid
+      };
+      listData.add(_map);
+    }
+    setState(() {
+      loading = true;
+    });
+  }
+
+  images() {
+    for (int i = 0; i < imgFile.length; i++) {
+      for (int j = 0; j < imgFile[i].length; j++) {
+        _file.add(imgFile[i][j]);
+      }
+    }
   }
 
   @override
@@ -715,20 +752,35 @@ class _NeedAttentionState extends State<NeedAttention> {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 removeempty();
+                                load();
+                                images();
+                                final projectId = await context
+                                    .read(realtorprovider)
+                                    .createprojectrealtor(listData);
+                                await context
+                                    .read(customernotifier)
+                                    .uploadimages(projectId, _file);
+                                setState(() {
+                                  loading = false;
+                                });
                                 Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (context) => TellusMore(
-                                      featureid: featureId,
-                                      featureoptionid: featureoptionid,
-                                      featureissueid: FeatureissueId,
-                                      imgFile: imgFile,
-                                      addphotodescription: _addphotodescription,
-                                      Descrption: _description,
-                                    ),
-                                  ),
-                                );
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            Select_customer()));
+                                // Navigator.of(context).pushReplacement(
+                                //   MaterialPageRoute(
+                                //     builder: (context) => TellusMore(
+                                //       featureid: featureId,
+                                //       featureoptionid: featureoptionid,
+                                //       featureissueid: FeatureissueId,
+                                //       imgFile: imgFile,
+                                //       addphotodescription: _addphotodescription,
+                                //       Descrption: _description,
+                                //     ),
+                                //   ),
+                                // );
                               },
                               child:
                                   //  featureissueid[indexs] == 0

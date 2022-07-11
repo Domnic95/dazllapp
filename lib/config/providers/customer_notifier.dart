@@ -5,10 +5,13 @@ import 'dart:io';
 
 import 'package:dazllapp/config/api.dart';
 import 'package:dazllapp/config/providers/base_notifier.dart';
-import 'package:dazllapp/model/FeatureOptionIssue.dart';
-import 'package:dazllapp/model/Features.dart';
-import 'package:dazllapp/model/Rooms.dart';
-import 'package:dazllapp/model/project.dart';
+import 'package:dazllapp/model/Customer/FeatureOptionIssue.dart';
+import 'package:dazllapp/model/Customer/Featureissue.dart';
+import 'package:dazllapp/model/Customer/Rooms.dart';
+import 'package:dazllapp/model/Customer/project.dart';
+
+import 'package:dazllapp/model/Customer/Features.dart';
+
 import 'package:dio/dio.dart';
 
 class CustomerNotifier extends BaseNotifier {
@@ -47,18 +50,14 @@ class CustomerNotifier extends BaseNotifier {
             FeatureOption.fromJson(res.data['data'][a]['feature_options'][b]));
       }
     }
-    for (int c = 0; c < res.data['data'].length; c++) {
-      for (int d = 0; d < res.data['data'][c]['feature_options'].length; d++) {
-        for (int e = 0;
-            e <
-                res.data['data'][c]['feature_options'][d]['featureissues']
-                    .length;
-            e++) {
-          listOfissues.add(Featureissue.fromJson(
-              res.data['data'][c]['feature_options'][d]['featureissues'][e]));
-        }
-      }
-    }
+    notifyListeners();
+  }
+
+  Future getfeatureissue(int Featureoptionid) async {
+    final res = await dioClient.getRequest(
+        apiEnd: featureIssues + Featureoptionid.toString());
+    listOfissues = List<Featureissue>.from(
+        res.data['data'].map((x) => Featureissue.fromJson(x)));
     notifyListeners();
   }
 
@@ -116,6 +115,5 @@ class CustomerNotifier extends BaseNotifier {
       }
     }
     notifyListeners();
-    
   }
 }

@@ -33,7 +33,7 @@ class _Company_profileState extends State<Company_profile> {
   }
 
   loaddata() async {
-    await context.read(profileprovider).getprofile();
+    await context.read(professionaltifier).getprofile();
     setState(() {
       loading = false;
     });
@@ -41,7 +41,7 @@ class _Company_profileState extends State<Company_profile> {
 
   @override
   Widget build(BuildContext context) {
-    final _profileNotifier = useProvider(profileprovider);
+    final _profileNotifier = useProvider(professionaltifier);
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: loading
@@ -443,7 +443,7 @@ class _Company_profileState extends State<Company_profile> {
                                                         webview_screen(url)))
                                             : null;
                                       },
-                                      leading: Icon(Icons.webhook_sharp),
+                                      leading: Icon(Icons.web_asset),
                                       title: Text(
                                         'Website : ',
                                         style: TextStyle(

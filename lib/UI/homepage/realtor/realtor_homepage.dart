@@ -2,6 +2,7 @@
 
 import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/create_phd.dart';
+import 'package:dazllapp/UI/homepage/realtor/Start_project/select_customer.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/model/selection.dart';
@@ -53,6 +54,10 @@ class _RealtorHomePageState extends State<RealtorHomePage> {
                   if (index == 0) {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => CreatePhd()));
+                  }
+                  if (index == 3) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Select_customer()));
                   }
                 },
                 child: Card(
