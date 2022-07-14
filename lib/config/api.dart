@@ -22,3 +22,4 @@ const customer = 'customer_list';
 const featureIssues = 'featureoissueslist/';
 const create_project_realtor = "realtorprojects";
 const uploadimages_realtor = "realtorprojectsImages";
+const realtorcustomerproject = "realtorprojects/customers";

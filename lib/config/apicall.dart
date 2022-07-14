@@ -113,7 +113,9 @@ Future<String> login(index, email, password, context, keepmelogin) async {
         });
     print(response.data);
     if (response.statusCode == 200) {
-      realtorid = response.data['data']['id'];
+      SpHelpers.setPref(
+          SharedPrefsKeys.Realtor_id, response.data['data']['id'].toString());
+    
       SpHelpers.setPref(
           SharedPrefsKeys.Prof_id, response.data['data']['id'].toString());
 

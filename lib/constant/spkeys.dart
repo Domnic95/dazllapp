@@ -8,6 +8,7 @@ class SharedPrefsKeys {
   static String key_current = "current";
   static String key_token = "token";
   static String Prof_id = "pro_id";
+  static String Realtor_id = "realtor_id";
 }
 
 class SpHelpers {

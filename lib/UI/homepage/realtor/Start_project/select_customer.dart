@@ -2,6 +2,7 @@ import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/start_project.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
+import 'package:dazllapp/config/providers/realtor_notifier.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -84,13 +85,11 @@ class _Select_customerState extends State<Select_customer> {
                           underline: Container(),
                           isExpanded: true,
                           borderRadius: BorderRadius.circular(20),
-                          //  value: selectedvalue,
                           hint: customer_provider.listofcustomers[0] ==
                                   customer_provider.listofcustomers[0].firstName
                               ? Text('Select Customer')
                               : Text(
-                                  customer_provider
-                                      .listofcustomers[0].firstName,
+                                  customer_provider.listofcustomers[0].name,
                                 ),
                           items: customer_provider.listofcustomers
                               .map((dropdownselect) {
@@ -104,15 +103,18 @@ class _Select_customerState extends State<Select_customer> {
                                   Text(dropdownselect.lastName),
                                 ],
                               ),
-                              value: dropdownselect.firstName,
+                              value: dropdownselect.firstName +
+                                  " " +
+                                  dropdownselect.lastName,
                               onTap: () {
                                 customerid = dropdownselect.id;
+                                print(customerid);
                               },
                             );
                           }).toList(),
                           onChanged: (newselectedvalue) async {
                             setState(() {
-                              customer_provider.listofcustomers[0].firstName =
+                              customer_provider.listofcustomers[0].name =
                                   newselectedvalue!;
                             });
                           },
@@ -125,10 +127,16 @@ class _Select_customerState extends State<Select_customer> {
                   style:
                       ElevatedButton.styleFrom(primary: AppTheme.colorPrimary),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Start_project(
-                              customerid: customerid!,
-                            )));
+                    if (customer_provider.listofcustomers[0].name ==
+                        "Select Customer") {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Select customer')));
+                    } else {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Start_project(
+                                customerid: customerid!,
+                              )));
+                    }
                   },
                   child: Text(
                     'Next',
@@ -185,7 +193,9 @@ class _Select_customerState extends State<Select_customer> {
                 ElevatedButton(
                   style:
                       ElevatedButton.styleFrom(primary: AppTheme.colorPrimary),
-                  onPressed: () {},
+                  onPressed: () async {
+                    await context.read(realtorprovider).getrealtorproject();
+                  },
                   child: Text(
                     'Next',
                     style: TextStyle(

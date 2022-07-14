@@ -65,7 +65,7 @@ class _TellusMoreState extends State<TellusMore> {
     for (int i = 0; i < widget.featureid.length; i++) {
       Map<String, dynamic> _map = {
         "featureOption": widget.featureoptionid[i].toString(),
-        "featureOptionIssues": widget.featureissueid[i].toString(),
+        "featureOptionIssues": widget.featureissueid[i],
         "features": widget.featureid[i].toString(),
         "inspectionNotes":
             //"test",
@@ -154,50 +154,35 @@ class _TellusMoreState extends State<TellusMore> {
                                       SizedBox(
                                         height: 5,
                                       ),
-                                      Row(
-                                        children: [
-                                          // widget.featureoptionid[index] == 0
-                                          //     ? Text("FeatureOptionid = null")
-                                          //     :
-                                          Text(
-                                            "FeatureOptionid = " +
-                                                widget.featureoptionid[index]
-                                                    .toString(),
-                                            style: TextStyle(),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Expanded(
-                                            child: ListView.builder(
-                                              shrinkWrap: true,
-                                              itemCount: widget
-                                                  .featureissueid[index].length,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int subindex) {
-                                                return Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                        "FeatureIssueid = " +
-                                                            widget
-                                                                .featureissueid[
-                                                                    index]
-                                                                    [subindex]
-                                                                .toString(),
-                                                        style: TextStyle()),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    )
-                                                  ],
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ],
+                                      Text(
+                                        "FeatureOptionid = " +
+                                            widget.featureoptionid[index]
+                                                .toString(),
+                                        style: TextStyle(),
                                       ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      for (int i = 0;
+                                          i <
+                                              widget
+                                                  .featureissueid[index].length;
+                                          i++)
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                "FeatureIssueid = " +
+                                                    widget.featureissueid[index]
+                                                            [i]
+                                                        .toString(),
+                                                style: TextStyle()),
+                                            SizedBox(
+                                              height: 5,
+                                            )
+                                          ],
+                                        ),
                                       widget.imgFile == [[]]
                                           ? Text('No photo selected')
                                           : ListView.builder(
@@ -212,7 +197,7 @@ class _TellusMoreState extends State<TellusMore> {
                                                 return Column(
                                                   children: [
                                                     SizedBox(
-                                                      height: 10,
+                                                      height: 5,
                                                     ),
                                                     ListTile(
                                                       leading: widget.imgFile[
@@ -256,7 +241,7 @@ class _TellusMoreState extends State<TellusMore> {
                                               },
                                             ),
                                       SizedBox(
-                                        height: 10,
+                                        height: 5,
                                       ),
                                       widget.Descrption[index] == ''
                                           ? Text('')

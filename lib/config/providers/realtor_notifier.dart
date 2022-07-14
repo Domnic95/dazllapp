@@ -4,10 +4,12 @@ import 'package:dazllapp/config/api.dart';
 import 'package:dazllapp/config/providers/base_notifier.dart';
 
 import 'package:dazllapp/model/Realtor/realtor_customerlist.dart';
+import 'package:dazllapp/model/Realtor/realtor_project.dart';
 import 'package:dio/dio.dart';
 
 class realtorNotifier extends BaseNotifier {
   List<Customer> listofcustomers = [];
+  List<ProjectList> listofrealtorproject = [];
 
   Future getcustomers() async {
     final res = await dioClient.getRequest(apiEnd: customer);
@@ -25,7 +27,7 @@ class realtorNotifier extends BaseNotifier {
     return res.data['project_id'];
   }
 
-    Future uploadimagesrealtor(int projectId, List files) async {
+  Future uploadimagesrealtor(int projectId, List files) async {
     FormData formData = FormData.fromMap({
       "images[]": files
           .map((item) => MultipartFile.fromFileSync(item.path,
@@ -38,5 +40,14 @@ class realtorNotifier extends BaseNotifier {
     log("images = " + response.data.toString());
     log("projectID" + projectId.toString());
     log("images" + files.toString());
+  }
+
+  Future getrealtorproject() async {
+    final res = await dioClient.getRequest(apiEnd: realtorcustomerproject);
+    listofrealtorproject = List<ProjectList>.from(
+        res.data['data'].map((x) => ProjectList.fromJson(x)));
+    log(res.toString());
+
+    notifyListeners();
   }
 }

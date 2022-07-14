@@ -5,11 +5,13 @@ import 'dart:io';
 
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
+import 'package:dazllapp/UI/homepage/realtor/Start_project/realtor_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/select_customer.dart';
 import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
+import 'package:dazllapp/constant/spkeys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -109,10 +111,10 @@ class _Select_featureState extends State<Select_feature> {
   load() {
     for (int i = 0; i < featureId.length; i++) {
       Map<String, dynamic> _map = {
-        "realtor_id": realtorid,
+        "realtor_id": SpHelpers.getString(SharedPrefsKeys.Realtor_id),
         "customer_id": widget.cutomerid,
         "featureOption": featureoptionid[i].toString(),
-        "featureOptionIssues": FeatureissueId[i].toString(),
+        "featureOptionIssues": FeatureissueId[i],
         "features": featureId[i].toString(),
         "inspectionNotes":
             //"test",
@@ -753,58 +755,74 @@ class _Select_featureState extends State<Select_feature> {
                             ),
                             GestureDetector(
                               onTap: () async {
-                                removeempty();
-                                load();
-                                images();
-                                final projectId = await context
-                                    .read(realtorprovider)
-                                    .createprojectrealtor(listData);
-                                await context
-                                    .read(customernotifier)
-                                    .uploadimages(projectId, _file);
-                                setState(() {
-                                  loading = false;
-                                });
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            Select_customer()));
-                                // Navigator.of(context).pushReplacement(
-                                //   MaterialPageRoute(
-                                //     builder: (context) => TellusMore(
-                                //       featureid: featureId,
-                                //       featureoptionid: featureoptionid,
-                                //       featureissueid: FeatureissueId,
-                                //       imgFile: imgFile,
-                                //       addphotodescription: _addphotodescription,
-                                //       Descrption: _description,
-                                //     ),
-                                //   ),
-                                // );
+                                List<bool> desempty = [];
+                                List<bool> featureissueempty = [];
+                               // print("jkldn" + FeatureissueId.toString());
+                                for (int i = 0; i < select.length; i++) {
+                                  if (_description[select[i]].isEmpty) {
+                                    desempty.add(false);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                'Add Description of ${_roomsfeature.listOfFeature[select[i]].name}')));
+                                    break;
+                                  } else {
+                                    desempty.add(true);
+                                  }
+                                  if (FeatureissueId[select[i]].isEmpty) {
+                                    featureissueempty.add(false);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                'Select issue ${_roomsfeature.listOfFeature[select[i]].name}')));
+                                    break;
+                                  } else {
+                                    featureissueempty.add(true);
+                                  }
+                                }
+                                if (!desempty.contains(false) &&
+                                    !featureissueempty.contains(false)) {
+                                  removeempty();
+                                  load();
+                                  images();
+                                  final projectId = await context
+                                      .read(realtorprovider)
+                                      .createprojectrealtor(listData);
+                                  await context
+                                      .read(realtorprovider)
+                                      .uploadimagesrealtor(projectId, _file);
+                                  setState(() {
+                                    loading = false;
+                                  });
+
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Realtor_project()));
+                                }
                               },
-                              child:
-                                  //  featureissueid[indexs] == 0
-                                  //     ? SizedBox()
-                                  //     :
-                                  Row(
-                                children: [
-                                  Text(
-                                    "Next",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          fontSize: 18,
-                                          color: lightColor.withOpacity(.9),
+                              child: FeatureissueId[indexs] == 0
+                                  ? SizedBox()
+                                  : Row(
+                                      children: [
+                                        Text(
+                                          "Next",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .copyWith(
+                                                fontSize: 18,
+                                                color:
+                                                    lightColor.withOpacity(.9),
+                                              ),
                                         ),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 20,
-                                    color: AppTheme.white,
-                                  ),
-                                ],
-                              ),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          size: 20,
+                                          color: AppTheme.white,
+                                        ),
+                                      ],
+                                    ),
                             ),
                           ],
                         ),

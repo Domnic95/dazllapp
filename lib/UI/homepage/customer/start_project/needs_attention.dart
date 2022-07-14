@@ -716,19 +716,52 @@ class _NeedAttentionState extends State<NeedAttention> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                removeempty();
-                                Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (context) => TellusMore(
-                                      featureid: featureId,
-                                      featureoptionid: featureoptionid,
-                                      featureissueid: FeatureissueId,
-                                      imgFile: imgFile,
-                                      addphotodescription: _addphotodescription,
-                                      Descrption: _description,
+                                // print("jkldn" + select.toString());
+                                // print("jkldn" + _description.toString());
+                                List<bool> desempty = [];
+                                List<bool> featureissueempty = [];
+                                for (int i = 0; i < select.length; i++) {
+                                  if (_description[select[i]].isEmpty) {
+                                    desempty.add(false);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                'Add Description of ${_roomsfeature.listOfFeature[select[i]].name}')));
+                                    break;
+                                  } else {
+                                    //  print("jkldn = " + i.toString());
+                                    desempty.add(true);
+                                  }
+                                  if (FeatureissueId[select[i]].isEmpty) {
+                                    featureissueempty.add(false);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                'Select issue ${_roomsfeature.listOfFeature[select[i]].name}')));
+                                    break;
+                                  } else {
+                                    featureissueempty.add(true);
+                                  }
+                                }
+                                //  print("jkldn" + desempty.toString());
+
+                                if (!desempty.contains(false) &&
+                                    !featureissueempty.contains(false)) {
+                                  removeempty();
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) => TellusMore(
+                                        featureid: featureId,
+                                        featureoptionid: featureoptionid,
+                                        featureissueid: FeatureissueId,
+                                        imgFile: imgFile,
+                                        addphotodescription:
+                                            _addphotodescription,
+                                        Descrption: _description,
+                                      ),
                                     ),
-                                  ),
-                                );
+                                  );
+                                }
                               },
                               child:
                                   //  featureissueid[indexs] == 0
