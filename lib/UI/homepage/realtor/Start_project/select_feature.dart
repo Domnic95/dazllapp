@@ -19,8 +19,10 @@ import 'package:image_picker/image_picker.dart';
 
 class Select_feature extends StatefulHookWidget {
   int? cutomerid;
+  String? customeremail;
   Select_feature({
-    required this.cutomerid,
+    this.cutomerid,
+    this.customeremail,
     Key? key,
   }) : super(key: key);
 
@@ -111,7 +113,9 @@ class _Select_featureState extends State<Select_feature> {
   load() {
     for (int i = 0; i < featureId.length; i++) {
       Map<String, dynamic> _map = {
-        "realtor_id": SpHelpers.getString(SharedPrefsKeys.Realtor_id),
+        "email": widget.customeremail,
+        if (widget.customeremail == '')
+          "realtor_id": SpHelpers.getString(SharedPrefsKeys.Realtor_id),
         "customer_id": widget.cutomerid,
         "featureOption": featureoptionid[i].toString(),
         "featureOptionIssues": FeatureissueId[i],
@@ -757,7 +761,7 @@ class _Select_featureState extends State<Select_feature> {
                               onTap: () async {
                                 List<bool> desempty = [];
                                 List<bool> featureissueempty = [];
-                               // print("jkldn" + FeatureissueId.toString());
+                                // print("jkldn" + FeatureissueId.toString());
                                 for (int i = 0; i < select.length; i++) {
                                   if (_description[select[i]].isEmpty) {
                                     desempty.add(false);

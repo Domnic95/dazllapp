@@ -115,7 +115,7 @@ Future<String> login(index, email, password, context, keepmelogin) async {
     if (response.statusCode == 200) {
       SpHelpers.setPref(
           SharedPrefsKeys.Realtor_id, response.data['data']['id'].toString());
-    
+
       SpHelpers.setPref(
           SharedPrefsKeys.Prof_id, response.data['data']['id'].toString());
 
@@ -126,19 +126,19 @@ Future<String> login(index, email, password, context, keepmelogin) async {
       // log("Pro Id=" + SpHelpers.getString(SharedPrefsKeys.Prof_id).toString());
       //SpHelpers.setString();
       if (index == 0) {
-        Navigator.push(context,
+        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => RealtorHomePage()));
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Login Sucessfully'), backgroundColor: Colors.green));
       } else if (index == 1) {
-        Navigator.push(context,
+        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => ProfessionalsHomepage()));
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Login Sucessfully'),
           backgroundColor: Colors.green,
         ));
       } else if (index == 2) {
-        Navigator.push(context,
+        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => CustomerHomepage()));
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Login Sucessfully'), backgroundColor: Colors.green));
@@ -165,9 +165,10 @@ logOut(BuildContext context) async {
   await prefs.remove(SharedPrefsKeys.key_current);
   await prefs.remove(SharedPrefsKeys.key_keep_me_logged_in);
   await prefs.remove(SharedPrefsKeys.Prof_id);
+  await prefs.remove(SharedPrefsKeys.Realtor_id);
   print("Log out successfully");
 
-  Navigator.of(context).pushAndRemoveUntil(
+  Navigator.of(context).pushAndRemoveUntil( 
       MaterialPageRoute(builder: (context) => LoginScreen(index: 0)),
       (route) => false);
 }

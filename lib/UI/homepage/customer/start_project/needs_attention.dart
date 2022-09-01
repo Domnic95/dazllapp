@@ -169,8 +169,8 @@ class _NeedAttentionState extends State<NeedAttention> {
                                             featurebool[index].clear();
                                             FeatureissueName[index].clear();
                                             FeatureissueId[index].clear();
-                                            indexs = 0;
                                             // currentindex = index;
+                                            indexs = 0;
                                           } else {
                                             select.add(index);
                                             featureId[index] = _roomsfeature

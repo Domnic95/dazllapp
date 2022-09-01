@@ -19,6 +19,7 @@ class _Select_customerState extends State<Select_customer> {
   int? customerid;
   bool loading = true;
   String selectedvalue = "Select Customer";
+  TextEditingController customeremail = TextEditingController();
   @override
   void initState() {
     load();
@@ -165,6 +166,7 @@ class _Select_customerState extends State<Select_customer> {
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: TextFormField(
+                    controller: customeremail,
                     cursorColor: AppTheme.nearlyBlack,
                     decoration: InputDecoration(
                       hintText: "Email Address",
@@ -194,7 +196,11 @@ class _Select_customerState extends State<Select_customer> {
                   style:
                       ElevatedButton.styleFrom(primary: AppTheme.colorPrimary),
                   onPressed: () async {
-                    await context.read(realtorprovider).getrealtorproject();
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Start_project(
+                              customerid: customerid!,
+                              customeremail: customeremail.text,
+                            )));
                   },
                   child: Text(
                     'Next',

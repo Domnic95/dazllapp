@@ -8,9 +8,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Start_project extends StatefulHookWidget {
-  int customerid;
+  int? customerid;
+  String? customeremail;
   Start_project({
-    required this.customerid,
+     this.customerid,
+     this.customeremail,
     Key? key,
   }) : super(key: key);
 
@@ -184,7 +186,9 @@ class _Start_projectState extends State<Start_project> {
                       // :
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Select_feature(
+                            customeremail: widget.customeremail,
                                 cutomerid: widget.customerid,
+                                 
                               )));
                       _roomsNotifier.listOfoption.clear();
                       _roomsNotifier.listOfissues.clear();
