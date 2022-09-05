@@ -550,13 +550,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 title: "Require Email",
                 content: "Please Enter Email Id",
                 defaultActionText: "OK");
-          } else if (_mobileNoControllre.text.toString().isEmpty) {
-            showAlertDialog(
-                context: context,
-                title: "Require Mobile Number",
-                content: "Please Enter Mobile Number",
-                defaultActionText: "OK");
-          } else if (_passwordController.text.toString().isEmpty) {
+          } 
+          // else if (_mobileNoControllre.text.toString().isEmpty) {
+          //   showAlertDialog(
+          //       context: context,
+          //       title: "Require Mobile Number",
+          //       content: "Please Enter Mobile Number",
+          //       defaultActionText: "OK");
+          // } 
+          else if (_passwordController.text.toString().isEmpty) {
             showAlertDialog(
                 context: context,
                 title: "Require Password",
