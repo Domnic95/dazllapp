@@ -23,3 +23,4 @@ const featureIssues = 'featureoissueslist/';
 const create_project_realtor = "realtorprojects";
 const uploadimages_realtor = "realtorprojectsImages";
 const realtorcustomerproject = "realtorprojects/customers";
+const realtorhousedata = "home-diagnostic-reports/house-data";

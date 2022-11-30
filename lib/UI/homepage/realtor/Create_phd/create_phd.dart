@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, unnecessary_new, prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
+import 'dart:async';
+
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/create_a_new_phd.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -14,13 +16,22 @@ class CreatePhd extends StatefulWidget {
 
 class _CreatePhdState extends State<CreatePhd> {
   final _formkey = GlobalKey<FormState>();
-  final _propertyAddress = TextEditingController();
+  final _propertynumber = TextEditingController();
+  final _propertyname = TextEditingController();
+  final _propertytype = TextEditingController();
   final _cityController = TextEditingController();
   final _stateController = TextEditingController();
   final _pincodeController = TextEditingController();
   final _first_name = TextEditingController();
   final _Last_name = TextEditingController();
-  final _ClientAddress = TextEditingController();
+  final _ClientEmailAddress = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,15 +86,79 @@ class _CreatePhdState extends State<CreatePhd> {
                           TextFormField(
                             validator: (text) {
                               if (text!.isEmpty) {
-                                return 'Address can\'t be empty';
+                                return 'St.Number can\'t be empty';
                               }
                               return null;
                             },
-                            controller: _propertyAddress,
+                            controller: _propertynumber,
                             cursorColor: AppTheme.nearlyBlack,
                             decoration: InputDecoration(
-                              hintText: "Enter Your Address",
-                              label: Text('ADDRESS'),
+                              hintText: "Enter Your St.Number",
+                              label: Text('St.Number'),
+                              isDense: true,
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black)),
+                              hintStyle: TextStyle(
+                                  color: AppTheme.darkerText,
+                                  fontFamily: AppTheme.fontName,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                              labelStyle: TextStyle(
+                                  color: const Color(0xFF424242),
+                                  fontFamily: AppTheme.fontName,
+                                  fontSize: 14),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            validator: (text) {
+                              if (text!.isEmpty) {
+                                return 'St.Name can\'t be empty';
+                              }
+                              return null;
+                            },
+                            controller: _propertyname,
+                            cursorColor: AppTheme.nearlyBlack,
+                            decoration: InputDecoration(
+                              hintText: "Enter Your St.Name",
+                              label: Text('St.Name'),
+                              isDense: true,
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black)),
+                              hintStyle: TextStyle(
+                                  color: AppTheme.darkerText,
+                                  fontFamily: AppTheme.fontName,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                              labelStyle: TextStyle(
+                                  color: const Color(0xFF424242),
+                                  fontFamily: AppTheme.fontName,
+                                  fontSize: 14),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            validator: (text) {
+                              if (text!.isEmpty) {
+                                return 'St.Type can\'t be empty';
+                              }
+                              return null;
+                            },
+                            controller: _propertytype,
+                            cursorColor: AppTheme.nearlyBlack,
+                            decoration: InputDecoration(
+                              hintText: "Enter Your St.Type",
+                              label: Text('St.Type'),
                               isDense: true,
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.black)),
@@ -177,6 +252,7 @@ class _CreatePhdState extends State<CreatePhd> {
                             },
                             controller: _pincodeController,
                             cursorColor: AppTheme.nearlyBlack,
+                            keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               hintText: "Enter Your Pincode",
                               label: Text('PINCODE'),
@@ -299,7 +375,8 @@ class _CreatePhdState extends State<CreatePhd> {
                             height: 15,
                           ),
                           TextField(
-                            controller: _ClientAddress,
+                            controller: _ClientEmailAddress,
+                            keyboardType: TextInputType.emailAddress,
                             cursorColor: AppTheme.nearlyBlack,
                             decoration: InputDecoration(
                               hintText: "Enter Client's Address",
@@ -364,15 +441,48 @@ class _CreatePhdState extends State<CreatePhd> {
                     GestureDetector(
                       onTap: () {
                         if (_formkey.currentState!.validate()) {
-                          _ClientAddress.clear();
-                          _Last_name.clear();
-                          _first_name.clear();
-                          _propertyAddress.clear();
-                          _pincodeController.clear();
-                          _cityController.clear();
-                          _stateController.clear();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => CreateANewPhd(
+                                ClientEmailAddress: _ClientEmailAddress.text,
+                                Last_name: _Last_name.text,
+                                city: _cityController.text,
+                                first_name: _first_name.text,
+                                pincode: _pincodeController.text,
+                                state: _stateController.text,
+                                streetName: _propertyname.text,
+                                streetNum: _propertynumber.text,
+                                streetType: _propertytype.text,
+                              ),
+                            ),
+                          );
                         }
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CreateANewPhd()));
+                        Timer(Duration(seconds: 2), () {
+                          setState(() {
+                            _ClientEmailAddress.clear();
+                            _Last_name.clear();
+                            _first_name.clear();
+                            _propertynumber.clear();
+                            _propertyname.clear();
+                            _propertytype.clear();
+                            _pincodeController.clear();
+                            _cityController.clear();
+                            _stateController.clear();
+                          });
+                        });
+                        // Navigator.of(context).push(
+                        //   MaterialPageRoute(
+                        //     builder: (context) => CreateANewPhd(
+                        //       ClientEmailAddress: _ClientEmailAddress.text,
+                        //       Last_name: _Last_name.text,
+                        //       city: _cityController.text,
+                        //       first_name: _first_name.text,
+                        //       pincode: _pincodeController.text,
+                        //       propertyAddress: _propertyAddress.text,
+                        //       state: _stateController.text,
+                        //     ),
+                        //   ),
+                        // );
                       },
                       child: Row(
                         children: [
