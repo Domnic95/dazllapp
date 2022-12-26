@@ -168,7 +168,7 @@ logOut(BuildContext context) async {
   await prefs.remove(SharedPrefsKeys.Realtor_id);
   print("Log out successfully");
 
-  Navigator.of(context).pushAndRemoveUntil( 
+  Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) => LoginScreen(index: 0)),
       (route) => false);
 }
@@ -223,33 +223,61 @@ Future<void> signupRealtor(
   }
 }
 
-Future<void> signupProfessional(
-  index,
-  context,
-  city,
-  company_name,
-  company_address,
-  confirm_password,
-  email,
-  fname,
-  lname,
-  password,
-  mobile,
-) async {
+Future<void> signupProfessional({
+  required int index,
+  required BuildContext context,
+  required String city,
+  required String company_name,
+  required String company_address,
+  required String confirm_password,
+  required String email,
+  required String fname,
+  required String lname,
+  required String password,
+  required String company_number,
+  required String facebookLink,
+  required String image1,
+  required String image2,
+  required String image3,
+  required String image4,
+  required List<int> services,
+  required String insurance,
+  required String state,
+  required String twitterLink,
+  required String website,
+  required String zip_code,
+  required String years,
+  required String numberIns,
+  required String contactIns,
+  required String mobile,
+}) async {
   try {
     final response = await dio.post(signup_professional, data: {
       "check_box": true,
       "company_city": city,
       "company_name": company_name,
+      "company_number": company_number,
       "company_street_address": company_address,
       "confirm_password": confirm_password,
+      "contactIns": contactIns,
       "email": email,
+      "fb": facebookLink,
       "first_name": fname,
+      "images1": image1,
+      "images2": image2,
+      "images3": image3,
+      "images4": image4,
+      "insurance": insurance,
       "last_name": lname,
+      "numberIns": numberIns,
       "password": password,
       "phone_number": mobile,
-      "state": "test",
-      "zip_code": "1234"
+      "services": services,
+      "state": state,
+      "twitter": twitterLink,
+      "website": website,
+      "years": years,
+      "zip_code": zip_code
     });
 
     if (response.statusCode == 201) {

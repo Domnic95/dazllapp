@@ -11,8 +11,8 @@ class Start_project extends StatefulHookWidget {
   int? customerid;
   String? customeremail;
   Start_project({
-     this.customerid,
-     this.customeremail,
+    this.customerid,
+    this.customeremail,
     Key? key,
   }) : super(key: key);
 
@@ -114,12 +114,18 @@ class _Start_projectState extends State<Start_project> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.network(
-                                  _roomsNotifier.listOfRoom[index].image
-                                      .toString(),
-                                  width: 50,
-                                  color: teamRed,
-                                ),
+                                _roomsNotifier.listOfRoom[index].image == ""
+                                    ? Image.asset(
+                                        'assets/images/noimage.png',
+                                        width: 70,
+                                        color: teamRed,
+                                      )
+                                    : Image.network(
+                                        _roomsNotifier.listOfRoom[index].image
+                                            .toString(),
+                                        width: 50,
+                                        color: teamRed,
+                                      ),
                                 SizedBox(
                                   height: 8,
                                 ),
@@ -186,9 +192,8 @@ class _Start_projectState extends State<Start_project> {
                       // :
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Select_feature(
-                            customeremail: widget.customeremail,
+                                customeremail: widget.customeremail,
                                 cutomerid: widget.customerid,
-                                 
                               )));
                       _roomsNotifier.listOfoption.clear();
                       _roomsNotifier.listOfissues.clear();

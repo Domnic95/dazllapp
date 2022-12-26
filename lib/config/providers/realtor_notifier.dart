@@ -56,7 +56,7 @@ class realtorNotifier extends BaseNotifier {
   }
 
   Future gethousedata(
-     { String? city,
+      {String? city,
       String? state,
       String? pincode,
       String? first_name,
@@ -99,4 +99,6 @@ class realtorNotifier extends BaseNotifier {
     // log("lshjkbjk"+res.data.toString());
     notifyListeners();
   }
+
+ 
 }

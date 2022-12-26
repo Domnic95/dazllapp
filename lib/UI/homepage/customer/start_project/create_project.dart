@@ -111,12 +111,18 @@ class _CreateProjectState extends State<CreateProject> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.network(
-                                  _roomsNotifier.listOfRoom[index].image
-                                      .toString(),
-                                  width: 50,
-                                  color: teamRed,
-                                ),
+                                _roomsNotifier.listOfRoom[index].image == ""
+                                    ? Image.asset(
+                                        'assets/images/noimage.png',
+                                        width: 70,
+                                        color: teamRed,
+                                      )
+                                    : Image.network(
+                                        _roomsNotifier.listOfRoom[index].image
+                                            .toString(),
+                                        width: 50,
+                                        color: teamRed,
+                                      ),
                                 SizedBox(
                                   height: 8,
                                 ),

@@ -8,6 +8,7 @@ import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -33,7 +34,7 @@ class _Company_profileState extends State<Company_profile> {
   }
 
   loaddata() async {
-    await context.read(professionaltifier).getprofile();
+    await context.read(professionaltifier).getProfessional();
     setState(() {
       loading = false;
     });
@@ -82,16 +83,16 @@ class _Company_profileState extends State<Company_profile> {
                                 color: Colors.white,
                               ),
                             ),
-                            _profileNotifier.profiles.yearsInBusiness
-                                        .toString() ==
-                                    'null'
+                            _profileNotifier.professionalData.yearsInBusiness ==
+                                    null
                                 ? Text(
                                     'Add your Years in Bussiness',
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.white),
                                   )
                                 : Text(
-                                    _profileNotifier.profiles.yearsInBusiness
+                                    _profileNotifier
+                                        .professionalData.yearsInBusiness
                                         .toString(),
                                     style: TextStyle(
                                       fontSize: 12,
@@ -158,9 +159,9 @@ class _Company_profileState extends State<Company_profile> {
                                           fontSize: 14,
                                         ),
                                       ),
-                                      subtitle: _profileNotifier.profiles.name
-                                                  .toString() ==
-                                              'null'
+                                      subtitle: _profileNotifier
+                                                  .professionalData.name ==
+                                              ''
                                           ? Text(
                                               'Add your Name',
                                               style: TextStyle(
@@ -168,7 +169,8 @@ class _Company_profileState extends State<Company_profile> {
                                               ),
                                             )
                                           : Text(
-                                              _profileNotifier.profiles.name
+                                              _profileNotifier
+                                                  .professionalData.name
                                                   .toString(),
                                               style: TextStyle(
                                                 fontSize: 13,
@@ -192,9 +194,9 @@ class _Company_profileState extends State<Company_profile> {
                                           fontSize: 14,
                                         ),
                                       ),
-                                      subtitle: _profileNotifier.profiles.phone
-                                                  .toString() ==
-                                              'null'
+                                      subtitle: _profileNotifier
+                                                  .professionalData.phone ==
+                                              ''
                                           ? Text(
                                               'Add your Phone No',
                                               style: TextStyle(
@@ -202,7 +204,8 @@ class _Company_profileState extends State<Company_profile> {
                                               ),
                                             )
                                           : Text(
-                                              _profileNotifier.profiles.phone
+                                              _profileNotifier
+                                                  .professionalData.phone
                                                   .toString(),
                                               style: TextStyle(
                                                 fontSize: 13,
@@ -226,9 +229,9 @@ class _Company_profileState extends State<Company_profile> {
                                           fontSize: 14,
                                         ),
                                       ),
-                                      subtitle: _profileNotifier.profiles.email
-                                                  .toString() ==
-                                              'null'
+                                      subtitle: _profileNotifier
+                                                  .professionalData.email ==
+                                              ''
                                           ? Text(
                                               'Add your Email',
                                               style: TextStyle(
@@ -236,7 +239,8 @@ class _Company_profileState extends State<Company_profile> {
                                               ),
                                             )
                                           : Text(
-                                              _profileNotifier.profiles.email
+                                              _profileNotifier
+                                                  .professionalData.email
                                                   .toString(),
                                               style: TextStyle(
                                                 fontSize: 13,
@@ -251,9 +255,7 @@ class _Company_profileState extends State<Company_profile> {
                                       ),
                                     ),
                                     ListTile(
-                                      leading: Icon(
-                                        Icons.person,
-                                      ),
+                                      leading: Icon(Icons.location_on_rounded),
                                       title: Text(
                                         'Address : ',
                                         style: TextStyle(
@@ -261,9 +263,8 @@ class _Company_profileState extends State<Company_profile> {
                                         ),
                                       ),
                                       subtitle: _profileNotifier
-                                                  .profiles.address
-                                                  .toString() ==
-                                              'null'
+                                                  .professionalData.address ==
+                                              ''
                                           ? Text(
                                               'Add your Address',
                                               style: TextStyle(
@@ -271,7 +272,8 @@ class _Company_profileState extends State<Company_profile> {
                                               ),
                                             )
                                           : Text(
-                                              _profileNotifier.profiles.address
+                                              _profileNotifier
+                                                  .professionalData.address
                                                   .toString(),
                                               style: TextStyle(
                                                 fontSize: 13,
@@ -296,9 +298,9 @@ class _Company_profileState extends State<Company_profile> {
                                         ),
                                       ),
                                       subtitle: _profileNotifier
-                                                  .profiles.businessLicence
-                                                  .toString() ==
-                                              'null'
+                                                  .professionalData
+                                                  .businessLicence ==
+                                              ''
                                           ? Text(
                                               'Add your Bussiness Licence',
                                               style: TextStyle(
@@ -306,8 +308,8 @@ class _Company_profileState extends State<Company_profile> {
                                               ),
                                             )
                                           : Text(
-                                              _profileNotifier
-                                                  .profiles.businessLicence
+                                              _profileNotifier.professionalData
+                                                  .businessLicence
                                                   .toString(),
                                               style: TextStyle(
                                                 fontSize: 13,
@@ -330,9 +332,9 @@ class _Company_profileState extends State<Company_profile> {
                                         ),
                                       ),
                                       subtitle: _profileNotifier
-                                                  .profiles.insuranceCertificate
-                                                  .toString() ==
-                                              'null'
+                                                  .professionalData
+                                                  .insuranceCertificate ==
+                                              ''
                                           ? Text(
                                               'Add your Insurance Certificate',
                                               style: TextStyle(
@@ -340,8 +342,80 @@ class _Company_profileState extends State<Company_profile> {
                                               ),
                                             )
                                           : Text(
+                                              _profileNotifier.professionalData
+                                                  .insuranceCertificate
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                              ),
+                                            ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 12, right: 12),
+                                      child: Divider(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      leading: Icon(
+                                        Icons.phone,
+                                      ),
+                                      title: Text(
+                                        'Insurance Contact Person : ',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      subtitle: _profileNotifier
+                                                  .professionalData
+                                                  .insuranceContactPerson ==
+                                              ''
+                                          ? Text(
+                                              'Add your Insurance Contact Person Number',
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                              ),
+                                            )
+                                          : Text(
+                                              _profileNotifier.professionalData
+                                                  .insuranceContactPerson
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                              ),
+                                            ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 12, right: 12),
+                                      child: Divider(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      leading: Icon(
+                                        Icons.phone,
+                                      ),
+                                      title: Text(
+                                        'Insurance Number : ',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      subtitle: _profileNotifier
+                                                  .professionalData
+                                                  .contactIns ==
+                                              ''
+                                          ? Text(
+                                              'Add your Insurance Number',
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                              ),
+                                            )
+                                          : Text(
                                               _profileNotifier
-                                                  .profiles.insuranceCertificate
+                                                  .professionalData.contactIns
                                                   .toString(),
                                               style: TextStyle(
                                                 fontSize: 13,
@@ -365,13 +439,11 @@ class _Company_profileState extends State<Company_profile> {
                                         ),
                                       ),
                                       subtitle: _profileNotifier
-                                                      .profiles.projectPortfolio
-                                                      .toString() ==
-                                                  'null' ||
-                                              _profileNotifier
-                                                      .profiles.projectPortfolio
-                                                      .toString() ==
-                                                  '[]'
+                                                      .professionalData
+                                                      .projectPortfolio ==
+                                                  null ||
+                                              _profileNotifier.professionalData
+                                                  .projectPortfolio!.isEmpty
                                           ? Text(
                                               'Add your Project portfolio',
                                               style: TextStyle(
@@ -379,8 +451,8 @@ class _Company_profileState extends State<Company_profile> {
                                               ),
                                             )
                                           : Text(
-                                              _profileNotifier
-                                                  .profiles.projectPortfolio
+                                              _profileNotifier.professionalData
+                                                  .projectPortfolio
                                                   .toString(),
                                               style: TextStyle(
                                                 fontSize: 13,
@@ -403,9 +475,9 @@ class _Company_profileState extends State<Company_profile> {
                                         ),
                                       ),
                                       subtitle: _profileNotifier
-                                                  .profiles.references
-                                                  .toString() ==
-                                              'null'
+                                                  .professionalData
+                                                  .references ==
+                                              ''
                                           ? Text(
                                               'Add your References',
                                               style: TextStyle(
@@ -414,7 +486,7 @@ class _Company_profileState extends State<Company_profile> {
                                             )
                                           : Text(
                                               _profileNotifier
-                                                  .profiles.references
+                                                  .professionalData.references
                                                   .toString(),
                                               style: TextStyle(
                                                 fontSize: 13,
@@ -431,11 +503,11 @@ class _Company_profileState extends State<Company_profile> {
                                     ListTile(
                                       onTap: () {
                                         String url = _profileNotifier
-                                            .profiles.website
+                                            .professionalData.website
                                             .toString();
-                                        _profileNotifier.profiles.website
-                                                    .toString() !=
-                                                'null'
+                                        _profileNotifier
+                                                    .professionalData.website !=
+                                                ''
                                             ? Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
@@ -443,7 +515,7 @@ class _Company_profileState extends State<Company_profile> {
                                                         webview_screen(url)))
                                             : null;
                                       },
-                                      leading: Icon(Icons.web_asset),
+                                      leading: Icon(Icons.language),
                                       title: Text(
                                         'Website : ',
                                         style: TextStyle(
@@ -451,9 +523,8 @@ class _Company_profileState extends State<Company_profile> {
                                         ),
                                       ),
                                       subtitle: _profileNotifier
-                                                  .profiles.website
-                                                  .toString() ==
-                                              'null'
+                                                  .professionalData.website ==
+                                              ''
                                           ? Text(
                                               'Add your Website',
                                               style: TextStyle(
@@ -461,7 +532,104 @@ class _Company_profileState extends State<Company_profile> {
                                               ),
                                             )
                                           : Text(
-                                              _profileNotifier.profiles.website
+                                              _profileNotifier
+                                                  .professionalData.website
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                color: Colors.blue,
+                                              ),
+                                            ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 12, right: 12),
+                                      child: Divider(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        String url = _profileNotifier
+                                            .professionalData.facebook
+                                            .toString();
+                                        _profileNotifier.professionalData
+                                                    .facebook !=
+                                                ''
+                                            ? Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        webview_screen(url)))
+                                            : null;
+                                      },
+                                      leading: Icon(Icons.facebook_rounded),
+                                      title: Text(
+                                        'FaceBook : ',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      subtitle: _profileNotifier
+                                                  .professionalData.facebook ==
+                                              ''
+                                          ? Text(
+                                              'Add your Facebook ',
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                              ),
+                                            )
+                                          : Text(
+                                              _profileNotifier
+                                                  .professionalData.facebook
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                color: Colors.blue,
+                                              ),
+                                            ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 12, right: 12),
+                                      child: Divider(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        String url = _profileNotifier
+                                            .professionalData.twitter
+                                            .toString();
+                                        _profileNotifier
+                                                    .professionalData.twitter !=
+                                                ''
+                                            ? Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        webview_screen(url)))
+                                            : null;
+                                      },
+                                      leading: FaIcon(FontAwesomeIcons.twitter),
+                                      title: Text(
+                                        'Twitter : ',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      subtitle: _profileNotifier
+                                                  .professionalData.twitter ==
+                                              ''
+                                          ? Text(
+                                              'Add your Twitter ',
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                              ),
+                                            )
+                                          : Text(
+                                              _profileNotifier
+                                                  .professionalData.twitter
                                                   .toString(),
                                               style: TextStyle(
                                                 fontSize: 13,
@@ -471,6 +639,128 @@ class _Company_profileState extends State<Company_profile> {
                                     ),
                                   ],
                                 ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                physics: BouncingScrollPhysics(),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(left: 5, right: 5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      height: 90,
+                                      width: 90,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: _profileNotifier
+                                                    .professionalData.images1 ==
+                                                ""
+                                            ? Center(
+                                                child: Image.network(
+                                                  'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              )
+                                            : Image.network(
+                                                _profileNotifier
+                                                    .professionalData.images1
+                                                    .toString(),
+                                                fit: BoxFit.cover,
+                                              ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(left: 5, right: 5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      height: 90,
+                                      width: 90,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: _profileNotifier
+                                                    .professionalData.images2 ==
+                                                ""
+                                            ? Center(
+                                                child: Image.network(
+                                                  'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              )
+                                            : Image.network(
+                                                _profileNotifier
+                                                    .professionalData.images2
+                                                    .toString(),
+                                                fit: BoxFit.cover,
+                                              ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(left: 5, right: 5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      height: 90,
+                                      width: 90,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: _profileNotifier
+                                                    .professionalData.images3 ==
+                                                ""
+                                            ? Center(
+                                                child: Image.network(
+                                                  'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              )
+                                            : Image.network(
+                                                _profileNotifier
+                                                    .professionalData.images3
+                                                    .toString(),
+                                                fit: BoxFit.cover,
+                                              ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(left: 5, right: 5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      height: 90,
+                                      width: 90,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: _profileNotifier
+                                                    .professionalData.images4 ==
+                                                ""
+                                            ? Center(
+                                                child: Image.network(
+                                                  'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              )
+                                            : Image.network(
+                                                _profileNotifier
+                                                    .professionalData.images4
+                                                    .toString(),
+                                                fit: BoxFit.cover,
+                                              ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
                               ),
                             ],
                           ),

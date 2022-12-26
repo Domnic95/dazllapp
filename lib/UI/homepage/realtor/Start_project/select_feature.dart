@@ -12,6 +12,7 @@ import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -51,6 +52,7 @@ class _Select_featureState extends State<Select_feature> {
   List<String> _description = <String>[];
   bool loading = true;
   List<File> _file = [];
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -303,12 +305,17 @@ class _Select_featureState extends State<Select_feature> {
                                                     FeatureissueId[index]
                                                         .clear();
 
-                                                    setState(() {});
+                                                    setState(() {
+                                                      _isLoading = true;
+                                                    });
                                                     await context
                                                         .read(customernotifier)
                                                         .getfeatureissue(
                                                             currenoptionselectedid[
                                                                 index]);
+                                                    setState(() {
+                                                      _isLoading = false;
+                                                    });
                                                     for (int i = 0;
                                                         i <
                                                             _roomsfeature
@@ -329,96 +336,156 @@ class _Select_featureState extends State<Select_feature> {
                                                   },
                                                 ),
                                               ),
-                                              currentoptionselected[index] != ''
-                                                  ? Expanded(
-                                                      // width: 160,
-                                                      // height: 180,
-                                                      child: ListView.builder(
-                                                        physics:
-                                                            NeverScrollableScrollPhysics(),
-                                                        shrinkWrap: true,
-                                                        itemCount:
-                                                            FeatureissueName[
-                                                                    index]
-                                                                .length,
-                                                        itemBuilder:
-                                                            (BuildContext
-                                                                    context,
-                                                                int subindex) {
-                                                          return CheckboxListTile(
-                                                            title: Text(
-                                                                FeatureissueName[
-                                                                            index]
-                                                                        [
-                                                                        subindex]
-                                                                    .toString()),
-                                                            contentPadding:
-                                                                EdgeInsets.all(
-                                                                    0),
-                                                            controlAffinity:
-                                                                ListTileControlAffinity
-                                                                    .leading,
-                                                            activeColor: AppTheme
-                                                                .colorPrimary,
-                                                            onChanged:
-                                                                (bool? value) {
-                                                              setState(() {
-                                                                featurebool[index]
-                                                                        [
-                                                                        subindex] =
-                                                                    value!;
-                                                                if (selectcheckbox.contains(
-                                                                    featurebool[
-                                                                            index]
-                                                                        [
-                                                                        subindex])) {
-                                                                  selectcheckbox.remove(
-                                                                      featurebool[
-                                                                              index]
-                                                                          [
-                                                                          subindex]);
-                                                                } else {
-                                                                  selectcheckbox.add(
-                                                                      featurebool[
-                                                                              index]
-                                                                          [
-                                                                          subindex]);
-                                                                }
-                                                                if (featurebool[
-                                                                            index]
-                                                                        [
-                                                                        subindex] ==
-                                                                    true) {
-                                                                  FeatureissueId[
-                                                                          index]
-                                                                      .add(featureissueId[
-                                                                              index]
-                                                                          [
-                                                                          subindex]);
-                                                                } else {
-                                                                  FeatureissueId[
-                                                                          index]
-                                                                      .remove(featureissueId[
-                                                                              index]
-                                                                          [
-                                                                          subindex]);
-                                                                }
-                                                                // log("sdsdw" +
-                                                                //     FeatureissueId
-                                                                //         .toString());
-                                                                // log("sdsdw" +
-                                                                //     featurebool
-                                                                //         .toString());
-                                                              });
-                                                            },
-                                                            value: featurebool[
-                                                                    index]
-                                                                [subindex],
-                                                          );
-                                                        },
-                                                      ),
+                                              _isLoading
+                                                  ? CupertinoActivityIndicator(
+                                                      color: AppTheme
+                                                          .colorPrimary
+                                                          .withOpacity(0.5),
                                                     )
-                                                  : Container()
+                                                  : currentoptionselected[
+                                                              index] !=
+                                                          ''
+                                                      ? Expanded(
+                                                          // width: 160,
+                                                          // height: 180,
+                                                          child:
+                                                              ListView.builder(
+                                                            physics:
+                                                                NeverScrollableScrollPhysics(),
+                                                            shrinkWrap: true,
+                                                            itemCount:
+                                                                FeatureissueName[
+                                                                        index]
+                                                                    .length,
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    int subindex) {
+                                                              return Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            20),
+                                                                child:
+                                                                    SingleChildScrollView(
+                                                                  scrollDirection:
+                                                                      Axis.horizontal,
+                                                                  physics:
+                                                                      BouncingScrollPhysics(),
+                                                                  child: Row(
+                                                                    children: [
+                                                                      ChoiceChip(
+                                                                          selectedColor: AppTheme
+                                                                              .colorPrimary,
+                                                                          label:
+                                                                              Text(
+                                                                            FeatureissueName[index][subindex].toString(),
+                                                                            style:
+                                                                                TextStyle(color: featurebool[index][subindex] == true ? Colors.white : Colors.black),
+                                                                          ),
+                                                                          onSelected:
+                                                                              (value) {
+                                                                            setState(() {
+                                                                              featurebool[index][subindex] = value;
+                                                                              if (selectcheckbox.contains(featurebool[index][subindex])) {
+                                                                                selectcheckbox.remove(featurebool[index][subindex]);
+                                                                              } else {
+                                                                                selectcheckbox.add(featurebool[index][subindex]);
+                                                                              }
+                                                                              if (featurebool[index][subindex] == true) {
+                                                                                FeatureissueId[index].add(featureissueId[index][subindex]);
+                                                                              } else {
+                                                                                FeatureissueId[index].remove(featureissueId[index][subindex]);
+                                                                              }
+                                                                              // log("sdsdw" +
+                                                                              //     FeatureissueId
+                                                                              //         .toString());
+                                                                              // log("sdsdw" +
+                                                                              //     featurebool
+                                                                              //         .toString());
+                                                                            });
+                                                                          },
+                                                                          selected:
+                                                                              featurebool[index][subindex]),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              );
+                                                              // return CheckboxListTile(
+                                                              //   title: Text(
+                                                              //       FeatureissueName[
+                                                              //                   index]
+                                                              //               [
+                                                              //               subindex]
+                                                              //           .toString()),
+                                                              //   contentPadding:
+                                                              //       EdgeInsets.all(
+                                                              //           0),
+                                                              //   controlAffinity:
+                                                              //       ListTileControlAffinity
+                                                              //           .leading,
+                                                              //   activeColor: AppTheme
+                                                              //       .colorPrimary,
+                                                              //   onChanged:
+                                                              //       (bool? value) {
+                                                              //     setState(() {
+                                                              //       featurebool[index]
+                                                              //               [
+                                                              //               subindex] =
+                                                              //           value!;
+                                                              //       if (selectcheckbox.contains(
+                                                              //           featurebool[
+                                                              //                   index]
+                                                              //               [
+                                                              //               subindex])) {
+                                                              //         selectcheckbox.remove(
+                                                              //             featurebool[
+                                                              //                     index]
+                                                              //                 [
+                                                              //                 subindex]);
+                                                              //       } else {
+                                                              //         selectcheckbox.add(
+                                                              //             featurebool[
+                                                              //                     index]
+                                                              //                 [
+                                                              //                 subindex]);
+                                                              //       }
+                                                              //       if (featurebool[
+                                                              //                   index]
+                                                              //               [
+                                                              //               subindex] ==
+                                                              //           true) {
+                                                              //         FeatureissueId[
+                                                              //                 index]
+                                                              //             .add(featureissueId[
+                                                              //                     index]
+                                                              //                 [
+                                                              //                 subindex]);
+                                                              //       } else {
+                                                              //         FeatureissueId[
+                                                              //                 index]
+                                                              //             .remove(featureissueId[
+                                                              //                     index]
+                                                              //                 [
+                                                              //                 subindex]);
+                                                              //       }
+                                                              //       // log("sdsdw" +
+                                                              //       //     FeatureissueId
+                                                              //       //         .toString());
+                                                              //       // log("sdsdw" +
+                                                              //       //     featurebool
+                                                              //       //         .toString());
+                                                              //     });
+                                                              //   },
+                                                              //   value: featurebool[
+                                                              //           index]
+                                                              //       [subindex],
+                                                              // );
+                                                            },
+                                                          ),
+                                                        )
+                                                      : Container()
                                             ],
                                           ),
                                           SizedBox(
@@ -441,6 +508,31 @@ class _Select_featureState extends State<Select_feature> {
                                             child: Container(
                                               child: Row(
                                                 children: [
+                                                  // fileImage.isNotEmpty
+                                                  //     ? Row(
+                                                  //         children: [
+                                                  //           Icon(Icons.add_box),
+                                                  //           SizedBox(
+                                                  //             width: 5,
+                                                  //           ),
+                                                  //           Container(
+                                                  //             width: 50,
+                                                  //             height: 50,
+                                                  //             child: ClipRRect(
+                                                  //               borderRadius:
+                                                  //                   BorderRadius
+                                                  //                       .circular(
+                                                  //                           5),
+                                                  //               child: Image.file(
+                                                  //                   File(fileImage
+                                                  //                       .first),
+                                                  //                   fit: BoxFit
+                                                  //                       .cover),
+                                                  //             ),
+                                                  //           )
+                                                  //         ],
+                                                  //       )
+                                                  //     :
                                                   Container(
                                                       padding: EdgeInsets.only(
                                                           top: 7,
@@ -515,10 +607,12 @@ class _Select_featureState extends State<Select_feature> {
                                                           if (imgGallery !=
                                                               null) {
                                                             textphoto(index);
+                                                            // fileImage.clear();
                                                           }
                                                           if (imgCamera !=
                                                               null) {
                                                             photocamera(index);
+                                                            // fileImage.clear();
                                                           }
                                                         },
                                                         icon: Icon(
@@ -900,17 +994,24 @@ class _Select_featureState extends State<Select_feature> {
   void openCamera(
     int index,
   ) async {
+    // fileImage.clear();
     imgCamera = await imgPicker.getImage(source: ImageSource.camera);
-
+    // setState(() {
+    //   fileImage.add(imgCamera.path);
+    // });
     Navigator.of(context).pop();
   }
 
   late var imgGallery;
+  // List<String> fileImage = [];
   void openGallery(
     int index,
   ) async {
+    // fileImage.clear();
     imgGallery = await imgPicker.getImage(source: ImageSource.gallery);
-
+    // setState(() {
+    //   fileImage.add(imgGallery.path);
+    // });
     Navigator.of(context).pop();
   }
 

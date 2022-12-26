@@ -193,3 +193,53 @@ class _WelcomeState extends State<Welcome> {
     }
   }
 }
+
+class MyHomePage extends StatelessWidget {
+  var tags = [
+    "love",
+    "instagood",
+    "photooftheday",
+    "beautiful",
+    "fashion",
+    "happy",
+    "tbt",
+    "cute",
+    "followme",
+    "like4like",
+    "follow",
+    "picoftheday",
+    "me",
+    "selfie",
+    "summer",
+    "instadaily"
+  ];
+
+  var selected_tags = ["love", "me", "summer"];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Wrap(
+        spacing: 8.0, // gap between adjacent chips
+        runSpacing: 4.0, // gap between lines
+        children: <Widget>[...generate_tags()],
+      ),
+    );
+  }
+
+  generate_tags() {
+    return tags.map((tag) => get_chip(tag)).toList();
+  }
+
+  get_chip(name) {
+    return FilterChip(
+      selected: selected_tags.contains(name),
+      selectedColor: Colors.blue.shade800,
+      disabledColor: Colors.blue.shade400,
+      labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      label: Text("#${name}"),
+      onSelected: (bool value) {},
+    );
+  }
+}

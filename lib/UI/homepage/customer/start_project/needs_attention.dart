@@ -302,76 +302,139 @@ class _NeedAttentionState extends State<NeedAttention> {
                                                             (BuildContext
                                                                     context,
                                                                 int subindex) {
-                                                          return CheckboxListTile(
-                                                            title: Text(
-                                                                FeatureissueName[
+                                                          return Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 20.0),
+                                                            child: Row(
+                                                              children: [
+                                                                ChoiceChip(
+                                                                    selectedColor:
+                                                                        AppTheme
+                                                                            .colorPrimary,
+                                                                    label: Text(
+                                                                      FeatureissueName[index]
+                                                                              [
+                                                                              subindex]
+                                                                          .toString(),
+                                                                      style: TextStyle(
+                                                                          color: featurebool[index][subindex] == true
+                                                                              ? Colors.white
+                                                                              : Colors.black),
+                                                                    ),
+                                                                    onSelected:
+                                                                        (value) {
+                                                                      setState(
+                                                                          () {
+                                                                        featurebool[index][subindex] =
+                                                                            value;
+                                                                        if (selectcheckbox.contains(featurebool[index]
+                                                                            [
+                                                                            subindex])) {
+                                                                          selectcheckbox.remove(featurebool[index]
+                                                                              [
+                                                                              subindex]);
+                                                                        } else {
+                                                                          selectcheckbox.add(featurebool[index]
+                                                                              [
+                                                                              subindex]);
+                                                                        }
+                                                                        if (featurebool[index][subindex] ==
+                                                                            true) {
+                                                                          FeatureissueId[index].add(featureissueId[index]
+                                                                              [
+                                                                              subindex]);
+                                                                        } else {
+                                                                          FeatureissueId[index].remove(featureissueId[index]
+                                                                              [
+                                                                              subindex]);
+                                                                        }
+                                                                        // log("sdsdw" +
+                                                                        //     FeatureissueId
+                                                                        //         .toString());
+                                                                        // log("sdsdw" +
+                                                                        //     featurebool
+                                                                        //         .toString());
+                                                                      });
+                                                                    },
+                                                                    selected: featurebool[
                                                                             index]
                                                                         [
-                                                                        subindex]
-                                                                    .toString()),
-                                                            contentPadding:
-                                                                EdgeInsets.all(
-                                                                    0),
-                                                            controlAffinity:
-                                                                ListTileControlAffinity
-                                                                    .leading,
-                                                            activeColor: AppTheme
-                                                                .colorPrimary,
-                                                            onChanged:
-                                                                (bool? value) {
-                                                              setState(() {
-                                                                featurebool[index]
-                                                                        [
-                                                                        subindex] =
-                                                                    value!;
-                                                                if (selectcheckbox.contains(
-                                                                    featurebool[
-                                                                            index]
-                                                                        [
-                                                                        subindex])) {
-                                                                  selectcheckbox.remove(
-                                                                      featurebool[
-                                                                              index]
-                                                                          [
-                                                                          subindex]);
-                                                                } else {
-                                                                  selectcheckbox.add(
-                                                                      featurebool[
-                                                                              index]
-                                                                          [
-                                                                          subindex]);
-                                                                }
-                                                                if (featurebool[
-                                                                            index]
-                                                                        [
-                                                                        subindex] ==
-                                                                    true) {
-                                                                  FeatureissueId[
-                                                                          index]
-                                                                      .add(featureissueId[
-                                                                              index]
-                                                                          [
-                                                                          subindex]);
-                                                                } else {
-                                                                  FeatureissueId[
-                                                                          index]
-                                                                      .remove(featureissueId[
-                                                                              index]
-                                                                          [
-                                                                          subindex]);
-                                                                }
-                                                                // log("sdsdw" +
-                                                                //     FeatureissueId
-                                                                //         .toString());
-                                                                // log("sdsdw" +
-                                                                //     featurebool
-                                                                //         .toString());
-                                                              });
-                                                            },
-                                                            value: featurebool[
-                                                                    index]
-                                                                [subindex],
+                                                                        subindex]),
+                                                              ],
+                                                            ),
                                                           );
+                                                          // return CheckboxListTile(
+                                                          //   title: Text(
+                                                          //       FeatureissueName[
+                                                          //                   index]
+                                                          //               [
+                                                          //               subindex]
+                                                          //           .toString()),
+                                                          //   contentPadding:
+                                                          //       EdgeInsets.all(
+                                                          //           0),
+                                                          //   controlAffinity:
+                                                          //       ListTileControlAffinity
+                                                          //           .leading,
+                                                          //   activeColor: AppTheme
+                                                          //       .colorPrimary,
+                                                          //   onChanged:
+                                                          //       (bool? value) {
+                                                          //     setState(() {
+                                                          //       featurebool[index]
+                                                          //               [
+                                                          //               subindex] =
+                                                          //           value!;
+                                                          //       if (selectcheckbox.contains(
+                                                          //           featurebool[
+                                                          //                   index]
+                                                          //               [
+                                                          //               subindex])) {
+                                                          //         selectcheckbox.remove(
+                                                          //             featurebool[
+                                                          //                     index]
+                                                          //                 [
+                                                          //                 subindex]);
+                                                          //       } else {
+                                                          //         selectcheckbox.add(
+                                                          //             featurebool[
+                                                          //                     index]
+                                                          //                 [
+                                                          //                 subindex]);
+                                                          //       }
+                                                          //       if (featurebool[
+                                                          //                   index]
+                                                          //               [
+                                                          //               subindex] ==
+                                                          //           true) {
+                                                          //         FeatureissueId[
+                                                          //                 index]
+                                                          //             .add(featureissueId[
+                                                          //                     index]
+                                                          //                 [
+                                                          //                 subindex]);
+                                                          //       } else {
+                                                          //         FeatureissueId[
+                                                          //                 index]
+                                                          //             .remove(featureissueId[
+                                                          //                     index]
+                                                          //                 [
+                                                          //                 subindex]);
+                                                          //       }
+                                                          //       // log("sdsdw" +
+                                                          //       //     FeatureissueId
+                                                          //       //         .toString());
+                                                          //       // log("sdsdw" +
+                                                          //       //     featurebool
+                                                          //       //         .toString());
+                                                          //     });
+                                                          //   },
+                                                          //   value: featurebool[
+                                                          //           index]
+                                                          //       [subindex],
+                                                          // );
                                                         },
                                                       ),
                                                     )

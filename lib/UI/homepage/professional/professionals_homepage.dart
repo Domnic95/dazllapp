@@ -90,8 +90,8 @@ class __ProfessionalsHomepageState extends State<ProfessionalsHomepage> {
                           ),
                         ),
                       ),
-                    ));
-              })),
+                    ),);
+              },),),
     );
   }
 }

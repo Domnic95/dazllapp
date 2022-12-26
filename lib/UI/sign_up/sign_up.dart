@@ -1,10 +1,17 @@
 // ignore_for_file: prefer_const_constructors, unused_local_variable, non_constant_identifier_names, use_key_in_widget_constructors, unused_element, avoid_print, unnecessary_import, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:dazllapp/UI/component/edit_field.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/app_theme.dart';
+import 'package:dazllapp/config/providers/providers.dart';
+import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/all.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../config/apicall.dart';
 
@@ -37,6 +44,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _passwordAgainController = TextEditingController();
   final _CpasswordAgainController = TextEditingController();
   final _PpasswordAgainController = TextEditingController();
+  final _PCmobileController = TextEditingController();
+  final _PyearinbusinessController = TextEditingController();
+  final _PwebsiteLinkController = TextEditingController();
+  final _PfacebookLinkController = TextEditingController();
+  final _PtwitterLinkController = TextEditingController();
+  final _PCinsuranceController = TextEditingController();
+  final _PcontactPersonController = TextEditingController();
+  final _PnumberController = TextEditingController();
+  final _PzipcodeController = TextEditingController();
+  final _PstateController = TextEditingController();
   // List<ServiceType> servicesType = [];
   List<DropdownMenuItem> items = [
     DropdownMenuItem(
@@ -55,12 +72,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
     'Professional',
     'Customer',
   ];
+  List<File> imgFile = [
+    File(''),
+    File(''),
+    File(''),
+    File(''),
+  ];
+  List<int> ServiceId = [];
+  final imgPicker = ImagePicker();
+  bool daziTerms = false;
+  int servicelenth = 30;
 
   void _togglevisibility() {
     setState(() {
       _showPassword = !_showPassword;
     });
   }
+
+  List<bool> boolList = [];
 
   void _toggleAgainvisibility() {
     setState(() {
@@ -71,6 +100,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void initState() {
     super.initState();
+    loaddata();
+  }
+
+  bool loading = true;
+
+  loaddata() async {
+    await context.read(professionaltifier).getServices();
+    for (int i = 0;
+        i <= context.read(professionaltifier).ServicesData.length;
+        i++) {
+      setState(() {
+        servicelenth = i;
+      });
+    }
+    setState(() {
+      loading = false;
+    });
   }
 
   @override
@@ -319,72 +365,418 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     Padding(
-                        padding: EdgeInsets.only(left: 25, right: 25, top: 20),
-                        child: Column(
-                          children: [
-                            EditField(
-                              controller: _PemailController,
-                              hint: "Email address",
+                      padding: EdgeInsets.only(left: 25, right: 25, top: 20),
+                      child: Column(
+                        children: [
+                          EditField(
+                            controller: _PemailController,
+                            hint: "Email address",
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          EditField(
+                            controller: _PpasswordController,
+                            hint: "Create Password",
+                            isPassword: true,
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          EditField(
+                            controller: _PpasswordAgainController,
+                            hint: "Confrim Password",
+                            isPassword: true,
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          EditField(
+                            controller: _PcompanynameController,
+                            hint: "Company Name",
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          EditField(
+                            controller: _PcompanyaddressController,
+                            hint: "Company Street Address",
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: EditField(
+                                  controller: _PcompanycityController,
+                                  hint: "Company City",
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Expanded(
+                                child: EditField(
+                                  controller: _PzipcodeController,
+                                  hint: "Zip Code",
+                                  inputType: TextInputType.number,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: EditField(
+                                  controller: _PstateController,
+                                  hint: "State",
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          EditField(
+                            controller: _PCmobileController,
+                            hint: "Company Number",
+                            inputType: TextInputType.phone,
+                            maxLength: 10,
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: EditField(
+                                  controller: _PmobileNoControllre,
+                                  hint: "Mobile Phone Number",
+                                  inputType: TextInputType.phone,
+                                  maxLength: 10,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Expanded(
+                                child: EditField(
+                                  controller: _PyearinbusinessController,
+                                  hint: "Year in business",
+                                  inputType: TextInputType.phone,
+                                  maxLength: 10,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: EditField(
+                                  controller: _PwebsiteLinkController,
+                                  hint: "Website Link",
+                                  inputType: TextInputType.phone,
+                                  maxLength: 10,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Expanded(
+                                child: EditField(
+                                  controller: _PfacebookLinkController,
+                                  hint: "FaceBook Link",
+                                  inputType: TextInputType.phone,
+                                  maxLength: 10,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: EditField(
+                                  controller: _PtwitterLinkController,
+                                  hint: "Twitter Link",
+                                  inputType: TextInputType.phone,
+                                  maxLength: 10,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Expanded(
+                                child: EditField(
+                                  controller: _PCinsuranceController,
+                                  hint: "Insurance company",
+                                  inputType: TextInputType.phone,
+                                  maxLength: 10,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: EditField(
+                                  controller: _PcontactPersonController,
+                                  hint: "Contact Person",
+                                  inputType: TextInputType.phone,
+                                  maxLength: 10,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Expanded(
+                                child: EditField(
+                                  controller: _PnumberController,
+                                  hint: "Number",
+                                  inputType: TextInputType.phone,
+                                  maxLength: 10,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Services you Provide",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            height: servicelenth * 22,
+                            child: loading
+                                ? Center(
+                                    child: CircularProgressIndicator(
+                                      color: primaryColor,
+                                    ),
+                                  )
+                                : GridView.builder(
+                                    itemCount: servicelenth,
+                                    scrollDirection: Axis.horizontal,
+                                    // shrinkWrap: true,
+                                    physics: BouncingScrollPhysics(),
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      childAspectRatio: 0.25,
+                                      crossAxisCount: 10,
+                                    ),
+                                    itemBuilder: (context, index) {
+                                      for (int i = 0; i <= servicelenth; i++) {
+                                        boolList.add(false);
+                                      }
+                                      return GestureDetector(
+                                        onTap: () {
+                                          setState(() {});
+                                        },
+                                        child: CheckboxListTile(
+                                          value: boolList[index],
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          onChanged: (newValue) async {
+                                            setState(() =>
+                                                boolList[index] = newValue!);
+                                            ServiceId.contains(context
+                                                    .read(professionaltifier)
+                                                    .ServicesData[index]
+                                                    .id)
+                                                ? ServiceId.remove(context
+                                                    .read(professionaltifier)
+                                                    .ServicesData[index]
+                                                    .id)
+                                                : ServiceId.add(context
+                                                    .read(professionaltifier)
+                                                    .ServicesData[index]
+                                                    .id!
+                                                    .toInt());
+                                            log(ServiceId.toString());
+                                          },
+                                          title: Text(
+                                            '${context.read(professionaltifier).ServicesData[index].name}',
+                                          ),
+                                          controlAffinity:
+                                              ListTileControlAffinity.leading,
+                                        ),
+                                      );
+                                    }),
+                            //  ListView.builder(
+                            //     physics: BouncingScrollPhysics(),
+                            //     itemCount: 3,
+                            //     itemBuilder: (context, index) {
+                            //       for (int i = 0; i <= 3; i++) {
+                            //         boolList.add([false]);
+                            //       }
+                            //       return Container(
+                            //         width:
+                            //             MediaQuery.of(context).size.width *
+                            //                 0.65,
+                            //         decoration: BoxDecoration(),
+                            //         child: ListView.builder(
+                            //           physics:
+                            //               NeverScrollableScrollPhysics(),
+                            //           itemCount: servicelenth,
+                            //           itemBuilder: (context, subindex) {
+                            //             for (int i = 0; i <= 10; i++) {
+                            //               boolList[i].add(false);
+                            //             }
+                            //             return Padding(
+                            //               padding: EdgeInsetsDirectional
+                            //                   .fromSTEB(0, 5, 10, 0),
+                            //               child: Card(
+                            //                 elevation: 2,
+                            //                 shape: RoundedRectangleBorder(
+                            //                   borderRadius:
+                            //                       BorderRadius.circular(10),
+                            //                 ),
+                            //                 child: Container(
+                            //                   width: MediaQuery.of(context)
+                            //                           .size
+                            //                           .width *
+                            //                       0.7,
+                            //                   height: MediaQuery.of(context)
+                            //                           .size
+                            //                           .height *
+                            //                       0.07,
+                            //                   decoration: BoxDecoration(
+                            //                     borderRadius:
+                            //                         BorderRadius.circular(
+                            //                             10),
+                            //                   ),
+                            //                   child: CheckboxListTile(
+                            //                     value: boolList[index]
+                            //                         [subindex],
+                            //                     shape:
+                            //                         RoundedRectangleBorder(
+                            //                       borderRadius:
+                            //                           BorderRadius.circular(
+                            //                               10),
+                            //                     ),
+                            //                     onChanged:
+                            //                         (newValue) async {
+                            //                       setState(() =>
+                            //                           boolList[index]
+                            //                                   [subindex] =
+                            //                               newValue!);
+                            //                     },
+                            //                     title: Text(
+                            //                       '${context.read(professionaltifier).ServicesData[subindex].name}',
+                            //                     ),
+                            //                     controlAffinity:
+                            //                         ListTileControlAffinity
+                            //                             .leading,
+                            //                   ),
+                            //                 ),
+                            //               ),
+                            //             );
+                            //           },
+                            //           padding: EdgeInsets.zero,
+                            //           shrinkWrap: true,
+                            //           scrollDirection: Axis.vertical,
+                            //         ),
+                            //       );
+                            //     },
+                            //     padding: EdgeInsets.zero,
+                            //     scrollDirection: Axis.horizontal,
+                            //   ),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Add 4 Company Pictures(Work Completed,Staff)\nOr we will use Stock photos",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
                             ),
-                            SizedBox(height: size.height * 0.03),
-                            EditField(
-                              controller: _PpasswordController,
-                              hint: "Create Password",
-                              isPassword: true,
-                            ),
-                            SizedBox(height: size.height * 0.03),
-                            EditField(
-                              controller: _PpasswordAgainController,
-                              hint: "Confrim Password",
-                              isPassword: true,
-                            ),
-                            SizedBox(height: size.height * 0.03),
-                            EditField(
-                              controller: _PcompanynameController,
-                              hint: "Company Name",
-                            ),
-                            SizedBox(height: size.height * 0.03),
-                            EditField(
-                              controller: _PcompanyaddressController,
-                              hint: "Company Street Address",
-                            ),
-                            SizedBox(height: size.height * 0.03),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: EditField(
-                                    controller: _PcompanycityController,
-                                    hint: "Company City",
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        height: 100,
+                        child: ListView.builder(
+                          itemCount: 4,
+                          scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
+                          // physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                showOptionsDialog(
+                                  context,
+                                  index,
+                                );
+                                log("xsukcbscs" + imgFile.toString());
+                              },
+                              child: Center(
+                                child: Container(
+                                  margin: EdgeInsets.only(left: 5, right: 5),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  height: 90,
+                                  width: 90,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: imgFile[index].path == ""
+                                        ? Center(
+                                            child: Image.network(
+                                              'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                                              fit: BoxFit.fill,
+                                            ),
+                                          )
+                                        : Image.file(
+                                            imgFile[index],
+                                            fit: BoxFit.fill,
+                                          ),
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Expanded(
-                                  child: EditField(
-                                    hint: "Zip Code",
-                                    inputType: TextInputType.number,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  child: EditField(
-                                    hint: "State",
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: size.height * 0.03),
-                            EditField(
-                              controller: _PmobileNoControllre,
-                              hint: "Mobile Phone Number",
-                              inputType: TextInputType.phone,
-                              maxLength: 10,
-                            ),
-                          ],
-                        ))
+                              ),
+                            );
+                          },
+                        )),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: Checkbox(
+                            value: daziTerms,
+                            onChanged: (value) {
+                              setState(() {
+                                daziTerms = value!;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          "Check box to accept\t",
+                          style: TextStyle(fontSize: 11),
+                        ),
+                        Text(
+                          "DAZl'S TERMS AND CONDITIONS.*",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w900, fontSize: 11),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
                   ],
                 ))
               : (Column()),
@@ -550,14 +942,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 title: "Require Email",
                 content: "Please Enter Email Id",
                 defaultActionText: "OK");
-          } 
+          }
           // else if (_mobileNoControllre.text.toString().isEmpty) {
           //   showAlertDialog(
           //       context: context,
           //       title: "Require Mobile Number",
           //       content: "Please Enter Mobile Number",
           //       defaultActionText: "OK");
-          // } 
+          // }
           else if (_passwordController.text.toString().isEmpty) {
             showAlertDialog(
                 context: context,
@@ -589,6 +981,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text('Fill Fields')));
           }
+          if (_PCmobileController.text.isEmpty) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('Fill Fields')));
+          }
+          if (_PyearinbusinessController.text.isEmpty) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('Fill Fields')));
+          }
           if (curruntindex == 0) {
             // print(curruntindex);
             // signupRealtor();
@@ -607,18 +1007,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
           } else if (curruntindex == 1) {
             // signupProfessional();
             signupProfessional(
-              curruntindex,
-              context,
-              _PcompanycityController.text,
-              _PcompanynameController.text,
-              _PcompanyaddressController.text,
-              _PpasswordAgainController.text,
-              _PemailController.text,
-              _PfNameControllre.text,
-              _PlNameControllre.text,
-              _PpasswordController.text,
-              _PmobileNoControllre.text,
-            );
+                index: curruntindex,
+                context: context,
+                city: _PcompanycityController.text,
+                company_name: _PcompanynameController.text,
+                company_address: _PcompanyaddressController.text,
+                confirm_password: _PpasswordAgainController.text,
+                email: _PemailController.text,
+                fname: _PfNameControllre.text,
+                lname: _PlNameControllre.text,
+                password: _PpasswordController.text,
+                company_number: _PCmobileController.text,
+                facebookLink: _PfacebookLinkController.text,
+                image1: imgFile[0].toString(),
+                image2: imgFile[1].toString(),
+                image3: imgFile[2].toString(),
+                image4: imgFile[3].toString(),
+                services: ServiceId,
+                insurance: _PCinsuranceController.text,
+                state: _PstateController.text,
+                twitterLink: _PtwitterLinkController.text,
+                website: _PwebsiteLinkController.text,
+                zip_code: _PzipcodeController.text,
+                years: _PyearinbusinessController.text,
+                numberIns: _PnumberController.text,
+                contactIns: _PcontactPersonController.text,
+                mobile: _PmobileNoControllre.text);
           } else if (curruntindex == 2) {
             //   signupCustomer();
             signupCustomer(
@@ -708,8 +1122,91 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ],
     ));
   }
-}
 
+  late var imgCamera;
+  void openCamera(int index) async {
+    imgCamera = await imgPicker.getImage(source: ImageSource.camera);
+    setState(() {
+      if (imgCamera == null) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Add Photo'),
+        ));
+      } else {
+        imgFile[index] = (File(imgCamera.path));
+        imgCamera = null;
+      }
+    });
+    Navigator.of(context).pop();
+  }
+
+  late var imgGallery;
+  void openGallery(int index) async {
+    imgGallery = await imgPicker.getImage(source: ImageSource.gallery);
+    log("scncndcdb" + imgGallery.path.toString());
+    setState(() {
+      // if (imgGallery == null) {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text('Add Photo'),
+      //   ));
+      // } else {
+      imgFile[index] = (File(imgGallery.path));
+      log("scncndcdb===" + imgFile[0].path);
+      imgGallery = null;
+      // }
+    });
+    Navigator.of(context).pop();
+  }
+
+  Future<void> showOptionsDialog(BuildContext context, int index) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Center(
+              child: Text(
+                "Select Option",
+              ),
+            ),
+            content: Container(
+              height: MediaQuery.of(context).size.height / 8,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.camera,
+                          size: 40,
+                        ),
+                        Text('Camera')
+                      ],
+                    ),
+                    onTap: () {
+                      openCamera(index);
+                    },
+                  ),
+                  GestureDetector(
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.photo,
+                          size: 40,
+                        ),
+                        Text('Gallery')
+                      ],
+                    ),
+                    onTap: () {
+                      openGallery(index);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+}
 
 // Future<bool> showAlertDialog({
 //   @required BuildContext context,

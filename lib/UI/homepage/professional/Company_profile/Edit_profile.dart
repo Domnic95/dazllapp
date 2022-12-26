@@ -22,7 +22,7 @@ class _Edit_profileState extends State<Edit_profile> {
   }
 
   loaddata() async {
-    await context.read(professionaltifier).getprofile();
+    await context.read(professionaltifier).getProfessional();
   }
 
   final _yearsinbussiness = TextEditingController();
@@ -34,41 +34,69 @@ class _Edit_profileState extends State<Edit_profile> {
   final _project_portfolio = TextEditingController();
   final _reference = TextEditingController();
   final _website = TextEditingController();
+  final _facebook = TextEditingController();
+  final _twitter = TextEditingController();
+  final _insuranceContactPerson = TextEditingController();
+  final _insuranceNumber = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final _profileNotifier = useProvider(professionaltifier);
     _yearsinbussiness.text =
-        _profileNotifier.profiles.yearsInBusiness.toString() != 'null'
-            ? _profileNotifier.profiles.yearsInBusiness.toString()
+        _profileNotifier.professionalData.yearsInBusiness.toString() != 'null'
+            ? _profileNotifier.professionalData.yearsInBusiness.toString()
             : '';
-    _name.text = _profileNotifier.profiles.name.toString() != 'null'
-        ? _profileNotifier.profiles.name.toString()
+    _name.text = _profileNotifier.professionalData.name.toString() != 'null'
+        ? _profileNotifier.professionalData.name.toString()
         : '';
-    _phone.text = _profileNotifier.profiles.phone.toString() != 'null'
-        ? _profileNotifier.profiles.phone.toString()
+    _phone.text = _profileNotifier.professionalData.phone.toString() != 'null'
+        ? _profileNotifier.professionalData.phone.toString()
         : '';
-    _Address.text = _profileNotifier.profiles.address.toString() != 'null'
-        ? _profileNotifier.profiles.address.toString()
-        : '';
+    _Address.text =
+        _profileNotifier.professionalData.address.toString() != 'null'
+            ? _profileNotifier.professionalData.address.toString()
+            : '';
     _bussiness_licence.text =
-        _profileNotifier.profiles.businessLicence.toString() != 'null'
-            ? _profileNotifier.profiles.businessLicence.toString()
+        _profileNotifier.professionalData.businessLicence.toString() != 'null'
+            ? _profileNotifier.professionalData.businessLicence.toString()
             : '';
     _insurance_certificate.text =
-        _profileNotifier.profiles.insuranceCertificate.toString() != 'null'
-            ? _profileNotifier.profiles.insuranceCertificate.toString()
+        _profileNotifier.professionalData.insuranceCertificate.toString() !=
+                'null'
+            ? _profileNotifier.professionalData.insuranceCertificate.toString()
             : '';
     _project_portfolio.text =
-        _profileNotifier.profiles.projectPortfolio.toString() == 'null' ||
-                _profileNotifier.profiles.projectPortfolio.toString() == '[]'
+        _profileNotifier.professionalData.projectPortfolio.toString() ==
+                    'null' ||
+                _profileNotifier.professionalData.projectPortfolio.toString() ==
+                    '[]'
             ? ""
-            : _profileNotifier.profiles.projectPortfolio.toString();
-    _reference.text = _profileNotifier.profiles.references.toString() != 'null'
-        ? _profileNotifier.profiles.references.toString()
+            : _profileNotifier.professionalData.projectPortfolio.toString();
+    _reference.text =
+        _profileNotifier.professionalData.references.toString() != 'null'
+            ? _profileNotifier.professionalData.references.toString()
+            : '';
+    _website.text =
+        _profileNotifier.professionalData.website.toString() != 'null'
+            ? _profileNotifier.professionalData.website.toString()
+            : '';
+    _facebook.text =
+        _profileNotifier.professionalData.facebook.toString() != 'null'
+            ? _profileNotifier.professionalData.facebook.toString()
+            : '';
+    _twitter.text =
+        _profileNotifier.professionalData.twitter.toString() != 'null'
+            ? _profileNotifier.professionalData.twitter.toString()
+            : '';
+    _insuranceContactPerson.text = _profileNotifier
+                .professionalData.insuranceContactPerson
+                .toString() !=
+            'null'
+        ? _profileNotifier.professionalData.insuranceContactPerson.toString()
         : '';
-    _website.text = _profileNotifier.profiles.website.toString() != 'null'
-        ? _profileNotifier.profiles.website.toString()
-        : '';
+    _insuranceNumber.text =
+        _profileNotifier.professionalData.contactIns.toString() != 'null'
+            ? _profileNotifier.professionalData.contactIns.toString()
+            : '';
     final size = MediaQuery.of(context).size;
     return Form(
       child: SafeArea(
@@ -130,6 +158,10 @@ class _Edit_profileState extends State<Edit_profile> {
                                   _project_portfolio.clear();
                                   _reference.clear();
                                   _website.clear();
+                                  _facebook.clear();
+                                  _twitter.clear();
+                                  _insuranceContactPerson.clear();
+                                  _insuranceNumber.clear();
                                 },
                                 child: Row(
                                   children: [
@@ -354,6 +386,69 @@ class _Edit_profileState extends State<Edit_profile> {
                           height: 15,
                         ),
                         TextField(
+                          controller: _insuranceContactPerson,
+                          cursorColor: AppTheme.nearlyBlack,
+                          decoration: InputDecoration(
+                            hintText: "Enter Your Insurance Contact Person",
+                            label: Text("INSURANCE CONTACT PERSON"),
+                            isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                borderSide: BorderSide(color: Colors.black)),
+                            hintStyle: TextStyle(
+                                color: AppTheme.darkerText,
+                                fontFamily: AppTheme.fontName,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
+                            labelStyle: TextStyle(
+                                color: const Color(0xFF424242),
+                                fontFamily: AppTheme.fontName,
+                                fontSize: 14),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextField(
+                          controller: _insuranceNumber,
+                          cursorColor: AppTheme.nearlyBlack,
+                          decoration: InputDecoration(
+                            hintText: "Enter Your Insurance Number",
+                            label: Text("INSURANCE NUMBER"),
+                            isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                borderSide: BorderSide(color: Colors.black)),
+                            hintStyle: TextStyle(
+                                color: AppTheme.darkerText,
+                                fontFamily: AppTheme.fontName,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
+                            labelStyle: TextStyle(
+                                color: const Color(0xFF424242),
+                                fontFamily: AppTheme.fontName,
+                                fontSize: 14),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextField(
                           controller: _project_portfolio,
                           cursorColor: AppTheme.nearlyBlack,
                           decoration: InputDecoration(
@@ -438,6 +533,181 @@ class _Edit_profileState extends State<Edit_profile> {
                                   BorderRadius.all(Radius.circular(20)),
                               borderSide: BorderSide(color: Colors.black),
                             ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextField(
+                          controller: _facebook,
+                          cursorColor: AppTheme.nearlyBlack,
+                          decoration: InputDecoration(
+                            hintText: "Enter Your facebook",
+                            label: Text("FACEBOOK"),
+                            isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                borderSide: BorderSide(color: Colors.black)),
+                            hintStyle: TextStyle(
+                                color: AppTheme.darkerText,
+                                fontFamily: AppTheme.fontName,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
+                            labelStyle: TextStyle(
+                                color: const Color(0xFF424242),
+                                fontFamily: AppTheme.fontName,
+                                fontSize: 14),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextField(
+                          controller: _twitter,
+                          cursorColor: AppTheme.nearlyBlack,
+                          decoration: InputDecoration(
+                            hintText: "Enter Your Twitter",
+                            label: Text("TWITTER"),
+                            isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                borderSide: BorderSide(color: Colors.black)),
+                            hintStyle: TextStyle(
+                                color: AppTheme.darkerText,
+                                fontFamily: AppTheme.fontName,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
+                            labelStyle: TextStyle(
+                                color: const Color(0xFF424242),
+                                fontFamily: AppTheme.fontName,
+                                fontSize: 14),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
+                          child: Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 5, right: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                height: 90,
+                                width: 90,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: _profileNotifier
+                                              .professionalData.images1 ==
+                                          ""
+                                      ? Center(
+                                          child: Image.network(
+                                            'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                                            fit: BoxFit.fill,
+                                          ),
+                                        )
+                                      : Image.network(
+                                          _profileNotifier
+                                              .professionalData.images1
+                                              .toString(),
+                                          fit: BoxFit.cover,
+                                        ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 5, right: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                height: 90,
+                                width: 90,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: _profileNotifier
+                                              .professionalData.images2 ==
+                                          ""
+                                      ? Center(
+                                          child: Image.network(
+                                            'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                                            fit: BoxFit.fill,
+                                          ),
+                                        )
+                                      : Image.network(
+                                          _profileNotifier
+                                              .professionalData.images2
+                                              .toString(),
+                                          fit: BoxFit.cover,
+                                        ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 5, right: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                height: 90,
+                                width: 90,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: _profileNotifier
+                                              .professionalData.images3 ==
+                                          ""
+                                      ? Center(
+                                          child: Image.network(
+                                            'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                                            fit: BoxFit.fill,
+                                          ),
+                                        )
+                                      : Image.network(
+                                          _profileNotifier
+                                              .professionalData.images3
+                                              .toString(),
+                                          fit: BoxFit.cover,
+                                        ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 5, right: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                height: 90,
+                                width: 90,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: _profileNotifier
+                                              .professionalData.images4 ==
+                                          ""
+                                      ? Center(
+                                          child: Image.network(
+                                            'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                                            fit: BoxFit.fill,
+                                          ),
+                                        )
+                                      : Image.network(
+                                          _profileNotifier
+                                              .professionalData.images4
+                                              .toString(),
+                                          fit: BoxFit.cover,
+                                        ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
