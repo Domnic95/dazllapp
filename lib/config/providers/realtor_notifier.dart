@@ -74,7 +74,7 @@ class realtorNotifier extends BaseNotifier {
       "zip_code": pincode, // 64114,
       "first_name": first_name, //"test",
       "last_name": Last_name, //"test",
-      "client_email": ClientEmailAddress, //"test%40yopmail.com",
+      // "client_email": ClientEmailAddress, 0//"test%40yopmail.com",
       "streetNum": streetNum, //7200,
       "streetName": streetName, //"oak",
       "streetType": streetType, //"st"
@@ -99,6 +99,4 @@ class realtorNotifier extends BaseNotifier {
     // log("lshjkbjk"+res.data.toString());
     notifyListeners();
   }
-
- 
 }

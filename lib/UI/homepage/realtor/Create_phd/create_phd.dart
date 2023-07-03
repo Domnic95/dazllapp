@@ -374,30 +374,30 @@ class _CreatePhdState extends State<CreatePhd> {
                           SizedBox(
                             height: 15,
                           ),
-                          TextField(
-                            controller: _ClientEmailAddress,
-                            keyboardType: TextInputType.emailAddress,
-                            cursorColor: AppTheme.nearlyBlack,
-                            decoration: InputDecoration(
-                              hintText: "Enter Client's Address",
-                              label: Text("CLIENT'S PRIMARY EMAIL ADDRESS"),
-                              isDense: true,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black)),
-                              hintStyle: TextStyle(
-                                  color: AppTheme.darkerText,
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                              labelStyle: TextStyle(
-                                  color: const Color(0xFF424242),
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                            ),
-                          ),
+                          // TextField(
+                          //   controller: _ClientEmailAddress,
+                          //   keyboardType: TextInputType.emailAddress,
+                          //   cursorColor: AppTheme.nearlyBlack,
+                          //   decoration: InputDecoration(
+                          //     hintText: "Enter Client's Address",
+                          //     label: Text("CLIENT'S PRIMARY EMAIL ADDRESS"),
+                          //     isDense: true,
+                          //     focusedBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(color: Colors.black)),
+                          //     hintStyle: TextStyle(
+                          //         color: AppTheme.darkerText,
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14,
+                          //         fontWeight: FontWeight.w400),
+                          //     labelStyle: TextStyle(
+                          //         color: const Color(0xFF424242),
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14),
+                          //     border: OutlineInputBorder(
+                          //       borderSide: BorderSide(color: Colors.black),
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ],

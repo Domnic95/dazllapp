@@ -54,7 +54,7 @@ class _CreateANewPhdState extends State<CreateANewPhd> {
         pincode: widget.pincode,
         first_name: widget.first_name,
         Last_name: widget.Last_name,
-        ClientEmailAddress: widget.ClientEmailAddress,
+        // ClientEmailAddress: widget.ClientEmailAddress,
         streetNum: widget.streetNum,
         streetName: widget.streetName,
         streetType: widget.streetType,
