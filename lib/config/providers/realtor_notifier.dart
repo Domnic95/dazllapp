@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/api.dart';
 import 'package:dazllapp/config/providers/base_notifier.dart';
 import 'package:dazllapp/model/Realtor/housedata.dart';
@@ -98,5 +99,26 @@ class realtorNotifier extends BaseNotifier {
     }
     // log("lshjkbjk"+res.data.toString());
     notifyListeners();
+  }
+
+  Future changepassword({
+    required String currentPassword,
+    required int currentindex,
+    required String newPassword,
+    required String confirmPassword,
+  }) async {
+    // log("dbfdbfb " + currentindex.toString());
+    Response res = await dioClient.PostwithFormData(
+        apiEnd: currentindex == 0
+            ? changepasswordrealtor
+            : currentindex == 1
+                ? changepasswordprofessional
+                : changepasswordcustomer,
+        Data: {
+          "currentpassword": currentPassword,
+          "password": newPassword,
+          "password_confirmation": confirmPassword,
+        });
+    return res;
   }
 }

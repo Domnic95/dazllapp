@@ -26,3 +26,6 @@ const realtorcustomerproject = "realtorprojects/customers";
 const realtorhousedata = "home-diagnostic-reports/house-data";
 const getService = "service-types";
 const getprofessional = "company-from-professional";
+const changepasswordrealtor = "realtor/change_password";
+const changepasswordcustomer = "customer/change_password";
+const changepasswordprofessional = "professional/change_password";

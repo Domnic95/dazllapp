@@ -7,6 +7,7 @@ import 'package:dazllapp/UI/forgot_password.dart/forgot_password_screen.dart';
 import 'package:dazllapp/UI/sign_up/sign_up.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/constant/colors.dart';
+import 'package:dazllapp/constant/spkeys.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -282,6 +283,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     setState(() {
                       dropdownValue = newValue!;
                       curruntindex = DropsDownvalue.indexOf(newValue);
+                      SpHelpers.setInt(
+                          SharedPrefsKeys.currentindex, curruntindex);
                       print(curruntindex);
                     });
                   },

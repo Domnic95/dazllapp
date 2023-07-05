@@ -8,6 +8,7 @@ import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
+import 'package:dazllapp/constant/spkeys.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
@@ -219,6 +220,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   setState(() {
                     dropdownValue = newValue!;
                     curruntindex = DropsDownvalue.indexOf(newValue);
+                    SpHelpers.setInt(
+                        SharedPrefsKeys.currentindex, curruntindex);
                     print(curruntindex);
                   });
                 },
