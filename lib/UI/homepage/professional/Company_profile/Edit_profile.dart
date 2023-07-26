@@ -124,7 +124,7 @@ class _Edit_profileState extends State<Edit_profile> {
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(10.0),
-                child: ListView(
+                 child: ListView(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

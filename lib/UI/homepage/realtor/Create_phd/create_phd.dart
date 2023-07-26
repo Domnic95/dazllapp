@@ -1,13 +1,19 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, unnecessary_new, prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/create_a_new_phd.dart';
 import 'package:dazllapp/config/app_theme.dart';
+import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
+import 'package:dazllapp/constant/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:map_autocomplete_field/map_autocomplete_field.dart';
 
-class CreatePhd extends StatefulWidget {
+class CreatePhd extends StatefulHookWidget {
   CreatePhd({Key? key}) : super(key: key);
 
   @override
@@ -25,16 +31,21 @@ class _CreatePhdState extends State<CreatePhd> {
   final _first_name = TextEditingController();
   final _Last_name = TextEditingController();
   final _ClientEmailAddress = TextEditingController();
+  final _addressController = TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
 
     super.initState();
+    getGeoAddress();
   }
+
+  void getGeoAddress() {}
 
   @override
   Widget build(BuildContext context) {
+    final _phdProvider = context.read(phdProvider);
     final size = MediaQuery.of(context).size;
     return Form(
       key: _formkey,
@@ -83,18 +94,26 @@ class _CreatePhdState extends State<CreatePhd> {
                           SizedBox(
                             height: 15,
                           ),
-                          TextFormField(
+                          MapAutoCompleteField(
+                            googleMapApiKey: googleMapApiKey,
+                            controller: _addressController,
+                            itemBuilder: (BuildContext context, suggestion) {
+                              return ListTile(
+                                title: Text(suggestion.description),
+                              );
+                            },
+                            onSuggestionSelected: (suggestion) {
+                              _addressController.text = suggestion.description;
+                            },
                             validator: (text) {
                               if (text!.isEmpty) {
-                                return 'St.Number can\'t be empty';
+                                return "Address can't be empty";
                               }
                               return null;
                             },
-                            controller: _propertynumber,
-                            cursorColor: AppTheme.nearlyBlack,
-                            decoration: InputDecoration(
-                              hintText: "Enter Your St.Number",
-                              label: Text('St.Number'),
+                            inputDecoration: InputDecoration(
+                              hintText: "Enter Location*",
+                              label: Text('Property Address'),
                               isDense: true,
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.black)),
@@ -115,102 +134,135 @@ class _CreatePhdState extends State<CreatePhd> {
                           SizedBox(
                             height: 15,
                           ),
-                          TextFormField(
-                            validator: (text) {
-                              if (text!.isEmpty) {
-                                return 'St.Name can\'t be empty';
-                              }
-                              return null;
-                            },
-                            controller: _propertyname,
-                            cursorColor: AppTheme.nearlyBlack,
-                            decoration: InputDecoration(
-                              hintText: "Enter Your St.Name",
-                              label: Text('St.Name'),
-                              isDense: true,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black)),
-                              hintStyle: TextStyle(
-                                  color: AppTheme.darkerText,
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                              labelStyle: TextStyle(
-                                  color: const Color(0xFF424242),
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            validator: (text) {
-                              if (text!.isEmpty) {
-                                return 'St.Type can\'t be empty';
-                              }
-                              return null;
-                            },
-                            controller: _propertytype,
-                            cursorColor: AppTheme.nearlyBlack,
-                            decoration: InputDecoration(
-                              hintText: "Enter Your St.Type",
-                              label: Text('St.Type'),
-                              isDense: true,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black)),
-                              hintStyle: TextStyle(
-                                  color: AppTheme.darkerText,
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                              labelStyle: TextStyle(
-                                  color: const Color(0xFF424242),
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            validator: (text) {
-                              if (text!.isEmpty) {
-                                return 'City can\'t be empty';
-                              }
-                              return null;
-                            },
-                            controller: _cityController,
-                            cursorColor: AppTheme.nearlyBlack,
-                            decoration: InputDecoration(
-                              hintText: "Enter Your City",
-                              label: Text('CITY'),
-                              isDense: true,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black)),
-                              hintStyle: TextStyle(
-                                  color: AppTheme.darkerText,
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                              labelStyle: TextStyle(
-                                  color: const Color(0xFF424242),
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
+
+                          // TextFormField(
+                          //   validator: (text) {
+                          //     if (text!.isEmpty) {
+                          //       return 'St.Number can\'t be empty';
+                          //     }
+                          //     return null;
+                          //   },
+                          //   controller: _propertynumber,
+                          //   cursorColor: AppTheme.nearlyBlack,
+                          //   decoration: InputDecoration(
+                          //     hintText: "Enter Your St.Number",
+                          //     label: Text('St.Number'),
+                          //     isDense: true,
+                          //     focusedBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(color: Colors.black)),
+                          //     hintStyle: TextStyle(
+                          //         color: AppTheme.darkerText,
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14,
+                          //         fontWeight: FontWeight.w400),
+                          //     labelStyle: TextStyle(
+                          //         color: const Color(0xFF424242),
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14),
+                          //     border: OutlineInputBorder(
+                          //       borderSide: BorderSide(color: Colors.black),
+                          //     ),
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   height: 15,
+                          // ),
+                          // TextFormField(
+                          //   validator: (text) {
+                          //     if (text!.isEmpty) {
+                          //       return 'St.Name can\'t be empty';
+                          //     }
+                          //     return null;
+                          //   },
+                          //   controller: _propertyname,
+                          //   cursorColor: AppTheme.nearlyBlack,
+                          //   decoration: InputDecoration(
+                          //     hintText: "Enter Your St.Name",
+                          //     label: Text('St.Name'),
+                          //     isDense: true,
+                          //     focusedBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(color: Colors.black)),
+                          //     hintStyle: TextStyle(
+                          //         color: AppTheme.darkerText,
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14,
+                          //         fontWeight: FontWeight.w400),
+                          //     labelStyle: TextStyle(
+                          //         color: const Color(0xFF424242),
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14),
+                          //     border: OutlineInputBorder(
+                          //       borderSide: BorderSide(color: Colors.black),
+                          //     ),
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   height: 15,
+                          // ),
+                          // TextFormField(
+                          //   validator: (text) {
+                          //     if (text!.isEmpty) {
+                          //       return 'St.Type can\'t be empty';
+                          //     }
+                          //     return null;
+                          //   },
+                          //   controller: _propertytype,
+                          //   cursorColor: AppTheme.nearlyBlack,
+                          //   decoration: InputDecoration(
+                          //     hintText: "Enter Your St.Type",
+                          //     label: Text('St.Type'),
+                          //     isDense: true,
+                          //     focusedBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(color: Colors.black)),
+                          //     hintStyle: TextStyle(
+                          //         color: AppTheme.darkerText,
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14,
+                          //         fontWeight: FontWeight.w400),
+                          //     labelStyle: TextStyle(
+                          //         color: const Color(0xFF424242),
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14),
+                          //     border: OutlineInputBorder(
+                          //       borderSide: BorderSide(color: Colors.black),
+                          //     ),
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   height: 15,
+                          // ),
+                          // TextFormField(
+                          //   validator: (text) {
+                          //     if (text!.isEmpty) {
+                          //       return 'City can\'t be empty';
+                          //     }
+                          //     return null;
+                          //   },
+                          //   controller: _cityController,
+                          //   cursorColor: AppTheme.nearlyBlack,
+                          //   decoration: InputDecoration(
+                          //     hintText: "Enter Your City",
+                          //     label: Text('CITY'),
+                          //     isDense: true,
+                          //     focusedBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(color: Colors.black)),
+                          //     hintStyle: TextStyle(
+                          //         color: AppTheme.darkerText,
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14,
+                          //         fontWeight: FontWeight.w400),
+                          //     labelStyle: TextStyle(
+                          //         color: const Color(0xFF424242),
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14),
+                          //     border: OutlineInputBorder(
+                          //       borderSide: BorderSide(color: Colors.black),
+                          //     ),
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   height: 15,
+                          // ),
                           TextFormField(
                             validator: (text) {
                               if (text!.isEmpty) {
@@ -374,30 +426,30 @@ class _CreatePhdState extends State<CreatePhd> {
                           SizedBox(
                             height: 15,
                           ),
-                          // TextField(
-                          //   controller: _ClientEmailAddress,
-                          //   keyboardType: TextInputType.emailAddress,
-                          //   cursorColor: AppTheme.nearlyBlack,
-                          //   decoration: InputDecoration(
-                          //     hintText: "Enter Client's Address",
-                          //     label: Text("CLIENT'S PRIMARY EMAIL ADDRESS"),
-                          //     isDense: true,
-                          //     focusedBorder: OutlineInputBorder(
-                          //         borderSide: BorderSide(color: Colors.black)),
-                          //     hintStyle: TextStyle(
-                          //         color: AppTheme.darkerText,
-                          //         fontFamily: AppTheme.fontName,
-                          //         fontSize: 14,
-                          //         fontWeight: FontWeight.w400),
-                          //     labelStyle: TextStyle(
-                          //         color: const Color(0xFF424242),
-                          //         fontFamily: AppTheme.fontName,
-                          //         fontSize: 14),
-                          //     border: OutlineInputBorder(
-                          //       borderSide: BorderSide(color: Colors.black),
-                          //     ),
-                          //   ),
-                          // ),
+                          TextField(
+                            controller: _ClientEmailAddress,
+                            keyboardType: TextInputType.emailAddress,
+                            cursorColor: AppTheme.nearlyBlack,
+                            decoration: InputDecoration(
+                              hintText: "Enter Client's Address",
+                              label: Text("CLIENT'S PRIMARY EMAIL ADDRESS"),
+                              isDense: true,
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black)),
+                              hintStyle: TextStyle(
+                                  color: AppTheme.darkerText,
+                                  fontFamily: AppTheme.fontName,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                              labelStyle: TextStyle(
+                                  color: const Color(0xFF424242),
+                                  fontFamily: AppTheme.fontName,
+                                  fontSize: 14),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -440,7 +492,25 @@ class _CreatePhdState extends State<CreatePhd> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        log("pageto == CreateANewPhd");
                         if (_formkey.currentState!.validate()) {
+                          _phdProvider.storePropertiesDetails(
+                              paddress: _addressController.text
+                              // _propertynumber.text +
+                              //     ", " +
+                              //     _propertyname.text +
+                              //     ", " +
+                              //     _propertytype.text +
+                              //     ", " +
+                              //     _cityController.text +
+                              //     "(" +
+                              //     _pincodeController.text +
+                              //     '), ' +
+                              //     _stateController.text
+                              ,
+                              firstname: _first_name.text,
+                              lastname: _Last_name.text,
+                              clientemail: _ClientEmailAddress.text);
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => CreateANewPhd(

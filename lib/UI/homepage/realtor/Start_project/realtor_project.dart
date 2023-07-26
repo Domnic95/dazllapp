@@ -1,5 +1,4 @@
 import 'package:dazllapp/UI/component/loadingWidget.dart';
-import 'package:dazllapp/UI/homepage/realtor/Start_project/realtor_project_details.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -9,7 +8,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Realtor_project extends StatefulHookWidget {
   Realtor_project({Key? key}) : super(key: key);
-
   @override
   State<Realtor_project> createState() => _Realtor_projectState();
 }
@@ -22,7 +20,7 @@ class _Realtor_projectState extends State<Realtor_project> {
   }
 
   load() async {
-    await context.read(realtorprovider).getrealtorproject();
+    await context.read(realtorprovider).getrealtorproject(context);
     setState(() {
       loading = false;
     });
@@ -68,6 +66,7 @@ class _Realtor_projectState extends State<Realtor_project> {
                               child: ListView.separated(
                                 itemCount: _realtorprovider
                                     .listofrealtorproject.length,
+                                reverse: true,
                                 separatorBuilder:
                                     (BuildContext context, int index) {
                                   return SizedBox(
@@ -77,17 +76,17 @@ class _Realtor_projectState extends State<Realtor_project> {
                                 itemBuilder: (BuildContext context, int index) {
                                   return GestureDetector(
                                       onTap: () {
-                                        _realtorprovider
-                                                .listofrealtorproject[index]
-                                                .roominfo!
-                                                .isEmpty
-                                            ? null
-                                            : Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Realtor_project_details(
-                                                            index: index)),
-                                              );
+                                        // _realtorprovider
+                                        //         .listofrealtorproject[index]
+                                        //         .roominfo!
+                                        //         .isEmpty
+                                        //     ? null
+                                        //     : Navigator.of(context).push(
+                                        //         MaterialPageRoute(
+                                        //             builder: (context) =>
+                                        //                 Realtor_project_details(
+                                        //                     index: index)),
+                                        //       );
                                       },
                                       child: Container(
                                         // height: 80,
@@ -116,19 +115,41 @@ class _Realtor_projectState extends State<Realtor_project> {
                                                         child: Image(
                                                             height: 50,
                                                             width: 50,
-                                                            image: NetworkImage(_realtorprovider
+                                                            image: 
+                                                            NetworkImage(_realtorprovider
                                                                     .listofrealtorproject[
                                                                         index]
-                                                                    .images!
+                                                                    .roominfo!
                                                                     .isEmpty
                                                                 ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
                                                                 : _realtorprovider
-                                                                    .listofrealtorproject[
-                                                                        index]
-                                                                    .images!
-                                                                    .first
-                                                                    .url
-                                                                    .toString()),
+                                                                        .listofrealtorproject[
+                                                                            index]
+                                                                        .roominfo!
+                                                                        .first
+                                                                        .feature!
+                                                                        .isEmpty
+                                                                    ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
+                                                                    : _realtorprovider
+                                                                            .listofrealtorproject[
+                                                                                index]
+                                                                            .roominfo!
+                                                                            .first
+                                                                            .feature!
+                                                                            .first
+                                                                            .images!
+                                                                            .isEmpty
+                                                                        ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
+                                                                        : _realtorprovider
+                                                                            .listofrealtorproject[
+                                                                                index]
+                                                                            .roominfo!
+                                                                            .first
+                                                                            .feature!
+                                                                            .first
+                                                                            .images!
+                                                                            .first
+                                                                            .toString()),
                                                             fit: BoxFit
                                                                 .fitWidth),
                                                       ),

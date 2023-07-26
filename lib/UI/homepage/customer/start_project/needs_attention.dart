@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:dazllapp/UI/component/edit_field.dart';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
+import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/tell_us_more.dart';
 import 'package:dazllapp/config/api.dart';
@@ -23,114 +24,126 @@ class NeedAttention extends StatefulHookWidget {
 }
 
 class _NeedAttentionState extends State<NeedAttention> {
-  List<List<String>> FeatureissueName = [];
-  List<List<int>> FeatureissueId = [];
-  List<List<int>> featureissueId = [];
-  List<List<bool>> featurebool = [];
-  List<List<File>> imgFile = [];
-  final imgPicker = ImagePicker();
-  List<int> featureId = <int>[];
-  List<int> featureoptionid = <int>[];
-  List<String> currentoptionselected = <String>[];
-  List<int> currenoptionselectedid = <int>[];
-  List<int> select = [];
-  List selectcheckbox = [];
-  List<TextEditingController> _DescrptionController = [];
-  List<TextEditingController> _PhotoDescrptionController = [];
-  List<List<String>> _addphotodescription = [];
+  late RoomProvider _roomProvider;
+  // // List<List<String>> FeatureissueName = [];
+  // // List<List<int>> FeatureissueId = [];
+  // // List<List<int>> featureissueId = [];
+  // List<List<bool>> featurebool = [];
+  // List<List<File>> imgFile = [];
+  // final imgPicker = ImagePicker();
+  // List<int> featureId = <int>[];
+  // List<int> featureoptionid = <int>[];
+  // List<String> currentoptionselected = <String>[];
+  // List<int> currenoptionselectedid = <int>[];
+  // List<int> select = [];
+  // List selectcheckbox = [];
+  // List<TextEditingController> _DescrptionController = [];
+  // List<TextEditingController> _PhotoDescrptionController = [];
+  // // List<List<String>> _addphotodescription = [];
   int indexs = 0;
-  List<String> _description = <String>[];
-  bool loading = true;
+  // List<String> _description = <String>[];
+  // bool loading = true;
 
   @override
   void initState() {
     super.initState();
-    loaddata();
+    _roomProvider = context.read(customerRoomsProvider);
+    // loaddata();
   }
 
-  loaddata() async {
-    final _roomsfeature = context.read(customernotifier);
-    await _roomsfeature.getRoomsFeature(roomid);
-    await _roomsfeature.getFeatureOptionIssues();
+  // loaddata() async {
+  //   _roomProvider = context.read(customerRoomsProvider);
+  //   final _roomsfeature = context.read(customernotifier);
+  //   await _roomsfeature.getRoomsFeature(roomid);
+  //   await _roomsfeature.getFeatureOptionIssues();
 
-    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      currentoptionselected.add('');
-    }
-    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      FeatureissueName.add([]);
-    }
-    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      FeatureissueId.add([]);
-    }
-    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      featureissueId.add([]);
-    }
-    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      featurebool.add([]);
-    }
-    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      currenoptionselectedid.add(0);
-    }
-    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      featureId.add(0);
-    }
-    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      featureoptionid.add(0);
-    }
-    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      _addphotodescription.add([]);
-    }
-    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      _DescrptionController.add(TextEditingController());
-    }
-    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      _PhotoDescrptionController.add(TextEditingController());
-    }
-    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      imgFile.add([]);
-    }
-    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      _addphotodescription.add([]);
-    }
-    for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      _description.add('');
-    }
-    setState(() {
-      loading = false;
-    });
-  }
+  //   for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+  //     // _roomProvider.currentoptionselected[_roomProvider.tabIndex].add('');
+  //     _roomProvider.featurebool[_roomProvider.tabIndex].add([]);
+  //     // currenoptionselectedid.add(0);
+  //     _roomProvider.featureId[_roomProvider.tabIndex].add(0);
+  //     _roomProvider.DescrptionController[_roomProvider.tabIndex]
+  //         .add(TextEditingController());
+  //     _roomProvider.description[_roomProvider.tabIndex].add('');
+  //     // featureoptionid.add(0);
+  //     // _PhotoDescrptionController.add(TextEditingController());
+  //     _roomProvider.imgFile[_roomProvider.tabIndex].add([]);
+  //   }
+  //   // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+  //   //   FeatureissueName.add([]);
+  //   // }
+  //   // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+  //   //   FeatureissueId.add([]);
+  //   // }
+  //   // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+  //   //   featureissueId.add([]);
+  //   // }
+  //   // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+  //   //   featurebool.add([]);
+  //   // }
+  //   // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+  //   //   currenoptionselectedid.add(0);
+  //   // }
+  //   // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+  //   //   featureId.add(0);
+  //   // }
+  //   // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+  //   //   featureoptionid.add(0);
+  //   // }
+  //   // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+  //   //   _addphotodescription.add([]);
+  //   // }
+  //   // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+  //   //   _DescrptionController.add(TextEditingController());
+  //   // }
+  //   // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+  //   //   _PhotoDescrptionController.add(TextEditingController());
+  //   // }
+  //   // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+  //   //   imgFile.add([]);
+  //   // }
+  //   // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+  //   //   _addphotodescription.add([]);
+  //   // }
+  //   // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
+  //   //   _description.add('');
+  //   // }
+  //   setState(() {
+  //     loading = false;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     final _roomsfeature = useProvider(customernotifier);
     final size = MediaQuery.of(context).size;
     return SafeArea(
-      child: loading
+      child: _roomProvider.loading
           ? LoadingWidget()
           : Scaffold(
               body: Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: size.height * 0.08,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                          ),
-                          color: AppTheme.colorPrimary),
-                      child: Center(
-                        child: Text(
-                          "What items in this room would you like to dazl up ?",
-                          style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    fontSize: 12,
-                                    color: lightColor.withOpacity(.9),
-                                  ),
-                        ),
-                      ),
-                    ),
+                    // Container(
+                    //   height: size.height * 0.08,
+                    //   decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.only(
+                    //         bottomLeft: Radius.circular(20),
+                    //         bottomRight: Radius.circular(20),
+                    //       ),
+                    //       color: AppTheme.colorPrimary),
+                    //   child: Center(
+                    //     child: Text(
+                    //       "What items in this room would you like to dazl up ?",
+                    //       style:
+                    //           Theme.of(context).textTheme.bodyText1!.copyWith(
+                    //                 fontSize: 12,
+                    //                 color: lightColor.withOpacity(.9),
+                    //               ),
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: size.height * 0.02,
                     ),
@@ -151,30 +164,53 @@ class _NeedAttentionState extends State<NeedAttention> {
                                 children: [
                                   Checkbox(
                                       activeColor: AppTheme.colorPrimary,
-                                      value: select.contains(index),
+                                      value: _roomProvider
+                                          .select[_roomProvider.tabIndex]
+                                          .contains(index),
                                       onChanged: (val) {
                                         setState(() {
-                                          if (select.contains(index)) {
-                                            select.remove(index);
-                                            currentoptionselected[index] = '';
-                                            imgFile[index].clear();
-                                            _addphotodescription[index].clear();
-                                            featureId[index] = 0;
-                                            featureoptionid[index] = 0;
-                                            _description[index] = '';
-                                            _DescrptionController[index]
+                                          if (_roomProvider
+                                              .select[_roomProvider.tabIndex]
+                                              .contains(index)) {
+                                            _roomProvider
+                                                .select[_roomProvider.tabIndex]
+                                                .remove(index);
+                                            // currentoptionselected[index] = '';
+                                            _roomProvider
+                                                .imgFile[_roomProvider.tabIndex]
+                                                    [index]
                                                 .clear();
-                                            _PhotoDescrptionController[index]
+                                            // _addphotodescription[index].clear();
+                                            _roomProvider.featureId[
+                                                    _roomProvider.tabIndex]
+                                                [index] = 0;
+                                            // featureoptionid[index] = 0;
+                                            _roomProvider.description[
+                                                    _roomProvider.tabIndex]
+                                                [index] = '';
+                                            _roomProvider.DescrptionController[
+                                                    _roomProvider.tabIndex]
+                                                    [index]
                                                 .clear();
-                                            featurebool[index].clear();
-                                            FeatureissueName[index].clear();
-                                            FeatureissueId[index].clear();
+                                            // _PhotoDescrptionController[index]
+                                            //     .clear();
+                                            _roomProvider.featurebool[
+                                                    _roomProvider.tabIndex]
+                                                    [index]
+                                                .clear();
+                                            // FeatureissueName[index].clear();
+                                            // FeatureissueId[index].clear();
                                             // currentindex = index;
                                             indexs = 0;
                                           } else {
-                                            select.add(index);
-                                            featureId[index] = _roomsfeature
-                                                .listOfFeature[index].id;
+                                            _roomProvider
+                                                .select[_roomProvider.tabIndex]
+                                                .add(index);
+                                            _roomProvider.featureId[
+                                                        _roomProvider.tabIndex]
+                                                    [index] =
+                                                _roomsfeature
+                                                    .listOfFeature[index].id;
                                             indexs = 0;
                                           }
                                         });
@@ -192,445 +228,558 @@ class _NeedAttentionState extends State<NeedAttention> {
                                   )
                                 ],
                               ),
-                              select.contains(index)
+                              _roomProvider.select[_roomProvider.tabIndex]
+                                      .contains(index)
                                   ? Container(
                                       padding:
                                           EdgeInsets.only(left: 15, right: 15),
                                       //color: Colors.amber,
                                       child: Column(
                                         children: [
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                currentoptionselected[index] !=
-                                                        ''
-                                                    ? MainAxisAlignment
-                                                        .spaceAround
-                                                    : MainAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                width: size.width / 2.3,
-                                                decoration: BoxDecoration(
-                                                    // color: Colors.blue,
-                                                    // borderRadius:
-                                                    //     BorderRadius.circular(20)
-                                                    ),
-                                                child: DropdownButton<String>(
-                                                  isExpanded: true,
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  hint: currentoptionselected[
-                                                              index] ==
-                                                          ''
-                                                      ? Text('Select Option')
-                                                      : Text(
-                                                          currentoptionselected[
-                                                              index]),
-                                                  items: _roomsfeature
-                                                      .listOfoption
-                                                      .where((c) =>
-                                                          c.featureId ==
-                                                          featureId[index])
-                                                      .map((dropdownselect) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      child: Text(
-                                                          dropdownselect.name),
-                                                      value:
-                                                          dropdownselect.name,
-                                                      onTap: () {
-                                                        currenoptionselectedid[
-                                                                index] =
-                                                            dropdownselect.id;
-                                                      },
-                                                    );
-                                                  }).toList(),
-                                                  onChanged:
-                                                      (newselectedvalue) async {
-                                                    currentoptionselected[
-                                                            index] =
-                                                        newselectedvalue!;
-                                                    featureoptionid[index] =
-                                                        currenoptionselectedid[
-                                                            index];
-                                                    featurebool[index].clear();
-                                                    FeatureissueName[index]
-                                                        .clear();
-                                                    FeatureissueId[index]
-                                                        .clear();
+                                          // Row(
+                                          //   crossAxisAlignment:
+                                          //       CrossAxisAlignment.start,
+                                          //   mainAxisAlignment:
+                                          //       currentoptionselected[index] !=
+                                          //               ''
+                                          //           ? MainAxisAlignment
+                                          //               .spaceAround
+                                          //           : MainAxisAlignment.start,
+                                          //   children: [
+                                          //     Container(
+                                          //       width: size.width / 2.3,
+                                          //       decoration: BoxDecoration(
+                                          //           // color: Colors.blue,
+                                          //           // borderRadius:
+                                          //           //     BorderRadius.circular(20)
+                                          //           ),
+                                          //       child: DropdownButton<String>(
+                                          //         isExpanded: true,
+                                          //         borderRadius:
+                                          //             BorderRadius.circular(20),
+                                          //         hint: currentoptionselected[
+                                          //                     index] ==
+                                          //                 ''
+                                          //             ? Text('Select Option')
+                                          //             : Text(
+                                          //                 currentoptionselected[
+                                          //                     index]),
+                                          //         items: _roomsfeature
+                                          //             .listOfoption
+                                          //             .where((c) =>
+                                          //                 c.featureId ==
+                                          //                 featureId[index])
+                                          //             .map((dropdownselect) {
+                                          //           return DropdownMenuItem<
+                                          //               String>(
+                                          //             child: Text(
+                                          //                 dropdownselect.name),
+                                          //             value:
+                                          //                 dropdownselect.name,
+                                          //             onTap: () {
+                                          //               currenoptionselectedid[
+                                          //                       index] =
+                                          //                   dropdownselect.id;
+                                          //             },
+                                          //           );
+                                          //         }).toList(),
+                                          //         onChanged:
+                                          //             (newselectedvalue) async {
+                                          //           currentoptionselected[
+                                          //                   index] =
+                                          //               newselectedvalue!;
+                                          //           featureoptionid[index] =
+                                          //               currenoptionselectedid[
+                                          //                   index];
+                                          //           featurebool[index].clear();
+                                          //           FeatureissueName[index]
+                                          //               .clear();
+                                          //           FeatureissueId[index]
+                                          //               .clear();
 
-                                                    setState(() {});
-                                                    await context
-                                                        .read(customernotifier)
-                                                        .getfeatureissue(
-                                                            currenoptionselectedid[
-                                                                index]);
-                                                    for (int i = 0;
-                                                        i <
-                                                            _roomsfeature
-                                                                .listOfissues
-                                                                .length;
-                                                        i++) {
-                                                      featurebool[index]
-                                                          .add(false);
-                                                      FeatureissueName[index]
-                                                          .add(_roomsfeature
-                                                              .listOfissues[i]
-                                                              .name);
-                                                      featureissueId[index].add(
-                                                          _roomsfeature
-                                                              .listOfissues[i]
-                                                              .id);
+                                          //           setState(() {});
+                                          //           await context
+                                          //               .read(customernotifier)
+                                          //               .getfeatureissue(
+                                          //                   currenoptionselectedid[
+                                          //                       index]);
+                                          //           for (int i = 0;
+                                          //               i <
+                                          //                   _roomsfeature
+                                          //                       .listOfissues
+                                          //                       .length;
+                                          //               i++) {
+                                          //             featurebool[index]
+                                          //                 .add(false);
+                                          //             FeatureissueName[index]
+                                          //                 .add(_roomsfeature
+                                          //                     .listOfissues[i]
+                                          //                     .name);
+                                          //             featureissueId[index].add(
+                                          //                 _roomsfeature
+                                          //                     .listOfissues[i]
+                                          //                     .id);
+                                          //           }
+                                          //         },
+                                          //       ),
+                                          //     ),
+                                          //     currentoptionselected[index] != ''
+                                          //         ? Expanded(
+                                          //             // width: 160,
+                                          //             // height: 180,
+                                          //             child: ListView.builder(
+                                          //               physics:
+                                          //                   NeverScrollableScrollPhysics(),
+                                          //               shrinkWrap: true,
+                                          //               itemCount:
+                                          //                   FeatureissueName[
+                                          //                           index]
+                                          //                       .length,
+                                          //               itemBuilder:
+                                          //                   (BuildContext
+                                          //                           context,
+                                          //                       int subindex) {
+                                          //                 return Padding(
+                                          //                   padding:
+                                          //                       const EdgeInsets
+                                          //                               .only(
+                                          //                           left: 20.0),
+                                          //                   child: Row(
+                                          //                     children: [
+                                          //                       ChoiceChip(
+                                          //                           selectedColor:
+                                          //                               AppTheme
+                                          //                                   .colorPrimary,
+                                          //                           label: Text(
+                                          //                             FeatureissueName[index]
+                                          //                                     [
+                                          //                                     subindex]
+                                          //                                 .toString(),
+                                          //                             style: TextStyle(
+                                          //                                 color: featurebool[index][subindex] == true
+                                          //                                     ? Colors.white
+                                          //                                     : Colors.black),
+                                          //                           ),
+                                          //                           onSelected:
+                                          //                               (value) {
+                                          //                             setState(
+                                          //                                 () {
+                                          //                               featurebool[index][subindex] =
+                                          //                                   value;
+                                          //                               if (selectcheckbox.contains(featurebool[index]
+                                          //                                   [
+                                          //                                   subindex])) {
+                                          //                                 selectcheckbox.remove(featurebool[index]
+                                          //                                     [
+                                          //                                     subindex]);
+                                          //                               } else {
+                                          //                                 selectcheckbox.add(featurebool[index]
+                                          //                                     [
+                                          //                                     subindex]);
+                                          //                               }
+                                          //                               if (featurebool[index][subindex] ==
+                                          //                                   true) {
+                                          //                                 FeatureissueId[index].add(featureissueId[index]
+                                          //                                     [
+                                          //                                     subindex]);
+                                          //                               } else {
+                                          //                                 FeatureissueId[index].remove(featureissueId[index]
+                                          //                                     [
+                                          //                                     subindex]);
+                                          //                               }
+                                          //                               // log("sdsdw" +
+                                          //                               //     FeatureissueId
+                                          //                               //         .toString());
+                                          //                               // log("sdsdw" +
+                                          //                               //     featurebool
+                                          //                               //         .toString());
+                                          //                             });
+                                          //                           },
+                                          //                           selected: featurebool[
+                                          //                                   index]
+                                          //                               [
+                                          //                               subindex]),
+                                          //                     ],
+                                          //                   ),
+                                          //                 );
+                                          //                 // return CheckboxListTile(
+                                          //                 //   title: Text(
+                                          //                 //       FeatureissueName[
+                                          //                 //                   index]
+                                          //                 //               [
+                                          //                 //               subindex]
+                                          //                 //           .toString()),
+                                          //                 //   contentPadding:
+                                          //                 //       EdgeInsets.all(
+                                          //                 //           0),
+                                          //                 //   controlAffinity:
+                                          //                 //       ListTileControlAffinity
+                                          //                 //           .leading,
+                                          //                 //   activeColor: AppTheme
+                                          //                 //       .colorPrimary,
+                                          //                 //   onChanged:
+                                          //                 //       (bool? value) {
+                                          //                 //     setState(() {
+                                          //                 //       featurebool[index]
+                                          //                 //               [
+                                          //                 //               subindex] =
+                                          //                 //           value!;
+                                          //                 //       if (selectcheckbox.contains(
+                                          //                 //           featurebool[
+                                          //                 //                   index]
+                                          //                 //               [
+                                          //                 //               subindex])) {
+                                          //                 //         selectcheckbox.remove(
+                                          //                 //             featurebool[
+                                          //                 //                     index]
+                                          //                 //                 [
+                                          //                 //                 subindex]);
+                                          //                 //       } else {
+                                          //                 //         selectcheckbox.add(
+                                          //                 //             featurebool[
+                                          //                 //                     index]
+                                          //                 //                 [
+                                          //                 //                 subindex]);
+                                          //                 //       }
+                                          //                 //       if (featurebool[
+                                          //                 //                   index]
+                                          //                 //               [
+                                          //                 //               subindex] ==
+                                          //                 //           true) {
+                                          //                 //         FeatureissueId[
+                                          //                 //                 index]
+                                          //                 //             .add(featureissueId[
+                                          //                 //                     index]
+                                          //                 //                 [
+                                          //                 //                 subindex]);
+                                          //                 //       } else {
+                                          //                 //         FeatureissueId[
+                                          //                 //                 index]
+                                          //                 //             .remove(featureissueId[
+                                          //                 //                     index]
+                                          //                 //                 [
+                                          //                 //                 subindex]);
+                                          //                 //       }
+                                          //                 //       // log("sdsdw" +
+                                          //                 //       //     FeatureissueId
+                                          //                 //       //         .toString());
+                                          //                 //       // log("sdsdw" +
+                                          //                 //       //     featurebool
+                                          //                 //       //         .toString());
+                                          //                 //     });
+                                          //                 //   },
+                                          //                 //   value: featurebool[
+                                          //                 //           index]
+                                          //                 //       [subindex],
+                                          //                 // );
+                                          //               },
+                                          //             ),
+                                          //           )
+                                          //         : Container()
+                                          //   ],
+                                          // ),
+                                          // SizedBox(
+                                          //   height: 10,
+                                          // ),
+                                          // GestureDetector(
+                                          //   onTap: () {
+                                          //     // featureoptionid[index] == 0
+                                          //     //     //  ||
+                                          //     //     //         featureissueid[index] == 0
+                                          //     //     ? ScaffoldMessenger.of(
+                                          //     //             context)
+                                          //     //         .showSnackBar(SnackBar(
+                                          //     //         content: Text(
+                                          //     //             'Select Option And issue'),
+                                          //     //       ))
+                                          //     //     :
+                                          //     showOptionsDialog(context, index);
+                                          //   },
+                                          //   child: Container(
+                                          //     child: Row(
+                                          //       children: [
+                                          //         Container(
+                                          //             padding: EdgeInsets.only(
+                                          //                 top: 7,
+                                          //                 bottom: 7,
+                                          //                 left: 12,
+                                          //                 right: 12),
+                                          //             decoration: BoxDecoration(
+                                          //                 color: AppTheme
+                                          //                     .colorPrimary
+                                          //                     .withOpacity(0.4),
+                                          //                 borderRadius:
+                                          //                     BorderRadius
+                                          //                         .circular(
+                                          //                             15)),
+                                          //             child: Text('+ Photos')),
+                                          //         SizedBox(width: 10),
+                                          //         Expanded(
+                                          //           child: Container(
+                                          //             padding: EdgeInsets.only(
+                                          //                 left: 7),
+                                          //             height:
+                                          //                 size.height * 0.05,
+                                          //             decoration: BoxDecoration(
+                                          //                 border: Border.all(
+                                          //                     color: AppTheme
+                                          //                         .grey
+                                          //                         .withOpacity(
+                                          //                             0.5),
+                                          //                     width: 2),
+                                          //                 borderRadius:
+                                          //                     BorderRadius
+                                          //                         .circular(15),
+                                          //                 color: Colors.white),
+                                          //             child: TextFormField(
+                                          //               controller:
+                                          //                   _PhotoDescrptionController[
+                                          //                       index],
+                                          //               // textInputAction:
+                                          //               //     TextInputAction.done,
+                                          //               cursorColor: AppTheme
+                                          //                   .colorPrimary,
+                                          //               decoration: InputDecoration(
+                                          //                   hintText:
+                                          //                       "Add Photo Description",
+                                          //                   hintStyle: TextStyle(
+                                          //                       fontSize: 14),
+                                          //                   focusedBorder: UnderlineInputBorder(
+                                          //                       borderSide: BorderSide(
+                                          //                           color: Colors
+                                          //                               .transparent)),
+                                          //                   enabledBorder: UnderlineInputBorder(
+                                          //                       borderSide: BorderSide(
+                                          //                           color: Colors
+                                          //                               .transparent)),
+                                          //                   border: UnderlineInputBorder(
+                                          //                       borderSide: BorderSide(
+                                          //                           color: Colors
+                                          //                               .transparent))),
+                                          //             ),
+                                          //           ),
+                                          //         ),
+                                          //         SizedBox(
+                                          //           width: 5,
+                                          //         ),
+                                          //         CircleAvatar(
+                                          //           radius: 18,
+                                          //           backgroundColor: AppTheme
+                                          //               .colorPrimary
+                                          //               .withOpacity(0.6),
+                                          //           child: IconButton(
+                                          //               onPressed: () {
+                                          //                 if (imgGallery !=
+                                          //                     null) {
+                                          //                   textphoto(index);
+                                          //                 }
+                                          //                 if (imgCamera !=
+                                          //                     null) {
+                                          //                   photocamera(index);
+                                          //                 }
+                                          //               },
+                                          //               icon: Icon(
+                                          //                 Icons.send,
+                                          //                 color: Colors.white,
+                                          //                 size: 18,
+                                          //               )),
+                                          //         )
+                                          //       ],
+                                          //     ),
+                                          //   ),
+                                          // ),
+
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          _roomProvider.imgFile[_roomProvider
+                                                          .tabIndex][index] ==
+                                                      null ||
+                                                  _roomProvider
+                                                          .imgFile[_roomProvider
+                                                              .tabIndex][index]
+                                                          .toString() ==
+                                                      File('').toString()
+                                              ? SizedBox()
+                                              : GridView.builder(
+                                                  shrinkWrap: true,
+                                                  itemCount: _roomProvider
+                                                          .imgFile[_roomProvider
+                                                              .tabIndex][index]
+                                                          .length +
+                                                      1,
+                                                  gridDelegate:
+                                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                                          crossAxisCount: 4,
+                                                          crossAxisSpacing: 4.0,
+                                                          mainAxisSpacing: 4.0),
+                                                  itemBuilder:
+                                                      (context, subIndex) {
+                                                    if (subIndex == 0) {
+                                                      return Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.black),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                        ),
+                                                        child: IconButton(
+                                                            onPressed: () {
+                                                              showOptionsDialog(
+                                                                  context,
+                                                                  index);
+                                                            },
+                                                            icon: Icon(Icons
+                                                                .add_a_photo)),
+                                                      );
                                                     }
-                                                  },
-                                                ),
-                                              ),
-                                              currentoptionselected[index] != ''
-                                                  ? Expanded(
-                                                      // width: 160,
-                                                      // height: 180,
-                                                      child: ListView.builder(
-                                                        physics:
-                                                            NeverScrollableScrollPhysics(),
-                                                        shrinkWrap: true,
-                                                        itemCount:
-                                                            FeatureissueName[
-                                                                    index]
-                                                                .length,
-                                                        itemBuilder:
-                                                            (BuildContext
-                                                                    context,
-                                                                int subindex) {
-                                                          return Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 20.0),
-                                                            child: Row(
+                                                    return _roomProvider.imgFile[
+                                                                    _roomProvider
+                                                                        .tabIndex][index]
+                                                                [
+                                                                subIndex - 1] ==
+                                                            File('')
+                                                        ? SizedBox()
+                                                        : Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              border: Border.all(
+                                                                  color: Colors
+                                                                      .black),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                            ),
+                                                            child: Stack(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
                                                               children: [
-                                                                ChoiceChip(
-                                                                    selectedColor:
-                                                                        AppTheme
-                                                                            .colorPrimary,
-                                                                    label: Text(
-                                                                      FeatureissueName[index]
-                                                                              [
-                                                                              subindex]
-                                                                          .toString(),
-                                                                      style: TextStyle(
-                                                                          color: featurebool[index][subindex] == true
-                                                                              ? Colors.white
-                                                                              : Colors.black),
+                                                                Container(
+                                                                  // height: 60,
+                                                                  // width: 60,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10),
+                                                                    image:
+                                                                        DecorationImage(
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                      image:
+                                                                          FileImage(
+                                                                        _roomProvider.imgFile[
+                                                                            _roomProvider
+                                                                                .tabIndex][index][subIndex -
+                                                                            1],
+                                                                      ),
                                                                     ),
-                                                                    onSelected:
-                                                                        (value) {
-                                                                      setState(
-                                                                          () {
-                                                                        featurebool[index][subindex] =
-                                                                            value;
-                                                                        if (selectcheckbox.contains(featurebool[index]
-                                                                            [
-                                                                            subindex])) {
-                                                                          selectcheckbox.remove(featurebool[index]
-                                                                              [
-                                                                              subindex]);
-                                                                        } else {
-                                                                          selectcheckbox.add(featurebool[index]
-                                                                              [
-                                                                              subindex]);
-                                                                        }
-                                                                        if (featurebool[index][subindex] ==
-                                                                            true) {
-                                                                          FeatureissueId[index].add(featureissueId[index]
-                                                                              [
-                                                                              subindex]);
-                                                                        } else {
-                                                                          FeatureissueId[index].remove(featureissueId[index]
-                                                                              [
-                                                                              subindex]);
-                                                                        }
-                                                                        // log("sdsdw" +
-                                                                        //     FeatureissueId
-                                                                        //         .toString());
-                                                                        // log("sdsdw" +
-                                                                        //     featurebool
-                                                                        //         .toString());
-                                                                      });
-                                                                    },
-                                                                    selected: featurebool[
-                                                                            index]
-                                                                        [
-                                                                        subindex]),
+                                                                  ),
+                                                                ),
+                                                                Positioned(
+                                                                  top: -10,
+                                                                  right: -5,
+                                                                  child: IconButton(
+                                                                      onPressed: () {
+                                                                        setState(
+                                                                            () {
+                                                                          _roomProvider
+                                                                              .imgFile[_roomProvider.tabIndex][index]
+                                                                              .removeAt(subIndex - 1);
+                                                                        });
+                                                                      },
+                                                                      icon: Icon(
+                                                                        Icons
+                                                                            .cancel,
+                                                                        size:
+                                                                            25,
+                                                                      )),
+                                                                )
                                                               ],
                                                             ),
                                                           );
-                                                          // return CheckboxListTile(
-                                                          //   title: Text(
-                                                          //       FeatureissueName[
-                                                          //                   index]
-                                                          //               [
-                                                          //               subindex]
-                                                          //           .toString()),
-                                                          //   contentPadding:
-                                                          //       EdgeInsets.all(
-                                                          //           0),
-                                                          //   controlAffinity:
-                                                          //       ListTileControlAffinity
-                                                          //           .leading,
-                                                          //   activeColor: AppTheme
-                                                          //       .colorPrimary,
-                                                          //   onChanged:
-                                                          //       (bool? value) {
-                                                          //     setState(() {
-                                                          //       featurebool[index]
-                                                          //               [
-                                                          //               subindex] =
-                                                          //           value!;
-                                                          //       if (selectcheckbox.contains(
-                                                          //           featurebool[
-                                                          //                   index]
-                                                          //               [
-                                                          //               subindex])) {
-                                                          //         selectcheckbox.remove(
-                                                          //             featurebool[
-                                                          //                     index]
-                                                          //                 [
-                                                          //                 subindex]);
-                                                          //       } else {
-                                                          //         selectcheckbox.add(
-                                                          //             featurebool[
-                                                          //                     index]
-                                                          //                 [
-                                                          //                 subindex]);
-                                                          //       }
-                                                          //       if (featurebool[
-                                                          //                   index]
-                                                          //               [
-                                                          //               subindex] ==
-                                                          //           true) {
-                                                          //         FeatureissueId[
-                                                          //                 index]
-                                                          //             .add(featureissueId[
-                                                          //                     index]
-                                                          //                 [
-                                                          //                 subindex]);
-                                                          //       } else {
-                                                          //         FeatureissueId[
-                                                          //                 index]
-                                                          //             .remove(featureissueId[
-                                                          //                     index]
-                                                          //                 [
-                                                          //                 subindex]);
-                                                          //       }
-                                                          //       // log("sdsdw" +
-                                                          //       //     FeatureissueId
-                                                          //       //         .toString());
-                                                          //       // log("sdsdw" +
-                                                          //       //     featurebool
-                                                          //       //         .toString());
-                                                          //     });
-                                                          //   },
-                                                          //   value: featurebool[
-                                                          //           index]
-                                                          //       [subindex],
-                                                          // );
-                                                        },
-                                                      ),
-                                                    )
-                                                  : Container()
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              featureoptionid[index] == 0
-                                                  //  ||
-                                                  //         featureissueid[index] == 0
-                                                  ? ScaffoldMessenger.of(
-                                                          context)
-                                                      .showSnackBar(SnackBar(
-                                                      content: Text(
-                                                          'Select Option And issue'),
-                                                    ))
-                                                  : showOptionsDialog(
-                                                      context, index);
-                                            },
-                                            child: Container(
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                      padding: EdgeInsets.only(
-                                                          top: 7,
-                                                          bottom: 7,
-                                                          left: 12,
-                                                          right: 12),
-                                                      decoration: BoxDecoration(
-                                                          color: AppTheme
-                                                              .colorPrimary
-                                                              .withOpacity(0.4),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      15)),
-                                                      child: Text('+ Photos')),
-                                                  SizedBox(width: 10),
-                                                  Expanded(
-                                                    child: Container(
-                                                      padding: EdgeInsets.only(
-                                                          left: 7),
-                                                      height:
-                                                          size.height * 0.05,
-                                                      decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                              color: AppTheme
-                                                                  .grey
-                                                                  .withOpacity(
-                                                                      0.5),
-                                                              width: 2),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(15),
-                                                          color: Colors.white),
-                                                      child: TextFormField(
-                                                        controller:
-                                                            _PhotoDescrptionController[
-                                                                index],
-                                                        // textInputAction:
-                                                        //     TextInputAction.done,
-                                                        cursorColor: AppTheme
-                                                            .colorPrimary,
-                                                        decoration: InputDecoration(
-                                                            hintText:
-                                                                "Add Photo Description",
-                                                            hintStyle: TextStyle(
-                                                                fontSize: 14),
-                                                            focusedBorder: UnderlineInputBorder(
-                                                                borderSide: BorderSide(
-                                                                    color: Colors
-                                                                        .transparent)),
-                                                            enabledBorder: UnderlineInputBorder(
-                                                                borderSide: BorderSide(
-                                                                    color: Colors
-                                                                        .transparent)),
-                                                            border: UnderlineInputBorder(
-                                                                borderSide: BorderSide(
-                                                                    color: Colors
-                                                                        .transparent))),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  CircleAvatar(
-                                                    radius: 18,
-                                                    backgroundColor: AppTheme
-                                                        .colorPrimary
-                                                        .withOpacity(0.6),
-                                                    child: IconButton(
-                                                        onPressed: () {
-                                                          if (imgGallery !=
-                                                              null) {
-                                                            textphoto(index);
-                                                          }
-                                                          if (imgCamera !=
-                                                              null) {
-                                                            photocamera(index);
-                                                          }
-                                                        },
-                                                        icon: Icon(
-                                                          Icons.send,
-                                                          color: Colors.white,
-                                                          size: 18,
-                                                        )),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          imgFile[index] == null ||
-                                                  imgFile[index].toString() ==
-                                                      File('').toString()
-                                              ? SizedBox()
-                                              : ListView.separated(
-                                                  separatorBuilder:
-                                                      (context, subIndex) {
-                                                    return SizedBox(
-                                                      height: 10,
-                                                    );
-                                                  },
-                                                  shrinkWrap: true,
-                                                  physics:
-                                                      NeverScrollableScrollPhysics(),
-                                                  itemCount:
-                                                      imgFile[index].length,
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                          int subIndex) {
-                                                    return imgFile[index][
-                                                                    subIndex] ==
-                                                                File('') ||
-                                                            _addphotodescription[
-                                                                        index][
-                                                                    subIndex] ==
-                                                                ''
-                                                        ? SizedBox()
-                                                        : ListTile(
-                                                            leading: Container(
-                                                              height: 60,
-                                                              width: 60,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                                image:
-                                                                    DecorationImage(
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                  image:
-                                                                      FileImage(
-                                                                    imgFile[index]
-                                                                        [
-                                                                        subIndex],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            title: _addphotodescription[
-                                                                        subIndex] ==
-                                                                    ''
-                                                                ? Text('')
-                                                                : Text(_addphotodescription[
-                                                                        index]
-                                                                    [subIndex]),
-                                                            trailing:
-                                                                IconButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      setState(
-                                                                          () {
-                                                                        imgFile[index]
-                                                                            .removeAt(subIndex);
-                                                                        _addphotodescription[index]
-                                                                            .removeAt(subIndex);
-                                                                      });
-                                                                    },
-                                                                    icon: Icon(
-                                                                      Icons
-                                                                          .cancel,
-                                                                      size: 20,
-                                                                    )),
-                                                          );
                                                   },
                                                 ),
+
+                                          // ListView.separated(
+                                          //     separatorBuilder:
+                                          //         (context, subIndex) {
+                                          //       return SizedBox(
+                                          //         height: 10,
+                                          //       );
+                                          //     },
+                                          //     shrinkWrap: true,
+                                          //     physics:
+                                          //         NeverScrollableScrollPhysics(),
+                                          //     itemCount:
+                                          //         imgFile[index].length,
+                                          //     itemBuilder:
+                                          //         (BuildContext context,
+                                          //             int subIndex) {
+                                          //       return imgFile[index][
+                                          //                       subIndex] ==
+                                          //                   File('') ||
+                                          //               _addphotodescription[
+                                          //                           index][
+                                          //                       subIndex] ==
+                                          //                   ''
+                                          //           ? SizedBox()
+                                          //           : ListTile(
+                                          //               leading: Container(
+                                          //                 height: 60,
+                                          //                 width: 60,
+                                          //                 decoration:
+                                          //                     BoxDecoration(
+                                          //                   borderRadius:
+                                          //                       BorderRadius
+                                          //                           .circular(
+                                          //                               10),
+                                          //                   image:
+                                          //                       DecorationImage(
+                                          //                     fit: BoxFit
+                                          //                         .cover,
+                                          //                     image:
+                                          //                         FileImage(
+                                          //                       imgFile[index]
+                                          //                           [
+                                          //                           subIndex],
+                                          //                     ),
+                                          //                   ),
+                                          //                 ),
+                                          //               ),
+                                          //               title: _addphotodescription[
+                                          //                           subIndex] ==
+                                          //                       ''
+                                          //                   ? Text('')
+                                          //                   : Text(_addphotodescription[
+                                          //                           index]
+                                          //                       [subIndex]),
+                                          //               trailing:
+                                          //                   IconButton(
+                                          //                       onPressed:
+                                          //                           () {
+                                          //                         setState(
+                                          //                             () {
+                                          //                           imgFile[index]
+                                          //                               .removeAt(subIndex);
+                                          //                           _addphotodescription[index]
+                                          //                               .removeAt(subIndex);
+                                          //                         });
+                                          //                       },
+                                          //                       icon: Icon(
+                                          //                         Icons
+                                          //                             .cancel,
+                                          //                         size: 20,
+                                          //                       )),
+                                          //             );
+                                          //     },
+                                          //   ),
+
                                           SizedBox(
                                             height: 10,
                                           ),
@@ -648,9 +797,10 @@ class _NeedAttentionState extends State<NeedAttention> {
                                             child: Stack(
                                               children: [
                                                 TextFormField(
-                                                  controller:
-                                                      _DescrptionController[
-                                                          index],
+                                                  controller: _roomProvider
+                                                          .DescrptionController[
+                                                      _roomProvider
+                                                          .tabIndex][index],
                                                   minLines: 2,
                                                   maxLines: 100,
                                                   textInputAction:
@@ -679,51 +829,61 @@ class _NeedAttentionState extends State<NeedAttention> {
                                                               color: Colors
                                                                   .transparent))),
                                                 ),
-                                                Align(
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          AppTheme.colorPrimary,
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        bottomLeft:
-                                                            Radius.circular(10),
-                                                        topLeft:
-                                                            Radius.circular(10),
-                                                      ),
-                                                    ),
-                                                    child: IconButton(
-                                                      icon: Icon(
-                                                        Icons.arrow_forward_ios,
-                                                        color: Colors.white,
-                                                      ),
-                                                      onPressed: () {
-                                                        _DescrptionController[
-                                                                    index]
-                                                                .text
-                                                                .isEmpty
-                                                            ? ScaffoldMessenger
-                                                                    .of(context)
-                                                                .showSnackBar(
-                                                                    SnackBar(
-                                                                content: Text(
-                                                                    'Add description'),
-                                                              ))
-                                                            : _description[
-                                                                    index] =
-                                                                _DescrptionController[
-                                                                        index]
-                                                                    .text;
-                                                        _DescrptionController[
-                                                                index]
-                                                            .clear();
-                                                      },
-                                                    ),
-                                                    width: 50,
-                                                  ),
-                                                )
+                                                // Align(
+                                                //   alignment:
+                                                //       Alignment.centerRight,
+                                                //   child: Container(
+                                                //     decoration: BoxDecoration(
+                                                //       color:
+                                                //           AppTheme.colorPrimary,
+                                                //       borderRadius:
+                                                //           BorderRadius.only(
+                                                //         bottomLeft:
+                                                //             Radius.circular(10),
+                                                //         topLeft:
+                                                //             Radius.circular(10),
+                                                //       ),
+                                                //     ),
+                                                //     child: IconButton(
+                                                //       icon: Icon(
+                                                //         Icons.arrow_forward_ios,
+                                                //         color: Colors.white,
+                                                //       ),
+                                                //       onPressed: () {
+                                                //         _roomProvider
+                                                //                 .DescrptionController[
+                                                //                     _roomProvider
+                                                //                         .tabIndex]
+                                                //                     [index]
+                                                //                 .text
+                                                //                 .isEmpty
+                                                //             ? ScaffoldMessenger.of(context)
+                                                //                 .showSnackBar(
+                                                //                     SnackBar(
+                                                //                 content: Text(
+                                                //                     'Add description'),
+                                                //               ))
+                                                //             : _roomProvider
+                                                //                         .description[_roomProvider.tabIndex]
+                                                //                     [index] =
+                                                //                 _roomProvider
+                                                //                     .DescrptionController[
+                                                //                         _roomProvider
+                                                //                             .tabIndex]
+                                                //                         [index]
+                                                //                     .text;
+                                                //         _roomProvider
+                                                //             .DescrptionController[
+                                                //                 _roomProvider
+                                                //                     .tabIndex]
+                                                //                 [index]
+                                                //             .clear();
+                                                //       },
+                                                //     ),
+                                                //     width: 50,
+                                                //   ),
+                                                // )
+                                              
                                               ],
                                             ),
                                           ),
@@ -736,124 +896,127 @@ class _NeedAttentionState extends State<NeedAttention> {
                         },
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        height: size.height * 0.08,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                            color: AppTheme.colorPrimary),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.arrow_back_ios,
-                                    size: 20,
-                                    color: AppTheme.white,
-                                  ),
-                                  Text(
-                                    "Previous",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          fontSize: 18,
-                                          color: lightColor.withOpacity(.9),
-                                        ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                // print("jkldn" + select.toString());
-                                // print("jkldn" + _description.toString());
-                                List<bool> desempty = [];
-                                List<bool> featureissueempty = [];
-                                for (int i = 0; i < select.length; i++) {
-                                  if (_description[select[i]].isEmpty) {
-                                    desempty.add(false);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content: Text(
-                                                'Add Description of ${_roomsfeature.listOfFeature[select[i]].name}')));
-                                    break;
-                                  } else {
-                                    //  print("jkldn = " + i.toString());
-                                    desempty.add(true);
-                                  }
-                                  if (FeatureissueId[select[i]].isEmpty) {
-                                    featureissueempty.add(false);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content: Text(
-                                                'Select issue ${_roomsfeature.listOfFeature[select[i]].name}')));
-                                    break;
-                                  } else {
-                                    featureissueempty.add(true);
-                                  }
-                                }
-                                //  print("jkldn" + desempty.toString());
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // Align(
+                    //   alignment: Alignment.bottomCenter,
+                    //   child:
 
-                                if (!desempty.contains(false) &&
-                                    !featureissueempty.contains(false)) {
-                                  removeempty();
-                                  Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: (context) => TellusMore(
-                                        featureid: featureId,
-                                        featureoptionid: featureoptionid,
-                                        featureissueid: FeatureissueId,
-                                        imgFile: imgFile,
-                                        addphotodescription:
-                                            _addphotodescription,
-                                        Descrption: _description,
-                                      ),
-                                    ),
-                                  );
-                                }
-                              },
-                              child:
-                                  //  featureissueid[indexs] == 0
-                                  //     ? SizedBox()
-                                  //     :
-                                  Row(
-                                children: [
-                                  Text(
-                                    "Next",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          fontSize: 18,
-                                          color: lightColor.withOpacity(.9),
-                                        ),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 20,
-                                    color: AppTheme.white,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    //   Container(
+                    //     padding: EdgeInsets.symmetric(horizontal: 20),
+                    //     height: size.height * 0.08,
+                    //     decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.only(
+                    //           topLeft: Radius.circular(20),
+                    //           topRight: Radius.circular(20),
+                    //         ),
+                    //         color: AppTheme.colorPrimary),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+                    //         GestureDetector(
+                    //           onTap: () {
+                    //             Navigator.of(context).pop();
+                    //           },
+                    //           child: Row(
+                    //             children: [
+                    //               Icon(
+                    //                 Icons.arrow_back_ios,
+                    //                 size: 20,
+                    //                 color: AppTheme.white,
+                    //               ),
+                    //               Text(
+                    //                 "Previous",
+                    //                 style: Theme.of(context)
+                    //                     .textTheme
+                    //                     .bodyText1!
+                    //                     .copyWith(
+                    //                       fontSize: 18,
+                    //                       color: lightColor.withOpacity(.9),
+                    //                     ),
+                    //               )
+                    //             ],
+                    //           ),
+                    //         ),
+                    //         GestureDetector(
+                    //           onTap: () {
+                    //             // print("jkldn" + select.toString());
+                    //             // print("jkldn" + _description.toString());
+                    //             List<bool> desempty = [];
+                    //             List<bool> featureissueempty = [];
+                    //             for (int i = 0; i < select.length; i++) {
+                    //               if (_description[select[i]].isEmpty) {
+                    //                 desempty.add(false);
+                    //                 ScaffoldMessenger.of(context).showSnackBar(
+                    //                     SnackBar(
+                    //                         content: Text(
+                    //                             'Add Description of ${_roomsfeature.listOfFeature[select[i]].name}')));
+                    //                 break;
+                    //               } else {
+                    //                 //  print("jkldn = " + i.toString());
+                    //                 desempty.add(true);
+                    //               }
+                    //               // if (FeatureissueId[select[i]].isEmpty) {
+                    //               //   featureissueempty.add(false);
+                    //               //   ScaffoldMessenger.of(context).showSnackBar(
+                    //               //       SnackBar(
+                    //               //           content: Text(
+                    //               //               'Select issue ${_roomsfeature.listOfFeature[select[i]].name}')));
+                    //               //   break;
+                    //               // }
+                    //               // else {
+                    //               //   featureissueempty.add(true);
+                    //               // }
+                    //             }
+                    //             //  print("jkldn" + desempty.toString());
+
+                    //             if (!desempty.contains(false) &&
+                    //                 !featureissueempty.contains(false)) {
+                    //               removeempty();
+                    //               Navigator.of(context).pushReplacement(
+                    //                 MaterialPageRoute(
+                    //                   builder: (context) => TellusMore(
+                    //                     featureid: featureId,
+                    //                     featureoptionid: featureoptionid,
+                    //                     // featureissueid: FeatureissueId,
+                    //                     imgFile: imgFile,
+                    //                     // addphotodescription:
+                    //                     //     _addphotodescription,
+                    //                     Descrption: _description,
+                    //                   ),
+                    //                 ),
+                    //               );
+                    //             }
+                    //           },
+                    //           child:
+                    //               //  featureissueid[indexs] == 0
+                    //               //     ? SizedBox()
+                    //               //     :
+                    //               Row(
+                    //             children: [
+                    //               Text(
+                    //                 "Next",
+                    //                 style: Theme.of(context)
+                    //                     .textTheme
+                    //                     .bodyText1!
+                    //                     .copyWith(
+                    //                       fontSize: 18,
+                    //                       color: lightColor.withOpacity(.9),
+                    //                     ),
+                    //               ),
+                    //               Icon(
+                    //                 Icons.arrow_forward_ios,
+                    //                 size: 20,
+                    //                 color: AppTheme.white,
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -922,7 +1085,12 @@ class _NeedAttentionState extends State<NeedAttention> {
   void openCamera(
     int index,
   ) async {
-    imgCamera = await imgPicker.getImage(source: ImageSource.camera);
+    imgCamera =
+        await _roomProvider.imgPicker.getImage(source: ImageSource.camera);
+
+    if (imgCamera != null) {
+      photocamera(index);
+    }
 
     Navigator.of(context).pop();
   }
@@ -931,22 +1099,29 @@ class _NeedAttentionState extends State<NeedAttention> {
   void openGallery(
     int index,
   ) async {
-    imgGallery = await imgPicker.getImage(source: ImageSource.gallery);
-
+    imgGallery =
+        await _roomProvider.imgPicker.getImage(source: ImageSource.gallery);
+    if (imgGallery != null) {
+      textphoto(index);
+    }
     Navigator.of(context).pop();
   }
 
   void textphoto(int index) {
     setState(() {
-      if (_PhotoDescrptionController[index].text.isEmpty ||
+      if (
+          // _PhotoDescrptionController[index].text.isEmpty ||
           imgGallery == null) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Add description or Photo'),
+          content: Text('Add Photo'),
+          // content: Text('Add description or Photo'),
         ));
       } else {
-        _addphotodescription[index].add(_PhotoDescrptionController[index].text);
-        imgFile[index].add(File(imgGallery.path));
-        _PhotoDescrptionController[index].clear();
+        // _addphotodescription[index].add(_PhotoDescrptionController[index].text);
+        _roomProvider.imgFile[_roomProvider.tabIndex][index]
+            .add(File(imgGallery.path));
+        // _PhotoDescrptionController[index].clear();
+
         imgGallery = null;
       }
     });
@@ -954,25 +1129,32 @@ class _NeedAttentionState extends State<NeedAttention> {
 
   void photocamera(int index) {
     setState(() {
-      if (_PhotoDescrptionController[index].text.isEmpty || imgCamera == null) {
+      if (
+          // _PhotoDescrptionController[index].text.isEmpty ||
+          imgCamera == null) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Add description or Photo'),
         ));
       } else {
-        _addphotodescription[index].add(_PhotoDescrptionController[index].text);
-        imgFile[index].add(File(imgCamera.path));
-        _PhotoDescrptionController[index].clear();
+        // _addphotodescription[index].add(_PhotoDescrptionController[index].text);
+        _roomProvider.imgFile[_roomProvider.tabIndex][index]
+            .add(File(imgCamera.path));
+        // _PhotoDescrptionController[index].clear();
         imgCamera = null;
       }
     });
   }
 
   void removeempty() {
-    featureId.removeWhere((element) => ["", 0].contains(element));
-    featureoptionid.removeWhere((element) => ["", 0].contains(element));
-    FeatureissueId.removeWhere((element) => element.length == 0);
-    imgFile.removeWhere((element) => element.length == 0);
-    _addphotodescription.removeWhere((element) => element.length == 0);
-    _description.removeWhere((element) => ["", 0].contains(element));
+    _roomProvider.featureId[_roomProvider.tabIndex]
+        .removeWhere((element) => ["", 0].contains(element));
+    _roomProvider.featureoptionid[_roomProvider.tabIndex]
+        .removeWhere((element) => ["", 0].contains(element));
+    // FeatureissueId.removeWhere((element) => element.length == 0);
+    _roomProvider.imgFile[_roomProvider.tabIndex]
+        .removeWhere((element) => element.length == 0);
+    // _addphotodescription.removeWhere((element) => element.length == 0);
+    _roomProvider.description[_roomProvider.tabIndex]
+        .removeWhere((element) => ["", 0].contains(element));
   }
 }

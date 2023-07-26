@@ -19,17 +19,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class TellusMore extends StatefulHookWidget {
   List<int> featureid;
   List<int> featureoptionid;
-  List<List<int>> featureissueid;
+  // List<List<int>> featureissueid;
   List<List<File>> imgFile;
-  List<List<String>> addphotodescription;
+  // List<List<String>> addphotodescription;
   List<String> Descrption;
   TellusMore({
     required this.featureid,
     required this.featureoptionid,
-    required this.featureissueid,
+    // required this.featureissueid,
     required this.imgFile,
     required this.Descrption,
-    required this.addphotodescription,
+    // required this.addphotodescription,
   });
 
   @override
@@ -53,33 +53,33 @@ class _TellusMoreState extends State<TellusMore> {
     for (int i = 0; i < widget.featureid.length; i++) {
       widget.imgFile.add([]);
     }
-    for (int i = 0; i < widget.featureid.length; i++) {
-      widget.addphotodescription.add([]);
-    }
+    // for (int i = 0; i < widget.featureid.length; i++) {
+    //   widget.addphotodescription.add([]);
+    // }
     for (int i = 0; i < widget.featureid.length; i++) {
       widget.Descrption.add('');
     }
   }
 
   load() {
-    for (int i = 0; i < widget.featureid.length; i++) {
-      Map<String, dynamic> _map = {
-        "featureOption": widget.featureoptionid[i].toString(),
-        "featureOptionIssues": widget.featureissueid[i],
-        "features": widget.featureid[i].toString(),
-        "inspectionNotes":
-            //"test",
-            widget.Descrption[i].toString() != ''
-                ? widget.Descrption[i].toString()
-                : "test",
-        "issuetext": "test",
-        "roomId": roomid
-      };
-      listData.add(_map);
-    }
-    setState(() {
-      loading = true;
-    });
+    // for (int i = 0; i < widget.featureid.length; i++) {
+    //   Map<String, dynamic> _map = {
+    //     "featureOption": widget.featureoptionid[i].toString(),
+    //     // "featureOptionIssues": widget.featureissueid[i],
+    //     "features": widget.featureid[i].toString(),
+    //     "inspectionNotes":
+    //         //"test",
+    //         widget.Descrption[i].toString() != ''
+    //             ? widget.Descrption[i].toString()
+    //             : "test",
+    //     "issuetext": "test",
+    //     "roomId": roomid
+    //   };
+    //   listData.add(_map);
+    // }
+    // setState(() {
+    //   loading = true;
+    // });
   }
 
   images() {
@@ -154,35 +154,35 @@ class _TellusMoreState extends State<TellusMore> {
                                       SizedBox(
                                         height: 5,
                                       ),
-                                      Text(
-                                        "FeatureOptionid = " +
-                                            widget.featureoptionid[index]
-                                                .toString(),
-                                        style: TextStyle(),
-                                      ),
+                                      // Text(
+                                      //   "FeatureOptionid = " +
+                                      //       widget.featureoptionid[index]
+                                      //           .toString(),
+                                      //   style: TextStyle(),
+                                      // ),
                                       SizedBox(
                                         height: 5,
                                       ),
-                                      for (int i = 0;
-                                          i <
-                                              widget
-                                                  .featureissueid[index].length;
-                                          i++)
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                                "FeatureIssueid = " +
-                                                    widget.featureissueid[index]
-                                                            [i]
-                                                        .toString(),
-                                                style: TextStyle()),
-                                            SizedBox(
-                                              height: 5,
-                                            )
-                                          ],
-                                        ),
+                                      // for (int i = 0;
+                                      //     i <
+                                      //         widget
+                                      //             .featureissueid[index].length;
+                                      //     i++)
+                                      //   Column(
+                                      //     crossAxisAlignment:
+                                      //         CrossAxisAlignment.start,
+                                      //     children: [
+                                      //       Text(
+                                      //           "FeatureIssueid = " +
+                                      //               widget.featureissueid[index]
+                                      //                       [i]
+                                      //                   .toString(),
+                                      //           style: TextStyle()),
+                                      //       SizedBox(
+                                      //         height: 5,
+                                      //       )
+                                      //     ],
+                                      //   ),
                                       widget.imgFile == [[]]
                                           ? Text('No photo selected')
                                           : ListView.builder(
@@ -228,13 +228,16 @@ class _TellusMoreState extends State<TellusMore> {
                                                                 ),
                                                               ),
                                                             ),
-                                                      title: widget.addphotodescription[
-                                                                  index] ==
-                                                              []
-                                                          ? Text('null')
-                                                          : Text(widget
-                                                                  .addphotodescription[
-                                                              index][subIndex]),
+                                                      // title:
+                                                      //  widget.addphotodescription[
+                                                      //             index] ==
+                                                      //         []
+                                                      //     ?
+                                                      // Text('null')
+                                                      // :
+                                                      // Text(widget
+                                                      //         .addphotodescription[
+                                                      //     index][subIndex]),
                                                     ),
                                                   ],
                                                 );
@@ -361,7 +364,7 @@ class _TellusMoreState extends State<TellusMore> {
   void removeempty() {
     widget.Descrption.removeWhere((element) => ["", 0].contains(element));
     widget.imgFile.removeWhere((element) => element.length == 0);
-    widget.addphotodescription.removeWhere((element) => element.length == 0);
+    // widget.addphotodescription.removeWhere((element) => element.length == 0);
   }
 }
 

@@ -1,3 +1,4 @@
+import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
 
 class LoadingWidget extends StatefulWidget {
@@ -12,7 +13,7 @@ class _LoadingWidgetState extends State<LoadingWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: CircularProgressIndicator(color: Colors.blue),
+        child: CircularProgressIndicator(color: darkRed),
       ),
     );
   }

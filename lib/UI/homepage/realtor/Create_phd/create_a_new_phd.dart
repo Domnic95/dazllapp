@@ -1,5 +1,6 @@
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/Select_room.dart';
+import 'package:dazllapp/UI/homepage/realtor/provider/phdProvider.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -35,21 +36,23 @@ class CreateANewPhd extends StatefulHookWidget {
 }
 
 class _CreateANewPhdState extends State<CreateANewPhd> {
-  int start = 450;
-  int end = 800;
+  // int start = 450;
+  // int end = 800;
   bool loading = true;
-
+  late PhdProvider _phdProvider;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
     loaddata();
   }
 
   loaddata() async {
+    _phdProvider = context.read(phdProvider);
     final _housedata = context.read(realtorprovider);
     await _housedata.gethousedata(
-        city: widget.city,
+        address: _phdProvider.address,
         state: widget.state,
         pincode: widget.pincode,
         first_name: widget.first_name,
@@ -68,7 +71,9 @@ class _CreateANewPhdState extends State<CreateANewPhd> {
   Widget build(BuildContext context) {
     final _housedata = useProvider(realtorprovider);
     final size = MediaQuery.of(context).size;
-
+    final _phdProvider = context.read(
+      phdProvider,
+    );
     return SafeArea(
         child: Scaffold(
       body: Column(
@@ -101,7 +106,8 @@ class _CreateANewPhdState extends State<CreateANewPhd> {
                         ),
                         Center(
                             child: Text(
-                          "\$ " + "${(start + end) / 2}",
+                          "\$ " +
+                              "${(_phdProvider.startRange + _phdProvider.endRange) / 2}",
                         )),
                         SliderTheme(
                           data: SliderTheme.of(context).copyWith(
@@ -123,25 +129,31 @@ class _CreateANewPhdState extends State<CreateANewPhd> {
                                 PaddleRangeSliderValueIndicatorShape(),
                           ),
                           child: RangeSlider(
-                            values:
-                                RangeValues(start.toDouble(), end.toDouble()),
+                            values: RangeValues(
+                                _phdProvider.startRange.toDouble(),
+                                _phdProvider.endRange.toDouble()),
                             min: 450,
                             max: 800,
                             semanticFormatterCallback: (rangeValues) {
-                              return '${start.round()} - ${end.round()} dollars';
+                              return '${_phdProvider.startRange.round()} - ${_phdProvider.endRange.round()} dollars';
                             },
                             //added talk back feature for android
                             divisions: 100,
-                            labels: RangeLabels('\$ ${start}', '\$ ${end}'),
+                            labels: RangeLabels('\$ ${_phdProvider.startRange}',
+                                '\$ ${_phdProvider.endRange}'),
                             activeColor: AppTheme.colorPrimary,
                             inactiveColor: Color(0xffD7D8DD),
                             onChanged: (RangeValues newRange) {
-                              setState(() {
-                                start = int.parse(
-                                    newRange.start.toStringAsFixed(0));
-                                end =
-                                    int.parse(newRange.end.toStringAsFixed(0));
-                              });
+                              _phdProvider.setRange(
+                                  int.parse(newRange.start.toStringAsFixed(0)),
+                                  int.parse(newRange.end.toStringAsFixed(0)));
+                              setState(() {});
+                              // setState(() {
+                              //   start = int.parse(
+                              //       newRange.start.toStringAsFixed(0));
+                              //   end =
+                              //       int.parse(newRange.end.toStringAsFixed(0));
+                              // });
                             },
                           ),
                         ),

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/Select_Feature.dart';
+import 'package:dazllapp/UI/homepage/realtor/Create_phd/phd.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/select_feature.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -59,7 +60,7 @@ class _selectRoomState extends State<selectRoom> {
                   color: AppTheme.colorPrimary),
               child: Center(
                 child: Text(
-                  "Create a Project",
+                  "Create a new phd",
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontSize: 16,
                         color: lightColor.withOpacity(.9),
@@ -200,7 +201,7 @@ class _selectRoomState extends State<selectRoom> {
                       // ? SizedBox()
                       // :
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SelectFeature()));
+                          builder: (context) => Phd(roomId: roomid ?? 0)));
                     },
                     child: Row(
                       children: [

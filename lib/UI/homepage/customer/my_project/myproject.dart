@@ -119,16 +119,37 @@ class _myprojectState extends State<myproject> {
                                                             image: NetworkImage(projectprovider
                                                                     .listofproject[
                                                                         index]
-                                                                    .images!
+                                                                    .roominfo!
                                                                     .isEmpty
                                                                 ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
                                                                 : projectprovider
-                                                                    .listofproject[
-                                                                        index]
-                                                                    .images!
-                                                                    .first
-                                                                    .url
-                                                                    .toString()),
+                                                                        .listofproject[
+                                                                            index]
+                                                                        .roominfo!
+                                                                        .first
+                                                                        .feature!
+                                                                        .isEmpty
+                                                                    ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
+                                                                    : projectprovider
+                                                                            .listofproject[
+                                                                                index]
+                                                                            .roominfo!
+                                                                            .first
+                                                                            .feature!
+                                                                            .first
+                                                                            .images!
+                                                                            .isEmpty
+                                                                        ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
+                                                                        : projectprovider
+                                                                            .listofproject[
+                                                                                index]
+                                                                            .roominfo!
+                                                                            .first
+                                                                            .feature!
+                                                                            .first
+                                                                            .images!
+                                                                            .first
+                                                                            .toString()),
                                                             fit: BoxFit
                                                                 .fitWidth),
                                                       ),

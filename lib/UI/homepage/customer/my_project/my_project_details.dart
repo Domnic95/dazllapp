@@ -46,44 +46,46 @@ class _Project_DetailsState extends State<Project_Details> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              projectprovider.listofproject[widget.index].images!.isEmpty
-                  ? SizedBox()
-                  : CarouselSlider.builder(
-                      itemCount: projectprovider
-                          .listofproject[widget.index].images!.length,
-                      itemBuilder: (BuildContext context, int itemIndex,
-                              int pageViewIndex) =>
-                          Container(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: NetworkImage(projectprovider
-                                    .listofproject[widget.index]
-                                    .images![itemIndex]
-                                    .url),
-                                fit: BoxFit.cover),
-                            borderRadius: BorderRadius.circular(15),
-                            color: AppTheme.grey,
-                          ),
-                        ),
-                      ),
-                      options: CarouselOptions(
-                        aspectRatio: 16 / 9,
-                        viewportFraction: 0.8,
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 3),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        scrollDirection: Axis.horizontal,
-                      ),
-                    ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // projectprovider.listofproject[widget.index].roominfo!.isEmpty&&
+              // projectprovider.listofproject[widget.index].roominfo!.first.feature!.isEmpty&&
+              // projectprovider.listofproject[widget.index].roominfo!.first.feature!.first.images!. isEmpty
+              //     ? SizedBox()
+              //     : CarouselSlider.builder(
+              //         itemCount: projectprovider
+              //             .listofproject[widget.index].roominfo!.first.feature!.first.images!.length,
+              //         itemBuilder: (BuildContext context, int itemIndex,
+              //                 int pageViewIndex) =>
+              //             Container(
+              //           child: Container(
+              //             decoration: BoxDecoration(
+              //               image: DecorationImage(
+              //                   image: NetworkImage(projectprovider
+              //                       .listofproject[widget.index].roominfo!.first.feature!.first
+              //                       .images![itemIndex]
+              //                       .url),
+              //                   fit: BoxFit.cover),
+              //               borderRadius: BorderRadius.circular(15),
+              //               color: AppTheme.grey,
+              //             ),
+              //           ),
+              //         ),
+              //         options: CarouselOptions(
+              //           aspectRatio: 16 / 9,
+              //           viewportFraction: 0.8,
+              //           initialPage: 0,
+              //           enableInfiniteScroll: true,
+              //           reverse: false,
+              //           autoPlay: true,
+              //           autoPlayInterval: Duration(seconds: 3),
+              //           autoPlayAnimationDuration: Duration(milliseconds: 800),
+              //           autoPlayCurve: Curves.fastOutSlowIn,
+              //           enlargeCenterPage: true,
+              //           scrollDirection: Axis.horizontal,
+              //         ),
+              //       ),
               SizedBox(height: 30),
               Text(
                 "Features",
@@ -125,7 +127,7 @@ class _Project_DetailsState extends State<Project_Details> {
                                           .listofproject[widget.index]
                                           .roominfo![index]
                                           .feature![subindex]
-                                          .featureName,
+                                          .featureName!,
                                       style: TextStyle(
                                           color: AppTheme.colorPrimary,
                                           fontSize: 14,
@@ -141,7 +143,7 @@ class _Project_DetailsState extends State<Project_Details> {
                                                   .listofproject[widget.index]
                                                   .roominfo![index]
                                                   .feature![subindex]
-                                                  .featureoption,
+                                                  .featureoption!,
                                           style: TextStyle(
                                             fontSize: 14,
                                           ),
@@ -186,7 +188,7 @@ class _Project_DetailsState extends State<Project_Details> {
                                                   .listofproject[widget.index]
                                                   .roominfo![index]
                                                   .feature![subindex]
-                                                  .inspectionNotes,
+                                                  .inspectionNotes!,
                                         ),
                                         SizedBox(
                                           height: 5,
@@ -197,7 +199,7 @@ class _Project_DetailsState extends State<Project_Details> {
                                                   .listofproject[widget.index]
                                                   .roominfo![index]
                                                   .feature![subindex]
-                                                  .issuetext,
+                                                  .inspectionNotes!,
                                         )
                                       ],
                                     )

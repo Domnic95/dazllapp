@@ -23,7 +23,7 @@ class CustomerNotifier extends BaseNotifier {
   List<Project> listofproject = [];
   List<Roominfo> listofRoomsinfo = [];
   List<Featureinfo> listofFeatureinfo = [];
-  List<Image> listofimages = [];
+  // List<Image> listofimages = [];
 
   Future getRooms() async {
     final res = await dioClient.getRequest(apiEnd: rooms);
@@ -37,6 +37,7 @@ class CustomerNotifier extends BaseNotifier {
     );
     listOfFeature = List<RoomFeature>.from(
         res.data['data'].map((x) => RoomFeature.fromJson(x)));
+    log("listOfFeature == $listOfFeature");
     notifyListeners();
   }
 
@@ -62,11 +63,11 @@ class CustomerNotifier extends BaseNotifier {
   }
 
   Future<int> createproject(List<Map<String, dynamic>> data) async {
-    final res =
+    Response res =
         await dioClient.rawwithFormData(apiEnd: create_projet, Data: data);
 
-    log(res.toString());
-    log(data.toString());
+    log("sjljlflzs === " + res.toString());
+    log("sjljlflzs ===data " + data.toString());
     return res.data['project_id'];
   }
 
@@ -86,24 +87,24 @@ class CustomerNotifier extends BaseNotifier {
   }
 
   Future myproject() async {
-    final res = await dioClient.getRequest(apiEnd: my_project);
-  
+    Response res = await dioClient.getRequest(apiEnd: my_project);
+
     listofproject =
         List<Project>.from(res.data['data'].map((x) => Project.fromJson(x)));
-  
+
     for (int a = 0; a < res.data['data'].length; a++) {
       for (int b = 0; b < res.data['data'][a]['roominfo'].length; b++) {
         listofRoomsinfo
             .add(Roominfo.fromJson(res.data['data'][a]['roominfo'][b]));
       }
     }
- 
-    for (int a = 0; a < res.data['data'].length; a++) {
-      for (int b = 0; b < res.data['data'][a]['images'].length; b++) {
-        listofimages.add(Image.fromJson(res.data['data'][a]['images'][b]));
-      }
-    }
-    
+
+    // for (int a = 0; a < res.data['data'].length; a++) {
+    //   for (int b = 0; b < res.data['data'][a]['images'].length; b++) {
+    //     // listofimages.add(Image.fromJson(res.data['data'][a]['images'][b]));
+    //   }
+    // }
+
     for (int c = 0; c < res.data['data'].length; c++) {
       for (int d = 0; d < res.data['data'][c]['roominfo'].length; d++) {
         for (int e = 0;

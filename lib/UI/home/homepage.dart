@@ -200,8 +200,8 @@ logoutdilouge(BuildContext context) {
   return showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
-      title: Text('Are You Sure?'),
-      actionsPadding: EdgeInsets.zero,
+      title: Text('Are You Sure to want to logout?'),
+      actionsPadding: EdgeInsets.all(8),
       actions: [
         ElevatedButton(
             onPressed: () {

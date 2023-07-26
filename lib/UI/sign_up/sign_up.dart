@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dazllapp/UI/component/edit_field.dart';
+import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -549,11 +550,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Container(
                             height: servicelenth * 22,
                             child: loading
-                                ? Center(
-                                    child: CircularProgressIndicator(
-                                      color: primaryColor,
-                                    ),
-                                  )
+                                ? Center(child: LoadingWidget())
                                 : GridView.builder(
                                     itemCount: servicelenth,
                                     scrollDirection: Axis.horizontal,

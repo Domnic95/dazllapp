@@ -50,11 +50,18 @@ class _Realtor_project_detailsState extends State<Realtor_project_details> {
               SizedBox(
                 height: 10,
               ),
-              Detailsprovider.listofrealtorproject[widget.index].images!.isEmpty
+              Detailsprovider.listofrealtorproject[widget.index].roominfo!.first
+                      .feature!.first.images!.isEmpty
                   ? SizedBox()
                   : CarouselSlider.builder(
                       itemCount: Detailsprovider
-                          .listofrealtorproject[widget.index].images!.length,
+                          .listofrealtorproject[widget.index]
+                          .roominfo!
+                          .first
+                          .feature!
+                          .first
+                          .images!
+                          .length,
                       itemBuilder: (BuildContext context, int itemIndex,
                               int pageViewIndex) =>
                           Container(
@@ -63,6 +70,10 @@ class _Realtor_project_detailsState extends State<Realtor_project_details> {
                             image: DecorationImage(
                                 image: NetworkImage(Detailsprovider
                                     .listofrealtorproject[widget.index]
+                                    .roominfo!
+                                    .first
+                                    .feature!
+                                    .first
                                     .images![itemIndex]
                                     .url),
                                 fit: BoxFit.cover),
@@ -129,7 +140,7 @@ class _Realtor_project_detailsState extends State<Realtor_project_details> {
                                           .listofrealtorproject[widget.index]
                                           .roominfo![index]
                                           .feature![subindex]
-                                          .featureName,
+                                          .featureName!,
                                       style: TextStyle(
                                           color: AppTheme.colorPrimary,
                                           fontSize: 14,
@@ -146,7 +157,7 @@ class _Realtor_project_detailsState extends State<Realtor_project_details> {
                                                       widget.index]
                                                   .roominfo![index]
                                                   .feature![subindex]
-                                                  .featureoption,
+                                                  .featureoption!,
                                           style: TextStyle(
                                             fontSize: 14,
                                           ),
@@ -192,7 +203,7 @@ class _Realtor_project_detailsState extends State<Realtor_project_details> {
                                                       widget.index]
                                                   .roominfo![index]
                                                   .feature![subindex]
-                                                  .inspectionNotes,
+                                                  .inspectionNotes!,
                                         ),
                                         SizedBox(
                                           height: 5,
@@ -204,7 +215,7 @@ class _Realtor_project_detailsState extends State<Realtor_project_details> {
                                                       widget.index]
                                                   .roominfo![index]
                                                   .feature![subindex]
-                                                  .issuetext,
+                                                  .featureissue!,
                                         )
                                       ],
                                     )
