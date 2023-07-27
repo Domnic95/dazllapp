@@ -14,16 +14,17 @@ import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-class NeedAttention extends StatefulHookWidget {
+class NeedAttention extends ConsumerStatefulWidget {
+  NeedAttention({Key? key}) : super(key: key);
+
   @override
-  _NeedAttentionState createState() => _NeedAttentionState();
+  ConsumerState<NeedAttention> createState() => _NeedAttentionState();
 }
 
-class _NeedAttentionState extends State<NeedAttention> {
+class _NeedAttentionState extends ConsumerState<NeedAttention> {
   late RoomProvider _roomProvider;
   // // List<List<String>> FeatureissueName = [];
   // // List<List<int>> FeatureissueId = [];
@@ -47,13 +48,13 @@ class _NeedAttentionState extends State<NeedAttention> {
   @override
   void initState() {
     super.initState();
-    _roomProvider = context.read(customerRoomsProvider);
+    _roomProvider = ref.read(customerRoomsProvider);
     // loaddata();
   }
 
   // loaddata() async {
-  //   _roomProvider = context.read(customerRoomsProvider);
-  //   final _roomsfeature = context.read(customernotifier);
+  //   _roomProvider = ref.read(customerRoomsProvider);
+  //   final _roomsfeature = ref.read(customernotifier);
   //   await _roomsfeature.getRoomsFeature(roomid);
   //   await _roomsfeature.getFeatureOptionIssues();
 
@@ -115,7 +116,7 @@ class _NeedAttentionState extends State<NeedAttention> {
 
   @override
   Widget build(BuildContext context) {
-    final _roomsfeature = useProvider(customernotifier);
+    final _roomsfeature = ref.read(customernotifier);
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: _roomProvider.loading
@@ -1086,7 +1087,7 @@ class _NeedAttentionState extends State<NeedAttention> {
     int index,
   ) async {
     imgCamera =
-        await _roomProvider.imgPicker.getImage(source: ImageSource.camera);
+        await _roomProvider.imgPicker.getImage(source: ImageSource.camera,);
 
     if (imgCamera != null) {
       photocamera(index);

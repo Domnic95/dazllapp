@@ -59,9 +59,9 @@ class RealtorRoomProvider extends BaseNotifier {
     isSet.add(false);
   }
 
-  Future getImage(BuildContext context,int tabIndex, int index,int k) async {
+  Future getImage(BuildContext context,int tabIndex, int index,int k,WidgetRef ref) async {
     String img =
-        await context.read(realtorprovider).uploadImage(context, imgFile[tabIndex][index][k]);
+        await ref.read(realtorprovider).uploadImage(context, imgFile[tabIndex][index][k]);
     imagesList[tabIndex][index].add(img);
     // imgFile[_tabIndex][index].add(File(path));
     log("mage == $imagesList");
@@ -109,8 +109,8 @@ class RealtorRoomProvider extends BaseNotifier {
     _description.clear();
   }
 
-  loaddata(BuildContext context) async {
-    final _roomsfeature = context.read(customernotifier);
+  loaddata(BuildContext context,WidgetRef ref) async {
+    final _roomsfeature = ref.read(customernotifier);
     await _roomsfeature.getRoomsFeature(roomid);
     await _roomsfeature.getFeatureOptionIssues();
 

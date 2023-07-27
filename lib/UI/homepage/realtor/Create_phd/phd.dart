@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/Select_Feature.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/phdProvider.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
@@ -10,18 +8,17 @@ import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/config/providers/realtor_notifier.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class Phd extends StatefulHookWidget {
+class Phd extends ConsumerStatefulWidget {
   final int roomId;
   const Phd({Key? key, required this.roomId}) : super(key: key);
 
   @override
-  State<Phd> createState() => _PhdState();
+  ConsumerState<Phd> createState() => _PhdState();
 }
 
-class _PhdState extends State<Phd> with TickerProviderStateMixin {
+class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
   late TabController _tabController;
   late CustomerNotifier _roomsfeature;
   late RealtorNotifier _realtorProvider;
@@ -37,9 +34,9 @@ class _PhdState extends State<Phd> with TickerProviderStateMixin {
   }
 
   loaddata() {
-    _roomsfeature = context.read(customernotifier);
-    _realtorProvider = context.read(realtorprovider);
-    _phdProvider = context.read(phdProvider);
+    _roomsfeature = ref.read(customernotifier);
+    _realtorProvider = ref.read(realtorprovider);
+    _phdProvider = ref.read(phdProvider);
     _phdProvider.resetData();
     // for (int i = 0; i < widget.roomId.length; i++) {
     _phdProvider.init(roomid: widget.roomId, roomsNotifier: _roomsfeature);
@@ -54,7 +51,7 @@ class _PhdState extends State<Phd> with TickerProviderStateMixin {
   buildTabController() {
     log("build Tab Controller");
     _phdProvider.loaddata(
-        context, _phdProvider.roomIdList[_phdProvider.rooms.length - 1]);
+        context, _phdProvider.roomIdList[_phdProvider.rooms.length - 1], ref);
     _tabController =
         TabController(length: _phdProvider.rooms.length, vsync: this);
   }
@@ -98,47 +95,50 @@ class _PhdState extends State<Phd> with TickerProviderStateMixin {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              height: size.height * 0.08,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
+        child: Consumer(builder: (context, ref, child) {
+          _phdProvider = ref.watch(phdProvider);
+          return Column(
+            children: [
+              Container(
+                height: size.height * 0.08,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+                    color: AppTheme.colorPrimary),
+                child: Center(
+                  child: Text(
+                    "Create a Phd",
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontSize: 16,
+                          color: lightColor.withOpacity(.9),
+                        ),
                   ),
-                  color: AppTheme.colorPrimary),
-              child: Center(
-                child: Text(
-                  "Create a Phd",
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontSize: 16,
-                        color: lightColor.withOpacity(.9),
-                      ),
                 ),
               ),
-            ),
-            TabBar(
-                unselectedLabelStyle: TextStyle(color: blackColor),
-                unselectedLabelColor: blackColor,
-                onTap: (value) {
-                  _phdProvider.setTabIndex(tabIndex: value);
-                  // setState(() {});
-                },
+              TabBar(
+                  unselectedLabelStyle: TextStyle(color: blackColor),
+                  unselectedLabelColor: blackColor,
+                  onTap: (value) {
+                    _phdProvider.setTabIndex(tabIndex: value);
+                    // setState(() {});
+                  },
 
-                // automaticIndicatorColorAdjustment: true,
-                indicatorPadding: EdgeInsets.all(4),
-                indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8), color: darkRed),
-                isScrollable: true,
-                controller: _tabController,
-                tabs: buildTabs()),
-            Divider(),
-            Expanded(
-                child: TabBarView(
-                    controller: _tabController, children: buildTabView())),
-          ],
-        ),
+                  // automaticIndicatorColorAdjustment: true,
+                  indicatorPadding: EdgeInsets.all(4),
+                  indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8), color: darkRed),
+                  isScrollable: true,
+                  controller: _tabController,
+                  tabs: buildTabs()),
+              Divider(),
+              Expanded(
+                  child: TabBarView(
+                      controller: _tabController, children: buildTabView())),
+            ],
+          );
+        }),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: darkRed,
@@ -286,8 +286,8 @@ class _PhdState extends State<Phd> with TickerProviderStateMixin {
                 for (int i = 0; i < _phdProvider.mainImgFile.length; i++) {
                   _phdProvider.set(false, i);
                   for (int j = 0; j < _phdProvider.mainImgFile[i].length; j++) {
-                    await _phdProvider.getImage(
-                        context, i, j, _phdProvider.mainImgFile[i][j], true);
+                    await _phdProvider.getImage(context, i, j,
+                        _phdProvider.mainImgFile[i][j], true, ref);
                   }
                   _phdProvider.set(true, i);
                 }
@@ -303,7 +303,7 @@ class _PhdState extends State<Phd> with TickerProviderStateMixin {
                             k < _phdProvider.imgFile[i][j].length;
                             k++) {
                           await _phdProvider.getImage(context, i, j,
-                              _phdProvider.imgFile[i][j][k], false);
+                              _phdProvider.imgFile[i][j][k], false, ref);
                         }
 
                         _phdProvider.set(true, i);
@@ -311,58 +311,61 @@ class _PhdState extends State<Phd> with TickerProviderStateMixin {
                     }
                   }
                 }
-                log("mainimage == ${_phdProvider.mainImgList}");
-                log("subimage == ${_phdProvider.imagesList}");
-                Map<String, dynamic> data = {
-                  'score': 100,
-                  'address': _phdProvider.address,
-                  'first_name': _phdProvider.firstName,
-                  'last_name': _phdProvider.lastName,
-                  'client_email': _phdProvider.clientEmail,
-                  'type': _realtorProvider.housedata!.type,
-                  "year_built": _realtorProvider.housedata!.yearBuilt,
-                  "bedrooms": _realtorProvider.housedata!.bedrooms,
-                  "bathrooms": _realtorProvider.housedata!.bathrooms,
-                  "structure_type": _realtorProvider.housedata!.structureType,
-                  "lot_size": _realtorProvider.housedata!.lotSize,
-                  "location": _realtorProvider.housedata!.location,
-                  "foundation_type": _realtorProvider.housedata!.foundationType,
-                  "tax_accessed_value":
-                      _realtorProvider.housedata!.taxAccessedValue,
-                  "sale_date": _realtorProvider.housedata!.saleDate,
-                  "lowest_price": _phdProvider.startRange,
+                for (var i = 0; i < _phdProvider.roomIdList.length; i++) {
+                  Map<String, dynamic> data = {
+                    'score': 100,
+                    'address': _phdProvider.address,
+                    'first_name': _phdProvider.firstName,
+                    'last_name': _phdProvider.lastName,
+                    'client_email': _phdProvider.clientEmail,
+                    'type': _realtorProvider.housedata!.type,
+                    "year_built": _realtorProvider.housedata!.yearBuilt,
+                    "bedrooms": _realtorProvider.housedata!.bedrooms,
+                    "bathrooms": _realtorProvider.housedata!.bathrooms,
+                    "structure_type": _realtorProvider.housedata!.structureType,
+                    "lot_size": _realtorProvider.housedata!.lotSize,
+                    "location": _realtorProvider.housedata!.location,
+                    "foundation_type":
+                        _realtorProvider.housedata!.foundationType,
+                    "tax_accessed_value":
+                        _realtorProvider.housedata!.taxAccessedValue,
+                    "sale_date": _realtorProvider.housedata!.saleDate,
+                    "lowest_price": _phdProvider.startRange,
 //left:calc(-50% - 4px)
-                  "highest_price": _phdProvider.endRange,
+                    "highest_price": _phdProvider.endRange,
 // true:true,
-                  "room_id": _phdProvider.roomIdList[0],
-                  'phd_description': _phdProvider
-                      .DescrptionController[_phdProvider.tabIndex].text,
-                  "images[0]": _phdProvider.mainImgList[0],
-                  "rooms[${_phdProvider.roomIdList[0]}][feature_type][1]": 7,
-                  "rooms[7][feature_type][82]": 121,
-                  "rooms[7][additional][0]": 1,
-                  "rooms[7][additional][1]": 4,
-                  "rooms[7][status]": "NEEDS DAZL",
-                  "rooms[7][feature_status][1]": "NEEDS DAZL",
-                  "rooms[7][feature_issues_images][1][0]":
-                      "https://res.cloudinary.com/dev-gnome/image/upload/v1679384263/oplhg0le3linv9uuszbi.svg",
-                  "rooms[7][feature_issues_images_descr][1]": "test",
-                  "rooms[7][feature_status][2]": "NEEDS DAZL",
-                  "rooms[7][feature_issues_images][2][0]":
-                      "https://res.cloudinary.com/dev-gnome/image/upload/v1679384273/jcwbxoykbh8xw2lpd6gk.svg",
-                  "rooms[7][feature_issues_images_descr][2]": "teswt",
-                  "rooms[3][feature_type][1]": 2,
-                  "rooms[3][additional][1]": 12,
-                  "rooms[3][status]": "MARKET READY",
-                  "rooms[3][feature_status][2]": "NEEDS DAZL",
-                  "rooms[3][feature_issues_images][2][0]":
-                      "https://res.cloudinary.com/dev-gnome/image/upload/v1679384298/gst9s0ravt26jon6kwvq.svg",
-                  "rooms[3][feature_issues_images_descr][2]": "test",
-                  "zip_code": "123456",
-                  "house_id": 1,
-                  "customer_id": 1,
-                  "mid_price": 500,
-                };
+                    "room_id": _phdProvider.roomIdList[0],
+                    'phd_description': _phdProvider
+                        .DescrptionController[_phdProvider.tabIndex].text,
+                    "images[0]": _phdProvider.mainImgList[i],
+
+                    // "rooms[${_phdProvider.roomIdList[i]}][${_realtorProvider.roomTypes[i]}][1]": 7,
+                    "rooms[7][feature_type][82]": 121,
+                    "rooms[7][additional][0]": 1,
+                    "rooms[7][additional][1]": 4,
+                    "rooms[7][status]": "NEEDS DAZL",
+                    "rooms[7][feature_status][1]": "NEEDS DAZL",
+                    "rooms[7][feature_issues_images][1][0]":
+                        "https://res.cloudinary.com/dev-gnome/image/upload/v1679384263/oplhg0le3linv9uuszbi.svg",
+                    "rooms[7][feature_issues_images_descr][1]": "test",
+                    "rooms[7][feature_status][2]": "NEEDS DAZL",
+                    "rooms[7][feature_issues_images][2][0]":
+                        "https://res.cloudinary.com/dev-gnome/image/upload/v1679384273/jcwbxoykbh8xw2lpd6gk.svg",
+                    "rooms[7][feature_issues_images_descr][2]": "teswt",
+                    "rooms[3][feature_type][1]": 2,
+                    "rooms[3][additional][1]": 12,
+                    "rooms[3][status]": "MARKET READY",
+                    "rooms[3][feature_status][2]": "NEEDS DAZL",
+                    "rooms[3][feature_issues_images][2][0]":
+                        "https://res.cloudinary.com/dev-gnome/image/upload/v1679384298/gst9s0ravt26jon6kwvq.svg",
+                    "rooms[3][feature_issues_images_descr][2]": "test",
+                    "zip_code": "123456",
+                    "house_id": 1,
+                    "customer_id": 1,
+                    "mid_price": 500,
+                  };
+                  //  data[] = ;
+                }
                 _realtorProvider.reset();
               },
               child: Row(

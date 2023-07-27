@@ -1,9 +1,4 @@
 import 'dart:developer';
-
-import 'package:dazllapp/UI/homepage/customer/home/customer_homepage.dart';
-import 'package:dazllapp/UI/homepage/customer/my_project/myproject.dart';
-import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
-import 'package:dazllapp/UI/homepage/customer/start_project/needs_attention.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/realtor_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/select_feature.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';
@@ -13,19 +8,18 @@ import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class RealtorRooms extends StatefulHookWidget {
+class RealtorRooms extends ConsumerStatefulWidget {
   final int roomId;
   // final List<int> roomId;
   const RealtorRooms({Key? key, required this.roomId}) : super(key: key);
 
   @override
-  State<RealtorRooms> createState() => _RealtorRoomsState();
+  ConsumerState<RealtorRooms> createState() => _RealtorRoomsState();
 }
 
-class _RealtorRoomsState extends State<RealtorRooms>
+class _RealtorRoomsState extends ConsumerState<RealtorRooms>
     with TickerProviderStateMixin {
   late TabController _tabController;
   late RealtorRoomProvider _roomProvider;
@@ -37,8 +31,8 @@ class _RealtorRoomsState extends State<RealtorRooms>
   }
 
   loadData() {
-    _roomsNotifier = context.read(customernotifier);
-    _roomProvider = context.read(realtorRoomsProvider);
+    _roomsNotifier = ref.read(customernotifier);
+    _roomProvider = ref.read(realtorRoomsProvider);
     log("roomId == ${widget.roomId}");
     // for (int i = 0; i < widget.roomId.length; i++) {
     _roomProvider.init(roomid: widget.roomId, roomsNotifier: _roomsNotifier);
@@ -75,7 +69,7 @@ class _RealtorRoomsState extends State<RealtorRooms>
   List<Widget> buildTabView() {
     List<Widget> _tabviews = [];
     for (var i = 0; i < _roomProvider.rooms.length; i++) {
-      _roomProvider.loaddata(context);
+      _roomProvider.loaddata(context,ref);
       _tabviews.add(Select_feature());
     }
     return _tabviews;
@@ -319,7 +313,7 @@ class _RealtorRoomsState extends State<RealtorRooms>
                         for (var k = 0;
                             k < _roomProvider.imgFile[i][j].length;
                             k++) {
-                          await _roomProvider.getImage(context, i, j, k);
+                          await _roomProvider.getImage(context, i, j, k,ref);
                         }
 
                         _roomProvider.set(true, i);
@@ -384,10 +378,10 @@ class _RealtorRoomsState extends State<RealtorRooms>
                       log("imagesList == ${_roomProvider.imagesList}");
                       if (_roomProvider.listData.isNotEmpty &&
                           _roomProvider.file.isNotEmpty) {
-                        final projectId = await context
+                        final projectId = await ref
                             .read(realtorprovider)
                             .createprojectrealtor(_roomProvider.listData);
-                        await context
+                        await ref
                             .read(realtorprovider)
                             .uploadimagesrealtor(projectId, _roomProvider.file);
                       }

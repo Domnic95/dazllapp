@@ -9,26 +9,25 @@ import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class selectRoom extends StatefulHookWidget {
+class selectRoom extends ConsumerStatefulWidget {
   selectRoom({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<selectRoom> createState() => _selectRoomState();
+  ConsumerState<selectRoom> createState() => _selectRoomState();
 }
 
-class _selectRoomState extends State<selectRoom> {
+class _selectRoomState extends ConsumerState<selectRoom> {
   void initState() {
     super.initState();
     loaddata();
   }
 
   loaddata() async {
-    await context.read(customernotifier).getRooms();
+    await ref.read(customernotifier).getRooms();
     setState(() {
       loading = false;
     });
@@ -39,7 +38,7 @@ class _selectRoomState extends State<selectRoom> {
   bool loading = true;
   @override
   Widget build(BuildContext context) {
-    final _roomsNotifier = useProvider(customernotifier);
+    final _roomsNotifier = ref.read(customernotifier);
     final size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(

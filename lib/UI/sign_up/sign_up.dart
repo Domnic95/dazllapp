@@ -12,17 +12,17 @@ import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../config/apicall.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends ConsumerStatefulWidget {
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  ConsumerState createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _fNameControllre = TextEditingController();
   final _PfNameControllre = TextEditingController();
   final _CfNameControllre = TextEditingController();
@@ -108,9 +108,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool loading = true;
 
   loaddata() async {
-    await context.read(professionaltifier).getServices();
+    await ref.read(professionaltifier).getServices();
     for (int i = 0;
-        i <= context.read(professionaltifier).ServicesData.length;
+        i <= ref.read(professionaltifier).ServicesData.length;
         i++) {
       setState(() {
         servicelenth = i;
@@ -578,15 +578,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           onChanged: (newValue) async {
                                             setState(() =>
                                                 boolList[index] = newValue!);
-                                            ServiceId.contains(context
+                                            ServiceId.contains(ref
                                                     .read(professionaltifier)
                                                     .ServicesData[index]
                                                     .id)
-                                                ? ServiceId.remove(context
+                                                ? ServiceId.remove(ref
                                                     .read(professionaltifier)
                                                     .ServicesData[index]
                                                     .id)
-                                                : ServiceId.add(context
+                                                : ServiceId.add(ref
                                                     .read(professionaltifier)
                                                     .ServicesData[index]
                                                     .id!
@@ -594,7 +594,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             log(ServiceId.toString());
                                           },
                                           title: Text(
-                                            '${context.read(professionaltifier).ServicesData[index].name}',
+                                            '${ref.read(professionaltifier).ServicesData[index].name}',
                                           ),
                                           controlAffinity:
                                               ListTileControlAffinity.leading,

@@ -6,18 +6,17 @@ import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 int? roomid;
 List<int> listRoomId = [];
 
-class CreateProject extends StatefulHookWidget {
+class CreateProject extends ConsumerStatefulWidget {
   @override
-  _CreateProjectState createState() => _CreateProjectState();
+  ConsumerState createState() => _CreateProjectState();
 }
 
-class _CreateProjectState extends State<CreateProject> {
+class _CreateProjectState extends ConsumerState<CreateProject> {
   bool isloading = true;
   @override
   void initState() {
@@ -27,7 +26,7 @@ class _CreateProjectState extends State<CreateProject> {
 
   loaddata() async {
     isloading = true;
-    await context.read(customernotifier).getRooms();
+    await ref.read(customernotifier).getRooms();
     if (mounted) {
       setState(() {
         isloading = false;
@@ -40,7 +39,7 @@ class _CreateProjectState extends State<CreateProject> {
 
   @override
   Widget build(BuildContext context) {
-    final _roomsNotifier = useProvider(customernotifier);
+    final _roomsNotifier = ref.read(customernotifier);
     final size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(

@@ -10,19 +10,18 @@ import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class CustomerRooms extends StatefulHookWidget {
+class CustomerRooms extends ConsumerStatefulWidget {
   final int roomId;
   // final List<int> roomId;
   const CustomerRooms({Key? key, required this.roomId}) : super(key: key);
 
   @override
-  State<CustomerRooms> createState() => _CustomerRoomsState();
+  ConsumerState<CustomerRooms> createState() => _CustomerRoomsState();
 }
 
-class _CustomerRoomsState extends State<CustomerRooms>
+class _CustomerRoomsState extends ConsumerState<CustomerRooms>
     with TickerProviderStateMixin {
   late TabController _tabController;
   late RoomProvider _roomProvider;
@@ -34,8 +33,8 @@ class _CustomerRoomsState extends State<CustomerRooms>
   }
 
   loadData() {
-    _roomsNotifier = context.read(customernotifier);
-    _roomProvider = context.read(customerRoomsProvider);
+    _roomsNotifier = ref.read(customernotifier);
+    _roomProvider = ref.read(customerRoomsProvider);
     // for (int i = 0; i < widget.roomId.length; i++) {
     _roomProvider.init(roomid: widget.roomId, roomsNotifier: _roomsNotifier);
     // }
@@ -70,7 +69,7 @@ class _CustomerRoomsState extends State<CustomerRooms>
   List<Widget> buildTabView() {
     List<Widget> _tabviews = [];
     for (var i = 0; i < _roomProvider.rooms.length; i++) {
-      _roomProvider.loaddata(context);
+      _roomProvider.loaddata(context,ref);
       _tabviews.add(NeedAttention());
     }
     return _tabviews;
@@ -313,7 +312,7 @@ class _CustomerRoomsState extends State<CustomerRooms>
                         for (var k = 0;
                             k < _roomProvider.imgFile[i][j].length;
                             k++) {
-                          await _roomProvider.getImage(context, i, j, k);
+                          await _roomProvider.getImage(context, i, j, k,ref);
                         }
                         _roomProvider.set(true, i);
                       }
@@ -377,10 +376,10 @@ class _CustomerRoomsState extends State<CustomerRooms>
 
                       if (_roomProvider.listData.isNotEmpty &&
                           _roomProvider.file.isNotEmpty) {
-                        final projectId = await context
+                        final projectId = await ref
                             .read(customernotifier)
                             .createproject(_roomProvider.listData);
-                        await context
+                        await ref
                             .read(customernotifier)
                             .uploadimages(projectId, _roomProvider.file);
                       }

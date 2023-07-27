@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields, avoid_unnecessary_containers, use_key_in_widget_constructors, sized_box_for_whitespace, prefer_const_constructors_in_immutables, non_constant_identifier_names
 
 import 'dart:developer';
 import 'dart:io';
@@ -13,10 +12,9 @@ import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class TellusMore extends StatefulHookWidget {
+class TellusMore extends ConsumerStatefulWidget {
   List<int> featureid;
   List<int> featureoptionid;
   // List<List<int>> featureissueid;
@@ -33,10 +31,10 @@ class TellusMore extends StatefulHookWidget {
   });
 
   @override
-  _TellusMoreState createState() => _TellusMoreState();
+  ConsumerState createState() => _TellusMoreState();
 }
 
-class _TellusMoreState extends State<TellusMore> {
+class _TellusMoreState extends ConsumerState<TellusMore> {
   List<Map<String, dynamic>> listData = [];
   List<File> _file = [];
   bool loading = false;
@@ -93,7 +91,7 @@ class _TellusMoreState extends State<TellusMore> {
   @override
   Widget build(BuildContext context) {
     //  log('message' + widget.Descrption.toString());
-    final _roomsNotifier = useProvider(customernotifier);
+    final _roomsNotifier = ref.read(customernotifier);
     final size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
@@ -313,11 +311,11 @@ class _TellusMoreState extends State<TellusMore> {
                                   removeempty();
                                   load();
                                   images();
-                                  final projectId = await context
+                                  final projectId = await ref
                                       .read(customernotifier)
                                       .createproject(listData);
 
-                                  await context
+                                  await ref
                                       .read(customernotifier)
                                       .uploadimages(projectId, _file);
                                   setState(() {

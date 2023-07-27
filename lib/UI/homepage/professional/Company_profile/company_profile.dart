@@ -7,19 +7,18 @@ import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Company_profile extends StatefulHookWidget {
+class Company_profile extends ConsumerStatefulWidget {
   Company_profile({Key? key}) : super(key: key);
 
   @override
-  State<Company_profile> createState() => _Company_profileState();
+  ConsumerState<Company_profile> createState() => _Company_profileState();
 }
 
-class _Company_profileState extends State<Company_profile> {
+class _Company_profileState extends ConsumerState<Company_profile> {
   bool loading = true;
   // List images = [
   //   "https://dazlpro.com/_next/static/image/Modules/CompanyProfile/Views/FirstForm/realtorBackGround.3b3d6cd5b7e04669508cd69684d7a842.jpg",
@@ -34,7 +33,7 @@ class _Company_profileState extends State<Company_profile> {
   }
 
   loaddata() async {
-    await context.read(professionaltifier).getProfessional();
+    await ref.read(professionaltifier).getProfessional();
     setState(() {
       loading = false;
     });
@@ -42,7 +41,7 @@ class _Company_profileState extends State<Company_profile> {
 
   @override
   Widget build(BuildContext context) {
-    final _profileNotifier = useProvider(professionaltifier);
+    final _profileNotifier = ref.read(professionaltifier);
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: loading

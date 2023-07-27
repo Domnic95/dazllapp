@@ -8,11 +8,10 @@ import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Select_feature extends StatefulHookWidget {
+class Select_feature extends ConsumerStatefulWidget {
   int? cutomerid;
   // String? customeremail;
   Select_feature({
@@ -22,10 +21,10 @@ class Select_feature extends StatefulHookWidget {
   }) : super(key: key);
 
   @override
-  State<Select_feature> createState() => _Select_featureState();
+  ConsumerState<Select_feature> createState() => _Select_featureState();
 }
 
-class _Select_featureState extends State<Select_feature> {
+class _Select_featureState extends ConsumerState<Select_feature> {
   late RealtorRoomProvider _roomProvider;
   // List<Map<String, dynamic>> listData = [];
   // // List<List<String>> FeatureissueName = [];
@@ -53,7 +52,7 @@ class _Select_featureState extends State<Select_feature> {
   void initState() {
     super.initState();
 
-    _roomProvider = context.read(realtorRoomsProvider);
+    _roomProvider = ref.read(realtorRoomsProvider);
     // loaddata();
   }
 
@@ -146,7 +145,7 @@ class _Select_featureState extends State<Select_feature> {
 
   @override
   Widget build(BuildContext context) {
-    final _roomsfeature = useProvider(customernotifier);
+    final _roomsfeature = ref.read(customernotifier);
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: loading

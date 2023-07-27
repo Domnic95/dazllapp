@@ -68,8 +68,8 @@ class RoomProvider extends BaseNotifier {
     notifyListeners();
   }
 
-  Future getImage(BuildContext context, int tabIndex, int index, int k) async {
-    String img = await context
+  Future getImage(BuildContext context, int tabIndex, int index, int k,WidgetRef ref) async {
+    String img = await ref
         .read(realtorprovider)
         .uploadImage(context, imgFile[tabIndex][index][k]);
     imagesList[tabIndex][index].add(img);
@@ -109,8 +109,8 @@ class RoomProvider extends BaseNotifier {
     _description.clear();
   }
 
-  loaddata(BuildContext context) async {
-    final _roomsfeature = context.read(customernotifier);
+  loaddata(BuildContext context,WidgetRef ref) async {
+    final _roomsfeature = ref.read(customernotifier);
     await _roomsfeature.getRoomsFeature(roomid);
     await _roomsfeature.getFeatureOptionIssues();
 

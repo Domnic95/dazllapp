@@ -6,6 +6,7 @@ import 'package:dazllapp/config/providers/base_notifier.dart';
 import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/model/Customer/Rooms.dart';
+import 'package:dazllapp/model/Realtor/getRoomFeature.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -57,7 +58,10 @@ class PhdProvider extends BaseNotifier {
   // List<List<bool>> DataLoding = [];
   List<List<List<bool>>> featurebool = [];
   List<List<List<String>>> imagesList = [];
-
+  List<List<AddValueData?>> _selectRoomTypeFeature = [];
+  List<List<AddValueData?>> get selectRoomTypeFeature => _selectRoomTypeFeature;
+  List<List<bool>> _selectedaddValueData = [];
+  List<List<bool>> get selectedaddValueData => _selectedaddValueData;
   List<String> fristImpressionList = ["DAZLING", "MARKET READY", "NEEDS DAZL"];
   String fristImpression = "DAZLING";
   String address = "";
@@ -70,6 +74,15 @@ class PhdProvider extends BaseNotifier {
     startRange = start;
     endRange = end;
     // notifyListeners();
+  }
+
+  void selectRoomType(AddValueData data, int index) {
+    _selectRoomTypeFeature[_tabIndex][index] = data;
+    notifyListeners();
+  }
+  void SelectAddValueData(bool value, int index) {
+    selectedaddValueData[_tabIndex][index] = value;
+    notifyListeners();
   }
 
   void storePropertiesDetails(
@@ -89,7 +102,6 @@ class PhdProvider extends BaseNotifier {
         roomsNotifier.listOfRoom.where((element) => element.id == roomid);
     _rooms.add(room.first);
     _roomIdList.add(roomid);
-
     // // log("asjflsfldslk===   $roomIdList");
     featureId.add([]);
     featurebool.add([]);
@@ -97,6 +109,8 @@ class PhdProvider extends BaseNotifier {
     imagesList.add([]);
     mainImgFile.add([]);
     mainImgList.add([]);
+    _selectRoomTypeFeature.add([]);
+    _selectedaddValueData.add([]);
     // featureoptionid.add([]);
     select.add([]);
     selectedCheckbox.add([]);
@@ -117,16 +131,14 @@ class PhdProvider extends BaseNotifier {
   }
 
   Future getImage(BuildContext context, int tabIndex, int index, File image,
-      bool isMainImage) async {
+      bool isMainImage, WidgetRef ref) async {
     if (isMainImage) {
-      String img =
-          await context.read(realtorprovider).uploadImage(context, image);
+      String img = await ref.read(realtorprovider).uploadImage(context, image);
       mainImgList[tabIndex].add(img);
       // imgFile[_tabIndex][index].add(File(path));
       // log("mage == $imagesList");
     } else {
-      String img =
-          await context.read(realtorprovider).uploadImage(context, image);
+      String img = await ref.read(realtorprovider).uploadImage(context, image);
       imagesList[tabIndex][index].add(img);
       // imgFile[_tabIndex][index].add(File(path));
       // log("mage == $imagesList");
@@ -136,7 +148,7 @@ class PhdProvider extends BaseNotifier {
   void resetData() {
     _rooms.clear();
     _roomIdList.clear();
-
+    _selectRoomTypeFeature.clear();
     // // log("asjflsfldslk===   $roomIdList");
     featureId.clear();
     featurebool.clear();
@@ -153,16 +165,23 @@ class PhdProvider extends BaseNotifier {
     isSet.clear();
   }
 
-  loaddata(BuildContext context,int roomid) async {
+  loaddata(BuildContext context, int roomid, WidgetRef ref) async {
     status = Status.loading;
-    final _roomsfeature = context.read(customernotifier);
-    final _roomProvider = context.read(realtorprovider);
+    final _roomsfeature = ref.read(customernotifier);
+    final _roomProvider = ref.read(realtorprovider);
 
     await _roomsfeature.getRoomsFeature(roomid);
     await _roomsfeature.getFeatureOptionIssues();
 
     await _roomProvider.getRoomFeature(roomid);
-
+    _selectedaddValueData[_tabIndex].clear();
+    _selectRoomTypeFeature[_tabIndex].clear();
+    for (var i = 0; i < _roomProvider.roomTypes[_tabIndex].length; i++) {
+      _selectRoomTypeFeature[_tabIndex].add(null);
+    }
+    for (var i = 0; i < _roomProvider.addValueData[_tabIndex].length; i++) {
+      _selectedaddValueData[_tabIndex].add(false);
+    }
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
       select.add([]);
       // _description2.add('');
@@ -174,7 +193,7 @@ class PhdProvider extends BaseNotifier {
       featurebool[tabIndex].add([]);
     }
     status = Status.complited;
-
+    notifyListeners();
     // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
     //   FeatureissueName.add([]);
     // }

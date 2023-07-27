@@ -3,10 +3,9 @@ import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class Realtor_project_details extends StatefulHookWidget {
+class Realtor_project_details extends ConsumerStatefulWidget {
   int index;
   Realtor_project_details({
     required this.index,
@@ -14,16 +13,16 @@ class Realtor_project_details extends StatefulHookWidget {
   }) : super(key: key);
 
   @override
-  State<Realtor_project_details> createState() =>
+  ConsumerState<Realtor_project_details> createState() =>
       _Realtor_project_detailsState();
 }
 
-class _Realtor_project_detailsState extends State<Realtor_project_details> {
+class _Realtor_project_detailsState extends ConsumerState<Realtor_project_details> {
   List<String> list = [];
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final Detailsprovider = useProvider(realtorprovider);
+    final Detailsprovider = ref.read(realtorprovider);
     return SafeArea(
       child: Scaffold(
         body: Container(

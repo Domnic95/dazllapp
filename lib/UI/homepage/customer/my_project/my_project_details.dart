@@ -3,10 +3,9 @@ import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class Project_Details extends StatefulHookWidget {
+class Project_Details extends ConsumerStatefulWidget {
   int index;
   Project_Details({
     required this.index,
@@ -14,15 +13,15 @@ class Project_Details extends StatefulHookWidget {
   }) : super(key: key);
 
   @override
-  State<Project_Details> createState() => _Project_DetailsState();
+  ConsumerState<Project_Details> createState() => _Project_DetailsState();
 }
 
-class _Project_DetailsState extends State<Project_Details> {
+class _Project_DetailsState extends ConsumerState<Project_Details> {
   List<String> list = [];
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final projectprovider = useProvider(customernotifier);
+    final projectprovider = ref.read(customernotifier);
     return SafeArea(
       child: Scaffold(
         body: Container(

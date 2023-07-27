@@ -13,18 +13,18 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context),
+      drawer: drawer(context,ref),
       appBar: AppBar(
         // leading: Padding(
         //   padding: const EdgeInsets.all(14.0),
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Widget drawer(BuildContext context) {
+Widget drawer(BuildContext context,WidgetRef ref) {
   int? currentindex = SpHelpers.getInt(
     SharedPrefsKeys.currentindex,
   );
@@ -141,7 +141,7 @@ Widget drawer(BuildContext context) {
                     EdgeInsets.only(left: 20, right: 20, bottom: 5, top: 5),
                 child: GestureDetector(
                   onTap: () {
-                    Changepassworddailog(context, currentindex!);
+                    Changepassworddailog(context, currentindex!, ref);
                     // Navigator.of(context).pushAndRemoveUntil(
                     //     MaterialPageRoute(builder: (context) => HomePage()),
                     //     (route) => false);
@@ -222,14 +222,14 @@ logoutdilouge(BuildContext context) {
   );
 }
 
-Changepassworddailog(BuildContext context, int currentindex) {
+Changepassworddailog(BuildContext context, int currentindex,WidgetRef ref) {
   TextEditingController Oldpassword = TextEditingController();
   TextEditingController Newpassword = TextEditingController();
   TextEditingController Confirmpassword = TextEditingController();
   bool showoldpassword = false;
   bool shownewpassword = false;
   bool showconfirmpassword = false;
-  final realtor = context.read(realtorprovider);
+  final realtor = ref.read(realtorprovider);
   return showDialog<String>(
     context: context,
     builder: (BuildContext dailogcontext) => GestureDetector(

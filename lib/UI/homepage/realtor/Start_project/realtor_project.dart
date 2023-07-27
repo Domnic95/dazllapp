@@ -3,16 +3,15 @@ import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class Realtor_project extends StatefulHookWidget {
+class Realtor_project extends ConsumerStatefulWidget {
   Realtor_project({Key? key}) : super(key: key);
   @override
-  State<Realtor_project> createState() => _Realtor_projectState();
+  ConsumerState<Realtor_project> createState() => _Realtor_projectState();
 }
 
-class _Realtor_projectState extends State<Realtor_project> {
+class _Realtor_projectState extends ConsumerState<Realtor_project> {
   bool loading = true;
   void initState() {
     super.initState();
@@ -20,7 +19,7 @@ class _Realtor_projectState extends State<Realtor_project> {
   }
 
   load() async {
-    await context.read(realtorprovider).getrealtorproject(context);
+    await ref.read(realtorprovider).getrealtorproject(context);
     setState(() {
       loading = false;
     });
@@ -29,7 +28,7 @@ class _Realtor_projectState extends State<Realtor_project> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final _realtorprovider = useProvider(realtorprovider);
+    final _realtorprovider = ref.read(realtorprovider);
     return SafeArea(
         child: loading
             ? LoadingWidget()

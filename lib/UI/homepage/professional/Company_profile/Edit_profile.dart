@@ -4,17 +4,16 @@ import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class Edit_profile extends StatefulHookWidget {
+class Edit_profile extends ConsumerStatefulWidget {
   Edit_profile({Key? key}) : super(key: key);
 
   @override
-  State<Edit_profile> createState() => _Edit_profileState();
+  ConsumerState<Edit_profile> createState() => _Edit_profileState();
 }
 
-class _Edit_profileState extends State<Edit_profile> {
+class _Edit_profileState extends ConsumerState<Edit_profile> {
   @override
   void initState() {
     super.initState();
@@ -22,7 +21,7 @@ class _Edit_profileState extends State<Edit_profile> {
   }
 
   loaddata() async {
-    await context.read(professionaltifier).getProfessional();
+    await ref.read(professionaltifier).getProfessional();
   }
 
   final _yearsinbussiness = TextEditingController();
@@ -40,7 +39,7 @@ class _Edit_profileState extends State<Edit_profile> {
   final _insuranceNumber = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final _profileNotifier = useProvider(professionaltifier);
+    final _profileNotifier = ref.read(professionaltifier);
     _yearsinbussiness.text =
         _profileNotifier.professionalData.yearsInBusiness.toString() != 'null'
             ? _profileNotifier.professionalData.yearsInBusiness.toString()

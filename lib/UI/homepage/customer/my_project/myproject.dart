@@ -4,17 +4,16 @@ import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class myproject extends StatefulHookWidget {
+class myproject extends ConsumerStatefulWidget {
   myproject({Key? key}) : super(key: key);
 
   @override
-  State<myproject> createState() => _myprojectState();
+  ConsumerState<myproject> createState() => _myprojectState();
 }
 
-class _myprojectState extends State<myproject> {
+class _myprojectState extends ConsumerState<myproject> {
   bool loading = true;
   @override
   void initState() {
@@ -23,7 +22,7 @@ class _myprojectState extends State<myproject> {
   }
 
   load() async {
-    await context.read(customernotifier).myproject();
+    await ref.read(customernotifier).myproject();
     setState(() {
       loading = false;
     });
@@ -32,7 +31,7 @@ class _myprojectState extends State<myproject> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final projectprovider = useProvider(customernotifier);
+    final projectprovider = ref.read(customernotifier);
     return SafeArea(
         child: loading
             ? LoadingWidget()

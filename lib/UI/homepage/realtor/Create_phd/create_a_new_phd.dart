@@ -5,10 +5,9 @@ import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class CreateANewPhd extends StatefulHookWidget {
+class CreateANewPhd extends ConsumerStatefulWidget {
   String? city;
   String? state;
   String? pincode;
@@ -32,10 +31,10 @@ class CreateANewPhd extends StatefulHookWidget {
   }) : super(key: key);
 
   @override
-  State<CreateANewPhd> createState() => _CreateANewPhdState();
+  ConsumerState<CreateANewPhd> createState() => _CreateANewPhdState();
 }
 
-class _CreateANewPhdState extends State<CreateANewPhd> {
+class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
   // int start = 450;
   // int end = 800;
   bool loading = true;
@@ -49,8 +48,8 @@ class _CreateANewPhdState extends State<CreateANewPhd> {
   }
 
   loaddata() async {
-    _phdProvider = context.read(phdProvider);
-    final _housedata = context.read(realtorprovider);
+    _phdProvider = ref.read(phdProvider);
+    final _housedata = ref.read(realtorprovider);
     await _housedata.gethousedata(
         address: _phdProvider.address,
         state: widget.state,
@@ -69,9 +68,10 @@ class _CreateANewPhdState extends State<CreateANewPhd> {
 
   @override
   Widget build(BuildContext context) {
-    final _housedata = useProvider(realtorprovider);
+    final _housedata = ref.read(realtorprovider);
+
     final size = MediaQuery.of(context).size;
-    final _phdProvider = context.read(
+    final _phdProvider = ref.read(
       phdProvider,
     );
     return SafeArea(

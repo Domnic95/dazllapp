@@ -4,17 +4,16 @@ import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class Select_customer extends StatefulHookWidget {
+class Select_customer extends ConsumerStatefulWidget {
   Select_customer({Key? key}) : super(key: key);
 
   @override
-  State<Select_customer> createState() => _Select_customerState();
+  ConsumerState<Select_customer> createState() => _Select_customerState();
 }
 
-class _Select_customerState extends State<Select_customer> {
+class _Select_customerState extends ConsumerState<Select_customer> {
   int? customerid;
   bool loading = true;
   String selectedvalue = "Select Customer";
@@ -26,14 +25,14 @@ class _Select_customerState extends State<Select_customer> {
   }
 
   load() async {
-    await context.read(realtorprovider).getcustomers();
+    await ref.read(realtorprovider).getcustomers();
     loading = false;
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final customer_provider = useProvider(realtorprovider);
+    final customer_provider = ref.read(realtorprovider);
     return SafeArea(
       child: loading
           ? LoadingWidget()

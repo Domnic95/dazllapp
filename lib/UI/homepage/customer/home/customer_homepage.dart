@@ -6,28 +6,20 @@ import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart'
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dazllapp/model/selection.dart';
 import 'package:flutter/material.dart';
 
-class CustomerHomepage extends StatefulHookWidget {
+class CustomerHomepage extends ConsumerStatefulWidget {
   @override
-  _CustomerHomepageState createState() => _CustomerHomepageState();
+  ConsumerState<CustomerHomepage> createState() => _CustomerHomepageState();
 }
 
-class _CustomerHomepageState extends State<CustomerHomepage>
-//with TickerProviderStateMixin
-{
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class _CustomerHomepageState extends ConsumerState<CustomerHomepage> {
   @override
   Widget build(BuildContext context) {
-    final _roomsprovider = useProvider(customernotifier);
+    final _roomsprovider = ref.read(customernotifier);
     return SafeArea(
         child: Scaffold(
       drawer:
@@ -37,7 +29,7 @@ class _CustomerHomepageState extends State<CustomerHomepage>
           //       AnimationController(vsync: this, duration: Duration(seconds: 2)),
           //   callBackIndex: (DrawerIndex) {},
           // ),
-          drawer(context),
+          drawer(context,ref),
       appBar: AppBar(
         // leading: Padding(
         //   padding: const EdgeInsets.all(14.0),

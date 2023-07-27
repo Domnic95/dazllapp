@@ -11,17 +11,18 @@ import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dazllapp/model/selection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ProfessionalsHomepage extends StatefulWidget {
+class ProfessionalsHomepage extends ConsumerStatefulWidget {
   @override
-  __ProfessionalsHomepageState createState() => __ProfessionalsHomepageState();
+  ConsumerState<ProfessionalsHomepage> createState() => _ProfessionalsHomepageState();
 }
 
-class __ProfessionalsHomepageState extends State<ProfessionalsHomepage> {
+class _ProfessionalsHomepageState extends ConsumerState<ProfessionalsHomepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context),
+      drawer: drawer(context,ref),
       appBar: AppBar(
         // leading: Padding(
         //   padding: const EdgeInsets.all(14.0),

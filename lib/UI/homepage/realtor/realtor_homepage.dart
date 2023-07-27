@@ -8,24 +8,19 @@ import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/model/selection.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class RealtorHomePage extends StatefulWidget {
+class RealtorHomePage extends ConsumerStatefulWidget {
   @override
-  _RealtorHomePageState createState() => _RealtorHomePageState();
+  ConsumerState<RealtorHomePage> createState() => _RealtorHomePageState();
 }
 
-class _RealtorHomePageState extends State<RealtorHomePage> {
-  @override
-  void initState() {
-    super.initState();
-    // print(SpHelpers.getBool(keep_me_logged_in.toString()));
-  }
-
+class _RealtorHomePageState extends ConsumerState<RealtorHomePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      drawer: drawer(context),
+      drawer: drawer(context, ref),
       appBar: AppBar(
         // leading: Padding(
         //   padding: const EdgeInsets.all(14.0),
@@ -59,10 +54,10 @@ class _RealtorHomePageState extends State<RealtorHomePage> {
                   if (index == 3) {
                     // Navigator.of(context).push(MaterialPageRoute(
                     //     builder: (context) => Select_customer()));
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Start_project(
-                                // customerid: customerid!,
-                              )));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Start_project(
+                            // customerid: customerid!,
+                            )));
                   }
                 },
                 child: Card(

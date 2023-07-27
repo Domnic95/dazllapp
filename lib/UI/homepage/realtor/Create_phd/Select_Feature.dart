@@ -11,23 +11,21 @@ import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/config/providers/realtor_notifier.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/model/Customer/Features.dart';
+import 'package:dazllapp/model/Realtor/getRoomFeature.dart';
 import 'package:dazllapp/model/Realtor/realtor_project.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-class SelectFeature extends StatefulHookWidget {
+class SelectFeature extends ConsumerStatefulWidget {
   final VoidCallback setState;
   const SelectFeature({Key? key, required this.setState}) : super(key: key);
 
   @override
-  State<SelectFeature> createState() => _SelectFeatureState();
+  ConsumerState<SelectFeature> createState() => _SelectFeatureState();
 }
 
-class _SelectFeatureState extends State<SelectFeature> {
+class _SelectFeatureState extends ConsumerState<SelectFeature> {
   late PhdProvider _phdProvider;
   @override
   void initState() {
@@ -35,7 +33,7 @@ class _SelectFeatureState extends State<SelectFeature> {
     super.initState();
     // loaddata();
     log("room id ==$roomid");
-    _phdProvider = context.read(phdProvider);
+    _phdProvider = ref.read(phdProvider);
     if (mounted) {
       setState(() {});
     }
@@ -71,9 +69,9 @@ class _SelectFeatureState extends State<SelectFeature> {
   // List<bool> DataLoding = [];
 
   Widget build(BuildContext context) {
-    final _roomsfeature = useProvider(customernotifier);
-    final _reltorProvider = useProvider(realtorprovider);
-    _phdProvider = context.read(
+    final _roomsfeature = ref.read(customernotifier);
+    final _reltorProvider = ref.read(realtorprovider);
+    _phdProvider = ref.watch(
       phdProvider,
     );
     final size = MediaQuery.of(context).size;
@@ -478,15 +476,27 @@ class _SelectFeatureState extends State<SelectFeature> {
                                   decoration: BoxDecoration(
                                       border: Border.all(color: blackColor)),
                                   child: Center(
-                                    child: DropdownButton(
+                                    child: DropdownButton<AddValueData>(
                                       borderRadius: BorderRadius.zero,
                                       underline: Container(),
                                       hint: Text(
-                                        _reltorProvider
-                                            .roomTypes[_phdProvider.tabIndex]
-                                                [index]
-                                            .type!
-                                            .name!,
+                                        // _phdProvider.selectRoomTypeFeature
+                                        //                 .length ==
+                                        //             0 ||
+                                        _phdProvider.selectRoomTypeFeature[
+                                                        _phdProvider.tabIndex]
+                                                    [index] ==
+                                                null
+                                            ? _reltorProvider
+                                                .roomTypes[_phdProvider
+                                                    .tabIndex][index]
+                                                .type!
+                                                .name!
+                                            : _phdProvider
+                                                .selectRoomTypeFeature[
+                                                    _phdProvider.tabIndex]
+                                                    [index]!
+                                                .name!,
                                         style: TextStyle(color: darkTextColor),
                                       ),
                                       items: _reltorProvider
@@ -495,12 +505,19 @@ class _SelectFeatureState extends State<SelectFeature> {
                                           .type!
                                           .featureOptions!
                                           .map((value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value.name,
+                                        return DropdownMenuItem<AddValueData>(
+                                          value: value,
                                           child: Text(value.name.toString()),
                                         );
                                       }).toList(),
-                                      onChanged: (value) {},
+                                      onChanged: (value) {
+                                        _phdProvider.selectRoomType(
+                                            value!, index);
+                                        setState(() {});
+                                        log(_phdProvider.selectRoomTypeFeature[
+                                                _phdProvider.tabIndex]
+                                            .toString());
+                                      },
                                     ),
                                   ),
                                 );
@@ -552,31 +569,24 @@ class _SelectFeatureState extends State<SelectFeature> {
                               itemCount: _reltorProvider
                                   .addValueData[_phdProvider.tabIndex].length,
                               itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _phdProvider.Fireplace =
-                                          !_phdProvider.Fireplace;
-                                    });
-                                  },
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Checkbox(
-                                        activeColor: AppTheme.colorPrimary,
-                                        value: _phdProvider.Fireplace,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _phdProvider.Fireplace = value!;
-                                          });
-                                        },
-                                      ),
-                                      Text(
-                                        "${_reltorProvider.addValueData[_phdProvider.tabIndex][index].name}",
-                                        style: TextStyle(color: darkTextColor),
-                                      ),
-                                    ],
-                                  ),
+                                return Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Checkbox(
+                                      activeColor: AppTheme.colorPrimary,
+                                      value: _phdProvider.selectedaddValueData[
+                                          _phdProvider.tabIndex][index],
+                                      onChanged: (value) {
+                                        _phdProvider.SelectAddValueData(
+                                            value!, index);
+                                        setState(() {});
+                                      },
+                                    ),
+                                    Text(
+                                      "${_reltorProvider.addValueData[_phdProvider.tabIndex][index].name}",
+                                      style: TextStyle(color: darkTextColor),
+                                    ),
+                                  ],
                                 );
                               },
                             ),
@@ -2690,7 +2700,7 @@ class _SelectFeatureState extends State<SelectFeature> {
   }
 }
 
-class CatagoryExample extends StatefulHookWidget {
+class CatagoryExample extends ConsumerStatefulWidget {
   RoomFeature roomFeature;
   int index;
   List<RoomFeature> listOfFeature;
@@ -2706,12 +2716,12 @@ class CatagoryExample extends StatefulHookWidget {
       : super(key: key);
 
   @override
-  State<CatagoryExample> createState() => _CatagoryExampleState();
+  ConsumerState<CatagoryExample> createState() => _CatagoryExampleState();
 }
 
-class _CatagoryExampleState extends State<CatagoryExample> {
+class _CatagoryExampleState extends ConsumerState<CatagoryExample> {
   loaddata() async {
-    final _roomsfeature = context.read(customernotifier);
+    final _roomsfeature = ref.read(customernotifier);
 
     await _roomsfeature.getRoomsFeature(roomid);
     await _roomsfeature.getFeatureOptionIssues();
@@ -2727,7 +2737,7 @@ class _CatagoryExampleState extends State<CatagoryExample> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final _roomsfeature = useProvider(customernotifier);
+    final _roomsfeature = ref.read(customernotifier);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -2767,7 +2777,7 @@ class _CatagoryExampleState extends State<CatagoryExample> {
                             // featureId[widget.index]=widget.listOfFeature[widget.index].id;
                           }
                         });
-                        context.read(customernotifier).getfeatureissue(
+                        ref.read(customernotifier).getfeatureissue(
                             widget.listOfFeature[widget.index].id);
                       },
                       title: Text(
