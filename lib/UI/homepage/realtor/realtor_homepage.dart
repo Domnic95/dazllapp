@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, prefer_const_constructors, non_constant_identifier_names
 
+import 'package:dazllapp/UI/Profile/profile.dart';
 import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/create_phd.dart';
-import 'package:dazllapp/UI/homepage/realtor/Start_project/select_customer.dart';
+import 'package:dazllapp/UI/homepage/realtor/Start_project/realtor_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/start_project.dart';
+import 'package:dazllapp/UI/homepage/realtor/complitedPhd.dart/selectCustomer.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/model/selection.dart';
@@ -34,7 +36,7 @@ class _RealtorHomePageState extends ConsumerState<RealtorHomePage> {
           style: Theme.of(context)
               .textTheme
               .bodyText1!
-              .copyWith(fontSize: 16, color: darkTextColor.withOpacity(.9)),
+              .copyWith(fontSize: 16, color: lightColor.withOpacity(.9)),
         ),
         actions: [],
       ),
@@ -50,14 +52,24 @@ class _RealtorHomePageState extends ConsumerState<RealtorHomePage> {
                   if (index == 0) {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => CreatePhd()));
-                  }
-                  if (index == 3) {
+                  } else if (index == 1) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => SelectCustomer(),
+                    ));
+                  } else if (index == 2) {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => MyProfile()));
+                  } else if (index == 3) {
                     // Navigator.of(context).push(MaterialPageRoute(
                     //     builder: (context) => Select_customer()));
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => Start_project(
                             // customerid: customerid!,
                             )));
+                  } else if (index == 5) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Realtor_project(),
+                    ));
                   }
                 },
                 child: Card(
@@ -114,6 +126,6 @@ List<Selection> Selections = [
   ),
   Selection(
     image: "assets/images/inspire.png",
-    name: "Get inspired",
+    name: "My-projects-agents",
   ),
 ];

@@ -64,10 +64,14 @@ class PhdProvider extends BaseNotifier {
   List<List<bool>> get selectedaddValueData => _selectedaddValueData;
   List<String> fristImpressionList = ["DAZLING", "MARKET READY", "NEEDS DAZL"];
   String fristImpression = "DAZLING";
+  List<String> selectedFristImpressionList = [];
   String address = "";
   String firstName = '';
   String lastName = '';
   String clientEmail = '';
+  String _stateName = '';
+  String get stateName => _stateName;
+  String zipCode = "";
   int startRange = 450;
   int endRange = 800;
   void setRange(int start, int end) {
@@ -80,6 +84,7 @@ class PhdProvider extends BaseNotifier {
     _selectRoomTypeFeature[_tabIndex][index] = data;
     notifyListeners();
   }
+
   void SelectAddValueData(bool value, int index) {
     selectedaddValueData[_tabIndex][index] = value;
     notifyListeners();
@@ -87,11 +92,14 @@ class PhdProvider extends BaseNotifier {
 
   void storePropertiesDetails(
       {required String paddress,
+      required String state,
+      required String pincode,
       required String firstname,
       required String lastname,
       required String clientemail}) {
     address = paddress;
-
+    _stateName = state;
+    zipCode = pincode;
     firstName = firstname;
     lastName = lastname;
     clientEmail = clientemail;
@@ -111,6 +119,7 @@ class PhdProvider extends BaseNotifier {
     mainImgList.add([]);
     _selectRoomTypeFeature.add([]);
     _selectedaddValueData.add([]);
+    selectedFristImpressionList.add('');
     // featureoptionid.add([]);
     select.add([]);
     selectedCheckbox.add([]);

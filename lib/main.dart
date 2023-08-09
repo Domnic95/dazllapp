@@ -6,6 +6,7 @@ import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'UI/homepage/customer/home/customer_homepage.dart';
@@ -14,6 +15,8 @@ import 'config/global.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: primaryColor, ));
   runApp(ProviderScope(child: const MyApp()));
 }
 
@@ -73,7 +76,7 @@ class MyApp extends StatelessWidget {
           ),
           dividerColor: Colors.transparent,
           colorScheme: ColorScheme.fromSwatch(
-                  primarySwatch: MaterialColor(0xffFFFFFF, primaryColors))
+                  primarySwatch: MaterialColor(0xffef4444, primaryColors))
               .copyWith(secondary: primaryColor),
         ),
         routes: {},

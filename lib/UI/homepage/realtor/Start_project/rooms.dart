@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/realtor_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/select_feature.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';
@@ -24,6 +25,8 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
   late TabController _tabController;
   late RealtorRoomProvider _roomProvider;
   late CustomerNotifier _roomsNotifier;
+  List<Widget> _tabs = [];
+  List<Widget> _tabviews = [];
   @override
   void initState() {
     super.initState();
@@ -45,35 +48,67 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
   }
 
   buildTabController() {
-    _tabController =
-        TabController(length: _roomProvider.rooms.length, vsync: this);
+    log("build Tab Controller");
+    _roomProvider.loaddata(
+        context, _roomProvider.roomIdList[_roomProvider.rooms.length - 1], ref);
+    _tabController = TabController(
+      length: _roomProvider.rooms.length,
+      // initialIndex:
+      //     _roomProvider.rooms.length == 0 ? 0 : _roomProvider.rooms.length - 1,
+      vsync: this,
+    );
   }
 
   List<Widget> buildTabs() {
-    List<Widget> _tabs = [];
-    for (var i = 0; i < _roomProvider.rooms.length; i++) {
+    // for (var i = 0; i < _phdProvider.rooms.length; i++) {
+
+    if (_roomProvider.roomIdList.length - 1 == _tabs.length) {
       _tabs.add(Tab(
-        text: _roomProvider.rooms[i].name.toString(),
-        // child: Text(
-        //   _roomProvider.rooms[i].name.toString(),
-        //   overflow: TextOverflow.ellipsis,
-        //   maxLines: 2,
-        //   style: TextStyle(color: Colors.black),
-        // ),
-        // icon: Icon(Icons.cloud_outlined),
+        text:
+            _roomProvider.rooms[_roomProvider.rooms.length - 1].name.toString(),
       ));
     }
+    // }
     return _tabs;
   }
 
   List<Widget> buildTabView() {
-    List<Widget> _tabviews = [];
-    for (var i = 0; i < _roomProvider.rooms.length; i++) {
-      _roomProvider.loaddata(context,ref);
+    if (_roomProvider.roomIdList.length - 1 == _tabviews.length) {
       _tabviews.add(Select_feature());
     }
     return _tabviews;
   }
+
+  // buildTabController() {
+  //   _tabController =
+  //       TabController(length: _roomProvider.rooms.length, vsync: this);
+  // }
+
+  // List<Widget> buildTabs() {
+  //   List<Widget> _tabs = [];
+  //   for (var i = 0; i < _roomProvider.rooms.length; i++) {
+  //     _tabs.add(Tab(
+  //       text: _roomProvider.rooms[i].name.toString(),
+  //       // child: Text(
+  //       //   _roomProvider.rooms[i].name.toString(),
+  //       //   overflow: TextOverflow.ellipsis,
+  //       //   maxLines: 2,
+  //       //   style: TextStyle(color: Colors.black),
+  //       // ),
+  //       // icon: Icon(Icons.cloud_outlined),
+  //     ));
+  //   }
+  //   return _tabs;
+  // }
+
+  // List<Widget> buildTabView() {
+  //   List<Widget> _tabviews = [];
+  //   for (var i = 0; i < _roomProvider.rooms.length; i++) {
+  //     _roomProvider.loaddata(context, ref);
+  //     _tabviews.add(Select_feature());
+  //   }
+  //   return _tabviews;
+  // }
 
   @override
   void dispose() {
@@ -119,24 +154,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              height: size.height * 0.08,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-                  color: AppTheme.colorPrimary),
-              child: Center(
-                child: Text(
-                  "What items in this room would you like to dazl up ?",
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontSize: 12,
-                        color: lightColor.withOpacity(.9),
-                      ),
-                ),
-              ),
-            ),
+            CommonHeader(title: "Create a project"),
             TabBar(
                 unselectedLabelStyle: TextStyle(color: blackColor),
                 unselectedLabelColor: blackColor,
@@ -196,8 +214,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                         roomsNotifier: _roomsNotifier);
 
                                     buildTabController();
-                                    buildTabs();
-                                    buildTabView();
+                                    _roomProvider.setTabIndex(tabIndex: 0);
                                     setState1(() {});
 
                                     setState(() {});
@@ -261,7 +278,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
           color: lightColor,
         ),
       ),
-      
+
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
         height: size.height * 0.08,
@@ -313,7 +330,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                         for (var k = 0;
                             k < _roomProvider.imgFile[i][j].length;
                             k++) {
-                          await _roomProvider.getImage(context, i, j, k,ref);
+                          await _roomProvider.getImage(context, i, j, k, ref);
                         }
 
                         _roomProvider.set(true, i);

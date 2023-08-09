@@ -39,4 +39,58 @@ class Utils {
       Navigator.pop(context);
     }
   }
+
+  static void imageInfoDialog(
+      {required BuildContext context,
+      required String url,
+      required String description}) {
+    // if (isShow) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Image.network(
+            url,
+            fit: BoxFit.contain,
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Text(
+              //   "Description",
+              //   textAlign: TextAlign.center,
+              //   style: TextStyle(
+              //       decoration: TextDecoration.underline,
+              //       decorationThickness: 5,
+              //       color: darkTextColor,
+              //       fontWeight: FontWeight.bold),
+              // ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              Text(
+                description,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: darkTextColor),
+              ),
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: primaryColor),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'Ok',
+                  style: TextStyle(color: Colors.white),
+                ))
+          ],
+        );
+      },
+    );
+    // } else {
+    //   Navigator.pop(context);
+    // }
+  }
 }

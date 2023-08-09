@@ -1,4 +1,5 @@
 import 'package:dazllapp/UI/component/loadingWidget.dart';
+import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/Select_room.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/phdProvider.dart';
 import 'package:dazllapp/config/app_theme.dart';
@@ -8,15 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CreateANewPhd extends ConsumerStatefulWidget {
-  String? city;
-  String? state;
-  String? pincode;
-  String? first_name;
-  String? Last_name;
-  String? ClientEmailAddress;
-  String? streetNum;
-  String? streetName;
-  String? streetType;
+  final String? city;
+  final String? state;
+  final String? pincode;
+  final String? first_name;
+  final String? Last_name;
+  final String? ClientEmailAddress;
+  final String? streetNum;
+  final String? streetName;
+  final String? streetType;
   CreateANewPhd({
     Key? key,
     this.city,
@@ -78,24 +79,7 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
         child: Scaffold(
       body: Column(
         children: [
-          Container(
-            height: size.height * 0.08,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-                color: AppTheme.colorPrimary),
-            child: Center(
-              child: Text(
-                "Create a new phd",
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontSize: 16,
-                      color: lightColor.withOpacity(.9),
-                    ),
-              ),
-            ),
-          ),
+          CommonHeader(title: "Create a new phd"),
           Expanded(
               child: loading
                   ? LoadingWidget()

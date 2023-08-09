@@ -1,4 +1,6 @@
 import 'package:dazllapp/UI/component/loadingWidget.dart';
+import 'package:dazllapp/UI/home/component/CommonHeader.dart';
+import 'package:dazllapp/UI/homepage/realtor/Start_project/realtor_project_details.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -38,54 +40,33 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                     body: Container(
                       child: Column(
                         children: [
-                          Container(
-                            height: size.height * 0.08,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(20),
-                                  bottomRight: Radius.circular(20),
-                                ),
-                                color: AppTheme.colorPrimary),
-                            child: Center(
-                              child: Text(
-                                "My Project",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                      fontSize: 16,
-                                      color: lightColor.withOpacity(.9),
-                                    ),
-                              ),
-                            ),
-                          ),
+                          CommonHeader(title: "My Project"),
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.all(5),
-                              child: ListView.separated(
+                              child: ListView.builder(
                                 itemCount: _realtorprovider
                                     .listofrealtorproject.length,
-                                reverse: true,
-                                separatorBuilder:
-                                    (BuildContext context, int index) {
-                                  return SizedBox(
-                                    height: 0,
-                                  );
-                                },
+                                // separatorBuilder:
+                                //     (BuildContext context, int index) {
+                                //   return SizedBox(
+                                //     height: 0,
+                                //   );
+                                // },
                                 itemBuilder: (BuildContext context, int index) {
                                   return GestureDetector(
                                       onTap: () {
-                                        // _realtorprovider
-                                        //         .listofrealtorproject[index]
-                                        //         .roominfo!
-                                        //         .isEmpty
-                                        //     ? null
-                                        //     : Navigator.of(context).push(
-                                        //         MaterialPageRoute(
-                                        //             builder: (context) =>
-                                        //                 Realtor_project_details(
-                                        //                     index: index)),
-                                        //       );
+                                        _realtorprovider
+                                                .listofrealtorproject[index]
+                                                .roominfo!
+                                                .isEmpty
+                                            ? null
+                                            : Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Realtor_project_details(
+                                                            index: index)),
+                                              );
                                       },
                                       child: Container(
                                         // height: 80,
@@ -114,8 +95,7 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                                                         child: Image(
                                                             height: 50,
                                                             width: 50,
-                                                            image: 
-                                                            NetworkImage(_realtorprovider
+                                                            image: NetworkImage(_realtorprovider
                                                                     .listofrealtorproject[
                                                                         index]
                                                                     .roominfo!
@@ -140,8 +120,7 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                                                                             .isEmpty
                                                                         ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
                                                                         : _realtorprovider
-                                                                            .listofrealtorproject[
-                                                                                index]
+                                                                            .listofrealtorproject[index]
                                                                             .roominfo!
                                                                             .first
                                                                             .feature!
@@ -149,8 +128,7 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                                                                             .images!
                                                                             .first
                                                                             .toString()),
-                                                            fit: BoxFit
-                                                                .fitWidth),
+                                                            fit: BoxFit.fill),
                                                       ),
                                                     ),
                                                     Column(

@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/professional/Company_profile/company_profile.dart';
+import 'package:dazllapp/UI/homepage/professional/projectOpportunities/projectOpportunities.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -15,14 +16,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ProfessionalsHomepage extends ConsumerStatefulWidget {
   @override
-  ConsumerState<ProfessionalsHomepage> createState() => _ProfessionalsHomepageState();
+  ConsumerState<ProfessionalsHomepage> createState() =>
+      _ProfessionalsHomepageState();
 }
 
 class _ProfessionalsHomepageState extends ConsumerState<ProfessionalsHomepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context,ref),
+      drawer: drawer(context, ref),
       appBar: AppBar(
         // leading: Padding(
         //   padding: const EdgeInsets.all(14.0),
@@ -36,63 +38,67 @@ class _ProfessionalsHomepageState extends ConsumerState<ProfessionalsHomepage> {
           style: Theme.of(context)
               .textTheme
               .bodyText1!
-              .copyWith(fontSize: 16, color: darkTextColor.withOpacity(.9)),
+              .copyWith(fontSize: 16, color: lightColor.withOpacity(.9)),
         ),
         actions: [],
       ),
-      body: Container(  
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: ListView.builder(
-              itemCount: Selections.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                    onTap: () {
-                      if (index == 1) {
-                        // log("Pro Id=" +
-                        //     SpHelpers.getString(SharedPrefsKeys.Prof_id)
-                        //         .toString());
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Company_profile()));
-                      }
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        //color: Colors.grey[300],
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                Selections[index].image,
-                                width: 80,
-                                color: AppTheme.colorPrimary,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                Selections[index].name,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: AppTheme.colorPrimary,
-                                    ),
-                              ),
-                            ],
-                          ),
+      body: Container(
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: ListView.builder(
+          itemCount: Selections.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                if (index == 1) {
+                  // log("Pro Id=" +
+                  //     SpHelpers.getString(SharedPrefsKeys.Prof_id)
+                  //         .toString());
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Company_profile()));
+                } else if (index == 0) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProjectOpportunities()));
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  //color: Colors.grey[300],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          Selections[index].image,
+                          width: 80,
+                          color: AppTheme.colorPrimary,
                         ),
-                      ),
-                    ),);
-              },),),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          Selections[index].name,
+                          textAlign: TextAlign.center,
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: AppTheme.colorPrimary,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }

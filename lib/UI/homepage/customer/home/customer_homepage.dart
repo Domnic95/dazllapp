@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names, avoid_types_as_parameter_names, unused_local_variable, unused_import, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:dazllapp/UI/Profile/profile.dart';
 import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/customer/my_project/myproject.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
@@ -29,7 +30,7 @@ class _CustomerHomepageState extends ConsumerState<CustomerHomepage> {
           //       AnimationController(vsync: this, duration: Duration(seconds: 2)),
           //   callBackIndex: (DrawerIndex) {},
           // ),
-          drawer(context,ref),
+          drawer(context, ref),
       appBar: AppBar(
         // leading: Padding(
         //   padding: const EdgeInsets.all(14.0),
@@ -43,7 +44,7 @@ class _CustomerHomepageState extends ConsumerState<CustomerHomepage> {
           style: Theme.of(context)
               .textTheme
               .bodyText1!
-              .copyWith(fontSize: 16, color: darkTextColor.withOpacity(.9)),
+              .copyWith(fontSize: 16, color: lightColor.withOpacity(.9)),
         ),
         actions: [],
       ),
@@ -57,10 +58,12 @@ class _CustomerHomepageState extends ConsumerState<CustomerHomepage> {
                     if (index == 0) {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => CreateProject()));
-                    }
-                    if (index == 1) {
+                    } else if (index == 1) {
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => myproject()));
+                    } else if (index == 2) {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => MyProfile()));
                     }
                   },
                   child: Padding(
@@ -104,5 +107,5 @@ class _CustomerHomepageState extends ConsumerState<CustomerHomepage> {
 List<Selection> Selections = [
   Selection(image: "assets/images/start.png", name: "Start a project"),
   Selection(image: "assets/images/my_project.png", name: "My projects"),
-  Selection(image: "assets/images/inspire.png", name: "Get inspired"),
+  Selection(image: "assets/images/profile.png", name: "My Info"),
 ];

@@ -117,6 +117,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
   @override
   Widget build(BuildContext context) {
     final _roomsfeature = ref.read(customernotifier);
+    _roomProvider = ref.watch(customerRoomsProvider);
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: _roomProvider.loading
@@ -152,7 +153,8 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                       // height: size.height * 0.63,
                       child: ListView.separated(
                         shrinkWrap: true,
-                        itemCount: _roomsfeature.listOfFeature.length,
+                        itemCount: _roomProvider
+                            .listOfFeature[_roomProvider.tabIndex].length,
                         separatorBuilder: (BuildContext context, int index) {
                           return SizedBox(
                             height: 10,
@@ -207,17 +209,24 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                             _roomProvider
                                                 .select[_roomProvider.tabIndex]
                                                 .add(index);
+                                            // log("dnskgfkdjjkdkj === ${_roomProvider.featureId[_roomProvider.tabIndex]}");
+                                            // log("dnskgfkdjjkdkj === ${_roomProvider.listOfFeature[_roomProvider.tabIndex]}");
                                             _roomProvider.featureId[
                                                         _roomProvider.tabIndex]
                                                     [index] =
-                                                _roomsfeature
-                                                    .listOfFeature[index].id;
+                                                _roomProvider
+                                                    .listOfFeature[_roomProvider
+                                                        .tabIndex][index]
+                                                    .id;
                                             indexs = 0;
                                           }
                                         });
                                       }),
                                   Text(
-                                    _roomsfeature.listOfFeature[index].name,
+                                    _roomProvider
+                                        .listOfFeature[_roomProvider.tabIndex]
+                                            [index]
+                                        .name,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText1!
@@ -884,7 +893,6 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                 //     width: 50,
                                                 //   ),
                                                 // )
-                                              
                                               ],
                                             ),
                                           ),
@@ -1086,8 +1094,9 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
   void openCamera(
     int index,
   ) async {
-    imgCamera =
-        await _roomProvider.imgPicker.getImage(source: ImageSource.camera,);
+    imgCamera = await _roomProvider.imgPicker.getImage(
+      source: ImageSource.camera,
+    );
 
     if (imgCamera != null) {
       photocamera(index);

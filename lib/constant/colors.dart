@@ -5,10 +5,12 @@ const Color scafolBackgroudColor = Colors.transparent;
 
 // const Color darkTextColor = Colors.black;
 const Color darkTextColor = Color(0xFF3A3A3A);
+const Color secondaryTextColor = Color.fromARGB(255, 90, 90, 90);
 
 const Color lightColor = Colors.white;
 const Color profile = Color(0xffA8695D);
-const Color primaryColor = Color(0xff1e3a8a);
+const Color primaryColor = Color(0xffef4444);
+// const Color primaryColor = Color(0xff1e3a8a);
 const Color profcolor = Color(0xff2985B6);
 const Color transparentColor = Colors.transparent;
 const Color teamBackgroundColor = Color(0xfffee2e2);

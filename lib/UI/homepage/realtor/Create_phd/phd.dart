@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/Select_Feature.dart';
+import 'package:dazllapp/UI/homepage/realtor/complitedPhd.dart/selectCustomer.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/phdProvider.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
 import 'package:dazllapp/config/app_theme.dart';
@@ -99,24 +101,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
           _phdProvider = ref.watch(phdProvider);
           return Column(
             children: [
-              Container(
-                height: size.height * 0.08,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    ),
-                    color: AppTheme.colorPrimary),
-                child: Center(
-                  child: Text(
-                    "Create a Phd",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 16,
-                          color: lightColor.withOpacity(.9),
-                        ),
-                  ),
-                ),
-              ),
+              CommonHeader(title: 'Create a Phd'),
               TabBar(
                   unselectedLabelStyle: TextStyle(color: blackColor),
                   unselectedLabelColor: blackColor,
@@ -311,62 +296,148 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                     }
                   }
                 }
-                for (var i = 0; i < _phdProvider.roomIdList.length; i++) {
-                  Map<String, dynamic> data = {
-                    'score': 100,
-                    'address': _phdProvider.address,
-                    'first_name': _phdProvider.firstName,
-                    'last_name': _phdProvider.lastName,
-                    'client_email': _phdProvider.clientEmail,
-                    'type': _realtorProvider.housedata!.type,
-                    "year_built": _realtorProvider.housedata!.yearBuilt,
-                    "bedrooms": _realtorProvider.housedata!.bedrooms,
-                    "bathrooms": _realtorProvider.housedata!.bathrooms,
-                    "structure_type": _realtorProvider.housedata!.structureType,
-                    "lot_size": _realtorProvider.housedata!.lotSize,
-                    "location": _realtorProvider.housedata!.location,
-                    "foundation_type":
-                        _realtorProvider.housedata!.foundationType,
-                    "tax_accessed_value":
-                        _realtorProvider.housedata!.taxAccessedValue,
-                    "sale_date": _realtorProvider.housedata!.saleDate,
-                    "lowest_price": _phdProvider.startRange,
-//left:calc(-50% - 4px)
-                    "highest_price": _phdProvider.endRange,
-// true:true,
-                    "room_id": _phdProvider.roomIdList[0],
-                    'phd_description': _phdProvider
-                        .DescrptionController[_phdProvider.tabIndex].text,
-                    "images[0]": _phdProvider.mainImgList[i],
-
-                    // "rooms[${_phdProvider.roomIdList[i]}][${_realtorProvider.roomTypes[i]}][1]": 7,
-                    "rooms[7][feature_type][82]": 121,
-                    "rooms[7][additional][0]": 1,
-                    "rooms[7][additional][1]": 4,
-                    "rooms[7][status]": "NEEDS DAZL",
-                    "rooms[7][feature_status][1]": "NEEDS DAZL",
-                    "rooms[7][feature_issues_images][1][0]":
-                        "https://res.cloudinary.com/dev-gnome/image/upload/v1679384263/oplhg0le3linv9uuszbi.svg",
-                    "rooms[7][feature_issues_images_descr][1]": "test",
-                    "rooms[7][feature_status][2]": "NEEDS DAZL",
-                    "rooms[7][feature_issues_images][2][0]":
-                        "https://res.cloudinary.com/dev-gnome/image/upload/v1679384273/jcwbxoykbh8xw2lpd6gk.svg",
-                    "rooms[7][feature_issues_images_descr][2]": "teswt",
-                    "rooms[3][feature_type][1]": 2,
-                    "rooms[3][additional][1]": 12,
-                    "rooms[3][status]": "MARKET READY",
-                    "rooms[3][feature_status][2]": "NEEDS DAZL",
-                    "rooms[3][feature_issues_images][2][0]":
-                        "https://res.cloudinary.com/dev-gnome/image/upload/v1679384298/gst9s0ravt26jon6kwvq.svg",
-                    "rooms[3][feature_issues_images_descr][2]": "test",
-                    "zip_code": "123456",
-                    "house_id": 1,
-                    "customer_id": 1,
-                    "mid_price": 500,
-                  };
-                  //  data[] = ;
+                List<String> phdDes = [];
+                for (var i = 0;
+                    i < _phdProvider.DescrptionController.length;
+                    i++) {
+                  phdDes.add(_phdProvider.DescrptionController[i].text);
                 }
-                _realtorProvider.reset();
+                log("message===${_phdProvider.clientEmail}}");
+                log("message===${_realtorProvider.housedata!.taxAccessedValue}");
+                Map<String, dynamic> data = {
+                  'score': 100,
+                  'address': _phdProvider.address,
+                  'first_name': _phdProvider.firstName,
+                  'last_name': _phdProvider.lastName,
+                  'client_email': _phdProvider.clientEmail,
+                  'type': _realtorProvider.housedata!.type,
+                  "year_built": _realtorProvider.housedata!.yearBuilt,
+                  "bedrooms": _realtorProvider.housedata!.bedrooms,
+                  "bathrooms": _realtorProvider.housedata!.bathrooms,
+                  "structure_type": _realtorProvider.housedata!.structureType,
+                  "lot_size": _realtorProvider.housedata!.lotSize,
+                  "location": _realtorProvider.housedata!.location,
+                  "foundation_type": _realtorProvider.housedata!.foundationType,
+                  "tax_accessed_value":
+                      _realtorProvider.housedata!.taxAccessedValue!.isEmpty
+                          ? "1"
+                          : _realtorProvider.housedata!.taxAccessedValue,
+                  "sale_date": _realtorProvider.housedata!.saleDate!.isEmpty
+                      ? "01-11-2021"
+                      : _realtorProvider.housedata!.saleDate,
+                  "lowest_price": _phdProvider.startRange,
+//left:calc(-50% - 4px)
+                  "highest_price": _phdProvider.endRange,
+                  "zip_code": _phdProvider.zipCode,
+                  "house_id": '',
+                  // "customer_id": 1,
+                  "mid_price": 500,
+
+                  // "phd_description": phdDes.toString(),
+                };
+
+                log("phd descreption == ${phdDes}");
+                for (var i = 0; i < _phdProvider.roomIdList.length; i++) {
+                  phdDes.add(_phdProvider.DescrptionController[i].text);
+                  data["room_id"] = _phdProvider.roomIdList[i].toString();
+                  data["phd_description"] = phdDes[i].toString();
+                  log("main image 123 === ${_phdProvider.mainImgList}");
+                  for (var j = 0; j < _phdProvider.mainImgList[i].length; j++) {
+                    data['images[$j]'] =
+                        _phdProvider.mainImgList[i][j].toString();
+                    log("main image === ${_phdProvider.mainImgList[i][j]}");
+                  }
+
+                  data["rooms[${_phdProvider.roomIdList[i]}][status]"] =
+                      _phdProvider.selectedFristImpressionList[i];
+                  // for (int j = 0;
+                  //     j < _phdProvider.mainImgList[i].length;
+                  //     j++) {}
+                  // data = {
+                  //   //
+                  //   // "rooms[7][feature_type][82]": 121,
+                  //   // "rooms[7][additional][0]": 1,
+                  //   // "rooms[7][additional][1]": 4,
+                  //   // "rooms[7][status]": "NEEDS DAZL",
+                  //   // "rooms[7][feature_status][1]": "NEEDS DAZL",
+                  //   // "rooms[7][feature_issues_images][1][0]":
+                  //   //     "https://res.cloudinary.com/dev-gnome/image/upload/v1679384263/oplhg0le3linv9uuszbi.svg",
+                  //   // "rooms[7][feature_issues_images_descr][1]": "test",
+                  //   // "rooms[7][feature_status][2]": "NEEDS DAZL",
+                  //   // "rooms[7][feature_issues_images][2][0]":
+                  //   //     "https://res.cloudinary.com/dev-gnome/image/upload/v1679384273/jcwbxoykbh8xw2lpd6gk.svg",
+                  //   // "rooms[7][feature_issues_images_descr][2]": "teswt",
+                  //   // "rooms[3][feature_type][1]": 2,
+                  //   // "rooms[3][additional][1]": 12,
+                  //   // "rooms[3][status]": "MARKET READY",
+                  //   // "rooms[3][feature_status][2]": "NEEDS DAZL",
+                  //   // "rooms[3][feature_issues_images][2][0]":
+                  //   //     "https://res.cloudinary.com/dev-gnome/image/upload/v1679384298/gst9s0ravt26jon6kwvq.svg",
+                  //   // "rooms[3][feature_issues_images_descr][2]": "test",
+                  // };
+
+                  // log("roomType ==== ${_realtorProvider.roomTypes[i].toString()}");
+                  // log("selectRoomTypeFeature ==== ${_phdProvider.selectRoomTypeFeature[i].toString()}");
+                  for (var j = 0;
+                      j < _phdProvider.selectRoomTypeFeature[i].length;
+                      j++) {
+                    if (_phdProvider.selectRoomTypeFeature[i][j] != null) {
+                      data["rooms[${_phdProvider.roomIdList[i]}][${_realtorProvider.roomTypes[i][j].type?.name ?? "feature_type"}][${_realtorProvider.roomTypes[i][j].id}]"] =
+                          _phdProvider.selectRoomTypeFeature[i][j]!.id;
+                    }
+                  }
+                  for (var j = 0;
+                      j < _phdProvider.selectedaddValueData[i].length;
+                      j++) {
+                    if (_phdProvider.selectedaddValueData[i][j]) {
+                      data["rooms[${_phdProvider.roomIdList[i]}][additional][$j]"] =
+                          _realtorProvider.addValueData[i][j].id;
+                    }
+                  }
+
+                  if (_phdProvider.featureId[i].isNotEmpty) {
+                    for (int j = 0; j < _phdProvider.featureId[i].length; j++) {
+                      if (_phdProvider.featureId[i][j] != 0 &&
+                          // _phdProvider
+                          //     .DescrptionController2[i][j].text.isNotEmpty &&
+                          _phdProvider.imagesList[i][j].isNotEmpty) {
+                        data["rooms[${_phdProvider.roomIdList[i]}][feature_status][${_phdProvider.featureId[i][j]}]"] =
+                            _phdProvider.selectedFristImpressionList[i];
+                        data["rooms[${_phdProvider.roomIdList[i]}][feature_issues_images_descr][${_phdProvider.featureId[i][j]}]"] =
+                            _phdProvider.DescrptionController2[i][j].text;
+                        for (var k = 0;
+                            k < _phdProvider.imagesList[i][j].length;
+                            k++) {
+                          data["rooms[${_phdProvider.roomIdList[i]}][feature_issues_images][${_phdProvider.featureId[i][j]}][$k]"] =
+                              _phdProvider.imagesList[i][j][k];
+                        }
+
+                        _phdProvider.set(true, i);
+                      }
+                    }
+                  }
+                }
+               
+                await _realtorProvider.createPhdReport(data).then((value) {
+                  Utils.loaderDialog(context, false);
+                  log("value.statusCode  === ${value.statusCode}");
+                  if (value.statusCode == 200) {
+                    // if (i == _phdProvider.roomIdList.length - 1) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('PHD created sucessfully'),
+                      backgroundColor: teamColor,
+                    ));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SelectCustomer(),
+                        ));
+
+                    _realtorProvider.reset();
+                  }
+                  // }
+                  phdDes.clear();
+                });
               },
               child: Row(
                 children: [

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, unused_local_variable, deprecated_member_use, use_key_in_widget_constructors, avoid_unnecessary_containers, curly_braces_in_flow_control_structures, non_constant_identifier_names
 
 import 'package:dazllapp/UI/component/loadingWidget.dart';
+import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/rooms.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -27,6 +28,8 @@ class _CreateProjectState extends ConsumerState<CreateProject> {
   loaddata() async {
     isloading = true;
     await ref.read(customernotifier).getRooms();
+    final _roomProvider = ref.read(customerRoomsProvider);
+    _roomProvider.reset();
     if (mounted) {
       setState(() {
         isloading = false;
@@ -52,24 +55,7 @@ class _CreateProjectState extends ConsumerState<CreateProject> {
           : Container(
               child: Column(
                 children: [
-                  Container(
-                    height: size.height * 0.08,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                        ),
-                        color: AppTheme.colorPrimary),
-                    child: Center(
-                      child: Text(
-                        "Create a Project",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              fontSize: 16,
-                              color: lightColor.withOpacity(.9),
-                            ),
-                      ),
-                    ),
-                  ),
+                  CommonHeader(title: "Select Room"),
                   // SizedBox(
                   //   height: size.height * 0.02,
                   // ),

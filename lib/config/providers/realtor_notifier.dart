@@ -1,14 +1,19 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:dazllapp/config/api.dart';
 import 'package:dazllapp/config/providers/base_notifier.dart';
 import 'package:dazllapp/constant/colors.dart';
+import 'package:dazllapp/constant/spkeys.dart';
+import 'package:dazllapp/model/Realtor/filterProject.dart';
+import 'package:dazllapp/model/Realtor/getComplitedPhd.dart';
 import 'package:dazllapp/model/Realtor/getRoomFeature.dart';
 import 'package:dazllapp/model/Realtor/housedata.dart';
 import 'package:dazllapp/model/Realtor/realtor_customerlist.dart';
 
 import 'package:dazllapp/model/Realtor/realtor_project.dart';
+import 'package:dazllapp/model/Realtor/realtor_user.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -18,12 +23,39 @@ class RealtorNotifier extends BaseNotifier {
   List<List<Roomtype>> roomTypes = [];
   List<List<AddValueData>> addValueData = [];
   List<ProjectList> listofrealtorproject = [];
+  List<FilterProject> filterProjectList = [];
+  GetComplitedPhdRealtor? singleComplitedPhdReport;
+  RealtorUser? realtorUser;
   Housedata? housedata;
+  Future<void> setRealtorUser(String user) async {
+    log("realtor ====== $user");
+    realtorUser = RealtorUser.fromJson(jsonDecode(user));
+  }
 
   Future getcustomers() async {
     final res = await dioClient.getRequest(apiEnd: customer);
     listofcustomers = List<Customer>.from(
         res.data['customer'].map((x) => Customer.fromJson(x)));
+    notifyListeners();
+  }
+
+  Future<List<FilterProject>> filterProject() async {
+    try {
+      Response res = await dioClient.getRequest(apiEnd: filter_project);
+      filterProjectList =
+          List.from(res.data).map((e) => FilterProject.fromJson(e)).toList();
+
+      notifyListeners();
+      return filterProjectList;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future getSingleComplitedPhd({required String id}) async {
+    Response res =
+        await dioClient.getRequest(apiEnd: single_complited_phd_realtor + id);
+    singleComplitedPhdReport = GetComplitedPhdRealtor.fromJson(res.data);
     notifyListeners();
   }
 
@@ -47,7 +79,7 @@ class RealtorNotifier extends BaseNotifier {
   }
 
   Future<int> createprojectrealtor(List<Map<String, dynamic>> data) async {
-    final res = await dioClient.rawwithFormData(
+    Response res = await dioClient.rawwithFormData(
         apiEnd: create_project_realtor, Data: data);
 
     log(res.toString());
@@ -55,16 +87,23 @@ class RealtorNotifier extends BaseNotifier {
     return res.data['project_id'];
   }
 
+  Future<Response> createPhdReport(Map<String, dynamic> data) async {
+    Response res = await dioClient.PostwithFormData(
+        apiEnd: create_phd_realtor, Data: data);
+    log("Response === ${res.data}");
+    return res;
+  }
+
   Future uploadimagesrealtor(int projectId, List files) async {
-    FormData formData = FormData.fromMap({
+    var data = {
       "images[]": files
           .map((item) => MultipartFile.fromFileSync(item.path,
               filename: item.path.split('/').last))
           .toList(),
       "projectID": projectId.toString()
-    });
-    final response =
-        await dioClient.FormData(apiEnd: uploadimages_realtor, Data: formData);
+    };
+    final response = await dioClient.PostwithFormData(
+        apiEnd: uploadimages_realtor, Data: data);
     log("images = " + response.data.toString());
     log("projectID" + projectId.toString());
     log("images" + files.toString());
@@ -75,12 +114,12 @@ class RealtorNotifier extends BaseNotifier {
     File files,
   ) async {
     try {
-      FormData formData = FormData.fromMap({
+      var formData = {
         "image": MultipartFile.fromFileSync(files.path,
             filename: files.path.split('/').last),
-      });
+      };
       Response response =
-          await dioClient.FormData(apiEnd: getImage, Data: formData);
+          await dioClient.PostwithFormData(apiEnd: getImage, Data: formData);
       log("images = " + response.data.toString());
       // log("projectID" + projectId.toString());
       // log("images" + files.toString());
@@ -158,6 +197,26 @@ class RealtorNotifier extends BaseNotifier {
     }
     // log("lshjkbjk"+res.data.toString());
     notifyListeners();
+  }
+
+  Future getRealtor({required int realtorId}) async {
+    Response res = await dioClient.getRequest(
+        apiEnd: get_realtor, queryParameter: {"realtor_id": realtorId});
+    realtorUser = RealtorUser.fromJson(res.data);
+    await SpHelpers.setString(
+        SharedPrefsKeys.realtorUser, jsonEncode(realtorUser));
+    return res.data;
+  }
+
+  Future updateRealtor(
+      {required Map<String, dynamic> data, required int realtorId}) async {
+    Response res =
+        await dioClient.patchwithRowData(apiEnd: update_realtor, Data: data);
+    if (res.statusCode == 200) {
+      log("res ===== == ${res.data}");
+      await getRealtor(realtorId: realtorId);
+    }
+    return res.data;
   }
 
   Future changepassword({

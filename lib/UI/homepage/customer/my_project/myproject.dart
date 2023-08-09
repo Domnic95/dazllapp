@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/customer/my_project/my_project_details.dart';
 import 'package:dazllapp/config/app_theme.dart';
@@ -65,14 +66,9 @@ class _myprojectState extends ConsumerState<myproject> {
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.all(5),
-                              child: ListView.separated(
+                              child: ListView.builder(
+                                // reverse: true,
                                 itemCount: projectprovider.listofproject.length,
-                                separatorBuilder:
-                                    (BuildContext context, int index) {
-                                  return SizedBox(
-                                    height: 0,
-                                  );
-                                },
                                 itemBuilder: (BuildContext context, int index) {
                                   return GestureDetector(
                                       onTap: () {
@@ -112,45 +108,59 @@ class _myprojectState extends ConsumerState<myproject> {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(10),
-                                                        child: Image(
-                                                            height: 50,
-                                                            width: 50,
-                                                            image: NetworkImage(projectprovider
-                                                                    .listofproject[
-                                                                        index]
-                                                                    .roominfo!
-                                                                    .isEmpty
-                                                                ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
-                                                                : projectprovider
-                                                                        .listofproject[
-                                                                            index]
-                                                                        .roominfo!
-                                                                        .first
-                                                                        .feature!
-                                                                        .isEmpty
-                                                                    ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
-                                                                    : projectprovider
-                                                                            .listofproject[
-                                                                                index]
-                                                                            .roominfo!
-                                                                            .first
-                                                                            .feature!
-                                                                            .first
-                                                                            .images!
-                                                                            .isEmpty
-                                                                        ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
-                                                                        : projectprovider
-                                                                            .listofproject[
-                                                                                index]
-                                                                            .roominfo!
-                                                                            .first
-                                                                            .feature!
-                                                                            .first
-                                                                            .images!
-                                                                            .first
-                                                                            .toString()),
-                                                            fit: BoxFit
-                                                                .fitWidth),
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          height: 50, width: 50,
+                                                          imageUrl: projectprovider
+                                                                  .listofproject[
+                                                                      index]
+                                                                  .roominfo!
+                                                                  .isEmpty
+                                                              ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
+                                                              : projectprovider
+                                                                      .listofproject[
+                                                                          index]
+                                                                      .roominfo!
+                                                                      .first
+                                                                      .feature!
+                                                                      .isEmpty
+                                                                  ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
+                                                                  : projectprovider
+                                                                          .listofproject[
+                                                                              index]
+                                                                          .roominfo!
+                                                                          .first
+                                                                          .feature!
+                                                                          .first
+                                                                          .images!
+                                                                          .isEmpty
+                                                                      ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
+                                                                      : projectprovider
+                                                                          .listofproject[
+                                                                              index]
+                                                                          .roominfo!
+                                                                          .first
+                                                                          .feature!
+                                                                          .first
+                                                                          .images!
+                                                                          .first
+                                                                          .toString(),
+                                                          // placeholder: (context,
+                                                          //         url) =>
+                                                          //     CircularProgressIndicator(),
+                                                          errorWidget: (context,
+                                                                  url, error) =>
+                                                              Image.network(
+                                                                  "https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75"),
+                                                        ),
+                                                        // Image(
+                                                        //     height: 50,
+                                                        //     width: 50,
+                                                        //     image:
+                                                        //      NetworkImage(
+                                                        //       ),
+                                                        //     fit: BoxFit
+                                                        //         .fitWidth),
                                                       ),
                                                     ),
                                                     Column(

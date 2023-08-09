@@ -1,16 +1,20 @@
 // ignore_for_file: unused_local_variable, curly_braces_in_flow_control_structures
 
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:dazllapp/config/api.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/providers/base_notifier.dart';
+import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dazllapp/model/Customer/FeatureOptionIssue.dart';
 import 'package:dazllapp/model/Customer/Featureissue.dart';
 import 'package:dazllapp/model/Customer/Rooms.dart';
 import 'package:dazllapp/model/Customer/project.dart';
 
 import 'package:dazllapp/model/Customer/Features.dart';
+import 'package:dazllapp/model/Customer/userModel.dart';
 
 import 'package:dio/dio.dart';
 
@@ -23,7 +27,17 @@ class CustomerNotifier extends BaseNotifier {
   List<Project> listofproject = [];
   List<Roominfo> listofRoomsinfo = [];
   List<Featureinfo> listofFeatureinfo = [];
+  CustomerUserModel? customerUserModel;
+
   // List<Image> listofimages = [];
+  Future<void> setCustomerModel() async {
+    String data = await SpHelpers.getString(SharedPrefsKeys.customerUser) ?? "";
+    if (data.isNotEmpty) {
+      customerUserModel = CustomerUserModel.fromJson(jsonDecode(data));
+    }
+
+    // notifyListeners();
+  }
 
   Future getRooms() async {
     final res = await dioClient.getRequest(apiEnd: rooms);
@@ -62,6 +76,13 @@ class CustomerNotifier extends BaseNotifier {
     notifyListeners();
   }
 
+  Future updateUser({required Map<String, dynamic> data}) async {
+    Response res =
+        await dioClient.patchwithRowData(apiEnd: update_realtor, Data: data);
+    customerUserModel = CustomerUserModel.fromJson(res.data);
+    return res.data;
+  }
+
   Future<int> createproject(List<Map<String, dynamic>> data) async {
     Response res =
         await dioClient.rawwithFormData(apiEnd: create_projet, Data: data);
@@ -72,15 +93,15 @@ class CustomerNotifier extends BaseNotifier {
   }
 
   Future uploadimages(int projectId, List files) async {
-    FormData formData = FormData.fromMap({
+    var data = {
       "images[]": files
           .map((item) => MultipartFile.fromFileSync(item.path,
               filename: item.path.split('/').last))
           .toList(),
       "projectID": projectId.toString()
-    });
+    };
     final response =
-        await dioClient.FormData(apiEnd: uploadimage, Data: formData);
+        await dioClient.PostwithFormData(apiEnd: uploadimage, Data: data);
     log("images = " + response.data.toString());
     log("projectID" + projectId.toString());
     log("images" + files.toString());

@@ -1,7 +1,8 @@
 import 'package:dazllapp/UI/component/loadingWidget.dart';
+import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/rooms.dart';
-import 'package:dazllapp/UI/homepage/realtor/Start_project/select_feature.dart';
+import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Start_project extends ConsumerStatefulWidget {
-  int? customerid;
+  final int? customerid;
   // String? customeremail;
   Start_project({
     this.customerid,
@@ -30,6 +31,8 @@ class _Start_projectState extends ConsumerState<Start_project> {
 
   loaddata() async {
     isloading = true;
+    RealtorRoomProvider _roomProvider = ref.read(realtorRoomsProvider);
+    _roomProvider.reset();
     await ref.read(customernotifier).getRooms();
     if (mounted) {
       setState(() {
@@ -249,6 +252,5 @@ class _Start_projectState extends ConsumerState<Start_project> {
               ),
             ),
     ));
-    ;
   }
 }

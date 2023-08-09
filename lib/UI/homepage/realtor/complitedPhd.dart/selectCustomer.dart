@@ -1,55 +1,55 @@
+import 'dart:developer';
+
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
-import 'package:dazllapp/UI/homepage/realtor/Start_project/start_project.dart';
+import 'package:dazllapp/UI/homepage/realtor/complitedPhd.dart/complitedPhd.dart';
+import 'package:dazllapp/UI/homepage/realtor/provider/complitedPhdProvider.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
+import 'package:dazllapp/model/Realtor/filterProject.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class Select_customer extends ConsumerStatefulWidget {
-  Select_customer({Key? key}) : super(key: key);
+class SelectCustomer extends ConsumerStatefulWidget {
+  SelectCustomer({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<Select_customer> createState() => _Select_customerState();
+  ConsumerState<SelectCustomer> createState() => _SelectCustomerState();
 }
 
-class _Select_customerState extends ConsumerState<Select_customer> {
+class _SelectCustomerState extends ConsumerState<SelectCustomer> {
   int? customerid;
-  bool loading = true;
+
   String selectedvalue = "Select Customer";
   TextEditingController customeremail = TextEditingController();
+  ComplitedPhdProvider? _complitedPhdProvider;
   @override
   void initState() {
-    load();
     super.initState();
+    _complitedPhdProvider = ref.read(complitedPhdProvider);
+    load();
   }
 
   load() async {
-    await ref.read(realtorprovider).getcustomers();
-    loading = false;
+    await _complitedPhdProvider!.loadCustomer(ref: ref);
+    _complitedPhdProvider!.loader(Loading.complited);
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final customer_provider = ref.read(realtorprovider);
+    final realtorProvider = ref.watch(realtorprovider);
+    _complitedPhdProvider = ref.watch(complitedPhdProvider);
     return SafeArea(
-      child: loading
+      child: _complitedPhdProvider!.loading == Loading.loding
           ? LoadingWidget()
           : Scaffold(
               body: Column(children: [
-                CommonHeader(title: "Start Project"),
+                CommonHeader(title: "PHD Project-Summary"),
                 SizedBox(
                   height: 20,
                 ),
-                Icon(Icons.add_circle_sharp, color: AppTheme.colorPrimary),
-                SizedBox(
-                  height: 10,
-                ),
-                Text('Add Customer'),
-                SizedBox(
-                  height: 30,
-                ),
+
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Container(
@@ -63,62 +63,60 @@ class _Select_customerState extends ConsumerState<Select_customer> {
                           left: 10,
                           right: 10,
                         ),
-                        child: DropdownButton<String>(
+                        child: DropdownButton<FilterProject>(
                           underline: Container(),
                           isExpanded: true,
                           borderRadius: BorderRadius.circular(20),
-                          hint: customer_provider.listofcustomers[0] ==
-                                  customer_provider.listofcustomers[0].firstName
+                          hint: _complitedPhdProvider!.selectedCustomer == null
                               ? Text('Select Customer')
                               : Text(
-                                  customer_provider.listofcustomers[0].name,
+                                  _complitedPhdProvider!.selectedCustomer!.email
+                                      .toString(),
                                 ),
-                          items: customer_provider.listofcustomers
+                          items: realtorProvider.filterProjectList
                               .map((dropdownselect) {
-                            return DropdownMenuItem<String>(
-                              child: Row(
-                                children: [
-                                  Text(dropdownselect.firstName),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(dropdownselect.lastName),
-                                ],
-                              ),
-                              value: dropdownselect.firstName +
-                                  " " +
-                                  dropdownselect.lastName,
+                            return DropdownMenuItem<FilterProject>(
+                              child: Text(dropdownselect.email!),
+                              value: _complitedPhdProvider!.selectedCustomer ??
+                                  _complitedPhdProvider!
+                                      .listOfFilterProject.first,
                               onTap: () {
-                                customerid = dropdownselect.id;
-                                print(customerid);
+                                _complitedPhdProvider!
+                                    .selectCustomer(dropdownselect);
                               },
                             );
                           }).toList(),
                           onChanged: (newselectedvalue) async {
-                            setState(() {
-                              customer_provider.listofcustomers[0].name =
-                                  newselectedvalue!;
-                            });
+                            // log("djfgldjfgjlkdfgjlkf 123=== ${newselectedvalue!.email}");
+                            // // _complitedPhdProvider!
+                            // //     .selectCustomer(newselectedvalue!);
+                            // // log("djfgldjfgjlkdfgjlkf === ${_complitedPhdProvider!.selectedCustomer!.email}");
+                            // setState(() {});
+                            // // setState(() {
+                            // //   customer_provider.listofcustomers[0].name =
+                            // //       newselectedvalue!;
+                            // // });
                           },
                         ),
                       ),
                     ),
                   ),
                 ),
+
                 ElevatedButton(
                   style:
                       ElevatedButton.styleFrom(primary: AppTheme.colorPrimary),
                   onPressed: () {
-                    if (customer_provider.listofcustomers[0].name ==
-                        "Select Customer") {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Select customer')));
-                    } else {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Start_project(
-                                customerid: customerid!,
-                              )));
-                    }
+                    // if (customer_provider.listofcustomers[0].name ==
+                    //     "Select Customer") {
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //       SnackBar(content: Text('Select customer')));
+                    // } else {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ComplitedPhd(
+                            // customerid: customerid!,
+                            )));
+                    // }
                   },
                   child: Text(
                     'Next',

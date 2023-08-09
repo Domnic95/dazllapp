@@ -14,21 +14,21 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:upgrader/upgrader.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../config/apicall.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   int index;
   LoginScreen({required this.index});
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   int curruntindex = 0;
   bool keep_me_logged_in = false;
+  bool loading = false;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -412,7 +412,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: size.height * 0.03),
             submitButton(_emailController.text.toString(),
-                _passwordController.text.toString()),
+                _passwordController.text.toString(), ref),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
               press: () {
@@ -433,13 +433,17 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget submitButton(String emailId, String password) => Column(
+  Widget submitButton(String emailId, String password, WidgetRef ref) => Column(
         children: <Widget>[
           ElevatedButton(
             child: Padding(
               padding:
                   EdgeInsets.only(left: 110, right: 110, top: 15, bottom: 15),
-              child: Text("Login", style: TextStyle(fontSize: 14)),
+              child: loading
+                  ? CircularProgressIndicator(
+                      color: lightColor,
+                    )
+                  : Text("Login", style: TextStyle(fontSize: 14)),
             ),
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -505,8 +509,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text('Fill Fields')));
               } else {
-                login(curruntindex, _emailController.text,
-                    _passwordController.text, context, keep_me_logged_in);
+                loading = true;
+                setState(() {});
+                await login(curruntindex, _emailController.text,
+                    _passwordController.text, context, keep_me_logged_in, ref);
+                loading = false;
+                setState(() {});
               }
               //login();
             },

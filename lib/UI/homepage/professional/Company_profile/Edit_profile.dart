@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types, file_names, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_unnecessary_containers, non_constant_identifier_names
 
+import 'package:dazllapp/UI/homepage/professional/Company_profile/company_profile.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -123,7 +124,7 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(10.0),
-                 child: ListView(
+                child: ListView(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,6 +149,36 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                                   ),
                                 ),
                                 onPressed: () {
+                                  Map<String, dynamic> data = {
+                                    "name": _name.text,
+                                    "phone": _phone.text,
+                                    "address": _Address.text,
+                                    "references": _reference.text,
+                                    // "website": "dazl",
+                                    // "twitter": null,
+                                    // "facebook": null,
+
+                                    // "description": "",
+                                    // "business_licence": "",
+                                    // "project_portfolio": [],
+                                    // "years_in_business": 12,
+                                    // "insurance_certificate": "",
+                                  };
+                                  _profileNotifier
+                                      .updateProfessional(data)
+                                      .then((value) {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text(value['message']),
+                                      backgroundColor: teamColor,
+                                    ));
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Company_profile()));
+                                  });
+
                                   _yearsinbussiness.clear();
                                   _name.clear();
                                   _phone.clear();
@@ -167,7 +198,7 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                                     Icon(
                                       Icons.save,
                                       size: 20,
-                                      color: AppTheme.colorPrimary,
+                                      color: lightColor,
                                     ),
                                     SizedBox(
                                       width: 3,
@@ -175,8 +206,7 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                                     Container(
                                       child: Text(
                                         'Save',
-                                        style: TextStyle(
-                                            color: AppTheme.colorPrimary),
+                                        style: TextStyle(color: lightColor),
                                       ),
                                     ),
                                   ],
@@ -597,118 +627,118 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                         SizedBox(
                           height: 10,
                         ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
-                          child: Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 5, right: 5),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                height: 90,
-                                width: 90,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: _profileNotifier
-                                              .professionalData.images1 ==
-                                          ""
-                                      ? Center(
-                                          child: Image.network(
-                                            'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        )
-                                      : Image.network(
-                                          _profileNotifier
-                                              .professionalData.images1
-                                              .toString(),
-                                          fit: BoxFit.cover,
-                                        ),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 5, right: 5),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                height: 90,
-                                width: 90,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: _profileNotifier
-                                              .professionalData.images2 ==
-                                          ""
-                                      ? Center(
-                                          child: Image.network(
-                                            'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        )
-                                      : Image.network(
-                                          _profileNotifier
-                                              .professionalData.images2
-                                              .toString(),
-                                          fit: BoxFit.cover,
-                                        ),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 5, right: 5),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                height: 90,
-                                width: 90,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: _profileNotifier
-                                              .professionalData.images3 ==
-                                          ""
-                                      ? Center(
-                                          child: Image.network(
-                                            'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        )
-                                      : Image.network(
-                                          _profileNotifier
-                                              .professionalData.images3
-                                              .toString(),
-                                          fit: BoxFit.cover,
-                                        ),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 5, right: 5),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                height: 90,
-                                width: 90,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: _profileNotifier
-                                              .professionalData.images4 ==
-                                          ""
-                                      ? Center(
-                                          child: Image.network(
-                                            'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        )
-                                      : Image.network(
-                                          _profileNotifier
-                                              .professionalData.images4
-                                              .toString(),
-                                          fit: BoxFit.cover,
-                                        ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        // SingleChildScrollView(
+                        //   scrollDirection: Axis.horizontal,
+                        //   physics: BouncingScrollPhysics(),
+                        //   child: Row(
+                        //     children: [
+                        //       Container(
+                        //         margin: EdgeInsets.only(left: 5, right: 5),
+                        //         decoration: BoxDecoration(
+                        //           borderRadius: BorderRadius.circular(15),
+                        //         ),
+                        //         height: 90,
+                        //         width: 90,
+                        //         child: ClipRRect(
+                        //           borderRadius: BorderRadius.circular(15),
+                        //           child: _profileNotifier
+                        //                       .professionalData.images1 ==
+                        //                   ""
+                        //               ? Center(
+                        //                   child: Image.network(
+                        //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                        //                     fit: BoxFit.fill,
+                        //                   ),
+                        //                 )
+                        //               : Image.network(
+                        //                   _profileNotifier
+                        //                       .professionalData.images1
+                        //                       .toString(),
+                        //                   fit: BoxFit.cover,
+                        //                 ),
+                        //         ),
+                        //       ),
+                        //       Container(
+                        //         margin: EdgeInsets.only(left: 5, right: 5),
+                        //         decoration: BoxDecoration(
+                        //           borderRadius: BorderRadius.circular(15),
+                        //         ),
+                        //         height: 90,
+                        //         width: 90,
+                        //         child: ClipRRect(
+                        //           borderRadius: BorderRadius.circular(15),
+                        //           child: _profileNotifier
+                        //                       .professionalData.images2 ==
+                        //                   ""
+                        //               ? Center(
+                        //                   child: Image.network(
+                        //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                        //                     fit: BoxFit.fill,
+                        //                   ),
+                        //                 )
+                        //               : Image.network(
+                        //                   _profileNotifier
+                        //                       .professionalData.images2
+                        //                       .toString(),
+                        //                   fit: BoxFit.cover,
+                        //                 ),
+                        //         ),
+                        //       ),
+                        //       Container(
+                        //         margin: EdgeInsets.only(left: 5, right: 5),
+                        //         decoration: BoxDecoration(
+                        //           borderRadius: BorderRadius.circular(15),
+                        //         ),
+                        //         height: 90,
+                        //         width: 90,
+                        //         child: ClipRRect(
+                        //           borderRadius: BorderRadius.circular(15),
+                        //           child: _profileNotifier
+                        //                       .professionalData.images3 ==
+                        //                   ""
+                        //               ? Center(
+                        //                   child: Image.network(
+                        //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                        //                     fit: BoxFit.fill,
+                        //                   ),
+                        //                 )
+                        //               : Image.network(
+                        //                   _profileNotifier
+                        //                       .professionalData.images3
+                        //                       .toString(),
+                        //                   fit: BoxFit.cover,
+                        //                 ),
+                        //         ),
+                        //       ),
+                        //       Container(
+                        //         margin: EdgeInsets.only(left: 5, right: 5),
+                        //         decoration: BoxDecoration(
+                        //           borderRadius: BorderRadius.circular(15),
+                        //         ),
+                        //         height: 90,
+                        //         width: 90,
+                        //         child: ClipRRect(
+                        //           borderRadius: BorderRadius.circular(15),
+                        //           child: _profileNotifier
+                        //                       .professionalData.images4 ==
+                        //                   ""
+                        //               ? Center(
+                        //                   child: Image.network(
+                        //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                        //                     fit: BoxFit.fill,
+                        //                   ),
+                        //                 )
+                        //               : Image.network(
+                        //                   _profileNotifier
+                        //                       .professionalData.images4
+                        //                       .toString(),
+                        //                   fit: BoxFit.cover,
+                        //                 ),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                       ],
                     ),
                   ],

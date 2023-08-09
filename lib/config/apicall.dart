@@ -1,11 +1,19 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, non_constant_identifier_names, prefer_final_fields
 
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/api.dart';
 import 'package:dazllapp/config/global.dart';
+import 'package:dazllapp/config/providers/providers.dart';
+import 'package:dazllapp/config/providers/realtor_notifier.dart';
 import 'package:dazllapp/constant/spkeys.dart';
+import 'package:dazllapp/model/Customer/userModel.dart';
+import 'package:dazllapp/model/Realtor/realtor_user.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../UI/homepage/customer/home/customer_homepage.dart';
@@ -16,6 +24,8 @@ import '../UI/homepage/realtor/realtor_homepage.dart';
 bool islogin = false;
 bool loading = false;
 int? realtorid;
+CustomerUserModel? customerUserData;
+// RealtorUser? realtorUserData;
 
 class CustomInterCeptor extends Interceptor {
   @override
@@ -46,22 +56,30 @@ class DioClient {
     }
   }
 
-  Future<dynamic> PostwithFormData(
-      {required String apiEnd, Map<String, dynamic>? Data}) async {
+  Future<dynamic> PostwithFormData({
+    required String apiEnd,
+    Map<String, dynamic>? Data,
+  }) async {
     try {
-      final res = await _dio.post(apiEnd, data: Data);
+      var data = FormData.fromMap(Data!);
+      log("fromdata ==== $data");
+      final res = await _dio.post(apiEnd, data: data);
       return res;
     } on DioError catch (e) {
       return e.response;
     }
   }
 
-  Future<dynamic> FormData({required String apiEnd, Data}) async {
+  Future<dynamic> patchwithRowData(
+      {required String apiEnd,
+      Map<String, dynamic>? Data,
+      Map<String, dynamic>? queryParameter}) async {
     try {
-      final res = await _dio.post(apiEnd, data: Data);
+      final res =
+          await _dio.patch(apiEnd, data: Data, queryParameters: queryParameter);
       return res;
-    } on DioError catch (e) {
-      return e.response;
+    } catch (e) {
+      throw e;
     }
   }
 
@@ -70,14 +88,15 @@ class DioClient {
     try {
       final res = await _dio.post(apiEnd, data: Data);
       return res;
-    } on DioError catch (e) {
-      return e.response;
+    } catch (e) {
+      throw e;
     }
   }
 }
 
 Dio dio = Dio(BaseOptions(baseUrl: base_url));
-Future<String> login(index, email, password, context, keepmelogin) async {
+Future<String> login(
+    index, email, password, context, keepmelogin, WidgetRef ref) async {
   SpHelpers.setBool(SharedPrefsKeys.key_keep_me_logged_in, keepmelogin);
   SpHelpers.setInt(SharedPrefsKeys.key_current, index);
   String url = login_realtor;
@@ -126,11 +145,21 @@ Future<String> login(index, email, password, context, keepmelogin) async {
       // log("Pro Id=" + SpHelpers.getString(SharedPrefsKeys.Prof_id).toString());
       //SpHelpers.setString();
       if (index == 0) {
+        SpHelpers.setInt(SharedPrefsKeys.currentindex, index);
+        RealtorNotifier realtorNotifier = ref.read(realtorprovider);
+        await realtorNotifier.getRealtor(
+            realtorId: response.data['data']['id']);
+        // realtorNotifier.realtorUser = RealtorUser.fromJson(response.data);
+        // realtorUserData = RealtorUser.fromJson(response.data);
+        // log("kskfksdkjfkjd === ${realtorUserData!.firstName!}");
+        SpHelpers.setString(SharedPrefsKeys.realtorUser,
+            jsonEncode(realtorNotifier.realtorUser));
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => RealtorHomePage()));
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Login Sucessfully'), backgroundColor: Colors.green));
       } else if (index == 1) {
+        SpHelpers.setInt(SharedPrefsKeys.currentindex, index);
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => ProfessionalsHomepage()));
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -138,6 +167,10 @@ Future<String> login(index, email, password, context, keepmelogin) async {
           backgroundColor: Colors.green,
         ));
       } else if (index == 2) {
+        SpHelpers.setInt(SharedPrefsKeys.currentindex, index);
+        customerUserData = CustomerUserModel.fromJson(response.data);
+        SpHelpers.setString(
+            SharedPrefsKeys.customerUser, jsonEncode(customerUserData));
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => CustomerHomepage()));
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

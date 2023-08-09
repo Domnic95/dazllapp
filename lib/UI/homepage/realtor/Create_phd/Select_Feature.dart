@@ -2,17 +2,14 @@
 
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/phdProvider.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
-import 'package:dazllapp/config/providers/realtor_notifier.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/model/Customer/Features.dart';
 import 'package:dazllapp/model/Realtor/getRoomFeature.dart';
-import 'package:dazllapp/model/Realtor/realtor_project.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -469,6 +466,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                               itemCount: _reltorProvider
                                   .roomTypes[_phdProvider.tabIndex].length,
                               itemBuilder: (context, index) {
+                                log("snkdcksdkljdf === ${_phdProvider.selectRoomTypeFeature[_phdProvider.tabIndex]}");
                                 return Container(
                                   width: size.width * 0.45 - 16,
                                   // margin: EdgeInsets.symmetric(horizontal: 10),
@@ -693,6 +691,8 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                     groupValue: _phdProvider.fristImpression,
                                     onChanged: (String? value) {
                                       _phdProvider.fristImpression = value!;
+                                      _phdProvider.selectedFristImpressionList[
+                                          _phdProvider.tabIndex] = value;
                                       setState(() {});
                                     },
                                   ),
@@ -2163,15 +2163,9 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                               //   height: 10,
                                               // ),
                                               _phdProvider.imgFile[_phdProvider
-                                                                  .tabIndex]
-                                                              [index] ==
-                                                          null ||
-                                                      _phdProvider.imgFile[
-                                                                  _phdProvider
-                                                                      .tabIndex]
-                                                                  [index]
-                                                              .toString() ==
-                                                          File('').toString()
+                                                              .tabIndex][index]
+                                                          .toString() ==
+                                                      File('').toString()
                                                   ? SizedBox()
                                                   : GridView.builder(
                                                       shrinkWrap: true,
@@ -2729,7 +2723,6 @@ class _CatagoryExampleState extends ConsumerState<CatagoryExample> {
 
   @override
   void initState() {
-    // TODO: implement initState
     loaddata();
     super.initState();
   }

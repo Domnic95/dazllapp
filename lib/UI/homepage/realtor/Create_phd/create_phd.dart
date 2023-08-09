@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/create_a_new_phd.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -54,24 +55,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
           // resizeToAvoidBottomInset: false,
           body: Column(
             children: [
-              Container(
-                height: size.height * 0.08,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    ),
-                    color: AppTheme.colorPrimary),
-                child: Center(
-                  child: Text(
-                    "Create a Phd",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 16,
-                          color: lightColor.withOpacity(.9),
-                        ),
-                  ),
-                ),
-              ),
+              CommonHeader(title: 'Create a Phd'),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.all(10.0),
@@ -495,7 +479,9 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                         log("pageto == CreateANewPhd");
                         if (_formkey.currentState!.validate()) {
                           _phdProvider.storePropertiesDetails(
-                              paddress: _addressController.text
+                              paddress: _addressController.text,
+                              pincode: _pincodeController.text,
+                              state: _stateController.text,
                               // _propertynumber.text +
                               //     ", " +
                               //     _propertyname.text +
@@ -507,7 +493,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                               //     _pincodeController.text +
                               //     '), ' +
                               //     _stateController.text
-                              ,
+
                               firstname: _first_name.text,
                               lastname: _Last_name.text,
                               clientemail: _ClientEmailAddress.text);

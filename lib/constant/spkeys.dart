@@ -10,6 +10,9 @@ class SharedPrefsKeys {
   static String Prof_id = "pro_id";
   static String Realtor_id = "realtor_id";
   static String currentindex= "currentindex";
+  static String customerUser= "customerUser";
+  static String realtorUser= "realtorUser";
+  static String profetionalUser= "profetionalUser";
 }
 
 class SpHelpers {

@@ -1,4 +1,5 @@
 import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
+import 'package:dazllapp/UI/homepage/realtor/provider/complitedPhdProvider.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/phdProvider.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';
 import 'package:dazllapp/config/providers/customer_notifier.dart';
@@ -13,3 +14,4 @@ final realtorprovider = ChangeNotifierProvider(((ref) => RealtorNotifier()));
 final customerRoomsProvider = ChangeNotifierProvider(((ref) => RoomProvider()));
 final realtorRoomsProvider = ChangeNotifierProvider(((ref) => RealtorRoomProvider()));
 final phdProvider = ChangeNotifierProvider(((ref) => PhdProvider()));
+final complitedPhdProvider = ChangeNotifierProvider(((ref) => ComplitedPhdProvider()));

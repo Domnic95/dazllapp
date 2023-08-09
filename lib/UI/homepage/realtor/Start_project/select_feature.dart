@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:developer';
 import 'dart:io';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';
@@ -12,7 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Select_feature extends ConsumerStatefulWidget {
-  int? cutomerid;
+  final int? cutomerid;
   // String? customeremail;
   Select_feature({
     this.cutomerid,
@@ -26,27 +25,8 @@ class Select_feature extends ConsumerStatefulWidget {
 
 class _Select_featureState extends ConsumerState<Select_feature> {
   late RealtorRoomProvider _roomProvider;
-  // List<Map<String, dynamic>> listData = [];
-  // // List<List<String>> FeatureissueName = [];
-  // // List<List<int>> FeatureissueId = [];
-  // // List<List<int>> featureissueId = [];
-  // List<List<bool>> featurebool = [];
-  // List<List<File>> imgFile = [];
-  // final imgPicker = ImagePicker();
-  // List<int> featureId = <int>[];
-  // // List<int> featureoptionid = <int>[];
-  // List<String> currentoptionselected = <String>[];
-  // List<int> currenoptionselectedid = <int>[];
-  // List<int> select = [];
-  // List selectcheckbox = [];
-  // List<TextEditingController> _DescrptionController = [];
-  // List<TextEditingController> _PhotoDescrptionController = [];
-  // List<List<String>> _addphotodescription = [];
+
   int indexs = 0;
-  // List<String> _description = <String>[];
-  // bool loading = true;
-  // List<File> _file = [];
-  // bool _isLoading = false;
 
   @override
   void initState() {
@@ -145,10 +125,11 @@ class _Select_featureState extends ConsumerState<Select_feature> {
 
   @override
   Widget build(BuildContext context) {
-    final _roomsfeature = ref.read(customernotifier);
+    // final _roomsfeature = ref.read(customernotifier);
+    _roomProvider = ref.watch(realtorRoomsProvider);
     final size = MediaQuery.of(context).size;
     return SafeArea(
-      child: loading
+      child: _roomProvider.loading
           ? LoadingWidget()
           : Scaffold(
               body: Container(
@@ -181,7 +162,8 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                       // height: size.height * 0.63,
                       child: ListView.separated(
                         shrinkWrap: true,
-                        itemCount: _roomsfeature.listOfFeature.length,
+                        itemCount: _roomProvider
+                            .listOfFeature[_roomProvider.tabIndex].length,
                         separatorBuilder: (BuildContext context, int index) {
                           return SizedBox(
                             height: 10,
@@ -239,14 +221,19 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                             _roomProvider.featureId[
                                                         _roomProvider.tabIndex]
                                                     [index] =
-                                                _roomsfeature
-                                                    .listOfFeature[index].id;
+                                                _roomProvider
+                                                    .listOfFeature[_roomProvider
+                                                        .tabIndex][index]
+                                                    .id;
                                             indexs = 0;
                                           }
                                         });
                                       }),
                                   Text(
-                                    _roomsfeature.listOfFeature[index].name,
+                                    _roomProvider
+                                        .listOfFeature[_roomProvider.tabIndex]
+                                            [index]
+                                        .name,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText1!
@@ -655,13 +642,9 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                           //   height: 10,
                                           // ),
                                           _roomProvider.imgFile[_roomProvider
-                                                          .tabIndex][index] ==
-                                                      null ||
-                                                  _roomProvider
-                                                          .imgFile[_roomProvider
-                                                              .tabIndex][index]
-                                                          .toString() ==
-                                                      File('').toString()
+                                                          .tabIndex][index]
+                                                      .toString() ==
+                                                  File('').toString()
                                               ? SizedBox()
                                               : GridView.builder(
                                                   shrinkWrap: true,

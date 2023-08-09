@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:dazllapp/UI/component/loadingWidget.dart';
+import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
-import 'package:dazllapp/UI/homepage/realtor/Create_phd/Select_Feature.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/phd.dart';
-import 'package:dazllapp/UI/homepage/realtor/Start_project/select_feature.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -49,24 +46,7 @@ class _selectRoomState extends ConsumerState<selectRoom> {
       body: Container(
         child: Column(
           children: [
-            Container(
-              height: size.height * 0.08,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-                  color: AppTheme.colorPrimary),
-              child: Center(
-                child: Text(
-                  "Create a new phd",
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontSize: 16,
-                        color: lightColor.withOpacity(.9),
-                      ),
-                ),
-              ),
-            ),
+            CommonHeader(title: "Create a new phd"),
             // SizedBox(
             //   height: size.height * 0.02,
             // ),

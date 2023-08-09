@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/customer/home/customer_homepage.dart';
 import 'package:dazllapp/UI/homepage/customer/my_project/myproject.dart';
 import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
@@ -26,6 +27,8 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
   late TabController _tabController;
   late RoomProvider _roomProvider;
   late CustomerNotifier _roomsNotifier;
+  List<Widget> _tabs = [];
+  List<Widget> _tabviews = [];
   @override
   void initState() {
     super.initState();
@@ -45,35 +48,65 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
   }
 
   buildTabController() {
+    log("build Tab Controller");
+    _roomProvider.loaddata(
+        context, _roomProvider.roomIdList[_roomProvider.rooms.length - 1], ref);
     _tabController =
         TabController(length: _roomProvider.rooms.length, vsync: this);
   }
 
   List<Widget> buildTabs() {
-    List<Widget> _tabs = [];
-    for (var i = 0; i < _roomProvider.rooms.length; i++) {
+    // for (var i = 0; i < _phdProvider.rooms.length; i++) {
+
+    if (_roomProvider.roomIdList.length - 1 == _tabs.length) {
       _tabs.add(Tab(
-        text: _roomProvider.rooms[i].name.toString(),
-        // child: Text(
-        //   _roomProvider.rooms[i].name.toString(),
-        //   overflow: TextOverflow.ellipsis,
-        //   maxLines: 2,
-        //   style: TextStyle(color: Colors.black),
-        // ),
-        // icon: Icon(Icons.cloud_outlined),
+        text:
+            _roomProvider.rooms[_roomProvider.rooms.length - 1].name.toString(),
+     
       ));
     }
+    // }
     return _tabs;
   }
 
   List<Widget> buildTabView() {
-    List<Widget> _tabviews = [];
-    for (var i = 0; i < _roomProvider.rooms.length; i++) {
-      _roomProvider.loaddata(context,ref);
+    if (_roomProvider.roomIdList.length - 1 == _tabviews.length) {
       _tabviews.add(NeedAttention());
     }
     return _tabviews;
   }
+
+  // buildTabController() {
+  //   _tabController =
+  //       TabController(length: _roomProvider.rooms.length, vsync: this);
+  // }
+
+  // List<Widget> buildTabs() {
+
+  //   // for (var i = 0; i < _roomProvider.rooms.length; i++) {
+  //  if (_roomProvider.roomIdList.length - 1 == _tabs.length) {
+  //     _tabs.add(Tab(
+  //       text: _roomProvider.rooms[_roomProvider.rooms.length - 1].name.toString(),
+  //       // child: Text(
+  //       //   _roomProvider.rooms[i].name.toString(),
+  //       //   overflow: TextOverflow.ellipsis,
+  //       //   maxLines: 2,
+  //       //   style: TextStyle(color: Colors.black),
+  //       // ),
+  //       // icon: Icon(Icons.cloud_outlined),
+  //     ));}
+  //   // }
+  //   return _tabs;
+  // }
+
+  // List<Widget> buildTabView() {
+  //   List<Widget> _tabviews = [];
+  //   for (var i = 0; i < _roomProvider.rooms.length; i++) {
+  //     _roomProvider.loaddata(context,ref);
+  //     _tabviews.add(NeedAttention());
+  //   }
+  //   return _tabviews;
+  // }
 
   @override
   void dispose() {
@@ -84,6 +117,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    _roomProvider = ref.watch(customerRoomsProvider);
     return Scaffold(
       // appBar: AppBar(
       //   title: Container(
@@ -119,24 +153,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              height: size.height * 0.08,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-                  color: AppTheme.colorPrimary),
-              child: Center(
-                child: Text(
-                  "What items in this room would you like to dazl up ?",
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontSize: 12,
-                        color: lightColor.withOpacity(.9),
-                      ),
-                ),
-              ),
-            ),
+            CommonHeader(title: "Create a Project"),
             TabBar(
                 unselectedLabelStyle: TextStyle(color: blackColor),
                 unselectedLabelColor: blackColor,
@@ -196,8 +213,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                                         roomsNotifier: _roomsNotifier);
 
                                     buildTabController();
-                                    buildTabs();
-                                    buildTabView();
+                                    _roomProvider.setTabIndex(tabIndex: 0);
                                     setState1(() {});
 
                                     setState(() {});
@@ -312,7 +328,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                         for (var k = 0;
                             k < _roomProvider.imgFile[i][j].length;
                             k++) {
-                          await _roomProvider.getImage(context, i, j, k,ref);
+                          await _roomProvider.getImage(context, i, j, k, ref);
                         }
                         _roomProvider.set(true, i);
                       }

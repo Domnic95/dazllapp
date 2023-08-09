@@ -6,6 +6,7 @@ import 'package:dazllapp/config/providers/base_notifier.dart';
 import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/spkeys.dart';
+import 'package:dazllapp/model/Customer/Features.dart';
 import 'package:dazllapp/model/Customer/Rooms.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class RealtorRoomProvider extends BaseNotifier {
   List<List<TextEditingController>> _DescrptionController = [];
   List<List<TextEditingController>> get DescrptionController =>
       _DescrptionController;
+  List<List<RoomFeature>> listOfFeature = [];
   // List<List<TextEditingController>> _PhotoDescrptionController = [];
   List<List<String>> _description = [];
   List<List<String>> get description => _description;
@@ -59,9 +61,11 @@ class RealtorRoomProvider extends BaseNotifier {
     isSet.add(false);
   }
 
-  Future getImage(BuildContext context,int tabIndex, int index,int k,WidgetRef ref) async {
-    String img =
-        await ref.read(realtorprovider).uploadImage(context, imgFile[tabIndex][index][k]);
+  Future getImage(BuildContext context, int tabIndex, int index, int k,
+      WidgetRef ref) async {
+    String img = await ref
+        .read(realtorprovider)
+        .uploadImage(context, imgFile[tabIndex][index][k]);
     imagesList[tabIndex][index].add(img);
     // imgFile[_tabIndex][index].add(File(path));
     log("mage == $imagesList");
@@ -105,26 +109,28 @@ class RealtorRoomProvider extends BaseNotifier {
     featurebool.clear();
     imgFile.clear();
     featureoptionid.clear();
-
+    listOfFeature.clear();
     _description.clear();
   }
 
-  loaddata(BuildContext context,WidgetRef ref) async {
+  loaddata(BuildContext context, int roomid, WidgetRef ref) async {
+    _loading = true;
     final _roomsfeature = ref.read(customernotifier);
     await _roomsfeature.getRoomsFeature(roomid);
     await _roomsfeature.getFeatureOptionIssues();
-
+    listOfFeature.add(_roomsfeature.listOfFeature);
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
       // currentoptionselected[tabIndex].add('');
-      featurebool[tabIndex].add([]);
+      featurebool[listOfFeature.length - 1].add([]);
       // currenoptionselectedid.add(0);
-      featureId[tabIndex].add(0);
-      DescrptionController[tabIndex].add(TextEditingController());
-      description[tabIndex].add('');
+      featureId[listOfFeature.length - 1].add(0);
+      DescrptionController[listOfFeature.length - 1]
+          .add(TextEditingController());
+      description[listOfFeature.length - 1].add('');
       // featureoptionid.add(0);
       // _PhotoDescrptionController.add(TextEditingController());
-      imgFile[tabIndex].add([]);
-      imagesList[tabIndex].add([]);
+      imgFile[listOfFeature.length - 1].add([]);
+      imagesList[listOfFeature.length - 1].add([]);
     }
     // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
     //   FeatureissueName.add([]);
