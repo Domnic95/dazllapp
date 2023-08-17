@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/complitedPhdProvider.dart';
@@ -306,16 +307,28 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5),
-                                                    child: Image.network(
-                                                        _realtorProvider
-                                                            .singleComplitedPhdReport!
-                                                            .reports!
-                                                            .first
-                                                            .images![subIndex]
-                                                            .url
-                                                            .toString(),
-                                                        fit: BoxFit.contain,
-                                                        height: 60),
+                                                    child: CachedNetworkImage(
+                                                      imageUrl: _realtorProvider
+                                                          .singleComplitedPhdReport!
+                                                          .reports!
+                                                          .first
+                                                          .images![subIndex]
+                                                          .url
+                                                          .toString(),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          SizedBox(),
+                                                    ),
+                                                    // Image.network(
+                                                    //     _realtorProvider
+                                                    //         .singleComplitedPhdReport!
+                                                    //         .reports!
+                                                    //         .first
+                                                    //         .images![subIndex]
+                                                    //         .url
+                                                    //         .toString(),
+                                                    //     fit: BoxFit.contain,
+                                                    //     height: 60),
                                                   ),
                                                 ),
                                               );
@@ -465,21 +478,39 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                                                     BorderRadius
                                                                         .circular(
                                                                             5),
-                                                                child: Image.network(
-                                                                    _realtorProvider
-                                                                        .singleComplitedPhdReport!
-                                                                        .reports!
-                                                                        .first
-                                                                        .roominfo![
-                                                                            index]
-                                                                        .feature![
-                                                                            index1]
-                                                                        .images![
-                                                                            subIndex]
-                                                                        .toString(),
-                                                                    fit: BoxFit
-                                                                        .contain,
-                                                                    height: 60),
+                                                                child:
+                                                                  CachedNetworkImage(
+                                                                    imageUrl: _realtorProvider
+                                                                      .singleComplitedPhdReport!
+                                                                      .reports!
+                                                                      .first
+                                                                      .roominfo![
+                                                                          index]
+                                                                      .feature![
+                                                                          index1]
+                                                                      .images![
+                                                                          subIndex]
+                                                                      .toString(),
+                                                                    errorWidget: (context,
+                                                                          url,
+                                                                          error) =>
+                                                                      SizedBox(),
+                                                                ),
+                                                                // Image.network(
+                                                                //     _realtorProvider
+                                                                //         .singleComplitedPhdReport!
+                                                                //         .reports!
+                                                                //         .first
+                                                                //         .roominfo![
+                                                                //             index]
+                                                                //         .feature![
+                                                                //             index1]
+                                                                //         .images![
+                                                                //             subIndex]
+                                                                //         .toString(),
+                                                                //     fit: BoxFit
+                                                                //         .contain,
+                                                                //     height: 60),
                                                               ),
                                                             ),
                                                           );
@@ -521,10 +552,10 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                                     progressWidget(
                                                         size: size,
                                                         title: "",
-                                                        minLimit: "\$200,000",
+                                                        minLimit: "\$200k",
                                                         midleLimit:
                                                             "\$${_realtorProvider.singleComplitedPhdReport!.reports!.first.phdPrice}",
-                                                        maxLimit: "\$2,000,000",
+                                                        maxLimit: "\$2M",
                                                         percentag: (int.parse(
                                                                     _realtorProvider
                                                                         .singleComplitedPhdReport!

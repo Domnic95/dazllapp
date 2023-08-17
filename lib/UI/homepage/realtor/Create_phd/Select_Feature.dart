@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/phdProvider.dart';
+import 'package:dazllapp/config/Utils/utils.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -300,7 +301,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                   ),
                                   child: IconButton(
                                       onPressed: () {
-                                        showOptionsDialog(context, 0, 0);
+                                        showOptionsDialog(context, 0, 0, true);
                                       },
                                       icon: Icon(Icons.add_a_photo)),
                                 );
@@ -373,6 +374,9 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                         onTap: () {
                                           setState(() {
                                             _phdProvider.mainImgFile[
+                                                    _phdProvider.tabIndex]
+                                                .removeAt(Index - 1);
+                                            _phdProvider.mainImgList[
                                                     _phdProvider.tabIndex]
                                                 .removeAt(Index - 1);
                                           });
@@ -2202,7 +2206,8 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                                                   showOptionsDialog(
                                                                       context,
                                                                       1,
-                                                                      index);
+                                                                      index,
+                                                                      false);
                                                                 },
                                                                 icon: Icon(Icons
                                                                     .add_a_photo)),
@@ -2262,6 +2267,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                                                           onPressed: () {
                                                                             setState(() {
                                                                               _phdProvider.imgFile[_phdProvider.tabIndex][index].removeAt(subIndex - 1);
+                                                                              _phdProvider.imagesList[_phdProvider.tabIndex][index].removeAt(subIndex - 1);
                                                                               // _addphotodescription[index]
                                                                               //     .removeAt(subIndex);
                                                                             });
@@ -2533,7 +2539,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
   }
 
   Future<void> showOptionsDialog(
-      BuildContext context, int index, int ListIndex) {
+      BuildContext context, int index, int ListIndex, bool isMainImg) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -2559,7 +2565,9 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                       ],
                     ),
                     onTap: () {
-                      index == 0 ? openCamera() : openCameraRoom(ListIndex);
+                      index == 0
+                          ? openCamera(isMainImg)
+                          : openCameraRoom(ListIndex, isMainImg);
                     },
                   ),
                   GestureDetector(
@@ -2573,7 +2581,9 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                       ],
                     ),
                     onTap: () {
-                      index == 0 ? openGallery() : openGalleryRoom(ListIndex);
+                      index == 0
+                          ? openGallery(isMainImg)
+                          : openGalleryRoom(ListIndex, isMainImg);
                     },
                   ),
                 ],
@@ -2584,82 +2594,95 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
   }
 
   late var imgCamera;
-  void openCamera() async {
+  void openCamera(bool isMainImg) async {
     imgCamera =
         await _phdProvider.imgPicker.getImage(source: ImageSource.camera);
     if (imgCamera != null) {
-      photocamera();
+      Navigator.of(context).pop();
+      photocamera(isMainImg);
     }
-    Navigator.of(context).pop();
   }
 
   late List<PickedFile>? imgGallery;
-  void openGallery() async {
+  void openGallery(bool isMainImg) async {
     imgGallery = await _phdProvider.imgPicker.getMultiImage();
     if (imgGallery != null) {
-      textphoto();
+      Navigator.of(context).pop();
+      textphoto(isMainImg);
     }
-    Navigator.of(context).pop();
   }
 
-  void textphoto() {
-    setState(() {
-      if (imgGallery == null) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Add Photo'),
-        ));
-      } else {
-        log("kdfgkgfk === ${_phdProvider.mainImgFile[_phdProvider.tabIndex]}");
-        for (int i = 0; i < imgGallery!.length; i++) {
-          _phdProvider.mainImgFile[_phdProvider.tabIndex]
-              .add(File(imgGallery![i].path));
-        }
-        log("kdfgkgfk === ${_phdProvider.mainImgFile[_phdProvider.tabIndex]}");
-
-        imgGallery = null;
-      }
-    });
-  }
-
-  void photocamera() {
-    setState(() {
-      if (imgCamera == null) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Add description or Photo'),
-        ));
-      } else {
+  Future<void> textphoto(bool isMainImg) async {
+    if (imgGallery == null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Add Photo'),
+      ));
+    } else {
+      Utils.loaderDialog(context, true);
+      log("kdfgkgfk === ${_phdProvider.mainImgFile[_phdProvider.tabIndex]}");
+      for (int i = 0; i < imgGallery!.length; i++) {
         _phdProvider.mainImgFile[_phdProvider.tabIndex]
-            .add(File(imgCamera.path));
-        imgCamera = null;
+            .add(File(imgGallery![i].path));
+        await _phdProvider.getImage(context, _phdProvider.tabIndex, 0,
+            File(imgGallery![i].path), isMainImg, ref);
       }
-    });
+      log("kdfgkgfk === ${_phdProvider.mainImgFile[_phdProvider.tabIndex]}");
+
+      imgGallery = null;
+    }
+
+    Utils.loaderDialog(context, false);
+    setState(() {});
+  }
+
+  Future<void> photocamera(bool isMainImg) async {
+    if (imgCamera == null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Add description or Photo'),
+      ));
+    } else {
+      Utils.loaderDialog(context, true);
+      _phdProvider.mainImgFile[_phdProvider.tabIndex].add(File(imgCamera.path));
+      await _phdProvider.getImage(context, _phdProvider.tabIndex, 0,
+          File(imgCamera.path), isMainImg, ref);
+      imgCamera = null;
+      Utils.loaderDialog(context, false);
+    }
+    setState(() {});
   }
 
   late var imgCameraRoom;
-  void openCameraRoom(int index) async {
+  void openCameraRoom(int index, bool isMainImg) async {
     imgCameraRoom =
         await _phdProvider.imgPicker.getImage(source: ImageSource.camera);
     if (imgCameraRoom != null) {
-      setState(() {
-        _phdProvider.imgFile[_phdProvider.tabIndex][index]
-            .add(File(imgCameraRoom.path));
-        imgCameraRoom = null;
-      });
+      Utils.loaderDialog(context, true);
+      _phdProvider.imgFile[_phdProvider.tabIndex][index]
+          .add(File(imgCameraRoom.path));
+      await _phdProvider.getImage(context, _phdProvider.tabIndex, index,
+          File(imgCameraRoom.path), isMainImg, ref);
+      imgCameraRoom = null;
+      Utils.loaderDialog(context, false);
+      setState(() {});
     }
     Navigator.of(context).pop();
   }
 
   late var imgGalleryRoom;
-  void openGalleryRoom(int index) async {
+  void openGalleryRoom(int index, bool isMainImg) async {
     imgGalleryRoom = await _phdProvider.imgPicker.getMultiImage();
     if (imgGalleryRoom != null) {
-      setState(() {
-        for (int i = 0; i < imgGalleryRoom.length; i++) {
-          _phdProvider.imgFile[_phdProvider.tabIndex][index]
-              .add(File(imgGalleryRoom[i].path));
-        }
-        imgGalleryRoom = null;
-      });
+      Utils.loaderDialog(context, true);
+
+      for (int i = 0; i < imgGalleryRoom.length; i++) {
+        _phdProvider.imgFile[_phdProvider.tabIndex][index]
+            .add(File(imgGalleryRoom[i].path));
+        await _phdProvider.getImage(context, _phdProvider.tabIndex, index,
+            File(imgGalleryRoom[i].path), isMainImg, ref);
+      }
+      imgGalleryRoom = null;
+      Utils.loaderDialog(context, false);
+      setState(() {});
     }
     Navigator.of(context).pop();
   }

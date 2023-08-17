@@ -6,6 +6,7 @@ import 'package:dazllapp/UI/homepage/realtor/complitedPhd.dart/complitedPhd.dart
 import 'package:dazllapp/UI/homepage/realtor/provider/complitedPhdProvider.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
+import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/model/Realtor/filterProject.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -70,13 +71,22 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
                           hint: _complitedPhdProvider!.selectedCustomer == null
                               ? Text('Select Customer')
                               : Text(
-                                  _complitedPhdProvider!.selectedCustomer!.email
+                                  _complitedPhdProvider!
+                                      .selectedCustomer!.location
                                       .toString(),
                                 ),
                           items: realtorProvider.filterProjectList
                               .map((dropdownselect) {
                             return DropdownMenuItem<FilterProject>(
-                              child: Text(dropdownselect.email!),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              color: darkTextColor))),
+                                  child: Text(
+                                    dropdownselect.location!,
+                                    overflow: TextOverflow.ellipsis,
+                                  )),
                               value: _complitedPhdProvider!.selectedCustomer ??
                                   _complitedPhdProvider!
                                       .listOfFilterProject.first,

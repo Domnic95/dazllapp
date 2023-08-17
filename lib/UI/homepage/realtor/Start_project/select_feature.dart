@@ -1,8 +1,10 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:developer';
 import 'dart:io';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';
+import 'package:dazllapp/config/Utils/utils.dart';
 import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -734,23 +736,24 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                                                 Positioned(
                                                                   top: -10,
                                                                   right: -5,
-                                                                  child: IconButton(
-                                                                      onPressed: () {
-                                                                        setState(
-                                                                            () {
-                                                                          _roomProvider
-                                                                              .imgFile[_roomProvider.tabIndex][index]
-                                                                              .removeAt(subIndex - 1);
-                                                                          // _addphotodescription[index]
-                                                                          //     .removeAt(subIndex);
-                                                                        });
-                                                                      },
-                                                                      icon: Icon(
-                                                                        Icons
-                                                                            .cancel,
-                                                                        size:
-                                                                            25,
-                                                                      )),
+                                                                  child:
+                                                                      IconButton(
+                                                                          onPressed:
+                                                                              () {
+                                                                            setState(() {
+                                                                              _roomProvider.imgFile[_roomProvider.tabIndex][index].removeAt(subIndex - 1);
+                                                                              _roomProvider.imagesList[_roomProvider.tabIndex][index].removeAt(subIndex - 1);
+                                                                              log("dfjlxdjkfg === ${_roomProvider.imagesList}");
+                                                                              // _addphotodescription[index]
+                                                                              //     .removeAt(subIndex);
+                                                                            });
+                                                                          },
+                                                                          icon:
+                                                                              Icon(
+                                                                            Icons.cancel,
+                                                                            size:
+                                                                                25,
+                                                                          )),
                                                                 )
                                                               ],
                                                             ),
@@ -1134,10 +1137,10 @@ class _Select_featureState extends ConsumerState<Select_feature> {
     // });
 
     if (imgCamera != null) {
+      Navigator.of(context).pop();
       photocamera(index);
       // fileImage.clear();
     }
-    Navigator.of(context).pop();
   }
 
   late var imgGallery;
@@ -1152,47 +1155,53 @@ class _Select_featureState extends ConsumerState<Select_feature> {
     //   fileImage.add(imgGallery.path);
     // });
     if (imgGallery != null) {
+      Navigator.of(context).pop();
       textphoto(index);
       // fileImage.clear();
     }
-    Navigator.of(context).pop();
   }
 
-  void textphoto(int index) {
-    setState(() {
-      if (
-          // _PhotoDescrptionController[index].text.isEmpty ||
-          imgGallery == null) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Add description or Photo'),
-        ));
-      } else {
-        // _addphotodescription[index].add(_PhotoDescrptionController[index].text);
-        _roomProvider.imgFile[_roomProvider.tabIndex][index]
-            .add(File(imgGallery.path));
-        // _PhotoDescrptionController[index].clear();
-        imgGallery = null;
-      }
-    });
+  Future<void> textphoto(int index) async {
+    Utils.loaderDialog(context, true);
+    if (
+        // _PhotoDescrptionController[index].text.isEmpty ||
+        imgGallery == null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Add description or Photo'),
+      ));
+    } else {
+      // _addphotodescription[index].add(_PhotoDescrptionController[index].text);
+      _roomProvider.imgFile[_roomProvider.tabIndex][index]
+          .add(File(imgGallery.path));
+      await _roomProvider.getImage(
+          context, _roomProvider.tabIndex, index, File(imgGallery.path), ref);
+      // _PhotoDescrptionController[index].clear();
+      imgGallery = null;
+    }
+    Utils.loaderDialog(context, false);
+    setState(() {});
   }
 
-  void photocamera(int index) {
-    setState(() {
-      if (
-          // _PhotoDescrptionController[index].text.isEmpty ||
-          imgCamera == null) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Add description or Photo'),
-        ));
-      } else {
-        // _addphotodescription[index].add(_PhotoDescrptionController[index].text);
-        _roomProvider.imgFile[_roomProvider.tabIndex][index]
-            .add(File(imgCamera.path));
-        // _PhotoDescrptionController[index].clear();
-        // _roomProvider.getImage(context, index, imgCamera.path);
-        imgCamera = null;
-      }
-    });
+  Future<void> photocamera(int index) async {
+    Utils.loaderDialog(context, true);
+    if (
+        // _PhotoDescrptionController[index].text.isEmpty ||
+        imgCamera == null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Add description or Photo'),
+      ));
+    } else {
+      // _addphotodescription[index].add(_PhotoDescrptionController[index].text);
+      _roomProvider.imgFile[_roomProvider.tabIndex][index]
+          .add(File(imgCamera.path));
+      await _roomProvider.getImage(
+          context, _roomProvider.tabIndex, index, File(imgCamera.path), ref);
+      // _PhotoDescrptionController[index].clear();
+      // _roomProvider.getImage(context, index, imgCamera.path);
+      imgCamera = null;
+    }
+    Utils.loaderDialog(context, false);
+    setState(() {});
   }
 
   void removeempty() {

@@ -325,11 +325,11 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                           _roomProvider
                               .DescrptionController[i][j].text.isNotEmpty &&
                           _roomProvider.imgFile[i][j].isNotEmpty) {
-                        for (var k = 0;
-                            k < _roomProvider.imgFile[i][j].length;
-                            k++) {
-                          await _roomProvider.getImage(context, i, j, k, ref);
-                        }
+                        // for (var k = 0;
+                        //     k < _roomProvider.imgFile[i][j].length;
+                        //     k++) {
+                        //   await _roomProvider.getImage(context, i, j, k, ref);
+                        // }
                         _roomProvider.set(true, i);
                       }
                     }

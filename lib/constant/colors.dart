@@ -24,6 +24,7 @@ const Color objectiveBackGroundColor = Color(0xfffef3c7);
 const Color dialogBackgroundColor = Color(0xfff3f3f4);
 const Color darkRed = Color(0xFFce2029);
 const Color blackColor = Colors.black;
+const Color editColor = Color.fromRGBO(86, 175, 169,1);
 // Map<int, Color> primaryColors = {
 //   50: Color.fromRGBO(30, 58, 138, .1),
 //   100: Color.fromRGBO(54, 16, 239, .2),

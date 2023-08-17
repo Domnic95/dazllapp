@@ -142,11 +142,13 @@ class PhdProvider extends BaseNotifier {
   Future getImage(BuildContext context, int tabIndex, int index, File image,
       bool isMainImage, WidgetRef ref) async {
     if (isMainImage) {
+      log("Main Img");
       String img = await ref.read(realtorprovider).uploadImage(context, image);
       mainImgList[tabIndex].add(img);
       // imgFile[_tabIndex][index].add(File(path));
       // log("mage == $imagesList");
     } else {
+      log("no main Img");
       String img = await ref.read(realtorprovider).uploadImage(context, image);
       imagesList[tabIndex][index].add(img);
       // imgFile[_tabIndex][index].add(File(path));

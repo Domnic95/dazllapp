@@ -326,12 +326,12 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                       if (_roomProvider.featureId[i][j] != 0 &&
                           _roomProvider
                               .DescrptionController[i][j].text.isNotEmpty &&
-                          _roomProvider.imgFile[i][j].isNotEmpty) {
-                        for (var k = 0;
-                            k < _roomProvider.imgFile[i][j].length;
-                            k++) {
-                          await _roomProvider.getImage(context, i, j, k, ref);
-                        }
+                          _roomProvider.imagesList[i][j].isNotEmpty) {
+                        // for (var k = 0;
+                        //     k < _roomProvider.imgFile[i][j].length;
+                        //     k++) {
+                        //   await _roomProvider.getImage(context, i, j, k, ref);
+                        // }
 
                         _roomProvider.set(true, i);
                       }
