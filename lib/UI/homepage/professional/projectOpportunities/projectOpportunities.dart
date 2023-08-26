@@ -124,7 +124,7 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
                                   dialogeState(() {});
                                 },
                               ),
-                              Text("i'm interested"),
+                              Text("I'M INTERESTED"),
                             ],
                           ),
                           Row(
@@ -140,7 +140,7 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
                                   dialogeState(() {});
                                 },
                               ),
-                              Text("i'm not interested"),
+                              Text("I'M NOT INTERESTED"),
                             ],
                           ),
                         ],
@@ -228,9 +228,12 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
             "$key :",
             style: TextStyle(color: secondaryTextColor),
           ),
-           Expanded(
-            child: Text(value,overflow: TextOverflow.ellipsis,maxLines: 2,
-                style: TextStyle(color: blackColor, fontWeight: FontWeight.bold)),
+          Expanded(
+            child: Text(value,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style:
+                    TextStyle(color: blackColor, fontWeight: FontWeight.bold)),
           )
         ],
       ),
@@ -248,7 +251,7 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CommonHeader(title: "Project Opportunities"),
+                  CommonHeader(title: "Project Opportunities", isback: false),
                   SizedBox(
                     height: 8,
                   ),

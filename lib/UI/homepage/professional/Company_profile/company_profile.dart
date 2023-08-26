@@ -1,6 +1,8 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, deprecated_member_use, unused_import
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
+import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/professional/Company_profile/Edit_profile.dart';
 import 'package:dazllapp/UI/homepage/professional/Company_profile/webview_screen.dart';
 import 'package:dazllapp/config/app_theme.dart';
@@ -50,59 +52,94 @@ class _Company_profileState extends ConsumerState<Company_profile> {
               backgroundColor: Colors.grey.shade100,
               body: Column(
                 children: [
-                  Container(
-                    height: size.height * 0.09,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                        ),
-                        color: AppTheme.colorPrimary),
-                    child: Column(
+                  CommonHeader(title: "Company Profile", isback: false),
+                  // Container(
+                  //   height: size.height * 0.09,
+                  //   decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.only(
+                  //         bottomLeft: Radius.circular(20),
+                  //         bottomRight: Radius.circular(20),
+                  //       ),
+                  //       color: AppTheme.colorPrimary),
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       Text(
+                  //         "Company Profile",
+                  //         style:
+                  //             Theme.of(context).textTheme.bodyText1!.copyWith(
+                  //                   fontSize: 14,
+                  //                   color: lightColor.withOpacity(.9),
+                  //                 ),
+                  //       ),
+                  //       SizedBox(
+                  //         height: 5,
+                  //       ),
+                  //       Row(
+                  //         mainAxisAlignment: MainAxisAlignment.center,
+                  //         children: [
+                  //           Text(
+                  //             'YEARS IN BUSINESS : ',
+                  //             style: TextStyle(
+                  //               fontSize: 12,
+                  //               color: Colors.white,
+                  //             ),
+                  //           ),
+                  //           _profileNotifier.professionalData.yearsInBusiness ==
+                  //                   null
+                  //               ? Text(
+                  //                   'Add your Years in Bussiness',
+                  //                   style: TextStyle(
+                  //                       fontSize: 12, color: Colors.white),
+                  //                 )
+                  //               : Text(
+                  //                   _profileNotifier
+                  //                       .professionalData.yearsInBusiness
+                  //                       .toString(),
+                  //                   style: TextStyle(
+                  //                     fontSize: 12,
+                  //                     color: Colors.white,
+                  //                   ),
+                  //                 ),
+                  //         ],
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Company Profile",
-                          style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    fontSize: 14,
-                                    color: lightColor.withOpacity(.9),
-                                  ),
+                          'YEARS IN BUSINESS : ',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: blackColor,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'YEARS IN BUSINESS : ',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.white,
+                        _profileNotifier.professionalData.yearsInBusiness ==
+                                null
+                            ? Text(
+                                'Add your Years in Bussiness',
+                                style:
+                                    TextStyle(fontSize: 12, color: blackColor),
+                              )
+                            : Text(
+                                _profileNotifier
+                                    .professionalData.yearsInBusiness
+                                    .toString(),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: blackColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            _profileNotifier.professionalData.yearsInBusiness ==
-                                    null
-                                ? Text(
-                                    'Add your Years in Bussiness',
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.white),
-                                  )
-                                : Text(
-                                    _profileNotifier
-                                        .professionalData.yearsInBusiness
-                                        .toString(),
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                          ],
-                        ),
                       ],
                     ),
                   ),
+
                   Expanded(
                     child: ListView(
                       children: [
@@ -286,42 +323,42 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                         color: Colors.grey,
                                       ),
                                     ),
-                                    ListTile(
-                                      leading: Icon(
-                                        Icons.article,
-                                      ),
-                                      title: Text(
-                                        'Business license : ',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      subtitle: _profileNotifier
-                                                  .professionalData
-                                                  .businessLicence ==
-                                              ''
-                                          ? Text(
-                                              'Add your Bussiness Licence',
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                              ),
-                                            )
-                                          : Text(
-                                              _profileNotifier.professionalData
-                                                  .businessLicence
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                              ),
-                                            ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 12, right: 12),
-                                      child: Divider(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
+                                    // ListTile(
+                                    //   leading: Icon(
+                                    //     Icons.article,
+                                    //   ),
+                                    //   title: Text(
+                                    //     'Business license : ',
+                                    //     style: TextStyle(
+                                    //       fontSize: 14,
+                                    //     ),
+                                    //   ),
+                                    //   subtitle: _profileNotifier
+                                    //               .professionalData
+                                    //               .businessLicence ==
+                                    //           ''
+                                    //       ? Text(
+                                    //           'Add your Bussiness Licence',
+                                    //           style: TextStyle(
+                                    //             fontSize: 13,
+                                    //           ),
+                                    //         )
+                                    //       : Text(
+                                    //           _profileNotifier.professionalData
+                                    //               .businessLicence
+                                    //               .toString(),
+                                    //           style: TextStyle(
+                                    //             fontSize: 13,
+                                    //           ),
+                                    //         ),
+                                    // ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(
+                                    //       left: 12, right: 12),
+                                    //   child: Divider(
+                                    //     color: Colors.grey,
+                                    //   ),
+                                    // ),
                                     ListTile(
                                       leading: Icon(Icons.assignment),
                                       title: Text(
@@ -458,183 +495,298 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                               ),
                                             ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 12, right: 12),
-                                      child: Divider(
-                                        color: Colors.grey,
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(
+                                    //       left: 12, right: 12),
+                                    //   child: Divider(
+                                    //     color: Colors.grey,
+                                    //   ),
+                                    // ),
+                                    // ListTile(
+                                    //   leading: Icon(Icons.link),
+                                    //   title: Text(
+                                    //     'References : ',
+                                    //     style: TextStyle(
+                                    //       fontSize: 14,
+                                    //     ),
+                                    //   ),
+                                    //   subtitle: _profileNotifier
+                                    //               .professionalData
+                                    //               .references ==
+                                    //           ''
+                                    //       ? Text(
+                                    //           'Add your References',
+                                    //           style: TextStyle(
+                                    //             fontSize: 13,
+                                    //           ),
+                                    //         )
+                                    //       : Text(
+                                    //           _profileNotifier
+                                    //               .professionalData.references
+                                    //               .toString(),
+                                    //           style: TextStyle(
+                                    //             fontSize: 13,
+                                    //           ),
+                                    //         ),
+                                    // ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(
+                                    //       left: 12, right: 12),
+                                    //   child: Divider(
+                                    //     color: Colors.grey,
+                                    //   ),
+                                    // ),
+                                    // ListTile(
+                                    //   onTap: () {
+                                    //     String url = _profileNotifier
+                                    //         .professionalData.website
+                                    //         .toString();
+                                    //     _profileNotifier
+                                    //                 .professionalData.website !=
+                                    //             ''
+                                    //         ? Navigator.push(
+                                    //             context,
+                                    //             MaterialPageRoute(
+                                    //                 builder: (context) =>
+                                    //                     webview_screen(url)))
+                                    //         : null;
+                                    //   },
+                                    //   leading: Icon(Icons.language),
+                                    //   title: Text(
+                                    //     'Website : ',
+                                    //     style: TextStyle(
+                                    //       fontSize: 14,
+                                    //     ),
+                                    //   ),
+                                    //   subtitle: _profileNotifier
+                                    //               .professionalData.website ==
+                                    //           ''
+                                    //       ? Text(
+                                    //           'Add your Website',
+                                    //           style: TextStyle(
+                                    //             fontSize: 13,
+                                    //           ),
+                                    //         )
+                                    //       : Text(
+                                    //           _profileNotifier
+                                    //               .professionalData.website
+                                    //               .toString(),
+                                    //           style: TextStyle(
+                                    //             fontSize: 13,
+                                    //             color: Colors.blue,
+                                    //           ),
+                                    //         ),
+                                    // ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(
+                                    //       left: 12, right: 12),
+                                    //   child: Divider(
+                                    //     color: Colors.grey,
+                                    //   ),
+                                    // ),
+                                    // ListTile(
+                                    //   onTap: () {
+                                    //     String url = _profileNotifier
+                                    //         .professionalData.facebook
+                                    //         .toString();
+                                    //     _profileNotifier.professionalData
+                                    //                 .facebook !=
+                                    //             ''
+                                    //         ? Navigator.push(
+                                    //             context,
+                                    //             MaterialPageRoute(
+                                    //                 builder: (context) =>
+                                    //                     webview_screen(url)))
+                                    //         : null;
+                                    //   },
+                                    //   leading: Icon(Icons.facebook_rounded),
+                                    //   title: Text(
+                                    //     'FaceBook : ',
+                                    //     style: TextStyle(
+                                    //       fontSize: 14,
+                                    //     ),
+                                    //   ),
+                                    //   subtitle: _profileNotifier
+                                    //               .professionalData.facebook ==
+                                    //           ''
+                                    //       ? Text(
+                                    //           'Add your Facebook ',
+                                    //           style: TextStyle(
+                                    //             fontSize: 13,
+                                    //           ),
+                                    //         )
+                                    //       : Text(
+                                    //           _profileNotifier
+                                    //               .professionalData.facebook
+                                    //               .toString(),
+                                    //           style: TextStyle(
+                                    //             fontSize: 13,
+                                    //             color: Colors.blue,
+                                    //           ),
+                                    //         ),
+                                    // ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(
+                                    //       left: 12, right: 12),
+                                    //   child: Divider(
+                                    //     color: Colors.grey,
+                                    //   ),
+                                    // ),
+                                    // ListTile(
+                                    //   onTap: () {
+                                    //     String url = _profileNotifier
+                                    //         .professionalData.twitter
+                                    //         .toString();
+                                    //     _profileNotifier
+                                    //                 .professionalData.twitter !=
+                                    //             ''
+                                    //         ? Navigator.push(
+                                    //             context,
+                                    //             MaterialPageRoute(
+                                    //                 builder: (context) =>
+                                    //                     webview_screen(url)))
+                                    //         : null;
+                                    //   },
+                                    //   leading: FaIcon(FontAwesomeIcons.twitter),
+                                    //   title: Text(
+                                    //     'Twitter : ',
+                                    //     style: TextStyle(
+                                    //       fontSize: 14,
+                                    //     ),
+                                    //   ),
+                                    //   subtitle: _profileNotifier
+                                    //               .professionalData.twitter ==
+                                    //           ''
+                                    //       ? Text(
+                                    //           'Add your Twitter ',
+                                    //           style: TextStyle(
+                                    //             fontSize: 13,
+                                    //           ),
+                                    //         )
+                                    //       : Text(
+                                    //           _profileNotifier
+                                    //               .professionalData.twitter
+                                    //               .toString(),
+                                    //           style: TextStyle(
+                                    //             fontSize: 13,
+                                    //             color: Colors.blue,
+                                    //           ),
+                                    //         ),
+                                    // ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                physics: BouncingScrollPhysics(),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(left: 5, right: 5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
                                       ),
+                                      height: 90,
+                                      width: 90,
+                                      child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: _profileNotifier
+                                                      .professionalData
+                                                      .images1 ==
+                                                  ""
+                                              ? Center(child: SizedBox())
+                                              : Center(
+                                                  child: CachedNetworkImage(
+                                                  imageUrl: _profileNotifier
+                                                      .professionalData.images1
+                                                      .toString(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          SizedBox(),
+                                                ))),
                                     ),
-                                    ListTile(
-                                      leading: Icon(Icons.link),
-                                      title: Text(
-                                        'References : ',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                        ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(left: 5, right: 5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
                                       ),
-                                      subtitle: _profileNotifier
-                                                  .professionalData
-                                                  .references ==
-                                              ''
-                                          ? Text(
-                                              'Add your References',
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                              ),
-                                            )
-                                          : Text(
-                                              _profileNotifier
-                                                  .professionalData.references
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                              ),
-                                            ),
+                                      height: 90,
+                                      width: 90,
+                                      child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: _profileNotifier
+                                                      .professionalData
+                                                      .images2 ==
+                                                  ""
+                                              ? Center(child: SizedBox())
+                                              : Center(
+                                                  child: CachedNetworkImage(
+                                                  imageUrl: _profileNotifier
+                                                      .professionalData.images2
+                                                      .toString(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          SizedBox(),
+                                                ))),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 12, right: 12),
-                                      child: Divider(
-                                        color: Colors.grey,
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(left: 5, right: 5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
                                       ),
+                                      height: 90,
+                                      width: 90,
+                                      child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: _profileNotifier
+                                                      .professionalData
+                                                      .images3 ==
+                                                  ""
+                                              ? Center(child: SizedBox())
+                                              : Center(
+                                                  child: CachedNetworkImage(
+                                                  imageUrl: _profileNotifier
+                                                      .professionalData.images3
+                                                      .toString(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          SizedBox(),
+                                                ))),
                                     ),
-                                    ListTile(
-                                      onTap: () {
-                                        String url = _profileNotifier
-                                            .professionalData.website
-                                            .toString();
-                                        _profileNotifier
-                                                    .professionalData.website !=
-                                                ''
-                                            ? Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        webview_screen(url)))
-                                            : null;
-                                      },
-                                      leading: Icon(Icons.language),
-                                      title: Text(
-                                        'Website : ',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                        ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(left: 5, right: 5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
                                       ),
-                                      subtitle: _profileNotifier
-                                                  .professionalData.website ==
-                                              ''
-                                          ? Text(
-                                              'Add your Website',
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                              ),
-                                            )
-                                          : Text(
-                                              _profileNotifier
-                                                  .professionalData.website
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                                color: Colors.blue,
-                                              ),
-                                            ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 12, right: 12),
-                                      child: Divider(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    ListTile(
-                                      onTap: () {
-                                        String url = _profileNotifier
-                                            .professionalData.facebook
-                                            .toString();
-                                        _profileNotifier.professionalData
-                                                    .facebook !=
-                                                ''
-                                            ? Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        webview_screen(url)))
-                                            : null;
-                                      },
-                                      leading: Icon(Icons.facebook_rounded),
-                                      title: Text(
-                                        'FaceBook : ',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      subtitle: _profileNotifier
-                                                  .professionalData.facebook ==
-                                              ''
-                                          ? Text(
-                                              'Add your Facebook ',
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                              ),
-                                            )
-                                          : Text(
-                                              _profileNotifier
-                                                  .professionalData.facebook
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                                color: Colors.blue,
-                                              ),
-                                            ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 12, right: 12),
-                                      child: Divider(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    ListTile(
-                                      onTap: () {
-                                        String url = _profileNotifier
-                                            .professionalData.twitter
-                                            .toString();
-                                        _profileNotifier
-                                                    .professionalData.twitter !=
-                                                ''
-                                            ? Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        webview_screen(url)))
-                                            : null;
-                                      },
-                                      leading: FaIcon(FontAwesomeIcons.twitter),
-                                      title: Text(
-                                        'Twitter : ',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      subtitle: _profileNotifier
-                                                  .professionalData.twitter ==
-                                              ''
-                                          ? Text(
-                                              'Add your Twitter ',
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                              ),
-                                            )
-                                          : Text(
-                                              _profileNotifier
-                                                  .professionalData.twitter
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                                color: Colors.blue,
-                                              ),
-                                            ),
+                                      height: 90,
+                                      width: 90,
+                                      child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: _profileNotifier
+                                                      .professionalData
+                                                      .images4 ==
+                                                  ""
+                                              ? Center(child: SizedBox())
+                                              : Center(
+                                                  child: CachedNetworkImage(
+                                                  imageUrl: _profileNotifier
+                                                      .professionalData.images4
+                                                      .toString(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          SizedBox(),
+                                                ))),
                                     ),
                                   ],
                                 ),
@@ -642,125 +794,6 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                               SizedBox(
                                 height: 10,
                               ),
-                              // SingleChildScrollView(
-                              //   scrollDirection: Axis.horizontal,
-                              //   physics: BouncingScrollPhysics(),
-                              //   child: Row(
-                              //     children: [
-                              //       Container(
-                              //         margin:
-                              //             EdgeInsets.only(left: 5, right: 5),
-                              //         decoration: BoxDecoration(
-                              //           borderRadius: BorderRadius.circular(15),
-                              //         ),
-                              //         height: 90,
-                              //         width: 90,
-                              //         child: ClipRRect(
-                              //           borderRadius: BorderRadius.circular(15),
-                              //           child: _profileNotifier
-                              //                       .professionalData.images1 ==
-                              //                   ""
-                              //               ? Center(
-                              //                   child: Image.network(
-                              //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
-                              //                     fit: BoxFit.fill,
-                              //                   ),
-                              //                 )
-                              //               : Image.network(
-                              //                   _profileNotifier
-                              //                       .professionalData.images1
-                              //                       .toString(),
-                              //                   fit: BoxFit.cover,
-                              //                 ),
-                              //         ),
-                              //       ),
-                              //       Container(
-                              //         margin:
-                              //             EdgeInsets.only(left: 5, right: 5),
-                              //         decoration: BoxDecoration(
-                              //           borderRadius: BorderRadius.circular(15),
-                              //         ),
-                              //         height: 90,
-                              //         width: 90,
-                              //         child: ClipRRect(
-                              //           borderRadius: BorderRadius.circular(15),
-                              //           child: _profileNotifier
-                              //                       .professionalData.images2 ==
-                              //                   ""
-                              //               ? Center(
-                              //                   child: Image.network(
-                              //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
-                              //                     fit: BoxFit.fill,
-                              //                   ),
-                              //                 )
-                              //               : Image.network(
-                              //                   _profileNotifier
-                              //                       .professionalData.images2
-                              //                       .toString(),
-                              //                   fit: BoxFit.cover,
-                              //                 ),
-                              //         ),
-                              //       ),
-                              //       Container(
-                              //         margin:
-                              //             EdgeInsets.only(left: 5, right: 5),
-                              //         decoration: BoxDecoration(
-                              //           borderRadius: BorderRadius.circular(15),
-                              //         ),
-                              //         height: 90,
-                              //         width: 90,
-                              //         child: ClipRRect(
-                              //           borderRadius: BorderRadius.circular(15),
-                              //           child: _profileNotifier
-                              //                       .professionalData.images3 ==
-                              //                   ""
-                              //               ? Center(
-                              //                   child: Image.network(
-                              //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
-                              //                     fit: BoxFit.fill,
-                              //                   ),
-                              //                 )
-                              //               : Image.network(
-                              //                   _profileNotifier
-                              //                       .professionalData.images3
-                              //                       .toString(),
-                              //                   fit: BoxFit.cover,
-                              //                 ),
-                              //         ),
-                              //       ),
-                              //       Container(
-                              //         margin:
-                              //             EdgeInsets.only(left: 5, right: 5),
-                              //         decoration: BoxDecoration(
-                              //           borderRadius: BorderRadius.circular(15),
-                              //         ),
-                              //         height: 90,
-                              //         width: 90,
-                              //         child: ClipRRect(
-                              //           borderRadius: BorderRadius.circular(15),
-                              //           child: _profileNotifier
-                              //                       .professionalData.images4 ==
-                              //                   ""
-                              //               ? Center(
-                              //                   child: Image.network(
-                              //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
-                              //                     fit: BoxFit.fill,
-                              //                   ),
-                              //                 )
-                              //               : Image.network(
-                              //                   _profileNotifier
-                              //                       .professionalData.images4
-                              //                       .toString(),
-                              //                   fit: BoxFit.cover,
-                              //                 ),
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
-                              // SizedBox(
-                              //   height: 10,
-                              // ),
                             ],
                           ),
                         ),

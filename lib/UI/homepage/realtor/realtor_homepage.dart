@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, prefer_const_constructors, non_constant_identifier_names
 
 import 'package:dazllapp/UI/Profile/profile.dart';
+import 'package:dazllapp/UI/component/popup_button.dart';
 import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/create_phd.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/realtor_project.dart';
@@ -22,14 +23,23 @@ class _RealtorHomePageState extends ConsumerState<RealtorHomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      drawer: drawer(context, ref),
+      // drawer: drawer(context, ref),
       appBar: AppBar(
-        // leading: Padding(
-        //   padding: const EdgeInsets.all(14.0),
-        //   child: Image.asset(
-        //     "assets/images/navigation.png",
+        leading: PopupButton(),
+
+        // InkWell(
+        //   onTap: () {
+
+        //   },
+        //   child: Padding(
+        //     padding: const EdgeInsets.all(14.0),
+        //     child: Image.asset(
+        //       "assets/images/navigation.png",
+        //       color: lightColor,
+        //     ),
         //   ),
         // ),
+
         centerTitle: true,
         title: Text(
           "Real State Professional",

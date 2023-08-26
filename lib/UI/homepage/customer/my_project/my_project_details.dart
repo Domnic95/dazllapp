@@ -91,7 +91,7 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
             child: Scaffold(
               body: Column(
                 children: [
-                  CommonHeader(title: "Project Details"),
+                  CommonHeader(title: "Project Details", isback: true),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -704,7 +704,7 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
                                                                               10,
                                                                         ),
                                                                         Text(
-                                                                            "Yes ,i'm interested")
+                                                                            "YES, I'M INTERESTED")
                                                                       ],
                                                                     ),
                                                                     SizedBox(
@@ -733,7 +733,7 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
                                                                               10,
                                                                         ),
                                                                         Text(
-                                                                            "No ,i'm not interested")
+                                                                            "NO ,I'M NOT INTERESTED")
                                                                       ],
                                                                     ),
                                                                     propertyDetailIteams(

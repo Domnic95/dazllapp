@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names, avoid_types_as_parameter_names, unused_local_variable, unused_import, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:dazllapp/UI/Profile/profile.dart';
+import 'package:dazllapp/UI/component/popup_button.dart';
 import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/customer/my_project/myproject.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
@@ -23,21 +24,16 @@ class _CustomerHomepageState extends ConsumerState<CustomerHomepage> {
     final _roomsprovider = ref.read(customernotifier);
     return SafeArea(
         child: Scaffold(
-      drawer:
+      // drawer:
           //  HomeDrawer(
           //   screenIndex: DrawerIndex.HOME,
           //   iconAnimationController:
           //       AnimationController(vsync: this, duration: Duration(seconds: 2)),
           //   callBackIndex: (DrawerIndex) {},
           // ),
-          drawer(context, ref),
+          // drawer(context, ref),
       appBar: AppBar(
-        // leading: Padding(
-        //   padding: const EdgeInsets.all(14.0),
-        //   child: Image.asset(
-        //     "assets/images/navigation.png",
-        //   ),
-        // ),
+         leading: PopupButton(),
         centerTitle: true,
         title: Text(
           "HOMEOWNERS",

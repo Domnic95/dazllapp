@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:dazllapp/UI/component/popup_button.dart';
 import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/professional/Company_profile/company_profile.dart';
 import 'package:dazllapp/UI/homepage/professional/projectOpportunities/projectOpportunities.dart';
@@ -24,14 +25,9 @@ class _ProfessionalsHomepageState extends ConsumerState<ProfessionalsHomepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context, ref),
+      // drawer: drawer(context, ref),
       appBar: AppBar(
-        // leading: Padding(
-        //   padding: const EdgeInsets.all(14.0),
-        //   child: Image.asset(
-        //     "assets/images/navigation.png",
-        //   ),
-        // ),
+         leading: PopupButton(),
         centerTitle: true,
         title: Text(
           "Service Professional",

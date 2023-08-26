@@ -151,21 +151,44 @@ class _MyProfileState extends ConsumerState<MyProfile> {
                               bottomRight: Radius.circular(20),
                             ),
                             color: AppTheme.colorPrimary),
-                        child: Center(
-                          child: Text(
-                            currentIndex == 0
-                                ? "Agent Profile"
-                                : currentIndex == 1
-                                    ? ""
-                                    : currentIndex == 2
-                                        ? "My Info"
-                                        : "",
-                            style:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
-                                      fontSize: 14,
-                                      color: lightColor.withOpacity(.9),
-                                    ),
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: SizedBox(
+                                width: 30,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Icon(
+                                    Icons.arrow_back,
+                                    color: lightColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              currentIndex == 0
+                                  ? "Agent Profile"
+                                  : currentIndex == 1
+                                      ? ""
+                                      : currentIndex == 2
+                                          ? "My Info"
+                                          : "",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                    fontSize: 14,
+                                    color: lightColor.withOpacity(.9),
+                                  ),
+                            ),
+                            SizedBox(
+                              width: 38,
+                            )
+                          ],
                         ),
                       ),
                       Padding(

@@ -481,25 +481,30 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                     child: DropdownButton<AddValueData>(
                                       borderRadius: BorderRadius.zero,
                                       underline: Container(),
-                                      hint: Text(
-                                        // _phdProvider.selectRoomTypeFeature
-                                        //                 .length ==
-                                        //             0 ||
-                                        _phdProvider.selectRoomTypeFeature[
-                                                        _phdProvider.tabIndex]
-                                                    [index] ==
-                                                null
-                                            ? _reltorProvider
-                                                .roomTypes[_phdProvider
-                                                    .tabIndex][index]
-                                                .type!
-                                                .name!
-                                            : _phdProvider
-                                                .selectRoomTypeFeature[
-                                                    _phdProvider.tabIndex]
-                                                    [index]!
-                                                .name!,
-                                        style: TextStyle(color: darkTextColor),
+                                      hint: SizedBox(
+                                        width: size.width * 0.3 - 16,
+                                        child: Text(
+                                          // _phdProvider.selectRoomTypeFeature
+                                          //                 .length ==
+                                          //             0 ||
+                                          _phdProvider.selectRoomTypeFeature[
+                                                          _phdProvider.tabIndex]
+                                                      [index] ==
+                                                  null
+                                              ? _reltorProvider
+                                                  .roomTypes[_phdProvider
+                                                      .tabIndex][index]
+                                                  .type!
+                                                  .name!
+                                              : _phdProvider
+                                                  .selectRoomTypeFeature[
+                                                      _phdProvider.tabIndex]
+                                                      [index]!
+                                                  .name!,
+                                          overflow: TextOverflow.ellipsis,
+                                          style:
+                                              TextStyle(color: darkTextColor),
+                                        ),
                                       ),
                                       items: _reltorProvider
                                           .roomTypes[_phdProvider.tabIndex]

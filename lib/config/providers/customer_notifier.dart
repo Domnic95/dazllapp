@@ -2,20 +2,15 @@
 
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
-
 import 'package:dazllapp/config/api.dart';
-import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/providers/base_notifier.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dazllapp/model/Customer/FeatureOptionIssue.dart';
 import 'package:dazllapp/model/Customer/Featureissue.dart';
 import 'package:dazllapp/model/Customer/Rooms.dart';
 import 'package:dazllapp/model/Customer/project.dart';
-
 import 'package:dazllapp/model/Customer/Features.dart';
 import 'package:dazllapp/model/Customer/userModel.dart';
-
 import 'package:dio/dio.dart';
 
 class CustomerNotifier extends BaseNotifier {

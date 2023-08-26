@@ -36,8 +36,6 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     super.initState();
     getGeoAddress();
   }
@@ -55,7 +53,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
           // resizeToAvoidBottomInset: false,
           body: Column(
             children: [
-              CommonHeader(title: 'Create a Phd'),
+              CommonHeader(title: 'Create a Phd',isback:false),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.all(10.0),

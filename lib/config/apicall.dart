@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/api.dart';
 import 'package:dazllapp/config/global.dart';
@@ -10,12 +9,10 @@ import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/config/providers/realtor_notifier.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dazllapp/model/Customer/userModel.dart';
-import 'package:dazllapp/model/Realtor/realtor_user.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../UI/homepage/customer/home/customer_homepage.dart';
 import '../UI/homepage/professional/professionals_homepage.dart';
 import '../UI/homepage/realtor/realtor_homepage.dart';

@@ -101,7 +101,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
           _phdProvider = ref.watch(phdProvider);
           return Column(
             children: [
-              CommonHeader(title: 'Create a Phd'),
+              CommonHeader(title: 'Create a Phd',isback:false),
               TabBar(
                   unselectedLabelStyle: TextStyle(color: blackColor),
                   unselectedLabelColor: blackColor,

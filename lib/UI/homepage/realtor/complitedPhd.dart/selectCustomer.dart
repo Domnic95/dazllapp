@@ -46,7 +46,7 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
           ? LoadingWidget()
           : Scaffold(
               body: Column(children: [
-                CommonHeader(title: "PHD Project-Summary"),
+                CommonHeader(title: "PHD Project-Summary",isback:true),
                 SizedBox(
                   height: 20,
                 ),

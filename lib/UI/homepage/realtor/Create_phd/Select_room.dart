@@ -46,7 +46,7 @@ class _selectRoomState extends ConsumerState<selectRoom> {
       body: Container(
         child: Column(
           children: [
-            CommonHeader(title: "Create a new phd"),
+            CommonHeader(title: "Create a new phd",isback:false),
             // SizedBox(
             //   height: size.height * 0.02,
             // ),

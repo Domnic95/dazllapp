@@ -507,123 +507,123 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                         SizedBox(
                           height: 15,
                         ),
-                        TextField(
-                          controller: _reference,
-                          cursorColor: AppTheme.nearlyBlack,
-                          decoration: InputDecoration(
-                            hintText: "Enter Your Refrence",
-                            label: Text("REFRENCE"),
-                            isDense: true,
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                borderSide: BorderSide(color: Colors.black)),
-                            hintStyle: TextStyle(
-                                color: AppTheme.darkerText,
-                                fontFamily: AppTheme.fontName,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),
-                            labelStyle: TextStyle(
-                                color: const Color(0xFF424242),
-                                fontFamily: AppTheme.fontName,
-                                fontSize: 14),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        TextField(
-                          controller: _website,
-                          cursorColor: AppTheme.nearlyBlack,
-                          decoration: InputDecoration(
-                            hintText: "Enter Your Website",
-                            label: Text("WEBSITE"),
-                            isDense: true,
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                borderSide: BorderSide(color: Colors.black)),
-                            hintStyle: TextStyle(
-                                color: AppTheme.darkerText,
-                                fontFamily: AppTheme.fontName,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),
-                            labelStyle: TextStyle(
-                                color: const Color(0xFF424242),
-                                fontFamily: AppTheme.fontName,
-                                fontSize: 14),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        TextField(
-                          controller: _facebook,
-                          cursorColor: AppTheme.nearlyBlack,
-                          decoration: InputDecoration(
-                            hintText: "Enter Your facebook",
-                            label: Text("FACEBOOK"),
-                            isDense: true,
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                borderSide: BorderSide(color: Colors.black)),
-                            hintStyle: TextStyle(
-                                color: AppTheme.darkerText,
-                                fontFamily: AppTheme.fontName,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),
-                            labelStyle: TextStyle(
-                                color: const Color(0xFF424242),
-                                fontFamily: AppTheme.fontName,
-                                fontSize: 14),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        TextField(
-                          controller: _twitter,
-                          cursorColor: AppTheme.nearlyBlack,
-                          decoration: InputDecoration(
-                            hintText: "Enter Your Twitter",
-                            label: Text("TWITTER"),
-                            isDense: true,
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                borderSide: BorderSide(color: Colors.black)),
-                            hintStyle: TextStyle(
-                                color: AppTheme.darkerText,
-                                fontFamily: AppTheme.fontName,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),
-                            labelStyle: TextStyle(
-                                color: const Color(0xFF424242),
-                                fontFamily: AppTheme.fontName,
-                                fontSize: 14),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                          ),
-                        ),
+                        // TextField(
+                        //   controller: _reference,
+                        //   cursorColor: AppTheme.nearlyBlack,
+                        //   decoration: InputDecoration(
+                        //     hintText: "Enter Your Refrence",
+                        //     label: Text("REFRENCE"),
+                        //     isDense: true,
+                        //     focusedBorder: OutlineInputBorder(
+                        //         borderRadius:
+                        //             BorderRadius.all(Radius.circular(20)),
+                        //         borderSide: BorderSide(color: Colors.black)),
+                        //     hintStyle: TextStyle(
+                        //         color: AppTheme.darkerText,
+                        //         fontFamily: AppTheme.fontName,
+                        //         fontSize: 14,
+                        //         fontWeight: FontWeight.w400),
+                        //     labelStyle: TextStyle(
+                        //         color: const Color(0xFF424242),
+                        //         fontFamily: AppTheme.fontName,
+                        //         fontSize: 14),
+                        //     border: OutlineInputBorder(
+                        //       borderRadius:
+                        //           BorderRadius.all(Radius.circular(20)),
+                        //       borderSide: BorderSide(color: Colors.black),
+                        //     ),
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   height: 15,
+                        // ),
+                        // TextField(
+                        //   controller: _website,
+                        //   cursorColor: AppTheme.nearlyBlack,
+                        //   decoration: InputDecoration(
+                        //     hintText: "Enter Your Website",
+                        //     label: Text("WEBSITE"),
+                        //     isDense: true,
+                        //     focusedBorder: OutlineInputBorder(
+                        //         borderRadius:
+                        //             BorderRadius.all(Radius.circular(20)),
+                        //         borderSide: BorderSide(color: Colors.black)),
+                        //     hintStyle: TextStyle(
+                        //         color: AppTheme.darkerText,
+                        //         fontFamily: AppTheme.fontName,
+                        //         fontSize: 14,
+                        //         fontWeight: FontWeight.w400),
+                        //     labelStyle: TextStyle(
+                        //         color: const Color(0xFF424242),
+                        //         fontFamily: AppTheme.fontName,
+                        //         fontSize: 14),
+                        //     border: OutlineInputBorder(
+                        //       borderRadius:
+                        //           BorderRadius.all(Radius.circular(20)),
+                        //       borderSide: BorderSide(color: Colors.black),
+                        //     ),
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   height: 15,
+                        // ),
+                        // TextField(
+                        //   controller: _facebook,
+                        //   cursorColor: AppTheme.nearlyBlack,
+                        //   decoration: InputDecoration(
+                        //     hintText: "Enter Your facebook",
+                        //     label: Text("FACEBOOK"),
+                        //     isDense: true,
+                        //     focusedBorder: OutlineInputBorder(
+                        //         borderRadius:
+                        //             BorderRadius.all(Radius.circular(20)),
+                        //         borderSide: BorderSide(color: Colors.black)),
+                        //     hintStyle: TextStyle(
+                        //         color: AppTheme.darkerText,
+                        //         fontFamily: AppTheme.fontName,
+                        //         fontSize: 14,
+                        //         fontWeight: FontWeight.w400),
+                        //     labelStyle: TextStyle(
+                        //         color: const Color(0xFF424242),
+                        //         fontFamily: AppTheme.fontName,
+                        //         fontSize: 14),
+                        //     border: OutlineInputBorder(
+                        //       borderRadius:
+                        //           BorderRadius.all(Radius.circular(20)),
+                        //       borderSide: BorderSide(color: Colors.black),
+                        //     ),
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   height: 15,
+                        // ),
+                        // TextField(
+                        //   controller: _twitter,
+                        //   cursorColor: AppTheme.nearlyBlack,
+                        //   decoration: InputDecoration(
+                        //     hintText: "Enter Your Twitter",
+                        //     label: Text("TWITTER"),
+                        //     isDense: true,
+                        //     focusedBorder: OutlineInputBorder(
+                        //         borderRadius:
+                        //             BorderRadius.all(Radius.circular(20)),
+                        //         borderSide: BorderSide(color: Colors.black)),
+                        //     hintStyle: TextStyle(
+                        //         color: AppTheme.darkerText,
+                        //         fontFamily: AppTheme.fontName,
+                        //         fontSize: 14,
+                        //         fontWeight: FontWeight.w400),
+                        //     labelStyle: TextStyle(
+                        //         color: const Color(0xFF424242),
+                        //         fontFamily: AppTheme.fontName,
+                        //         fontSize: 14),
+                        //     border: OutlineInputBorder(
+                        //       borderRadius:
+                        //           BorderRadius.all(Radius.circular(20)),
+                        //       borderSide: BorderSide(color: Colors.black),
+                        //     ),
+                        //   ),
+                        // ),
                         SizedBox(
                           height: 10,
                         ),

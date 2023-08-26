@@ -24,7 +24,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context,ref),
+      // drawer: drawer(context,ref),
       appBar: AppBar(
         // leading: Padding(
         //   padding: const EdgeInsets.all(14.0),
@@ -97,7 +97,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 }
 
-Widget drawer(BuildContext context,WidgetRef ref) {
+Widget drawer(BuildContext context, WidgetRef ref) {
   int? currentindex = SpHelpers.getInt(
     SharedPrefsKeys.currentindex,
   );
@@ -222,7 +222,7 @@ logoutdilouge(BuildContext context) {
   );
 }
 
-Changepassworddailog(BuildContext context, int currentindex,WidgetRef ref) {
+Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
   TextEditingController Oldpassword = TextEditingController();
   TextEditingController Newpassword = TextEditingController();
   TextEditingController Confirmpassword = TextEditingController();

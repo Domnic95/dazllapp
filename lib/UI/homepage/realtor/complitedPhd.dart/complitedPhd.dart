@@ -46,7 +46,7 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    CommonHeader(title: 'PHD Project-Summary'),
+                    CommonHeader(title: 'PHD Project-Summary',isback:true),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/realtor_project_details.dart';
@@ -40,7 +41,7 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                     body: Container(
                       child: Column(
                         children: [
-                          CommonHeader(title: "My Project"),
+                          CommonHeader(title: "My Project",isback:true),
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.all(5),
@@ -89,47 +90,36 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                                                           const EdgeInsets.only(
                                                               right: 8),
                                                       child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        child: Image(
-                                                            height: 50,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          child: SizedBox(
                                                             width: 50,
-                                                            image: NetworkImage(_realtorprovider
-                                                                    .listofrealtorproject[
-                                                                        index]
-                                                                    .roominfo!
-                                                                    .isEmpty
-                                                                ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
-                                                                : _realtorprovider
-                                                                        .listofrealtorproject[
-                                                                            index]
-                                                                        .roominfo!
-                                                                        .first
-                                                                        .feature!
-                                                                        .isEmpty
-                                                                    ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
-                                                                    : _realtorprovider
-                                                                            .listofrealtorproject[
-                                                                                index]
-                                                                            .roominfo!
-                                                                            .first
-                                                                            .feature!
-                                                                            .first
-                                                                            .images!
-                                                                            .isEmpty
-                                                                        ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
-                                                                        : _realtorprovider
+                                                            height: 50,
+                                                            child:
+                                                                CachedNetworkImage(
+                                                                    errorWidget: (context,
+                                                                            url,
+                                                                            error) =>
+                                                                        Image.asset(
+                                                                            "assets/images/realEstate.png"),
+                                                                    imageUrl: _realtorprovider
                                                                             .listofrealtorproject[index]
                                                                             .roominfo!
-                                                                            .first
-                                                                            .feature!
-                                                                            .first
-                                                                            .images!
-                                                                            .first
-                                                                            .toString()),
-                                                            fit: BoxFit.fill),
-                                                      ),
+                                                                            .isEmpty
+                                                                        ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
+                                                                        : _realtorprovider.listofrealtorproject[index].roominfo!.first.feature!.isEmpty
+                                                                            ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
+                                                                            : _realtorprovider.listofrealtorproject[index].roominfo!.first.feature!.first.images!.isEmpty
+                                                                                ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
+                                                                                : _realtorprovider.listofrealtorproject[index].roominfo!.first.feature!.first.images!.first.toString()),
+                                                          )
+                                                          // Image(
+                                                          //     height: 50,
+                                                          //     width: 50,
+                                                          //     image: NetworkImage(),
+                                                          //     fit: BoxFit.fill),
+                                                          ),
                                                     ),
                                                     Column(
                                                       mainAxisAlignment:

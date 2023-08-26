@@ -75,10 +75,11 @@ class ProfessionalData {
         insuranceCertificate: json["insurance_certificate"] == null
             ? null
             : json["insurance_certificate"],
-        insuranceContactPerson: json["insurance_contact_person"] == null
+        insuranceContactPerson: json["insurance_contact_number"] == null
             ? null
-            : json["insurance_contact_person"],
-        contactIns: json["contactIns"] == null ? null : json["contactIns"],
+            : json["insurance_contact_number"],
+        contactIns:
+            json["insurance_number"] == null ? null : json["insurance_number"],
         images1: json["images1"] == null ? null : json["images1"],
         images2: json["images2"] == null ? null : json["images2"],
         images3: json["images3"] == null ? null : json["images3"],
@@ -102,9 +103,9 @@ class ProfessionalData {
         "years_in_business": yearsInBusiness == null ? null : yearsInBusiness,
         "insurance_certificate":
             insuranceCertificate == null ? null : insuranceCertificate,
-        "insurance_contact_person":
+        "insurance_contact_number":
             insuranceContactPerson == null ? null : insuranceContactPerson,
-        "contactIns": contactIns == null ? null : contactIns,
+        "insurance_number": contactIns == null ? null : contactIns,
         "images1": images1 == null ? null : images1,
         "images2": images2 == null ? null : images2,
         "images3": images3 == null ? null : images3,

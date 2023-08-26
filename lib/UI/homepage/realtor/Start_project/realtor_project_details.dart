@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
@@ -32,9 +33,12 @@ class _Realtor_project_detailsState
             "$key :",
             style: TextStyle(color: secondaryTextColor),
           ),
-           Expanded(
-            child: Text(value,overflow: TextOverflow.ellipsis,maxLines: 2,
-                style: TextStyle(color: blackColor, fontWeight: FontWeight.bold)),
+          Expanded(
+            child: Text(value,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style:
+                    TextStyle(color: blackColor, fontWeight: FontWeight.bold)),
           )
         ],
       ),
@@ -49,7 +53,7 @@ class _Realtor_project_detailsState
       child: Scaffold(
         body: Column(
           children: [
-            CommonHeader(title: "My Projects"),
+            CommonHeader(title: "My Projects", isback: true),
             SizedBox(
               height: 10,
             ),
@@ -266,18 +270,21 @@ class _Realtor_project_detailsState
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(5),
-                                                          child: Image.network(
-                                                            Detailsprovider
-                                                                .listofrealtorproject[
-                                                                    widget
-                                                                        .index]
-                                                                .roominfo![
-                                                                    index]
-                                                                .feature![
-                                                                    subindex]
-                                                                .images![imgindex],
-                                                            fit: BoxFit.fill,
-                                                          ),
+                                                          child: CachedNetworkImage(
+                                                              errorWidget: (context,
+                                                                      url,
+                                                                      error) =>
+                                                                  Image.asset(
+                                                                      "assets/images/noimage.png"),
+                                                              imageUrl: Detailsprovider
+                                                                  .listofrealtorproject[
+                                                                      widget
+                                                                          .index]
+                                                                  .roominfo![
+                                                                      index]
+                                                                  .feature![
+                                                                      subindex]
+                                                                  .images![imgindex]),
                                                         ),
                                                       ),
                                                     );

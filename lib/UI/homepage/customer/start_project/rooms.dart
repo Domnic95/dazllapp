@@ -153,7 +153,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
       body: SafeArea(
         child: Column(
           children: [
-            CommonHeader(title: "Create a Project"),
+            CommonHeader(title: "Create a Project",isback:false),
             TabBar(
                 unselectedLabelStyle: TextStyle(color: blackColor),
                 unselectedLabelColor: blackColor,
@@ -217,7 +217,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                                     setState1(() {});
 
                                     setState(() {});
-                                    Navigator.pop(context);
+                                    Navigator.pop(context); 
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -411,6 +411,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                   _roomProvider.reset();
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => myproject()));
+                      
                 } else {
                   Utils.loaderDialog(context, false);
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(

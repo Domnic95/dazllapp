@@ -79,7 +79,7 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
         child: Scaffold(
       body: Column(
         children: [
-          CommonHeader(title: "Create a new phd"),
+          CommonHeader(title: "Create a new phd",isback:false),
           Expanded(
               child: loading
                   ? LoadingWidget()

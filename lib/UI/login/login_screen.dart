@@ -433,93 +433,88 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
-  Widget submitButton(String emailId, String password, WidgetRef ref) => Column(
-        children: <Widget>[
-          ElevatedButton(
-            child: Padding(
-              padding:
-                  EdgeInsets.only(left: 110, right: 110, top: 15, bottom: 15),
-              child: loading
-                  ? CircularProgressIndicator(
-                      color: lightColor,
-                    )
-                  : Text("Login", style: TextStyle(fontSize: 14)),
-            ),
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(AppTheme.colorPrimary),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                        side: BorderSide(color: AppTheme.colorPrimary)))),
-            onPressed: () async {
-              // _emailController.text = "tire@roadrunnersclub.net",
-              // _passwordController.text = "123456",
-              // _emailController.text = "apitest24@mail.com",
-              // _passwordController.text = "12345678",
-              // _emailController.text = "apitest24@mail.com",
-              // _passwordController.text = "12345678",
-              // Navigator.pushReplacement(context,
-              //     MaterialPageRoute(builder: (context) {
-              //   if (widget.index == 0) {
-              //     return RealtorHomePage();
-              //   }
-              //   if (widget.index == 1) {
-              //     return ProfessionalsHomepage();
-              //   }
-              //   if (widget.index == 2) {
-              //     return CustomerHomepage();
-              //   }
-              //   return Container();
-              // })),
-              // if (_emailController.text.toString().isEmpty) {
-              //   showAlertDialog(
-              //       context: context,
-              //       title: "Require Email",
-              //       content: "Please Enter Email Id",
-              //       defaultActionText: "OK");
-              // } else if (_passwordController.text.toString().isEmpty) {
-              //   showAlertDialog(
-              //       context: context,
-              //       title: "Require Password",
-              //       content: "Please Enter Password",
-              //       defaultActionText: "OK");
-              // } else {
-              // bloc.loginReq(
-              //     _emailController.text.toString(),
-              //     _passwordController.text.toString(),
-              //     await _getId(),
-              //     context),
-              // if (snap.hasData)
-              //   {
-              //     prefs = await SharedPreferences.getInstance(),
-              //     prefs.setString(SharedPrefsKeys.ACCESS_TOKEN,
-              //         snap.data.accessToken),
+  Widget submitButton(String emailId, String password, WidgetRef ref) =>
+      InkWell(
+        onTap: () async {
+          // _emailController.text = "tire@roadrunnersclub.net",
+          // _passwordController.text = "123456",
+          // _emailController.text = "apitest24@mail.com",
+          // _passwordController.text = "12345678",
+          // _emailController.text = "apitest24@mail.com",
+          // _passwordController.text = "12345678",
+          // Navigator.pushReplacement(context,
+          //     MaterialPageRoute(builder: (context) {
+          //   if (widget.index == 0) {
+          //     return RealtorHomePage();
+          //   }
+          //   if (widget.index == 1) {
+          //     return ProfessionalsHomepage();
+          //   }
+          //   if (widget.index == 2) {
+          //     return CustomerHomepage();
+          //   }
+          //   return Container();
+          // })),
+          // if (_emailController.text.toString().isEmpty) {
+          //   showAlertDialog(
+          //       context: context,
+          //       title: "Require Email",
+          //       content: "Please Enter Email Id",
+          //       defaultActionText: "OK");
+          // } else if (_passwordController.text.toString().isEmpty) {
+          //   showAlertDialog(
+          //       context: context,
+          //       title: "Require Password",
+          //       content: "Please Enter Password",
+          //       defaultActionText: "OK");
+          // } else {
+          // bloc.loginReq(
+          //     _emailController.text.toString(),
+          //     _passwordController.text.toString(),
+          //     await _getId(),
+          //     context),
+          // if (snap.hasData)
+          //   {
+          //     prefs = await SharedPreferences.getInstance(),
+          //     prefs.setString(SharedPrefsKeys.ACCESS_TOKEN,
+          //         snap.data.accessToken),
 
-              //     // prefs.setString(SharedPrefsKeys.CURRENCY,
-              //     //     snap.data.currency)
-              //     // bloc.userProfileReq(await _getId(), context,snap.data.access_token,snap.data.token_type),
+          //     // prefs.setString(SharedPrefsKeys.CURRENCY,
+          //     //     snap.data.currency)
+          //     // bloc.userProfileReq(await _getId(), context,snap.data.access_token,snap.data.token_type),
 
-              //     //  getProfile()
-              //   }
-              //}
-              if (_emailController.text.isEmpty &&
-                  _passwordController.text.isEmpty) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text('Fill Fields')));
-              } else {
-                loading = true;
-                setState(() {});
-                await login(curruntindex, _emailController.text,
-                    _passwordController.text, context, keep_me_logged_in, ref);
-                loading = false;
-                setState(() {});
-              }
-              //login();
-            },
+          //     //  getProfile()
+          //   }
+          //}
+          if (_emailController.text.isEmpty &&
+              _passwordController.text.isEmpty) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('Fill Fields')));
+          } else {
+            loading = true;
+            setState(() {});
+            await login(curruntindex, _emailController.text,
+                _passwordController.text, context, keep_me_logged_in, ref);
+            loading = false;
+            setState(() {});
+          }
+        },
+        child: Container(
+          height: 50,
+          width: MediaQuery.of(context).size.width * 0.75,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            color: primaryColor,
           ),
-        ],
+          child: loading
+              ? CircularProgressIndicator(
+                  color: lightColor,
+                )
+              : Text("Login",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16, color: lightColor)),
+        ),
       );
 
   // Widget submitButton(String emailId, String password) =>
