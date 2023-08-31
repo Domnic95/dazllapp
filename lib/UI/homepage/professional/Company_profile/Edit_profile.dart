@@ -88,14 +88,14 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
             ? _profileNotifier.professionalData.twitter.toString()
             : '';
     _insuranceContactPerson.text = _profileNotifier
-                .professionalData.insuranceContactPerson
+                .professionalData.insuranceContactNumber
                 .toString() !=
             'null'
-        ? _profileNotifier.professionalData.insuranceContactPerson.toString()
+        ? _profileNotifier.professionalData.insuranceContactNumber.toString()
         : '';
     _insuranceNumber.text =
-        _profileNotifier.professionalData.contactIns.toString() != 'null'
-            ? _profileNotifier.professionalData.contactIns.toString()
+        _profileNotifier.professionalData.insuranceNumber.toString() != 'null'
+            ? _profileNotifier.professionalData.insuranceNumber.toString()
             : '';
     final size = MediaQuery.of(context).size;
     return Form(

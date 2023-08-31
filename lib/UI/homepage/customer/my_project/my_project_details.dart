@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dazllapp/UI/component/customTextfield.dart';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
@@ -24,6 +26,7 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
   CustomerNotifier? projectprovider;
   List<String> list = [];
   bool isLoading = true;
+  bool isBtnLoading = false;
 
   List<TextEditingController> _editCommetController = [];
   List<bool> isEdit = [];
@@ -454,40 +457,84 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
                                                             child:
                                                                 ElevatedButton(
                                                                     style: ButtonStyle(
-                                                                        backgroundColor:
-                                                                            MaterialStateProperty.all(
+                                                                        backgroundColor: isEdit[subindex]
+                                                                            ? MaterialStateProperty.all(
+                                                                                saveColor)
+                                                                            : MaterialStateProperty.all(
                                                                                 editColor)),
                                                                     onPressed:
-                                                                        () {
+                                                                        () async {
                                                                       for (int i =
                                                                               0;
                                                                           i < projectprovider!.listofproject[widget.index].roominfo![index].feature!.length;
                                                                           i++) {
-                                                                        isEdit[i] =
-                                                                            false;
+                                                                        if (i !=
+                                                                            subindex) {
+                                                                          isEdit[i] =
+                                                                              false;
+                                                                        }
                                                                       }
+
                                                                       isEdit[subindex] =
                                                                           !isEdit[
                                                                               subindex];
+                                                                      if (!isEdit[
+                                                                          subindex]) {
+                                                                        isEdit[subindex] =
+                                                                            !isEdit[subindex];
+                                                                        isBtnLoading =
+                                                                            true;
+                                                                        setState(
+                                                                            () {});
+                                                                        log("djxfjdlgjlfdj    " +
+                                                                            isEdit[subindex].toString());
+                                                                        await projectprovider!.updateReport(
+                                                                            data: {
+                                                                              "inspectionNotes": _editCommetController[subindex].text,
+                                                                              "feature_id": projectprovider!.listofproject[widget.index].roominfo![index].feature![subindex].featureId,
+                                                                              "images": projectprovider!.listofproject[widget.index].roominfo![index].feature![subindex].images ?? <String>[]
+                                                                            },
+                                                                            projectId:
+                                                                                projectprovider!.listofproject[widget.index].projectId!).then(
+                                                                            (value) {
+                                                                          ScaffoldMessenger.of(context)
+                                                                              .showSnackBar(SnackBar(content: Text("${value["message"]}")));
+                                                                        });
+                                                                        await ref
+                                                                            .read(customernotifier)
+                                                                            .myproject();
+                                                                        loadData();
+                                                                        log("djxfjdlgjlfdj    " +
+                                                                            isEdit[subindex].toString());
+
+                                                                        isBtnLoading =
+                                                                            false;
+                                                                        isEdit[subindex] =
+                                                                            false;
+                                                                      }
+
                                                                       setState(
                                                                           () {});
                                                                     },
-                                                                    child: Row(
-                                                                      children: [
-                                                                        Icon(
-                                                                          Icons
-                                                                              .edit,
-                                                                          size:
-                                                                              18,
-                                                                        ),
-                                                                        SizedBox(
-                                                                          width:
-                                                                              8,
-                                                                        ),
-                                                                        Text(
-                                                                            "Edit"),
-                                                                      ],
-                                                                    )),
+                                                                    child: isBtnLoading
+                                                                        ? SizedBox(
+                                                                            height: 25,
+                                                                            width: 25,
+                                                                            child: CircularProgressIndicator(
+                                                                              color: lightColor,
+                                                                            ))
+                                                                        : Row(
+                                                                            children: [
+                                                                              Icon(
+                                                                                isEdit[subindex] ? Icons.save : Icons.edit,
+                                                                                size: 18,
+                                                                              ),
+                                                                              SizedBox(
+                                                                                width: 8,
+                                                                              ),
+                                                                              Text(isEdit[subindex] ? "Save" : "Edit"),
+                                                                            ],
+                                                                          )),
                                                           ),
                                                           SizedBox(
                                                             width: 15,
@@ -500,7 +547,29 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
                                                                             MaterialStateProperty.all(Colors
                                                                                 .orange)),
                                                                     onPressed:
-                                                                        () {},
+                                                                        () async {
+                                                                      await projectprovider!.updateReport(
+                                                                          data: {
+                                                                            "inspectionNotes":
+                                                                                "",
+                                                                            "feature_id":
+                                                                                projectprovider!.listofproject[widget.index].roominfo![index].feature![subindex].featureId,
+                                                                            "images":
+                                                                                <String>[]
+                                                                          },
+                                                                          projectId:
+                                                                              projectprovider!.listofproject[widget.index].projectId!).then(
+                                                                          (value) {
+                                                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                            content:
+                                                                                Text("${value["message"]}")));
+                                                                      });
+                                                                      await ref
+                                                                          .read(
+                                                                              customernotifier)
+                                                                          .myproject();
+                                                                      loadData();
+                                                                    },
                                                                     child: Row(
                                                                       children: [
                                                                         Icon(

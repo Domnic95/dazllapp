@@ -7,6 +7,7 @@ const signup_customer = 'customer/register';
 const login_realtor = 'realtor/login';
 const get_realtor = 'realtor';
 const update_realtor = 'realtor/update';
+const update_customer_report = 'update-report/';
 const complited_phd_realtor = 'home-diagnostic-reports/for-realtor';
 const single_complited_phd_realtor = 'home-diagnostic-reports/for-realtor/';
 const filter_project = 'filter_project';

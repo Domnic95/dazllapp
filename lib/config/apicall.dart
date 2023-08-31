@@ -76,6 +76,7 @@ class DioClient {
           await _dio.patch(apiEnd, data: Data, queryParameters: queryParameter);
       return res;
     } catch (e) {
+      print(e);
       throw e;
     }
   }

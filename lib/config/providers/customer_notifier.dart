@@ -78,6 +78,14 @@ class CustomerNotifier extends BaseNotifier {
     return res.data;
   }
 
+  Future updateReport(
+      {required Map<String, dynamic> data, required int projectId}) async {
+    Response res = await dioClient.patchwithRowData(
+        apiEnd: update_customer_report + projectId.toString(), Data: data);
+
+    return res.data;
+  }
+
   Future<int> createproject(List<Map<String, dynamic>> data) async {
     Response res =
         await dioClient.rawwithFormData(apiEnd: create_projet, Data: data);

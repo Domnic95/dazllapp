@@ -201,16 +201,17 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                           ? Text(
                                               'Add your Name',
                                               style: TextStyle(
-                                                fontSize: 13,
-                                              ),
+                                                  fontSize: 13,
+                                                  color: blackColor),
                                             )
                                           : Text(
                                               _profileNotifier
                                                   .professionalData.name
                                                   .toString(),
                                               style: TextStyle(
-                                                fontSize: 13,
-                                              ),
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: blackColor),
                                             ),
                                     ),
                                     Padding(
@@ -236,16 +237,17 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                           ? Text(
                                               'Add your Phone No',
                                               style: TextStyle(
-                                                fontSize: 13,
-                                              ),
+                                                  fontSize: 13,
+                                                  color: blackColor),
                                             )
                                           : Text(
                                               _profileNotifier
                                                   .professionalData.phone
                                                   .toString(),
                                               style: TextStyle(
-                                                fontSize: 13,
-                                              ),
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: blackColor),
                                             ),
                                     ),
                                     Padding(
@@ -271,16 +273,17 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                           ? Text(
                                               'Add your Email',
                                               style: TextStyle(
-                                                fontSize: 13,
-                                              ),
+                                                  fontSize: 13,
+                                                  color: blackColor),
                                             )
                                           : Text(
                                               _profileNotifier
                                                   .professionalData.email
                                                   .toString(),
                                               style: TextStyle(
-                                                fontSize: 13,
-                                              ),
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: blackColor),
                                             ),
                                     ),
                                     Padding(
@@ -291,31 +294,78 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                       ),
                                     ),
                                     ListTile(
-                                      leading: Icon(Icons.location_on_rounded),
-                                      title: Text(
-                                        'Address : ',
-                                        style: TextStyle(
-                                          fontSize: 14,
+                                        leading:
+                                            Icon(Icons.location_on_rounded),
+                                        title: Text(
+                                          'Address : ',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                          ),
                                         ),
-                                      ),
-                                      subtitle: _profileNotifier
-                                                  .professionalData.address ==
-                                              ''
-                                          ? Text(
-                                              'Add your Address',
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                              ),
-                                            )
-                                          : Text(
-                                              _profileNotifier
-                                                  .professionalData.address
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                              ),
-                                            ),
-                                    ),
+                                        subtitle: _profileNotifier
+                                                    .professionalData.address ==
+                                                ''
+                                            ? Text(
+                                                'Add your Address',
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                ),
+                                              )
+                                            : Text.rich(TextSpan(
+                                                text: _profileNotifier
+                                                    .professionalData.address
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: blackColor),
+                                                children: [
+                                                    TextSpan(
+                                                        text: ",  City : ",
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            color: blackColor)),
+                                                    TextSpan(
+                                                        text: _profileNotifier
+                                                            .professionalData
+                                                            .city
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: blackColor)),
+                                                    TextSpan(
+                                                        text: ", State : ",
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            color: blackColor)),
+                                                    TextSpan(
+                                                        text: _profileNotifier
+                                                            .professionalData
+                                                            .state
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: blackColor))
+                                                  ]))
+                                        // Text(
+                                        //     _profileNotifier
+                                        //         .professionalData.address
+                                        //         .toString(),
+                                        //     style: TextStyle(
+                                        //       fontSize: 13,
+                                        //     ),
+                                        //   ),
+                                        ),
                                     Padding(
                                       padding: const EdgeInsets.only(
                                           left: 12, right: 12),
@@ -382,8 +432,9 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                                   .insuranceCertificate
                                                   .toString(),
                                               style: TextStyle(
-                                                fontSize: 13,
-                                              ),
+                                                  fontSize: 13,
+                                                  color: blackColor,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                     ),
                                     Padding(
@@ -405,7 +456,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                       ),
                                       subtitle: _profileNotifier
                                                   .professionalData
-                                                  .insuranceContactPerson ==
+                                                  .insuranceContactNumber ==
                                               ''
                                           ? Text(
                                               'Add your Insurance Contact Person Number',
@@ -415,11 +466,12 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                             )
                                           : Text(
                                               _profileNotifier.professionalData
-                                                  .insuranceContactPerson
+                                                  .insuranceContactNumber
                                                   .toString(),
                                               style: TextStyle(
-                                                fontSize: 13,
-                                              ),
+                                                  fontSize: 13,
+                                                  color: blackColor,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                     ),
                                     Padding(
@@ -441,7 +493,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                       ),
                                       subtitle: _profileNotifier
                                                   .professionalData
-                                                  .contactIns ==
+                                                  .insuranceNumber ==
                                               ''
                                           ? Text(
                                               'Add your Insurance Number',
@@ -450,12 +502,13 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                               ),
                                             )
                                           : Text(
-                                              _profileNotifier
-                                                  .professionalData.contactIns
+                                              _profileNotifier.professionalData
+                                                  .insuranceNumber
                                                   .toString(),
                                               style: TextStyle(
-                                                fontSize: 13,
-                                              ),
+                                                  fontSize: 13,
+                                                  color: blackColor,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                     ),
                                     Padding(
@@ -491,8 +544,9 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                                   .projectPortfolio
                                                   .toString(),
                                               style: TextStyle(
-                                                fontSize: 13,
-                                              ),
+                                                  fontSize: 13,
+                                                  color: blackColor,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                     ),
                                     // Padding(
