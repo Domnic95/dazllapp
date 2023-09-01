@@ -46,7 +46,7 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
           ? LoadingWidget()
           : Scaffold(
               body: Column(children: [
-                CommonHeader(title: "PHD Project-Summary",isback:true),
+                CommonHeader(title: "PHD Project-Summary", isback: true),
                 SizedBox(
                   height: 20,
                 ),
@@ -63,11 +63,12 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
                         padding: EdgeInsets.only(
                           left: 10,
                           right: 10,
+                          top: 0,
                         ),
                         child: DropdownButton<FilterProject>(
                           underline: Container(),
                           isExpanded: true,
-                          borderRadius: BorderRadius.circular(20),
+                          // borderRadius: BorderRadius.circular(20),
                           hint: _complitedPhdProvider!.selectedCustomer == null
                               ? Text('Select Customer')
                               : Text(

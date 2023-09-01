@@ -107,176 +107,157 @@ class _Realtor_project_detailsState
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: size.width,
-                      child: Card(
-                        shape: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(8.0),
-                              // width: size.width,
-                              decoration: BoxDecoration(
-                                  color: primaryColor,
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(10))),
-                              child: Center(
-                                child: Text("Customer Details",
-                                    style: TextStyle(
-                                        color: lightColor,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18)),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  propertyDetailIteams(
-                                      key: "Homeowners Name",
-                                      value:
-                                          "${Detailsprovider.listofrealtorproject[widget.index].customer!.firstName} ${Detailsprovider.listofrealtorproject[widget.index].customer!.lastName}"),
-                                  propertyDetailIteams(
-                                      key: "Email Address",
-                                      value:
-                                          "${Detailsprovider.listofrealtorproject[widget.index].customer!.email}"),
-                                  propertyDetailIteams(
-                                      key: "Phone Number",
-                                      value:
-                                          "${Detailsprovider.listofrealtorproject[widget.index].customer?.phoneNumber ?? "Unknown"}"),
-                                  propertyDetailIteams(
-                                      key: "Zip Code",
-                                      value:
-                                          "${Detailsprovider.listofrealtorproject[widget.index].customer?.zipCode ?? "Unknown"}"),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Features",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppTheme.colorPrimary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: Detailsprovider
-                          .listofrealtorproject[widget.index].roominfo!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
+                child: SingleChildScrollView(
+                  // physics: NeverScrollableScrollPhysics(),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      SizedBox(
+                        width: size.width,
+                        child: Card(
+                          shape: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(10)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "${Detailsprovider.listofrealtorproject[widget.index].roominfo![index].roomName}",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: AppTheme.colorPrimary,
-                                  fontWeight: FontWeight.bold,
+                              Container(
+                                padding: EdgeInsets.all(8.0),
+                                // width: size.width,
+                                decoration: BoxDecoration(
+                                    color: primaryColor,
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(10))),
+                                child: Center(
+                                  child: Text("Customer Details",
+                                      style: TextStyle(
+                                          color: lightColor,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18)),
                                 ),
                               ),
-                              ListView.builder(
-                                shrinkWrap: true,
-                                padding: EdgeInsets.zero,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: Detailsprovider
-                                    .listofrealtorproject[widget.index]
-                                    .roominfo![index]
-                                    .feature!
-                                    .length,
-                                itemBuilder:
-                                    (BuildContext context, int subindex) {
-                                  return Card(
-                                    child: Theme(
-                                      data: Theme.of(context).copyWith(
-                                          colorScheme: ColorScheme.fromSwatch()
-                                              .copyWith(
-                                                  secondary: Colors.black)),
-                                      child: ExpansionTile(
-                                        iconColor: primaryColor,
-                                        childrenPadding: EdgeInsets.only(
-                                            left: 15, bottom: 15),
-                                        expandedAlignment: Alignment.topLeft,
-                                        title: Text(
-                                            Detailsprovider
-                                                .listofrealtorproject[
-                                                    widget.index]
-                                                .roominfo![index]
-                                                .feature![subindex]
-                                                .featureName!,
-                                            style: TextStyle(
-                                                color: AppTheme.colorPrimary,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600)),
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                height: 80,
-                                                child: ListView.builder(
-                                                  shrinkWrap: true,
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  itemCount: Detailsprovider
-                                                      .listofrealtorproject[
-                                                          widget.index]
-                                                      .roominfo![index]
-                                                      .feature![subindex]
-                                                      .images!
-                                                      .length,
-                                                  itemBuilder:
-                                                      (context, imgindex) {
-                                                    return InkWell(
-                                                      onTap: () {
-                                                        Utils.imageInfoDialog(
-                                                            context: context,
-                                                            url: Detailsprovider
-                                                                .listofrealtorproject[
-                                                                    widget
-                                                                        .index]
-                                                                .roominfo![
-                                                                    index]
-                                                                .feature![
-                                                                    subindex]
-                                                                .images![imgindex],
-                                                            description: "");
-                                                      },
-                                                      child: Container(
-                                                        width: 80,
-                                                        height: 80,
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(right: 3),
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(5),
-                                                          child: CachedNetworkImage(
-                                                              errorWidget: (context,
-                                                                      url,
-                                                                      error) =>
-                                                                  Image.asset(
-                                                                      "assets/images/noimage.png"),
-                                                              imageUrl: Detailsprovider
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    propertyDetailIteams(
+                                        key: "Homeowners Name",
+                                        value:
+                                            "${Detailsprovider.listofrealtorproject[widget.index].customer!.firstName} ${Detailsprovider.listofrealtorproject[widget.index].customer!.lastName}"),
+                                    propertyDetailIteams(
+                                        key: "Email Address",
+                                        value:
+                                            "${Detailsprovider.listofrealtorproject[widget.index].customer!.email}"),
+                                    propertyDetailIteams(
+                                        key: "Phone Number",
+                                        value:
+                                            "${Detailsprovider.listofrealtorproject[widget.index].customer?.phoneNumber ?? "Unknown"}"),
+                                    propertyDetailIteams(
+                                        key: "Zip Code",
+                                        value:
+                                            "${Detailsprovider.listofrealtorproject[widget.index].customer?.zipCode ?? "Unknown"}"),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Features",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: AppTheme.colorPrimary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: Detailsprovider
+                            .listofrealtorproject[widget.index]
+                            .roominfo!
+                            .length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${Detailsprovider.listofrealtorproject[widget.index].roominfo![index].roomName}",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppTheme.colorPrimary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.zero,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: Detailsprovider
+                                      .listofrealtorproject[widget.index]
+                                      .roominfo![index]
+                                      .feature!
+                                      .length,
+                                  itemBuilder:
+                                      (BuildContext context, int subindex) {
+                                    return Card(
+                                      child: Theme(
+                                        data: Theme.of(context).copyWith(
+                                            colorScheme:
+                                                ColorScheme.fromSwatch()
+                                                    .copyWith(
+                                                        secondary:
+                                                            Colors.black)),
+                                        child: ExpansionTile(
+                                          iconColor: primaryColor,
+                                          childrenPadding: EdgeInsets.only(
+                                              left: 15, bottom: 15),
+                                          expandedAlignment: Alignment.topLeft,
+                                          title: Text(
+                                              Detailsprovider
+                                                  .listofrealtorproject[
+                                                      widget.index]
+                                                  .roominfo![index]
+                                                  .feature![subindex]
+                                                  .featureName!,
+                                              style: TextStyle(
+                                                  color: AppTheme.colorPrimary,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600)),
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  height: 80,
+                                                  child: ListView.builder(
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemCount: Detailsprovider
+                                                        .listofrealtorproject[
+                                                            widget.index]
+                                                        .roominfo![index]
+                                                        .feature![subindex]
+                                                        .images!
+                                                        .length,
+                                                    itemBuilder:
+                                                        (context, imgindex) {
+                                                      return InkWell(
+                                                        onTap: () {
+                                                          Utils.imageInfoDialog(
+                                                              context: context,
+                                                              url: Detailsprovider
                                                                   .listofrealtorproject[
                                                                       widget
                                                                           .index]
@@ -284,105 +265,135 @@ class _Realtor_project_detailsState
                                                                       index]
                                                                   .feature![
                                                                       subindex]
-                                                                  .images![imgindex]),
+                                                                  .images![imgindex],
+                                                              description: "");
+                                                        },
+                                                        child: Container(
+                                                          width: 80,
+                                                          height: 80,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  right: 3),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                            child: CachedNetworkImage(
+                                                                errorWidget: (context,
+                                                                        url,
+                                                                        error) =>
+                                                                    Image.asset(
+                                                                        "assets/images/noimage.png"),
+                                                                imageUrl: Detailsprovider
+                                                                    .listofrealtorproject[
+                                                                        widget
+                                                                            .index]
+                                                                    .roominfo![
+                                                                        index]
+                                                                    .feature![
+                                                                        subindex]
+                                                                    .images![imgindex]),
+                                                          ),
                                                         ),
-                                                      ),
-                                                    );
-                                                  },
+                                                      );
+                                                    },
+                                                  ),
                                                 ),
-                                              ),
-                                              Detailsprovider
-                                                      .listofrealtorproject[
-                                                          widget.index]
-                                                      .roominfo![index]
-                                                      .feature![subindex]
-                                                      .featureoption!
-                                                      .isNotEmpty
-                                                  ? propertyDetailIteams(
-                                                      key: "Feature Option ",
-                                                      value: Detailsprovider
-                                                          .listofrealtorproject[
-                                                              widget.index]
-                                                          .roominfo![index]
-                                                          .feature![subindex]
-                                                          .featureoption!)
-                                                  : SizedBox(),
+                                                Detailsprovider
+                                                        .listofrealtorproject[
+                                                            widget.index]
+                                                        .roominfo![index]
+                                                        .feature![subindex]
+                                                        .featureoption!
+                                                        .isNotEmpty
+                                                    ? propertyDetailIteams(
+                                                        key: "Feature Option ",
+                                                        value: Detailsprovider
+                                                            .listofrealtorproject[
+                                                                widget.index]
+                                                            .roominfo![index]
+                                                            .feature![subindex]
+                                                            .featureoption!)
+                                                    : SizedBox(),
 
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              // ListView.builder(
-                                              //   shrinkWrap: true,
-                                              //   itemCount: Detailsprovider
-                                              //       .listofrealtorproject[
-                                              //           widget.index]
-                                              //       .roominfo![index]
-                                              //       .feature![subindex]
-                                              //       .featureissue!
-                                              //       .length,
-                                              //   itemBuilder: (BuildContext context,
-                                              //       int subsubindex) {
-                                              //     return Column(
-                                              //       crossAxisAlignment:
-                                              //           CrossAxisAlignment.start,
-                                              //       children: [
-                                              //         Text("Feature Issue ${subsubindex + 1} : " +
-                                              //             Detailsprovider
-                                              //                 .listofrealtorproject[
-                                              //                     widget.index]
-                                              //                 .roominfo![index]
-                                              //                 .feature![subindex]
-                                              //                 .featureissue![
-                                              //                     subsubindex]
-                                              //                 .name),
-                                              //         SizedBox(
-                                              //           height: 5,
-                                              //         )
-                                              //       ],
-                                              //     );
-                                              //   },
-                                              // ),
-                                              propertyDetailIteams(
-                                                  key: "Inspection Notes ",
-                                                  value: Detailsprovider
-                                                      .listofrealtorproject[
-                                                          widget.index]
-                                                      .roominfo![index]
-                                                      .feature![subindex]
-                                                      .inspectionNotes!),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                // ListView.builder(
+                                                //   shrinkWrap: true,
+                                                //   itemCount: Detailsprovider
+                                                //       .listofrealtorproject[
+                                                //           widget.index]
+                                                //       .roominfo![index]
+                                                //       .feature![subindex]
+                                                //       .featureissue!
+                                                //       .length,
+                                                //   itemBuilder: (BuildContext context,
+                                                //       int subsubindex) {
+                                                //     return Column(
+                                                //       crossAxisAlignment:
+                                                //           CrossAxisAlignment.start,
+                                                //       children: [
+                                                //         Text("Feature Issue ${subsubindex + 1} : " +
+                                                //             Detailsprovider
+                                                //                 .listofrealtorproject[
+                                                //                     widget.index]
+                                                //                 .roominfo![index]
+                                                //                 .feature![subindex]
+                                                //                 .featureissue![
+                                                //                     subsubindex]
+                                                //                 .name),
+                                                //         SizedBox(
+                                                //           height: 5,
+                                                //         )
+                                                //       ],
+                                                //     );
+                                                //   },
+                                                // ),
+                                                propertyDetailIteams(
+                                                    key: "Inspection Notes ",
+                                                    value: Detailsprovider
+                                                        .listofrealtorproject[
+                                                            widget.index]
+                                                        .roominfo![index]
+                                                        .feature![subindex]
+                                                        .inspectionNotes!),
 
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              // propertyDetailIteams(key: "Inspection Notes : ", value: Detailsprovider
-                                              //           .listofrealtorproject[
-                                              //               widget.index]
-                                              //           .roominfo![index]
-                                              //           .feature![subindex]
-                                              //           .inspectionNotes!),
-                                              // Text(
-                                              //   "Issue text : " +
-                                              //       Detailsprovider
-                                              //           .listofrealtorproject[
-                                              //               widget.index]
-                                              //           .roominfo![index]
-                                              //           .feature![subindex]
-                                              //           .featureissue!,
-                                              // )
-                                            ],
-                                          )
-                                        ],
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                // propertyDetailIteams(key: "Inspection Notes : ", value: Detailsprovider
+                                                //           .listofrealtorproject[
+                                                //               widget.index]
+                                                //           .roominfo![index]
+                                                //           .feature![subindex]
+                                                //           .inspectionNotes!),
+                                                // Text(
+                                                //   "Issue text : " +
+                                                //       Detailsprovider
+                                                //           .listofrealtorproject[
+                                                //               widget.index]
+                                                //           .roominfo![index]
+                                                //           .feature![subindex]
+                                                //           .featureissue!,
+                                                // )
+                                              ],
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

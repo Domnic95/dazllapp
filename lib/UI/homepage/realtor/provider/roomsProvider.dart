@@ -68,9 +68,7 @@ class RealtorRoomProvider extends BaseNotifier {
       File image,
       //  int k,
       WidgetRef ref) async {
-    String img = await ref
-        .read(realtorprovider)
-        .uploadImage(context, image);
+    String img = await ref.read(realtorprovider).uploadImage(context, image);
     imagesList[tabIndex][index].add(img);
     // imgFile[_tabIndex][index].add(File(path));
     log("mage == $imagesList");
@@ -199,7 +197,7 @@ class RealtorRoomProvider extends BaseNotifier {
   }
 
   images(int i) {
-    _file.clear();
+    // _file.clear();
     // for (int i = 0; i < imgFile.length; i++) {
     for (int j = 0; j < imgFile[i].length; j++) {
       for (int k = 0; k < imgFile[i][j].length; k++) {
@@ -210,7 +208,7 @@ class RealtorRoomProvider extends BaseNotifier {
   }
 
   load(int i) {
-    listData.clear();
+    // listData.clear();
     if (featureId[i].length != 0) {
       for (int j = 0; j < featureId[i].length; j++) {
         if (featureId[i][j] != 0 &&

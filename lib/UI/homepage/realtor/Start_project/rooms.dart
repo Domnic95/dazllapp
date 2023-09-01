@@ -395,15 +395,18 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                       log("imagesList == ${_roomProvider.imagesList}");
                       if (_roomProvider.listData.isNotEmpty &&
                           _roomProvider.file.isNotEmpty) {
-                        final projectId = await ref
-                            .read(realtorprovider)
-                            .createprojectrealtor(_roomProvider.listData);
-                        await ref
-                            .read(realtorprovider)
-                            .uploadimagesrealtor(projectId, _roomProvider.file);
+                        // final projectId = await ref
+                        //     .read(realtorprovider)
+                        //     .createprojectrealtor(_roomProvider.listData);
+                        // await ref
+                        //     .read(realtorprovider)
+                        //     .uploadimagesrealtor(projectId, _roomProvider.file);
                       }
                     }
                   }
+                   final projectId = await ref
+                            .read(realtorprovider)
+                            .createprojectrealtor(_roomProvider.listData);
                 }
                 if (!_roomProvider.isSet.contains(false)) {
                   Utils.loaderDialog(context, false);
