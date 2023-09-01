@@ -1100,10 +1100,11 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
     );
 
     if (imgCamera != null) {
+      Navigator.of(context).pop();
       photocamera(index);
+    } else {
+      Navigator.of(context).pop();
     }
-
-    Navigator.of(context).pop();
   }
 
   late var imgGallery;
@@ -1113,9 +1114,11 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
     imgGallery =
         await _roomProvider.imgPicker.getImage(source: ImageSource.gallery);
     if (imgGallery != null) {
+      Navigator.of(context).pop();
       textphoto(index);
+    } else {
+      Navigator.of(context).pop();
     }
-    Navigator.of(context).pop();
   }
 
   Future<void> textphoto(int index) async {

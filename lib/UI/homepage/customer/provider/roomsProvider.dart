@@ -72,9 +72,7 @@ class RoomProvider extends BaseNotifier {
 
   Future getImage(BuildContext context, int tabIndex, int index, File image,
       WidgetRef ref) async {
-    String img = await ref
-        .read(realtorprovider)
-        .uploadImage(context, image);
+    String img = await ref.read(realtorprovider).uploadImage(context, image);
     imagesList[tabIndex][index].add(img);
     // imgFile[_tabIndex][index].add(File(path));
     log("mage == $imagesList");
@@ -194,7 +192,7 @@ class RoomProvider extends BaseNotifier {
   }
 
   images(int i) {
-    _file.clear();
+    // _file.clear();
     // for (int i = 0; i < imgFile.length; i++) {
     for (int j = 0; j < imgFile[i].length; j++) {
       for (int k = 0; k < imgFile[i][j].length; k++) {
@@ -205,7 +203,7 @@ class RoomProvider extends BaseNotifier {
   }
 
   load(int i) {
-    listData.clear();
+    // listData.clear();
     if (featureId[i].length != 0) {
       for (int j = 0; j < featureId[i].length; j++) {
         if (featureId[i][j] != 0 &&
@@ -213,7 +211,7 @@ class RoomProvider extends BaseNotifier {
           Map<String, dynamic> _map = {
             "featureOption": "",
             "featureOptionIssues": [],
-            "features": featureId[i][j].toString(),
+            "features": featureId[i][j],
             "inspectionNotes":
                 //"test",
                 DescrptionController[i][j].text.toString() != ''
@@ -225,7 +223,6 @@ class RoomProvider extends BaseNotifier {
             "imageDesc": [],
           };
           listData.add(_map);
-          log("listData == $listData");
         }
       }
     }

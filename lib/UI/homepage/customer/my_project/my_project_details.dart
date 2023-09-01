@@ -27,6 +27,7 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
   List<String> list = [];
   bool isLoading = true;
   bool isBtnLoading = false;
+  bool isDeleteBtnLoading = false;
 
   List<TextEditingController> _editCommetController = [];
   List<bool> isEdit = [];
@@ -336,18 +337,29 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
                                                                   .featureoption!
                                                                   .isEmpty
                                                           ? SizedBox()
-                                                          : propertyDetailIteams(
-                                                              key:
-                                                                  "Feature Option",
-                                                              value: projectprovider!
-                                                                  .listofproject[
-                                                                      widget
-                                                                          .index]
-                                                                  .roominfo![
-                                                                      index]
-                                                                  .feature![
-                                                                      subindex]
-                                                                  .featureoption!),
+                                                          : projectprovider!
+                                                                      .listofproject[
+                                                                          widget
+                                                                              .index]
+                                                                      .roominfo![
+                                                                          index]
+                                                                      .feature![
+                                                                          subindex]
+                                                                      .featureoption !=
+                                                                  null
+                                                              ? propertyDetailIteams(
+                                                                  key:
+                                                                      "Feature Option",
+                                                                  value: projectprovider!
+                                                                      .listofproject[
+                                                                          widget
+                                                                              .index]
+                                                                      .roominfo![
+                                                                          index]
+                                                                      .feature![
+                                                                          subindex]
+                                                                      .featureoption!)
+                                                              : SizedBox(),
 
                                                       SizedBox(
                                                         height: 5,
@@ -418,17 +430,29 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
                                                                         "Enter inspection notes"),
                                                               ],
                                                             )
-                                                          : propertyDetailIteams(
-                                                              key: "Comments",
-                                                              value: projectprovider!
-                                                                  .listofproject[
-                                                                      widget
-                                                                          .index]
-                                                                  .roominfo![
-                                                                      index]
-                                                                  .feature![
-                                                                      subindex]
-                                                                  .inspectionNotes!),
+                                                          : projectprovider!
+                                                                      .listofproject[
+                                                                          widget
+                                                                              .index]
+                                                                      .roominfo![
+                                                                          index]
+                                                                      .feature![
+                                                                          subindex]
+                                                                      .inspectionNotes !=
+                                                                  null
+                                                              ? propertyDetailIteams(
+                                                                  key:
+                                                                      "Comments",
+                                                                  value: projectprovider!
+                                                                      .listofproject[
+                                                                          widget
+                                                                              .index]
+                                                                      .roominfo![
+                                                                          index]
+                                                                      .feature![
+                                                                          subindex]
+                                                                      .inspectionNotes!)
+                                                              : SizedBox(),
 
                                                       SizedBox(
                                                         height: 5,
@@ -548,6 +572,23 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
                                                                                 .orange)),
                                                                     onPressed:
                                                                         () async {
+                                                                      isDeleteBtnLoading =
+                                                                          true;
+                                                                      setState(
+                                                                          () {});
+                                                                      var data =
+                                                                          {
+                                                                        "inspectionNotes":
+                                                                            "",
+                                                                        "feature_id": projectprovider!
+                                                                            .listofproject[widget.index]
+                                                                            .roominfo![index]
+                                                                            .feature![subindex]
+                                                                            .featureId,
+                                                                        "images":
+                                                                            <String>[]
+                                                                      };
+                                                                      log("gsdjjsdfjhf === $data");
                                                                       await projectprovider!.updateReport(
                                                                           data: {
                                                                             "inspectionNotes":
@@ -569,6 +610,13 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
                                                                               customernotifier)
                                                                           .myproject();
                                                                       loadData();
+                                                                      isEdit.removeAt(
+                                                                          subindex);
+
+                                                                      isDeleteBtnLoading =
+                                                                          false;
+                                                                      setState(
+                                                                          () {});
                                                                     },
                                                                     child: Row(
                                                                       children: [

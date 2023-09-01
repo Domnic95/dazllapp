@@ -62,7 +62,6 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
       _tabs.add(Tab(
         text:
             _roomProvider.rooms[_roomProvider.rooms.length - 1].name.toString(),
-     
       ));
     }
     // }
@@ -153,7 +152,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
       body: SafeArea(
         child: Column(
           children: [
-            CommonHeader(title: "Create a Project",isback:false),
+            CommonHeader(title: "Create a Project", isback: false),
             TabBar(
                 unselectedLabelStyle: TextStyle(color: blackColor),
                 unselectedLabelColor: blackColor,
@@ -217,7 +216,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                                     setState1(() {});
 
                                     setState(() {});
-                                    Navigator.pop(context); 
+                                    Navigator.pop(context);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -389,18 +388,18 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                       _roomProvider.removeempty();
                       _roomProvider.images(i);
                       _roomProvider.load(i);
-
                       if (_roomProvider.listData.isNotEmpty &&
                           _roomProvider.file.isNotEmpty) {
-                        final projectId = await ref
-                            .read(customernotifier)
-                            .createproject(_roomProvider.listData);
-                        await ref
-                            .read(customernotifier)
-                            .uploadimages(projectId, _roomProvider.file);
+                        log("data === = == ${_roomProvider.listData}");
                       }
                     }
                   }
+                  final projectId = await ref
+                      .read(customernotifier)
+                      .createproject(_roomProvider.listData);
+                  // await ref
+                  //     .read(customernotifier)
+                  //     .uploadimages(projectId, _roomProvider.file);
                 }
                 if (!_roomProvider.isSet.contains(false)) {
                   Utils.loaderDialog(context, false);
@@ -411,7 +410,6 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                   _roomProvider.reset();
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => myproject()));
-                      
                 } else {
                   Utils.loaderDialog(context, false);
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
