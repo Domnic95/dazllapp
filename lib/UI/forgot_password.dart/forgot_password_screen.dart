@@ -144,7 +144,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               },
               child: Text(
                 "Back to Login",
-                style: TextStyle(color: darkRed),
+                style: TextStyle(color: primaryColor),
               ))
         ],
       ),

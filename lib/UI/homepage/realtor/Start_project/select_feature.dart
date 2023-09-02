@@ -649,6 +649,8 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                                   File('').toString()
                                               ? SizedBox()
                                               : GridView.builder(
+                                                  physics:
+                                                      NeverScrollableScrollPhysics(),
                                                   shrinkWrap: true,
                                                   itemCount: _roomProvider
                                                           .imgFile[_roomProvider

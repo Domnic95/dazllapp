@@ -127,7 +127,7 @@ class RealtorNotifier extends BaseNotifier {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Something Went to wrong!'),
-        backgroundColor: teamRed,
+        backgroundColor: primaryColor,
       ));
       throw e;
     }

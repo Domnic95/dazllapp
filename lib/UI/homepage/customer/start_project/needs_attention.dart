@@ -613,6 +613,8 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                       File('').toString()
                                               ? SizedBox()
                                               : GridView.builder(
+                                                  physics:
+                                                      NeverScrollableScrollPhysics(),
                                                   shrinkWrap: true,
                                                   itemCount: _roomProvider
                                                           .imgFile[_roomProvider

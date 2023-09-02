@@ -162,7 +162,8 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                 // automaticIndicatorColorAdjustment: true,
                 indicatorPadding: EdgeInsets.all(4),
                 indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8), color: darkRed),
+                    borderRadius: BorderRadius.circular(8),
+                    color: primaryColor),
                 isScrollable: true,
                 controller: _tabController,
                 tabs: buildTabs()),
@@ -174,7 +175,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: darkRed,
+        backgroundColor: primaryColor,
         onPressed: () {
           showModalBottomSheet<void>(
               isScrollControlled: true,
@@ -236,14 +237,14 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                                               ? Image.asset(
                                                   'assets/images/noimage.png',
                                                   width: 70,
-                                                  color: teamRed,
+                                                  color: primaryColor,
                                                 )
                                               : Image.network(
                                                   _roomsNotifier
                                                       .listOfRoom[index].image
                                                       .toString(),
                                                   width: 50,
-                                                  color: teamRed,
+                                                  color: primaryColor,
                                                 ),
                                           title: Text(
                                             "${_roomsNotifier.listOfRoom[index].name}",
@@ -253,7 +254,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                                                 .copyWith(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 16,
-                                                  color: teamRed,
+                                                  color: primaryColor,
                                                 ),
                                           ),
                                         ),
@@ -415,7 +416,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
                         'please Add Atleast one feature note and Add one Images!'),
-                    backgroundColor: teamRed,
+                    backgroundColor: primaryColor ,
                   ));
                 }
 

@@ -13,7 +13,7 @@ class _LoadingWidgetState extends State<LoadingWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: CircularProgressIndicator(color: darkRed),
+        child: CircularProgressIndicator(color: primaryColor),
       ),
     );
   }

@@ -56,6 +56,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _PnumberController = TextEditingController();
   final _PzipcodeController = TextEditingController();
   final _PstateController = TextEditingController();
+  final _zipCodeController = TextEditingController();
+  final _CzipController = TextEditingController();
+  final _stateController = TextEditingController();
+
   // List<ServiceType> servicesType = [];
   List<DropdownMenuItem> items = [
     DropdownMenuItem(
@@ -263,7 +267,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                               ),
                               child: EditField(
                                 controller: _lNameControllre,
-                                hint: "Second Name",
+                                hint: "Last Name",
                               ),
                             ),
                           ),
@@ -311,6 +315,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 Expanded(
                                   child: EditField(
                                     hint: "Zip Code",
+                                    controller: _zipCodeController,
                                     inputType: TextInputType.number,
                                   ),
                                 ),
@@ -320,6 +325,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 Expanded(
                                   child: EditField(
                                     hint: "State",
+                                    controller: _stateController,
                                   ),
                                 ),
                               ],
@@ -361,7 +367,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                               ),
                               child: EditField(
                                 controller: _PlNameControllre,
-                                hint: "Second Name",
+                                hint: "Last Name",
                               ),
                             ),
                           ),
@@ -838,6 +844,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                   child: EditField(
                                     hint: "Zip Code",
                                     inputType: TextInputType.number,
+                                    controller: _CzipController,
                                   ),
                                 ),
                               ],
@@ -882,12 +889,19 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           //   ),
           // ),
           SizedBox(height: size.height * 0.03),
-          submitButton(
-              _fNameControllre.text.toString(),
-              _lNameControllre.text.toString(),
-              _emailController.text.toString(),
-              _mobileNoControllre.text.toString(),
-              _passwordController.text.toString()),
+          curruntindex == 0
+              ? submitButton(
+                  _fNameControllre.text.toString(),
+                  _lNameControllre.text.toString(),
+                  _emailController.text.toString(),
+                  _mobileNoControllre.text.toString(),
+                  _passwordController.text.toString())
+              : submitButton(
+                  _fNameControllre.text.toString(),
+                  _lNameControllre.text.toString(),
+                  _emailController.text.toString(),
+                  _mobileNoControllre.text.toString(),
+                  _passwordController.text.toString()),
           SizedBox(height: size.height * 0.03),
           AlreadyHaveAnAccountCheck(
             login: false,
@@ -924,25 +938,117 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     borderRadius: BorderRadius.circular(25),
                     side: BorderSide(color: AppTheme.colorPrimary)))),
         onPressed: () async {
-          if (_fNameControllre.text.isEmpty) {
-            showAlertDialog(
-                context: context,
-                title: "Require First Name",
-                content: "Please Enter First Name",
-                defaultActionText: "OK");
-          } else if (_lNameControllre.text.toString().isEmpty) {
-            showAlertDialog(
-                context: context,
-                title: "Require Last Name",
-                content: "Please Enter Last Name",
-                defaultActionText: "OK");
-          } else if (_emailController.text.toString().isEmpty) {
-            showAlertDialog(
-                context: context,
-                title: "Require Email",
-                content: "Please Enter Email Id",
-                defaultActionText: "OK");
+          if (curruntindex == 0) {
+            if (_fNameControllre.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter First Name')));
+            } else if (_lNameControllre.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter Last Name')));
+            } else if (_emailController.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter Email')));
+            } else if (_passwordController.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter Password')));
+            } else if (_passwordAgainController.text.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Enter Confirm Password')));
+            } else if (_addressController.text.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Enter Affilation name')));
+            } else if (_addressController1.text.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Enter Affilation city')));
+            } else if (_zipCodeController.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter zip code')));
+            } else if (_stateController.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter state')));
+            } else if (_mobileNoControllre.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter mobile number')));
+            }
+          } else if (curruntindex == 1) {
+            if (_PfNameControllre.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter First Name')));
+            } else if (_PlNameControllre.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter Last Name')));
+            } else if (_PemailController.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter Email')));
+            } else if (_PpasswordController.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter Password')));
+            } else if (_PpasswordAgainController.text.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Enter Confirm Password')));
+            } else if (_PcompanynameController.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter company name')));
+            } else if (_PcompanyaddressController.text.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Enter company address ')));
+            } else if (_PcompanycityController.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter company city')));
+            } else if (_PzipcodeController.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter zip code')));
+            } else if (_PstateController.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter state')));
+            } else if (_PCmobileController.text.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Enter company number')));
+            }
+          } else {
+            if (_CfNameControllre.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter first name')));
+            } else if (_ClNameControllre.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter second name')));
+            } else if (_CmobileNoControllre.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter mobil number')));
+            } else if (_CemailController.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter email address')));
+            } else if (_CzipController.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter zip code')));
+            } else if (_CpasswordController.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter password')));
+            } else if (_CpasswordAgainController.text.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Enter confirm passoerd')));
+            }
           }
+
+          // if (_fNameControllre.text.isEmpty) {
+          //   showAlertDialog(
+          //       context: context,
+          //       title: "Require First Name",
+          //       content: "Please Enter First Name",
+          //       defaultActionText: "OK");
+          // } else if (_lNameControllre.text.toString().isEmpty) {
+          //   showAlertDialog(
+          //       context: context,
+          //       title: "Require Last Name",
+          //       content: "Please Enter Last Name",
+          //       defaultActionText: "OK");
+          // } else if (_emailController.text.toString().isEmpty) {
+          //   showAlertDialog(
+          //       context: context,
+          //       title: "Require Email",
+          //       content: "Please Enter Email Id",
+          //       defaultActionText: "OK");
+          // }
           // else if (_mobileNoControllre.text.toString().isEmpty) {
           //   showAlertDialog(
           //       context: context,
@@ -950,45 +1056,44 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           //       content: "Please Enter Mobile Number",
           //       defaultActionText: "OK");
           // }
-          else if (_passwordController.text.toString().isEmpty) {
-            showAlertDialog(
-                context: context,
-                title: "Require Password",
-                content: "Please Enter Password",
-                defaultActionText: "OK");
-          } else if (_passwordController.text !=
-              _passwordAgainController.text) {
-            showAlertDialog(
-                context: context,
-                title: "Password",
-                content: "Password does not match",
-                defaultActionText: "OK");
-          } else if (value == 0) {
-            showAlertDialog(
-                context: context,
-                title: "Require Service Type",
-                content: "Please Select Service Type",
-                defaultActionText: "OK");
-          } else {
-            // bloc.signUpReq(fName, lName, emailId, mobileNum, password,
-            //     await _getId(), context, value),
-            // getProfile(),
-            // prefs = await SharedPreferences.getInstance(),
-          }
-          if (_emailController.text.isEmpty &&
-              _CemailController.text.isEmpty &&
-              _PemailController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Fill Fields')));
-          }
-          if (_PCmobileController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Fill Fields')));
-          }
-          if (_PyearinbusinessController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Fill Fields')));
-          }
+          // else if (_passwordController.text.toString().isEmpty) {
+          //   showAlertDialog(
+          //       context: context,
+          //       title: "Require Password",
+          //       content: "Please Enter Password",
+          //       defaultActionText: "OK");
+          // } else if (_passwordController.text !=
+          //     _passwordAgainController.text) {
+          //   showAlertDialog(
+          //       context: context,
+          //       title: "Password",
+          //       content: "Password does not match",
+          //       defaultActionText: "OK");
+          // } else if (value == 0) {
+          //   showAlertDialog(
+          //       context: context,
+          //       title: "Require Service Type",
+          //       content: "Please Select Service Type",
+          //       defaultActionText: "OK");
+          // } else {
+          // bloc.signUpReq(fName, lName, emailId, mobileNum, password,
+          //     await _getId(), context, value),
+          // getProfile(),
+          // prefs = await SharedPreferences.getInstance(),
+          // }
+          // if (_emailController.text.isEmpty
+          //    ) {
+          //   ScaffoldMessenger.of(context)
+          //       .showSnackBar(SnackBar(content: Text('Fill Fields')));
+          // }
+          // if (_PCmobileController.text.isEmpty) {
+          //   ScaffoldMessenger.of(context)
+          //       .showSnackBar(SnackBar(content: Text('Fill Fields')));
+          // }
+          // if (_PyearinbusinessController.text.isEmpty) {
+          //   ScaffoldMessenger.of(context)
+          //       .showSnackBar(SnackBar(content: Text('Fill Fields')));
+          // }
           if (curruntindex == 0) {
             // print(curruntindex);
             // signupRealtor();

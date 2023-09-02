@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
+import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/realtor_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/select_feature.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';
@@ -154,7 +155,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
       body: SafeArea(
         child: Column(
           children: [
-            CommonHeader(title: "Create a project",isback:false),
+            CommonHeader(title: "Create a project", isback: false),
             TabBar(
                 unselectedLabelStyle: TextStyle(color: blackColor),
                 unselectedLabelColor: blackColor,
@@ -164,7 +165,8 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                 // automaticIndicatorColorAdjustment: true,
                 indicatorPadding: EdgeInsets.all(4),
                 indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8), color: darkRed),
+                    borderRadius: BorderRadius.circular(8),
+                    color: primaryColor),
                 isScrollable: true,
                 controller: _tabController,
                 tabs: buildTabs()),
@@ -176,7 +178,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: darkRed,
+        backgroundColor: primaryColor,
         onPressed: () {
           showModalBottomSheet<void>(
               isScrollControlled: true,
@@ -238,14 +240,14 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                               ? Image.asset(
                                                   'assets/images/noimage.png',
                                                   width: 70,
-                                                  color: teamRed,
+                                                  color: primaryColor,
                                                 )
                                               : Image.network(
                                                   _roomsNotifier
                                                       .listOfRoom[index].image
                                                       .toString(),
                                                   width: 50,
-                                                  color: teamRed,
+                                                  color: primaryColor,
                                                 ),
                                           title: Text(
                                             "${_roomsNotifier.listOfRoom[index].name}",
@@ -255,7 +257,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                                 .copyWith(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 16,
-                                                  color: teamRed,
+                                                  color: primaryColor,
                                                 ),
                                           ),
                                         ),
@@ -404,9 +406,10 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                       }
                     }
                   }
-                   final projectId = await ref
-                            .read(realtorprovider)
-                            .createprojectrealtor(_roomProvider.listData);
+                  log("oom provider dataa aree=--==-${_roomProvider.listData}");
+                  final projectId = await ref
+                      .read(realtorprovider)
+                      .createprojectrealtor(_roomProvider.listData);
                 }
                 if (!_roomProvider.isSet.contains(false)) {
                   Utils.loaderDialog(context, false);
@@ -424,7 +427,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
                         'please Add Atleast one feature note and Add one Images!'),
-                    backgroundColor: teamRed,
+                    backgroundColor: primaryColor,
                   ));
                 }
 

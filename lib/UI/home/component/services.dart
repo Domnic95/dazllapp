@@ -64,7 +64,7 @@ class ServicesWidget extends StatelessWidget {
                           alignment: Alignment.bottomCenter,
                           child: Container(
                             decoration: BoxDecoration(
-                                color: darkRed,
+                                color: primaryColor,
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(10),
                                     topRight: Radius.circular(10))),

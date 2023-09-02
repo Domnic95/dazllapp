@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:dazllapp/config/app_theme.dart';
+import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
 
 class EditField extends StatefulWidget {
@@ -61,16 +62,16 @@ class _EditFieldState extends State<EditField> {
           counter: Container(),
           focusedBorder:
               UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-          border: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.red)),
+          border:
+              UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
           suffixIcon: widget.isPassword
               ? GestureDetector(
                   onTap: () {
                     _togglevisibility();
                   },
                   child: Icon(
-                    _showPassword ? Icons.visibility : Icons.visibility_off,
-                    color: Colors.red,
+                    _showPassword ? Icons.visibility_off : Icons.visibility,
+                    color: primaryColor,
                   ),
                 )
               : null),

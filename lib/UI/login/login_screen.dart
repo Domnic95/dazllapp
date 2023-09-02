@@ -367,7 +367,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       child: Row(
                         children: [
                           Checkbox(
-                              activeColor: teamRed,
+                              activeColor: primaryColor,
                               value: keep_me_logged_in,
                               onChanged: (v) {
                                 keep_me_logged_in = v ?? false;
@@ -486,10 +486,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           //     //  getProfile()
           //   }
           //}
-          if (_emailController.text.isEmpty &&
-              _passwordController.text.isEmpty) {
+          if (_emailController.text.isEmpty) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Fill Fields')));
+                .showSnackBar(SnackBar(content: Text('Enter email')));
+          } else if (_passwordController.text.isEmpty) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('Enter password')));
           } else {
             loading = true;
             setState(() {});

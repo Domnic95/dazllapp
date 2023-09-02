@@ -694,7 +694,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                               return Row(
                                 children: [
                                   Radio(
-                                    activeColor: darkRed,
+                                    activeColor: primaryColor,
                                     value:
                                         _phdProvider.fristImpressionList[index],
                                     groupValue: _phdProvider.fristImpression,
@@ -1689,7 +1689,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                               "Buyer Road Blocks or Recommendations?",
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                  color: darkRed, fontWeight: FontWeight.bold),
+                                  color: primaryColor, fontWeight: FontWeight.bold),
                             ),
                           ),
                           ListView.separated(

@@ -113,7 +113,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                   // automaticIndicatorColorAdjustment: true,
                   indicatorPadding: EdgeInsets.all(4),
                   indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8), color: darkRed),
+                      borderRadius: BorderRadius.circular(8), color: primaryColor),
                   isScrollable: true,
                   controller: _tabController,
                   tabs: buildTabs()),
@@ -126,7 +126,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
         }),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: darkRed,
+        backgroundColor: primaryColor,
         onPressed: () {
           showModalBottomSheet<void>(
               isScrollControlled: true,
@@ -189,14 +189,14 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                                               ? Image.asset(
                                                   'assets/images/noimage.png',
                                                   width: 70,
-                                                  color: teamRed,
+                                                  color: primaryColor,
                                                 )
                                               : Image.network(
                                                   _roomsfeature
                                                       .listOfRoom[index].image
                                                       .toString(),
                                                   width: 50,
-                                                  color: teamRed,
+                                                  color: primaryColor,
                                                 ),
                                           title: Text(
                                             "${_roomsfeature.listOfRoom[index].name}",
@@ -206,7 +206,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                                                 .copyWith(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 16,
-                                                  color: teamRed,
+                                                  color: primaryColor,
                                                 ),
                                           ),
                                         ),

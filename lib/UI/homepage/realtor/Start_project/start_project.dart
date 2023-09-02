@@ -133,14 +133,14 @@ class _Start_projectState extends ConsumerState<Start_project> {
                                           ? Image.asset(
                                               'assets/images/noimage.png',
                                               width: 70,
-                                              color: teamRed,
+                                              color: primaryColor,
                                             )
                                           : Image.network(
                                               _roomsNotifier
                                                   .listOfRoom[index].image
                                                   .toString(),
                                               width: 50,
-                                              color: teamRed,
+                                              color: primaryColor,
                                             ),
                                       SizedBox(
                                         height: 8,
@@ -155,7 +155,7 @@ class _Start_projectState extends ConsumerState<Start_project> {
                                               .copyWith(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 16,
-                                                color: teamRed,
+                                                color: primaryColor,
                                               ),
                                         ),
                                       ),
