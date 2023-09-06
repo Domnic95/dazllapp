@@ -78,6 +78,12 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     'Professional',
     'Customer',
   ];
+  bool realtor_month = false;
+  bool realtor_year = false;
+  String paymentRealtor = '';
+  bool professional_month = false;
+  bool professional_year = false;
+  String paymentProfessional = '';
   List<File> imgFile = [
     File(''),
     File(''),
@@ -275,70 +281,131 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       ),
                     ),
                     Padding(
-                        padding: EdgeInsets.only(left: 25, right: 25, top: 20),
-                        child: Column(
-                          children: [
-                            EditField(
-                              controller: _emailController,
-                              hint: "Email address",
-                            ),
-                            SizedBox(height: size.height * 0.03),
-                            EditField(
-                              controller: _passwordController,
-                              hint: "Create Password",
-                              isPassword: true,
-                            ),
-                            SizedBox(height: size.height * 0.03),
-                            EditField(
-                              controller: _passwordAgainController,
-                              hint: "Confrim Password",
-                              isPassword: true,
-                            ),
-                            SizedBox(height: size.height * 0.03),
-                            EditField(
-                              controller: _addressController,
-                              hint: "Real Estate Agency Affiliation (name)",
-                            ),
-                            SizedBox(height: size.height * 0.03),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: EditField(
-                                    controller: _addressController1,
-                                    hint:
-                                        "Real Estate Agency Affiliation (city)",
+                      padding: EdgeInsets.only(left: 25, right: 25, top: 20),
+                      child: Column(
+                        children: [
+                          EditField(
+                            controller: _emailController,
+                            hint: "Email address",
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          EditField(
+                            controller: _passwordController,
+                            hint: "Create Password",
+                            isPassword: true,
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          EditField(
+                            controller: _passwordAgainController,
+                            hint: "Confrim Password",
+                            isPassword: true,
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          EditField(
+                            controller: _addressController,
+                            hint: "Real Estate Agency Affiliation (name)",
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: EditField(
+                                  controller: _addressController1,
+                                  hint: "Real Estate Agency Affiliation (city)",
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Expanded(
+                                child: EditField(
+                                  hint: "Zip Code",
+                                  controller: _zipCodeController,
+                                  inputType: TextInputType.number,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: EditField(
+                                  hint: "State",
+                                  controller: _stateController,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          EditField(
+                            controller: _mobileNoControllre,
+                            hint: "Mobile Phone Number",
+                            inputType: TextInputType.phone,
+                            maxLength: 10,
+                          ),
+                          Row(
+                            children: [
+                              Row(
+                                children: [
+                                  Checkbox(
+                                      activeColor: primaryColor,
+                                      value: realtor_month,
+                                      onChanged: (v) {
+                                        realtor_month = v ?? false;
+                                        realtor_year = false;
+                                        if (v == true) {
+                                          paymentRealtor = 'monthly';
+                                        } else {
+                                          paymentRealtor = '';
+                                        }
+                                        print(
+                                            '----------->>>> $paymentRealtor');
+
+                                        setState(() {});
+                                      }),
+                                  Text(
+                                    "Monthly",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: AppTheme.fontName,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Expanded(
-                                  child: EditField(
-                                    hint: "Zip Code",
-                                    controller: _zipCodeController,
-                                    inputType: TextInputType.number,
+                                ],
+                              ),
+                              SizedBox(width: 50),
+                              Row(
+                                children: [
+                                  Checkbox(
+                                      activeColor: primaryColor,
+                                      value: realtor_year,
+                                      onChanged: (v) {
+                                        if (realtor_year == false) {
+                                          realtor_year = v ?? true;
+                                          realtor_month = false;
+                                        } else {
+                                          realtor_year = v ?? false;
+                                        }
+                                        if (v == true) {
+                                          paymentRealtor = 'yearly';
+                                        } else {
+                                          paymentRealtor = '';
+                                        }
+                                        log('----------->>>> $paymentRealtor');
+                                        setState(() {});
+                                      }),
+                                  Text(
+                                    "Yearly",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: AppTheme.fontName,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  child: EditField(
-                                    hint: "State",
-                                    controller: _stateController,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: size.height * 0.03),
-                            EditField(
-                              controller: _mobileNoControllre,
-                              hint: "Mobile Phone Number",
-                              inputType: TextInputType.phone,
-                              maxLength: 10,
-                            ),
-                          ],
-                        ))
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ))
               : (Column()),
@@ -694,16 +761,12 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       height: 10,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 25),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Add 4 Company Pictures(Work Completed,Staff)\nOr we will use Stock photos",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                      padding: const EdgeInsets.only(left: 25, right: 5),
+                      child: Text(
+                        "Add 4 Company Pictures(Work Completed,Staff) Or we will use Stock photos",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -753,14 +816,77 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                             );
                           },
                         )),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Row(
+                        children: [
+                          Row(
+                            children: [
+                              Checkbox(
+                                  activeColor: primaryColor,
+                                  value: professional_month,
+                                  onChanged: (v) {
+                                    professional_month = v ?? false;
+                                    professional_year = false;
+                                    if (v == true) {
+                                      paymentProfessional = 'monthly';
+                                    } else {
+                                      paymentProfessional = '';
+                                    }
+                                    print('----------->>>> $paymentRealtor');
+
+                                    setState(() {});
+                                  }),
+                              Text(
+                                "Monthly",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: AppTheme.fontName,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(width: 50),
+                          Row(
+                            children: [
+                              Checkbox(
+                                  activeColor: primaryColor,
+                                  value: professional_year,
+                                  onChanged: (v) {
+                                    if (professional_year == false) {
+                                      professional_year = v ?? true;
+                                      professional_month = false;
+                                    } else {
+                                      professional_year = v ?? false;
+                                    }
+                                    if (v == true) {
+                                      paymentProfessional = 'yearly';
+                                    } else {
+                                      paymentProfessional = '';
+                                    }
+                                    log('----------->>>> $paymentProfessional');
+                                    setState(() {});
+                                  }),
+                              Text(
+                                "Yearly",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: AppTheme.fontName,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                     SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5.0),
-                          child: Checkbox(
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Row(
+                        children: [
+                          Checkbox(
                             value: daziTerms,
                             onChanged: (value) {
                               setState(() {
@@ -768,17 +894,17 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                               });
                             },
                           ),
-                        ),
-                        Text(
-                          "Check box to accept\t",
-                          style: TextStyle(fontSize: 11),
-                        ),
-                        Text(
-                          "DAZl'S TERMS AND CONDITIONS.*",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900, fontSize: 11),
-                        ),
-                      ],
+                          Text(
+                            "Check box to accept\t",
+                            style: TextStyle(fontSize: 11),
+                          ),
+                          Text(
+                            "DAZl'S TERMS AND CONDITIONS.*",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w900, fontSize: 11),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 10,
@@ -969,6 +1095,24 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             } else if (_mobileNoControllre.text.isEmpty) {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text('Enter mobile number')));
+            } else if (paymentRealtor.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Select Membership Option")));
+            } else {
+              print('---------->>> ');
+              signupRealtor(
+                curruntindex,
+                context,
+                _addressController1.text,
+                _passwordAgainController.text,
+                _emailController.text,
+                _fNameControllre.text,
+                _lNameControllre.text,
+                _passwordController.text,
+                _mobileNoControllre.text,
+                _addressController.text,
+                paymentRealtor,
+              );
             }
           } else if (curruntindex == 1) {
             if (_PfNameControllre.text.isEmpty) {
@@ -1004,6 +1148,42 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             } else if (_PCmobileController.text.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Enter company number')));
+            } else if (paymentProfessional.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Select Membership Option")));
+            } else if (daziTerms == false) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("Select DAZL'S TEARMS AND CONDITIONS")));
+            } else {
+              signupProfessional(
+                index: curruntindex,
+                context: context,
+                city: _PcompanycityController.text,
+                company_name: _PcompanynameController.text,
+                company_address: _PcompanyaddressController.text,
+                confirm_password: _PpasswordAgainController.text,
+                email: _PemailController.text,
+                fname: _PfNameControllre.text,
+                lname: _PlNameControllre.text,
+                password: _PpasswordController.text,
+                company_number: _PCmobileController.text,
+                facebookLink: _PfacebookLinkController.text,
+                image1: imgFile[0].toString(),
+                image2: imgFile[1].toString(),
+                image3: imgFile[2].toString(),
+                image4: imgFile[3].toString(),
+                services: ServiceId,
+                insurance: _PCinsuranceController.text,
+                state: _PstateController.text,
+                twitterLink: _PtwitterLinkController.text,
+                website: _PwebsiteLinkController.text,
+                zip_code: _PzipcodeController.text,
+                years: _PyearinbusinessController.text,
+                numberIns: _PnumberController.text,
+                contactIns: _PcontactPersonController.text,
+                mobile: _PmobileNoControllre.text,
+                membershipOption: paymentProfessional,
+              );
             }
           } else {
             if (_CfNameControllre.text.isEmpty) {
@@ -1027,6 +1207,17 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             } else if (_CpasswordAgainController.text.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Enter confirm passoerd')));
+            } else {
+              signupCustomer(
+                curruntindex,
+                context,
+                _CpasswordAgainController.text,
+                _CemailController.text,
+                _CfNameControllre.text,
+                _ClNameControllre.text,
+                _CpasswordController.text,
+                _CmobileNoControllre.text,
+              );
             }
           }
 
@@ -1094,62 +1285,65 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           //   ScaffoldMessenger.of(context)
           //       .showSnackBar(SnackBar(content: Text('Fill Fields')));
           // }
-          if (curruntindex == 0) {
-            // print(curruntindex);
-            // signupRealtor();
-            signupRealtor(
-              curruntindex,
-              context,
-              _addressController1.text,
-              _passwordAgainController.text,
-              _emailController.text,
-              _fNameControllre.text,
-              _lNameControllre.text,
-              _passwordController.text,
-              _mobileNoControllre.text,
-              _addressController.text,
-            );
-          } else if (curruntindex == 1) {
+          // if (curruntindex == 0) {
+          //   // print(curruntindex);
+          //   // signupRealtor();
+          //   signupRealtor(
+          //     curruntindex,
+          //     context,
+          //     _addressController1.text,
+          //     _passwordAgainController.text,
+          //     _emailController.text,
+          //     _fNameControllre.text,
+          //     _lNameControllre.text,
+          //     _passwordController.text,
+          //     _mobileNoControllre.text,
+          //     _addressController.text,
+          //   );
+          // }
+          if (curruntindex == 1) {
             // signupProfessional();
-            signupProfessional(
-                index: curruntindex,
-                context: context,
-                city: _PcompanycityController.text,
-                company_name: _PcompanynameController.text,
-                company_address: _PcompanyaddressController.text,
-                confirm_password: _PpasswordAgainController.text,
-                email: _PemailController.text,
-                fname: _PfNameControllre.text,
-                lname: _PlNameControllre.text,
-                password: _PpasswordController.text,
-                company_number: _PCmobileController.text,
-                facebookLink: _PfacebookLinkController.text,
-                image1: imgFile[0].toString(),
-                image2: imgFile[1].toString(),
-                image3: imgFile[2].toString(),
-                image4: imgFile[3].toString(),
-                services: ServiceId,
-                insurance: _PCinsuranceController.text,
-                state: _PstateController.text,
-                twitterLink: _PtwitterLinkController.text,
-                website: _PwebsiteLinkController.text,
-                zip_code: _PzipcodeController.text,
-                years: _PyearinbusinessController.text,
-                numberIns: _PnumberController.text,
-                contactIns: _PcontactPersonController.text,
-                mobile: _PmobileNoControllre.text);
+            // signupProfessional(
+            //   index: curruntindex,
+            //   context: context,
+            //   city: _PcompanycityController.text,
+            //   company_name: _PcompanynameController.text,
+            //   company_address: _PcompanyaddressController.text,
+            //   confirm_password: _PpasswordAgainController.text,
+            //   email: _PemailController.text,
+            //   fname: _PfNameControllre.text,
+            //   lname: _PlNameControllre.text,
+            //   password: _PpasswordController.text,
+            //   company_number: _PCmobileController.text,
+            //   facebookLink: _PfacebookLinkController.text,
+            //   image1: imgFile[0].toString(),
+            //   image2: imgFile[1].toString(),
+            //   image3: imgFile[2].toString(),
+            //   image4: imgFile[3].toString(),
+            //   services: ServiceId,
+            //   insurance: _PCinsuranceController.text,
+            //   state: _PstateController.text,
+            //   twitterLink: _PtwitterLinkController.text,
+            //   website: _PwebsiteLinkController.text,
+            //   zip_code: _PzipcodeController.text,
+            //   years: _PyearinbusinessController.text,
+            //   numberIns: _PnumberController.text,
+            //   contactIns: _PcontactPersonController.text,
+            //   mobile: _PmobileNoControllre.text,
+            //   membershipOption: paymentProfessional,
+            // );
           } else if (curruntindex == 2) {
             //   signupCustomer();
-            signupCustomer(
-              curruntindex,
-              context,
-              _CpasswordAgainController.text,
-              _CemailController.text,
-              _CfNameControllre.text,
-              _ClNameControllre.text,
-              _CpasswordController.text,
-              _CmobileNoControllre.text,
-            );
+            // signupCustomer(
+            //   curruntindex,
+            //   context,
+            //   _CpasswordAgainController.text,
+            //   _CemailController.text,
+            //   _CfNameControllre.text,
+            //   _ClNameControllre.text,
+            //   _CpasswordController.text,
+            //   _CmobileNoControllre.text,
+            // );
           } else {}
         },
       );

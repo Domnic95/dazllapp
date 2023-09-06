@@ -217,29 +217,31 @@ Future<void> signupRealtor(
   password,
   mobile,
   address,
+  membershipOption,
 ) async {
   try {
     final response = await dio.post(signup_realtor, data: {
-      "check_box": true,
-      "city_of_real_state_agency": address1,
-      "confirm_password": confirm_password,
       "email": email,
+      "password": password,
       "first_name": fname,
       "last_name": lname,
-      "password": password,
+      "real_state_agency_name": address1.toString(),
+      "confirm_password": confirm_password.toString(),
+      "address": address.toString(),
       "phone_number": mobile,
-      "real_state_agency_name": address,
-      "state": "test",
-      "zip_code": "1234"
+      "membershipOption": membershipOption,
+      "check_box": true
     });
-
+    log('------->>>>>>>>>>' + response.toString());
     if (response.statusCode == 200) {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => LoginScreen(
-                    index: 0,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginScreen(
+            index: 0,
+          ),
+        ),
+      );
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Registerd Sucessfully'),
           backgroundColor: Colors.green));
@@ -247,9 +249,9 @@ Future<void> signupRealtor(
       print('fail');
     }
   } catch (e) {
-    //print((e as DioError).response!.data.toString());
+    print((e as DioError).response!.data.toString());
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text((e as DioError).response!.data['message']),
+        content: Text((e as DioError).response!.toString()),
         backgroundColor: Colors.red));
   }
 }
@@ -281,6 +283,7 @@ Future<void> signupProfessional({
   required String numberIns,
   required String contactIns,
   required String mobile,
+  required String membershipOption,
 }) async {
   try {
     final response = await dio.post(signup_professional, data: {
@@ -308,7 +311,8 @@ Future<void> signupProfessional({
       "twitter": twitterLink,
       "website": website,
       "years": years,
-      "zip_code": zip_code
+      "zip_code": zip_code,
+      "membershipOption": membershipOption,
     });
 
     if (response.statusCode == 201) {
