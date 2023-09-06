@@ -318,7 +318,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
             GestureDetector(
               onTap: () async {
                 Utils.loaderDialog(context, true);
-                log("api Call" + _roomProvider.featureId.toString());
+                // log("api Call" + _roomProvider.featureId.toString());
                 for (int i = 0; i < _roomProvider.featureId.length; i++) {
                   _roomProvider.set(false, i);
                   if (_roomProvider.featureId[i].isNotEmpty) {
@@ -387,14 +387,14 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                 //     ),
                 //   );
                 // }
-                log("api Call" + _roomProvider.isSet.toString());
+                // log("api Call" + _roomProvider.isSet.toString());
                 if (!_roomProvider.isSet.contains(false)) {
                   for (int i = 0; i < _roomProvider.featureId.length; i++) {
                     if (_roomProvider.featureId[i].isNotEmpty) {
                       _roomProvider.removeempty();
                       _roomProvider.images(i);
                       _roomProvider.load(i);
-                      log("imagesList == ${_roomProvider.imagesList}");
+                      // log("imagesList == ${_roomProvider.imagesList}");
                       if (_roomProvider.listData.isNotEmpty &&
                           _roomProvider.file.isNotEmpty) {
                         // final projectId = await ref
@@ -406,7 +406,6 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                       }
                     }
                   }
-                  log("oom provider dataa aree=--==-${_roomProvider.listData}");
                   final projectId = await ref
                       .read(realtorprovider)
                       .createprojectrealtor(_roomProvider.listData);
@@ -418,10 +417,11 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                     backgroundColor: teamColor,
                   ));
                   _roomProvider.reset();
-                  Navigator.pushReplacement(
+                  Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Realtor_project()));
+                          builder: (context) => Realtor_project()),
+                      (route) => false);
                 } else {
                   Utils.loaderDialog(context, false);
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(

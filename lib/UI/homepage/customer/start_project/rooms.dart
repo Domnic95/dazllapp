@@ -322,7 +322,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                         j < _roomProvider.featureId[i].length;
                         j++) {
                       if (_roomProvider.featureId[i][j] != 0 &&
-                          _roomProvider
+                          _roomProvider  
                               .DescrptionController[i][j].text.isNotEmpty &&
                           _roomProvider.imgFile[i][j].isNotEmpty) {
                         // for (var k = 0;
@@ -382,7 +382,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                 //     ),
                 //   );
                 // }
-                log("api Call" + _roomProvider.isSet.toString());
+                // log("api Call" + _roomProvider.isSet.toString());
                 if (!_roomProvider.isSet.contains(false)) {
                   for (int i = 0; i < _roomProvider.featureId.length; i++) {
                     if (_roomProvider.featureId[i].isNotEmpty) {
@@ -391,7 +391,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                       _roomProvider.load(i);
                       if (_roomProvider.listData.isNotEmpty &&
                           _roomProvider.file.isNotEmpty) {
-                        log("data === = == ${_roomProvider.listData}");
+                        // log("data === = == ${_roomProvider.listData}");
                       }
                     }
                   }
@@ -409,14 +409,16 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                     backgroundColor: teamColor,
                   ));
                   _roomProvider.reset();
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => myproject()));
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => myproject()),
+                      (route) => false);
                 } else {
                   Utils.loaderDialog(context, false);
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
                         'please Add Atleast one feature note and Add one Images!'),
-                    backgroundColor: primaryColor ,
+                    backgroundColor: primaryColor,
                   ));
                 }
 

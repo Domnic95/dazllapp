@@ -937,7 +937,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                               ),
                               child: EditField(
                                 controller: _ClNameControllre,
-                                hint: "Second Name",
+                                hint: "Last Name",
                               ),
                             ),
                           ),
@@ -1022,12 +1022,19 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   _emailController.text.toString(),
                   _mobileNoControllre.text.toString(),
                   _passwordController.text.toString())
-              : submitButton(
-                  _fNameControllre.text.toString(),
-                  _lNameControllre.text.toString(),
-                  _emailController.text.toString(),
-                  _mobileNoControllre.text.toString(),
-                  _passwordController.text.toString()),
+              : curruntindex == 1
+                  ? submitButton(
+                      _PfNameControllre.text.toString(),
+                      _PlNameControllre.text.toString(),
+                      _PemailController.text.toString(),
+                      _PmobileNoControllre.text.toString(),
+                      _PpasswordController.text.toString())
+                  : submitButton(
+                      _CfNameControllre.text.toString(),
+                      _ClNameControllre.text.toString(),
+                      _CemailController.text.toString(),
+                      _CmobileNoControllre.text.toString(),
+                      _CpasswordController.text.toString()),
           SizedBox(height: size.height * 0.03),
           AlreadyHaveAnAccountCheck(
             login: false,
@@ -1080,6 +1087,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             } else if (_passwordAgainController.text.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Enter Confirm Password')));
+            } else if (_passwordController.text !=
+                _passwordAgainController.text) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Confirm password is not Match')));
             } else if (_addressController.text.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Enter Affilation name')));
@@ -1130,6 +1141,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             } else if (_PpasswordAgainController.text.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Enter Confirm Password')));
+            } else if (_PpasswordController.text !=
+                _PpasswordAgainController.text) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Confirm password is not Match')));
             } else if (_PcompanynameController.text.isEmpty) {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text('Enter company name')));
@@ -1148,6 +1163,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             } else if (_PCmobileController.text.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Enter company number')));
+            } else if (_PyearinbusinessController.text.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("enter year in busioness")));
+            } else if (ServiceId.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content:
+                      Text("Atleast least one service you have to select")));
             } else if (paymentProfessional.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text("Select Membership Option")));
@@ -1207,6 +1229,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             } else if (_CpasswordAgainController.text.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Enter confirm passoerd')));
+            } else if (_CpasswordController.text !=
+                _CpasswordAgainController.text) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Confirm password is not Match')));
             } else {
               signupCustomer(
                 curruntindex,
@@ -1301,50 +1327,50 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           //     _addressController.text,
           //   );
           // }
-          if (curruntindex == 1) {
-            // signupProfessional();
-            // signupProfessional(
-            //   index: curruntindex,
-            //   context: context,
-            //   city: _PcompanycityController.text,
-            //   company_name: _PcompanynameController.text,
-            //   company_address: _PcompanyaddressController.text,
-            //   confirm_password: _PpasswordAgainController.text,
-            //   email: _PemailController.text,
-            //   fname: _PfNameControllre.text,
-            //   lname: _PlNameControllre.text,
-            //   password: _PpasswordController.text,
-            //   company_number: _PCmobileController.text,
-            //   facebookLink: _PfacebookLinkController.text,
-            //   image1: imgFile[0].toString(),
-            //   image2: imgFile[1].toString(),
-            //   image3: imgFile[2].toString(),
-            //   image4: imgFile[3].toString(),
-            //   services: ServiceId,
-            //   insurance: _PCinsuranceController.text,
-            //   state: _PstateController.text,
-            //   twitterLink: _PtwitterLinkController.text,
-            //   website: _PwebsiteLinkController.text,
-            //   zip_code: _PzipcodeController.text,
-            //   years: _PyearinbusinessController.text,
-            //   numberIns: _PnumberController.text,
-            //   contactIns: _PcontactPersonController.text,
-            //   mobile: _PmobileNoControllre.text,
-            //   membershipOption: paymentProfessional,
-            // );
-          } else if (curruntindex == 2) {
-            //   signupCustomer();
-            // signupCustomer(
-            //   curruntindex,
-            //   context,
-            //   _CpasswordAgainController.text,
-            //   _CemailController.text,
-            //   _CfNameControllre.text,
-            //   _ClNameControllre.text,
-            //   _CpasswordController.text,
-            //   _CmobileNoControllre.text,
-            // );
-          } else {}
+          // if (curruntindex == 1) {
+          //   // signupProfessional();
+          //   // signupProfessional(
+          //   //   index: curruntindex,
+          //   //   context: context,
+          //   //   city: _PcompanycityController.text,
+          //   //   company_name: _PcompanynameController.text,
+          //   //   company_address: _PcompanyaddressController.text,
+          //   //   confirm_password: _PpasswordAgainController.text,
+          //   //   email: _PemailController.text,
+          //   //   fname: _PfNameControllre.text,
+          //   //   lname: _PlNameControllre.text,
+          //   //   password: _PpasswordController.text,
+          //   //   company_number: _PCmobileController.text,
+          //   //   facebookLink: _PfacebookLinkController.text,
+          //   //   image1: imgFile[0].toString(),
+          //   //   image2: imgFile[1].toString(),
+          //   //   image3: imgFile[2].toString(),
+          //   //   image4: imgFile[3].toString(),
+          //   //   services: ServiceId,
+          //   //   insurance: _PCinsuranceController.text,
+          //   //   state: _PstateController.text,
+          //   //   twitterLink: _PtwitterLinkController.text,
+          //   //   website: _PwebsiteLinkController.text,
+          //   //   zip_code: _PzipcodeController.text,
+          //   //   years: _PyearinbusinessController.text,
+          //   //   numberIns: _PnumberController.text,
+          //   //   contactIns: _PcontactPersonController.text,
+          //   //   mobile: _PmobileNoControllre.text,
+          //   //   membershipOption: paymentProfessional,
+          //   // );
+          // } else if (curruntindex == 2) {
+          //   //   signupCustomer();
+          //   // signupCustomer(
+          //   //   curruntindex,
+          //   //   context,
+          //   //   _CpasswordAgainController.text,
+          //   //   _CemailController.text,
+          //   //   _CfNameControllre.text,
+          //   //   _ClNameControllre.text,
+          //   //   _CpasswordController.text,
+          //   //   _CmobileNoControllre.text,
+          //   // );
+          // } else {}
         },
       );
 
