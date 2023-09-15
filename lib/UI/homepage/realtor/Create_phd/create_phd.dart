@@ -33,7 +33,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
   final _Last_name = TextEditingController();
   final _ClientEmailAddress = TextEditingController();
   final _addressController = TextEditingController();
-
+  bool isEmailValid = true;
   @override
   void initState() {
     super.initState();
@@ -41,6 +41,13 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
   }
 
   void getGeoAddress() {}
+  bool checkForEmailValid(String email) {
+    // Define a regular expression pattern for email validation
+    final RegExp emailRegExp =
+        RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+
+    return emailRegExp.hasMatch(email);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +60,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
           // resizeToAvoidBottomInset: false,
           body: Column(
             children: [
-              CommonHeader(title: 'Create a Phd',isback:false),
+              CommonHeader(title: 'Create a Phd', isback: false),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.all(10.0),
@@ -245,71 +252,72 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                           // SizedBox(
                           //   height: 15,
                           // ),
-                          TextFormField(
-                            validator: (text) {
-                              if (text!.isEmpty) {
-                                return 'State can\'t be empty';
-                              }
-                              return null;
-                            },
-                            controller: _stateController,
-                            cursorColor: AppTheme.nearlyBlack,
-                            decoration: InputDecoration(
-                              hintText: "Enter Your State",
-                              label: Text('STATE'),
-                              isDense: true,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black)),
-                              hintStyle: TextStyle(
-                                  color: AppTheme.darkerText,
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                              labelStyle: TextStyle(
-                                  color: const Color(0xFF424242),
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            validator: (text) {
-                              if (text!.isEmpty) {
-                                return 'Pincode can\'t be empty';
-                              }
-                              return null;
-                            },
-                            controller: _pincodeController,
-                            cursorColor: AppTheme.nearlyBlack,
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              hintText: "Enter Your Pincode",
-                              label: Text('PINCODE'),
-                              isDense: true,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black)),
-                              hintStyle: TextStyle(
-                                  color: AppTheme.darkerText,
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                              labelStyle: TextStyle(
-                                  color: const Color(0xFF424242),
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
+                          // TextFormField(
+                          //   validator: (text) {
+                          //     if (text!.isEmpty) {
+                          //       return 'State can\'t be empty';
+                          //     }
+                          //     return null;
+                          //   },
+                          //   controller: _stateController,
+                          //   cursorColor: AppTheme.nearlyBlack,
+                          //   decoration: InputDecoration(
+                          //     hintText: "Enter Your State",
+                          //     label: Text('STATE'),
+                          //     isDense: true,
+                          //     focusedBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(color: Colors.black)),
+                          //     hintStyle: TextStyle(
+                          //         color: AppTheme.darkerText,
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14,
+                          //         fontWeight: FontWeight.w400),
+                          //     labelStyle: TextStyle(
+                          //         color: const Color(0xFF424242),
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14),
+                          //     border: OutlineInputBorder(
+                          //       borderSide: BorderSide(color: Colors.black),
+                          //     ),
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   height: 15,
+                          // ),
+                          // TextFormField(
+                          //   validator: (text) {
+                          //     if (text!.isEmpty) {
+                          //       return 'Pincode can\'t be empty';
+                          //     }
+                          //     return null;
+                          //   },
+                          //   controller: _pincodeController,
+                          //   cursorColor: AppTheme.nearlyBlack,
+                          //   keyboardType: TextInputType.number,
+                          //   decoration: InputDecoration(
+                          //     hintText: "Enter Your Pincode",
+                          //     label: Text('PINCODE'),
+                          //     isDense: true,
+                          //     focusedBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(color: Colors.black)),
+                          //     hintStyle: TextStyle(
+                          //         color: AppTheme.darkerText,
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14,
+                          //         fontWeight: FontWeight.w400),
+                          //     labelStyle: TextStyle(
+                          //         color: const Color(0xFF424242),
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14),
+                          //     border: OutlineInputBorder(
+                          //       borderSide: BorderSide(color: Colors.black),
+                          //     ),
+                          //   ),
+                          // ),
+
+                          // SizedBox(
+                          //   height: 15,
+                          // ),
                           Row(
                             children: [
                               Text(
@@ -412,7 +420,13 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                             controller: _ClientEmailAddress,
                             keyboardType: TextInputType.emailAddress,
                             cursorColor: AppTheme.nearlyBlack,
+                            onTap: () {
+                              isEmailValid = true;
+                              setState(() {});
+                            },
                             decoration: InputDecoration(
+                              errorText:
+                                  isEmailValid ? null : "Email not valid",
                               hintText: "Enter Client's Address",
                               label: Text("CLIENT'S PRIMARY EMAIL ADDRESS"),
                               isDense: true,
@@ -476,54 +490,67 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                       onTap: () {
                         log("pageto == CreateANewPhd");
                         if (_formkey.currentState!.validate()) {
-                          _phdProvider.storePropertiesDetails(
-                              paddress: _addressController.text,
-                              pincode: _pincodeController.text,
-                              state: _stateController.text,
-                              // _propertynumber.text +
-                              //     ", " +
-                              //     _propertyname.text +
-                              //     ", " +
-                              //     _propertytype.text +
-                              //     ", " +
-                              //     _cityController.text +
-                              //     "(" +
-                              //     _pincodeController.text +
-                              //     '), ' +
-                              //     _stateController.text
-
-                              firstname: _first_name.text,
-                              lastname: _Last_name.text,
-                              clientemail: _ClientEmailAddress.text);
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => CreateANewPhd(
-                                ClientEmailAddress: _ClientEmailAddress.text,
-                                Last_name: _Last_name.text,
-                                city: _cityController.text,
-                                first_name: _first_name.text,
+                          if (_addressController.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Property adress is required!'),
+                            ));
+                          } else if (!checkForEmailValid(
+                              _ClientEmailAddress.text)) {
+                            isEmailValid = false;
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Email is not valid'),
+                            ));
+                            setState(() {});
+                          } else {
+                            _phdProvider.storePropertiesDetails(
+                                paddress: _addressController.text,
                                 pincode: _pincodeController.text,
                                 state: _stateController.text,
-                                streetName: _propertyname.text,
-                                streetNum: _propertynumber.text,
-                                streetType: _propertytype.text,
+                                // _propertynumber.text +
+                                //     ", " +
+                                //     _propertyname.text +
+                                //     ", " +
+                                //     _propertytype.text +
+                                //     ", " +
+                                //     _cityController.text +
+                                //     "(" +
+                                //     _pincodeController.text +
+                                //     '), ' +
+                                //     _stateController.text
+
+                                firstname: _first_name.text,
+                                lastname: _Last_name.text,
+                                clientemail: _ClientEmailAddress.text);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => CreateANewPhd(
+                                  ClientEmailAddress: _ClientEmailAddress.text,
+                                  Last_name: _Last_name.text,
+                                  city: _cityController.text,
+                                  first_name: _first_name.text,
+                                  pincode: _pincodeController.text,
+                                  state: _stateController.text,
+                                  streetName: _propertyname.text,
+                                  streetNum: _propertynumber.text,
+                                  streetType: _propertytype.text,
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         }
-                        Timer(Duration(seconds: 2), () {
-                          setState(() {
-                            _ClientEmailAddress.clear();
-                            _Last_name.clear();
-                            _first_name.clear();
-                            _propertynumber.clear();
-                            _propertyname.clear();
-                            _propertytype.clear();
-                            _pincodeController.clear();
-                            _cityController.clear();
-                            _stateController.clear();
-                          });
-                        });
+                        // Timer(Duration(seconds: 2), () {
+                        //   setState(() {
+                        //     _ClientEmailAddress.clear();
+                        //     _Last_name.clear();
+                        //     _first_name.clear();
+                        //     _propertynumber.clear();
+                        //     _propertyname.clear();
+                        //     _propertytype.clear();
+                        //     _pincodeController.clear();
+                        //     _cityController.clear();
+                        //     _stateController.clear();
+                        //   });
+                        // });
                         // Navigator.of(context).push(
                         //   MaterialPageRoute(
                         //     builder: (context) => CreateANewPhd(

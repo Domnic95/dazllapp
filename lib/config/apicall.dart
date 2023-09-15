@@ -209,7 +209,7 @@ logOut(BuildContext context) async {
 Future<void> signupRealtor(
   index,
   context,
-  address1,
+  companyName,
   confirm_password,
   email,
   fname,
@@ -225,7 +225,7 @@ Future<void> signupRealtor(
       "password": password,
       "first_name": fname,
       "last_name": lname,
-      "real_state_agency_name": address1.toString(),
+      "real_state_agency_name": companyName.toString(),
       "confirm_password": confirm_password.toString(),
       "address": address.toString(),
       "phone_number": mobile,

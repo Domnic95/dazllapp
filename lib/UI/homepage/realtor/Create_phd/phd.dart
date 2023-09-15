@@ -51,7 +51,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
   }
 
   buildTabController() {
-    log("build Tab Controller");
+    log("build Tab Controller   ");
     _phdProvider.loaddata(
         context, _phdProvider.roomIdList[_phdProvider.rooms.length - 1], ref);
     _tabController =
@@ -107,6 +107,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                   unselectedLabelColor: blackColor,
                   onTap: (value) {
                     _phdProvider.setTabIndex(tabIndex: value);
+                    log("message====  ${_tabController.index}");
                     // setState(() {});
                   },
 
@@ -329,7 +330,8 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                   "lowest_price": _phdProvider.startRange,
 //left:calc(-50% - 4px)
                   "highest_price": _phdProvider.endRange,
-                  "zip_code": _phdProvider.zipCode,
+                  // "zip_code": _phdProvider.zipCode,
+                  "zip_code": "123456",
                   "house_id": '',
                   // "customer_id": 1,
                   "mid_price": 500,

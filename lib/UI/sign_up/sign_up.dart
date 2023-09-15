@@ -10,10 +10,12 @@ import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
+import 'package:dazllapp/constant/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:map_autocomplete_field/map_autocomplete_field.dart';
 
 import '../../config/apicall.dart';
 
@@ -26,11 +28,12 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _fNameControllre = TextEditingController();
   final _PfNameControllre = TextEditingController();
   final _CfNameControllre = TextEditingController();
+  final _realestateCompanyController = TextEditingController();
   final _addressController = TextEditingController();
   final _PcompanyaddressController = TextEditingController();
   final _PcompanycityController = TextEditingController();
   final _PcompanynameController = TextEditingController();
-  final _addressController1 = TextEditingController();
+  // final _addressController1 = TextEditingController();
   final _lNameControllre = TextEditingController();
   final _ClNameControllre = TextEditingController();
   final _PlNameControllre = TextEditingController();
@@ -56,7 +59,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _PnumberController = TextEditingController();
   final _PzipcodeController = TextEditingController();
   final _PstateController = TextEditingController();
-  final _zipCodeController = TextEditingController();
+  // final _zipCodeController = TextEditingController();
   final _CzipController = TextEditingController();
   final _stateController = TextEditingController();
 
@@ -233,6 +236,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     curruntindex = DropsDownvalue.indexOf(newValue);
                     SpHelpers.setInt(
                         SharedPrefsKeys.currentindex, curruntindex);
+                    daziTerms = false;
                     print(curruntindex);
                   });
                 },
@@ -281,7 +285,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 25, right: 25, top: 20),
+                      padding: EdgeInsets.only(left: 20, right: 20, top: 20),
                       child: Column(
                         children: [
                           EditField(
@@ -302,38 +306,76 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                           ),
                           SizedBox(height: size.height * 0.03),
                           EditField(
-                            controller: _addressController,
-                            hint: "Real Estate Agency Affiliation (name)",
+                            controller: _realestateCompanyController,
+                            hint: "Real Estate Company",
                           ),
                           SizedBox(height: size.height * 0.03),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: EditField(
-                                  controller: _addressController1,
-                                  hint: "Real Estate Agency Affiliation (city)",
-                                ),
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Expanded(
-                                child: EditField(
-                                  hint: "Zip Code",
-                                  controller: _zipCodeController,
-                                  inputType: TextInputType.number,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Expanded(
-                                child: EditField(
-                                  hint: "State",
-                                  controller: _stateController,
-                                ),
-                              ),
-                            ],
+                          // Row(
+                          //   children: [
+                          //     Expanded(
+                          //       child: EditField(
+                          //         controller: _addressController1,
+                          //         hint: "Real Estate Agency Affiliation (city)",
+                          //       ),
+                          //     ),
+                          //     SizedBox(
+                          //       width: 20,
+                          //     ),
+                          //     Expanded(
+                          //       child: EditField(
+                          //         hint: "Zip Code",
+                          //         controller: _zipCodeController,
+                          //         inputType: TextInputType.number,
+                          //       ),
+                          //     ),
+                          //     SizedBox(
+                          //       width: 10,
+                          //     ),
+                          //     Expanded(
+                          //       child: EditField(
+                          //         hint: "State",
+                          //         controller: _stateController,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+
+                          MapAutoCompleteField(
+                            googleMapApiKey: googleMapApiKey,
+                            controller: _addressController,
+                            itemBuilder: (BuildContext context, suggestion) {
+                              return ListTile(
+                                title: Text(suggestion.description),
+                              );
+                            },
+                            onSuggestionSelected: (suggestion) {
+                              _addressController.text = suggestion.description;
+                            },
+                            validator: (text) {
+                              if (text!.isEmpty) {
+                                return "Address can't be empty";
+                              }
+                              return null;
+                            },
+                            inputDecoration: InputDecoration(
+                              hintText: "Enter Location*",
+                              // label: Text('Property Address'),
+                              isDense: true,
+                              // focusedBorder: OutlineInputBorder(
+                              //     borderSide: BorderSide(color: Colors.black)),
+                              hintStyle: TextStyle(
+                                  color: AppTheme.darkerText,
+                                  fontFamily: AppTheme.fontName,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                              labelStyle: TextStyle(
+                                  color: const Color(0xFF424242),
+                                  fontFamily: AppTheme.fontName,
+                                  fontSize: 14),
+                              // border: OutlineInputBorder(
+                              //   borderSide: BorderSide(color: Colors.black),
+                              // ),
+                            ),
                           ),
                           SizedBox(height: size.height * 0.03),
                           EditField(
@@ -342,8 +384,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                             inputType: TextInputType.phone,
                             maxLength: 10,
                           ),
-                          Row(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Text(
+                                "Select Membership Option:",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                               Row(
                                 children: [
                                   Checkbox(
@@ -363,7 +410,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                         setState(() {});
                                       }),
                                   Text(
-                                    "Monthly",
+                                    "\$10 per month",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: AppTheme.fontName,
@@ -371,7 +418,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                   ),
                                 ],
                               ),
-                              SizedBox(width: 50),
                               Row(
                                 children: [
                                   Checkbox(
@@ -393,7 +439,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                         setState(() {});
                                       }),
                                   Text(
-                                    "Yearly",
+                                    "\$100 per year",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: AppTheme.fontName,
@@ -402,6 +448,39 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 ],
                               ),
                             ],
+                          ),
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: daziTerms,
+                                onChanged: (value) {
+                                  setState(() {
+                                    daziTerms = value!;
+                                  });
+                                },
+                              ),
+                              Expanded(
+                                child: RichText(
+                                  maxLines: 2,
+                                  text: TextSpan(
+                                      text: "Check box to accept\t",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: AppTheme.darkText),
+                                      children: [
+                                        TextSpan(
+                                          text: "DAZl'S TERMS AND CONDITIONS.*",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w900,
+                                              fontSize: 14),
+                                        )
+                                      ]),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
                           ),
                         ],
                       ),
@@ -413,7 +492,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               ? (Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         children: [
                           Flexible(
@@ -817,9 +896,14 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                           },
                         )),
                     Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Row(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Text(
+                            "Select Membership Option:",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                           Row(
                             children: [
                               Checkbox(
@@ -838,7 +922,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                     setState(() {});
                                   }),
                               Text(
-                                "Monthly",
+                                "\$50 per month",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: AppTheme.fontName,
@@ -846,7 +930,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(width: 50),
                           Row(
                             children: [
                               Checkbox(
@@ -868,7 +951,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                     setState(() {});
                                   }),
                               Text(
-                                "Yearly",
+                                "\$550 per year",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: AppTheme.fontName,
@@ -882,29 +965,34 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Row(
-                        children: [
-                          Checkbox(
-                            value: daziTerms,
-                            onChanged: (value) {
-                              setState(() {
-                                daziTerms = value!;
-                              });
-                            },
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: daziTerms,
+                          onChanged: (value) {
+                            setState(() {
+                              daziTerms = value!;
+                            });
+                          },
+                        ),
+                        Expanded(
+                          child: RichText(
+                            maxLines: 2,
+                            text: TextSpan(
+                                text: "Check box to accept\t",
+                                style: TextStyle(
+                                    fontSize: 12, color: AppTheme.darkText),
+                                children: [
+                                  TextSpan(
+                                    text: "DAZl'S TERMS AND CONDITIONS.*",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 12),
+                                  )
+                                ]),
                           ),
-                          Text(
-                            "Check box to accept\t",
-                            style: TextStyle(fontSize: 11),
-                          ),
-                          Text(
-                            "DAZl'S TERMS AND CONDITIONS.*",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w900, fontSize: 11),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 10,
@@ -916,7 +1004,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               ? (Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         children: [
                           Flexible(
@@ -945,7 +1033,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       ),
                     ),
                     Padding(
-                        padding: EdgeInsets.only(left: 25, right: 25, top: 20),
+                        padding: EdgeInsets.only(left: 20, right: 20, top: 20),
                         child: Column(
                           children: [
                             EditField(
@@ -986,6 +1074,41 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                               controller: _CpasswordAgainController,
                               hint: "Confrim Password",
                               isPassword: true,
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: daziTerms,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      daziTerms = value!;
+                                    });
+                                  },
+                                ),
+                                Expanded(
+                                  child: RichText(
+                                    maxLines: 2,
+                                    text: TextSpan(
+                                        text: "Check box to accept\t",
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: AppTheme.darkText),
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                                "DAZl'S TERMS AND CONDITIONS.*",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: 12),
+                                          )
+                                        ]),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
                             ),
                           ],
                         ))
@@ -1091,16 +1214,21 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 _passwordAgainController.text) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Confirm password is not Match')));
+            } else if (_realestateCompanyController.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Enter Company name')));
             } else if (_addressController.text.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Enter Affilation name')));
-            } else if (_addressController1.text.isEmpty) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Enter Affilation city')));
-            } else if (_zipCodeController.text.isEmpty) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text('Enter zip code')));
-            } else if (_stateController.text.isEmpty) {
+            }
+            // else if (_addressController1.text.isEmpty) {
+            //   ScaffoldMessenger.of(context).showSnackBar(
+            //       SnackBar(content: Text('Enter Affilation city')));
+            // } else if (_zipCodeController.text.isEmpty) {
+            //   ScaffoldMessenger.of(context)
+            //       .showSnackBar(SnackBar(content: Text('Enter zip code')));
+            // }
+            else if (_stateController.text.isEmpty) {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text('Enter state')));
             } else if (_mobileNoControllre.text.isEmpty) {
@@ -1109,12 +1237,15 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             } else if (paymentRealtor.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text("Select Membership Option")));
+            } else if (daziTerms == false) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("Select DAZL'S TEARMS AND CONDITIONS")));
             } else {
               print('---------->>> ');
               signupRealtor(
                 curruntindex,
                 context,
-                _addressController1.text,
+                _realestateCompanyController.text,
                 _passwordAgainController.text,
                 _emailController.text,
                 _fNameControllre.text,
@@ -1233,6 +1364,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 _CpasswordAgainController.text) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Confirm password is not Match')));
+            } else if (daziTerms == false) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("Select DAZL'S TEARMS AND CONDITIONS")));
             } else {
               signupCustomer(
                 curruntindex,

@@ -108,30 +108,32 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: SingleChildScrollView(
                         child: Column(children: [
-                          SizedBox(
-                            width: size.width,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Checkbox(
-                                  activeColor: AppTheme.colorPrimary,
-                                  value: _phdProvider.hasBasement,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _phdProvider.hasBasement = value!;
-                                    });
-                                  },
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    "Has the basement been finished since last real estate transaction",
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
+                          _phdProvider.roomIdList[_phdProvider.tabIndex] == 7
+                              ? SizedBox(
+                                  width: size.width,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Checkbox(
+                                        activeColor: AppTheme.colorPrimary,
+                                        value: _phdProvider.hasBasement,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _phdProvider.hasBasement = value!;
+                                          });
+                                        },
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          "Has the basement been finished since last real estate transaction",
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
+                                )
+                              : SizedBox(),
                           Text(
                               "1. Note any exceptional features or selling advantage:"),
                           SizedBox(
@@ -470,7 +472,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                               itemCount: _reltorProvider
                                   .roomTypes[_phdProvider.tabIndex].length,
                               itemBuilder: (context, index) {
-                                log("snkdcksdkljdf === ${_phdProvider.selectRoomTypeFeature[_phdProvider.tabIndex]}");
+                                // log("snkdcksdkljdf === ${_phdProvider.selectRoomTypeFeature[_phdProvider.tabIndex]}");
                                 return Container(
                                   width: size.width * 0.45 - 16,
                                   // margin: EdgeInsets.symmetric(horizontal: 10),
@@ -1689,7 +1691,8 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                               "Buyer Road Blocks or Recommendations?",
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                  color: primaryColor, fontWeight: FontWeight.bold),
+                                  color: primaryColor,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           ListView.separated(
@@ -2177,6 +2180,8 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                                       File('').toString()
                                                   ? SizedBox()
                                                   : GridView.builder(
+                                                      physics:
+                                                          NeverScrollableScrollPhysics(),
                                                       shrinkWrap: true,
                                                       itemCount: _phdProvider
                                                               .imgFile[
@@ -2570,6 +2575,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                       ],
                     ),
                     onTap: () {
+                      Navigator.of(context).pop();
                       index == 0
                           ? openCamera(isMainImg)
                           : openCameraRoom(ListIndex, isMainImg);
@@ -2586,6 +2592,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                       ],
                     ),
                     onTap: () {
+                      Navigator.of(context).pop();
                       index == 0
                           ? openGallery(isMainImg)
                           : openGalleryRoom(ListIndex, isMainImg);
@@ -2603,7 +2610,6 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
     imgCamera =
         await _phdProvider.imgPicker.getImage(source: ImageSource.camera);
     if (imgCamera != null) {
-      Navigator.of(context).pop();
       photocamera(isMainImg);
     }
   }
@@ -2612,7 +2618,6 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
   void openGallery(bool isMainImg) async {
     imgGallery = await _phdProvider.imgPicker.getMultiImage();
     if (imgGallery != null) {
-      Navigator.of(context).pop();
       textphoto(isMainImg);
     }
   }
@@ -2670,7 +2675,6 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
       Utils.loaderDialog(context, false);
       setState(() {});
     }
-    Navigator.of(context).pop();
   }
 
   late var imgGalleryRoom;
@@ -2689,7 +2693,6 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
       Utils.loaderDialog(context, false);
       setState(() {});
     }
-    Navigator.of(context).pop();
   }
 
   void textphotoRoom(int index) {
