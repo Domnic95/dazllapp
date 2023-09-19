@@ -32,6 +32,7 @@ class ComplitedPhdProvider extends BaseNotifier {
 
   selectCustomer(FilterProject cus) {
     _selectedCustomer = cus;
+    
     notifyListeners();
   }
 }

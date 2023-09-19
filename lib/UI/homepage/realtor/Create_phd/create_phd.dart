@@ -27,7 +27,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
   final _propertyname = TextEditingController();
   final _propertytype = TextEditingController();
   final _cityController = TextEditingController();
-  final _stateController = TextEditingController();
+  // final _stateController = TextEditingController();
   final _pincodeController = TextEditingController();
   final _first_name = TextEditingController();
   final _Last_name = TextEditingController();
@@ -245,38 +245,38 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                           // SizedBox(
                           //   height: 15,
                           // ),
-                          TextFormField(
-                            validator: (text) {
-                              if (text!.isEmpty) {
-                                return 'State can\'t be empty';
-                              }
-                              return null;
-                            },
-                            controller: _stateController,
-                            cursorColor: AppTheme.nearlyBlack,
-                            decoration: InputDecoration(
-                              hintText: "Enter Your State",
-                              label: Text('STATE'),
-                              isDense: true,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black)),
-                              hintStyle: TextStyle(
-                                  color: AppTheme.darkerText,
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                              labelStyle: TextStyle(
-                                  color: const Color(0xFF424242),
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
+                          // TextFormField(
+                          //   validator: (text) {
+                          //     if (text!.isEmpty) {
+                          //       return 'State can\'t be empty';
+                          //     }
+                          //     return null;
+                          //   },
+                          //   controller: _stateController,
+                          //   cursorColor: AppTheme.nearlyBlack,
+                          //   decoration: InputDecoration(
+                          //     hintText: "Enter Your State",
+                          //     label: Text('STATE'),
+                          //     isDense: true,
+                          //     focusedBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(color: Colors.black)),
+                          //     hintStyle: TextStyle(
+                          //         color: AppTheme.darkerText,
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14,
+                          //         fontWeight: FontWeight.w400),
+                          //     labelStyle: TextStyle(
+                          //         color: const Color(0xFF424242),
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14),
+                          //     border: OutlineInputBorder(
+                          //       borderSide: BorderSide(color: Colors.black),
+                          //     ),
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   height: 15,
+                          // ),
                           TextFormField(
                             validator: (text) {
                               if (text!.isEmpty) {
@@ -479,7 +479,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                           _phdProvider.storePropertiesDetails(
                               paddress: _addressController.text,
                               pincode: _pincodeController.text,
-                              state: _stateController.text,
+                              // state: _stateController.text,
                               // _propertynumber.text +
                               //     ", " +
                               //     _propertyname.text +
@@ -503,7 +503,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                                 city: _cityController.text,
                                 first_name: _first_name.text,
                                 pincode: _pincodeController.text,
-                                state: _stateController.text,
+                                // state: _stateController.text,
                                 streetName: _propertyname.text,
                                 streetNum: _propertynumber.text,
                                 streetType: _propertytype.text,
@@ -521,7 +521,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                             _propertytype.clear();
                             _pincodeController.clear();
                             _cityController.clear();
-                            _stateController.clear();
+                            // _stateController.clear();
                           });
                         });
                         // Navigator.of(context).push(

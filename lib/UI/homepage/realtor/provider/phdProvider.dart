@@ -92,13 +92,13 @@ class PhdProvider extends BaseNotifier {
 
   void storePropertiesDetails(
       {required String paddress,
-      required String state,
+      // required String state,
       required String pincode,
       required String firstname,
       required String lastname,
       required String clientemail}) {
     address = paddress;
-    _stateName = state;
+    // _stateName = state;
     zipCode = pincode;
     firstName = firstname;
     lastName = lastname;

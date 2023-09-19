@@ -179,25 +179,25 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                                           borderRadius:
                                               BorderRadius.circular(8)),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 8.0),
                                         child: ListTile(
                                           contentPadding: EdgeInsets.zero,
-                                          leading: _roomsfeature
-                                                      .listOfRoom[index]
-                                                      .image ==
-                                                  ""
-                                              ? Image.asset(
-                                                  'assets/images/noimage.png',
-                                                  width: 70,
-                                                  color: primaryColor,
-                                                )
-                                              : Image.network(
-                                                  _roomsfeature
-                                                      .listOfRoom[index].image
-                                                      .toString(),
-                                                  width: 50,
-                                                  color: primaryColor,
-                                                ),
+                                          // leading: _roomsfeature
+                                          //             .listOfRoom[index]
+                                          //             .image ==
+                                          //         ""
+                                          //     ? Image.asset(
+                                          //         'assets/images/noimage.png',
+                                          //         width: 70,
+                                          //         color: primaryColor,
+                                          //       )
+                                          //     : Image.network(
+                                          //         _roomsfeature
+                                          //             .listOfRoom[index].image
+                                          //             .toString(),
+                                          //         width: 50,
+                                          //         color: primaryColor,
+                                          //       ),
                                           title: Text(
                                             "${_roomsfeature.listOfRoom[index].name}",
                                             style: Theme.of(context)

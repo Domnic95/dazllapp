@@ -10,7 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CreateANewPhd extends ConsumerStatefulWidget {
   final String? city;
-  final String? state;
+  // final String? state;
   final String? pincode;
   final String? first_name;
   final String? Last_name;
@@ -21,7 +21,7 @@ class CreateANewPhd extends ConsumerStatefulWidget {
   CreateANewPhd({
     Key? key,
     this.city,
-    this.state,
+    // this.state,
     this.pincode,
     this.first_name,
     this.Last_name,
@@ -53,7 +53,7 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
     final _housedata = ref.read(realtorprovider);
     await _housedata.gethousedata(
         address: _phdProvider.address,
-        state: widget.state,
+        // state: widget.state,
         pincode: widget.pincode,
         first_name: widget.first_name,
         Last_name: widget.Last_name,
@@ -89,9 +89,9 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
                           height: 10,
                         ),
                         Center(
-                            child: Text(
-                          "\$ " +
-                              "${(_phdProvider.startRange + _phdProvider.endRange) / 2}",
+                            child: Text("Adjust the value based on your knowledge"
+                          // "\$ " +
+                          //     "${(_phdProvider.startRange + _phdProvider.endRange) / 2}",
                         )),
                         SliderTheme(
                           data: SliderTheme.of(context).copyWith(
@@ -163,7 +163,7 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      "https://dazlpro.com/_next/static/image/Modules/CreatePHD/Images/04-RE-Pros-Console-Blkgd.4eec75d84707a3439a778bcc0745104b.jpg"))),
+                                      "https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75"))),
                         ),
                         Expanded(
                           child: ListView(
