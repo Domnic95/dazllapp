@@ -25,15 +25,16 @@ class _CustomerHomepageState extends ConsumerState<CustomerHomepage> {
     return SafeArea(
         child: Scaffold(
       // drawer:
-          //  HomeDrawer(
-          //   screenIndex: DrawerIndex.HOME,
-          //   iconAnimationController:
-          //       AnimationController(vsync: this, duration: Duration(seconds: 2)),
-          //   callBackIndex: (DrawerIndex) {},
-          // ),
-          // drawer(context, ref),
+      //  HomeDrawer(
+      //   screenIndex: DrawerIndex.HOME,
+      //   iconAnimationController:
+      //       AnimationController(vsync: this, duration: Duration(seconds: 2)),
+      //   callBackIndex: (DrawerIndex) {},
+      // ),
+      // drawer(context, ref),
       appBar: AppBar(
-         leading: PopupButton(),
+        backgroundColor: primaryColor,
+        leading: PopupButton(),
         centerTitle: true,
         title: Text(
           "HOMEOWNERS",

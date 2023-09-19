@@ -115,7 +115,7 @@ class CustomerNotifier extends BaseNotifier {
 
     listofproject =
         List<Project>.from(res.data['data'].map((x) => Project.fromJson(x)));
-
+    listofproject.sort((a, b) => b.projectId!.compareTo(a.projectId ?? 0));
     for (int a = 0; a < res.data['data'].length; a++) {
       for (int b = 0; b < res.data['data'][a]['roominfo'].length; b++) {
         listofRoomsinfo

@@ -147,9 +147,17 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                     //     ),
                     //   ),
                     // ),
+                    Text(
+                      "What items in this area would you like to dazl up ?",
+                      maxLines: 2,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
                     SizedBox(
                       height: size.height * 0.02,
                     ),
+
                     Expanded(
                       // height: size.height * 0.63,
                       child: ListView.separated(
@@ -792,9 +800,29 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                           //             );
                                           //     },
                                           //   ),
-
                                           SizedBox(
-                                            height: 10,
+                                            height: 5,
+                                          ),
+                                          RichText(
+                                              text: TextSpan(
+                                                  text: "UPLOAD PHOTOS OF ",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: blackColor,
+                                                      fontSize: 12),
+                                                  children: [
+                                                TextSpan(
+                                                  text:
+                                                      "your project or photos that inspire your renovation",
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: AppTheme.grey61,
+                                                  ),
+                                                )
+                                              ])),
+                                          SizedBox(
+                                            height: 5,
                                           ),
                                           Container(
                                             height: size.height * 0.12,

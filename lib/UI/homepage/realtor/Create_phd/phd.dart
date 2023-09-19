@@ -51,7 +51,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
   }
 
   buildTabController() {
-    log("build Tab Controller");
+    log("build Tab Controller   ");
     _phdProvider.loaddata(
         context, _phdProvider.roomIdList[_phdProvider.rooms.length - 1], ref);
     _tabController =
@@ -101,19 +101,21 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
           _phdProvider = ref.watch(phdProvider);
           return Column(
             children: [
-              CommonHeader(title: 'Create a Phd',isback:false),
+              CommonHeader(title: 'Create a Phd', isback: false),
               TabBar(
                   unselectedLabelStyle: TextStyle(color: blackColor),
                   unselectedLabelColor: blackColor,
                   onTap: (value) {
                     _phdProvider.setTabIndex(tabIndex: value);
+                    log("message====  ${_tabController.index}");
                     // setState(() {});
                   },
 
                   // automaticIndicatorColorAdjustment: true,
                   indicatorPadding: EdgeInsets.all(4),
                   indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8), color: primaryColor),
+                      borderRadius: BorderRadius.circular(8),
+                      color: primaryColor),
                   isScrollable: true,
                   controller: _tabController,
                   tabs: buildTabs()),
@@ -267,7 +269,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
               onTap: () async {
                 // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>selectRoom()));
                 Utils.loaderDialog(context, true);
-                log("api Call" + _phdProvider.featureId.toString());
+
                 // for (int i = 0; i < _phdProvider.mainImgFile.length; i++) {
                 //   _phdProvider.set(false, i);
                 //   for (int j = 0; j < _phdProvider.mainImgFile[i].length; j++) {
@@ -302,8 +304,8 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                     i++) {
                   phdDes.add(_phdProvider.DescrptionController[i].text);
                 }
-                log("message===${_phdProvider.clientEmail}}");
-                log("message===${_realtorProvider.housedata!.taxAccessedValue}");
+                // log("message===${_phdProvider.clientEmail}}");
+                // log("message===${_realtorProvider.housedata!.taxAccessedValue}");
                 Map<String, dynamic> data = {
                   'score': 100,
                   'address': _phdProvider.address,
@@ -328,7 +330,8 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                   "lowest_price": _phdProvider.startRange,
 //left:calc(-50% - 4px)
                   "highest_price": _phdProvider.endRange,
-                  "zip_code": _phdProvider.zipCode,
+                  // "zip_code": _phdProvider.zipCode,
+                  "zip_code": "123456",
                   "house_id": '',
                   // "customer_id": 1,
                   "mid_price": 500,
@@ -434,7 +437,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                     }
                   }
                 }
-                log("data === $data");
+                // log("data === $data");
                 // if (!_phdProvider.isSet.contains(false)) {
                 await _realtorProvider.createPhdReport(data).then((value) {
                   Utils.loaderDialog(context, false);
@@ -445,11 +448,12 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                       content: Text('PHD created sucessfully'),
                       backgroundColor: teamColor,
                     ));
-                    Navigator.pushReplacement(
+                    Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
                           builder: (context) => SelectCustomer(),
-                        ));
+                        ),
+                        (route) => false);
 
                     _realtorProvider.reset();
                   }

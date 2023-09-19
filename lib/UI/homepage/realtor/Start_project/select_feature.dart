@@ -8,6 +8,7 @@ import 'package:dazllapp/config/Utils/utils.dart';
 import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
+import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -138,6 +139,13 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Text(
+                      "What items in this area would you like to dazl up ?",
+                      maxLines: 2,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
                     // Container(
                     //   height: size.height * 0.08,
                     //   decoration: BoxDecoration(
@@ -839,9 +847,29 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                           //             );
                                           //     },
                                           //   ),
-
                                           SizedBox(
-                                            height: 10,
+                                            height: 5,
+                                          ),
+                                          RichText(
+                                              text: TextSpan(
+                                                  text: "UPLOAD PHOTOS OF ",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: blackColor,
+                                                      fontSize: 12),
+                                                  children: [
+                                                TextSpan(
+                                                  text:
+                                                      "your project or photos that inspire your renovation",
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: AppTheme.grey61,
+                                                  ),
+                                                )
+                                              ])),
+                                          SizedBox(
+                                            height: 5,
                                           ),
                                           Container(
                                             height: size.height * 0.12,
@@ -854,87 +882,37 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                                 color: Colors.white),
-                                            child: Stack(
-                                              children: [
-                                                TextFormField(
-                                                  controller: _roomProvider
+                                            child: TextFormField(
+                                              controller: _roomProvider
                                                           .DescrptionController[
-                                                      _roomProvider
-                                                          .tabIndex][index],
-                                                  minLines: 2,
-                                                  maxLines: 100,
-                                                  textInputAction:
-                                                      TextInputAction.done,
-                                                  cursorColor:
-                                                      AppTheme.colorPrimary,
-                                                  decoration: InputDecoration(
-                                                      hintText:
-                                                          "Add note to inspection report",
-                                                      hintStyle:
-                                                          Theme.of(context)
-                                                              .textTheme
-                                                              .bodyText1,
-                                                      focusedBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .transparent)),
-                                                      enabledBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .transparent)),
-                                                      border: UnderlineInputBorder(
+                                                      _roomProvider.tabIndex]
+                                                  [index],
+                                              minLines: 2,
+                                              maxLines: 100,
+                                              textInputAction:
+                                                  TextInputAction.done,
+                                              cursorColor:
+                                                  AppTheme.colorPrimary,
+                                              decoration: InputDecoration(
+                                                  hintText:
+                                                      "Add note to inspection report",
+                                                  hintStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText1,
+                                                  focusedBorder:
+                                                      UnderlineInputBorder(
                                                           borderSide: BorderSide(
                                                               color: Colors
-                                                                  .transparent))),
-                                                ),
-                                                // Align(
-                                                //   alignment:
-                                                //       Alignment.centerRight,
-                                                //   child: Container(
-                                                //     decoration: BoxDecoration(
-                                                //       color:
-                                                //           AppTheme.colorPrimary,
-                                                //       borderRadius:
-                                                //           BorderRadius.only(
-                                                //         bottomLeft:
-                                                //             Radius.circular(10),
-                                                //         topLeft:
-                                                //             Radius.circular(10),
-                                                //       ),
-                                                //     ),
-                                                //     child: IconButton(
-                                                //       icon: Icon(
-                                                //         Icons.arrow_forward_ios,
-                                                //         color: Colors.white,
-                                                //       ),
-                                                //       onPressed: () {
-                                                //         _DescrptionController[
-                                                //                     index]
-                                                //                 .text
-                                                //                 .isEmpty
-                                                //             ? ScaffoldMessenger
-                                                //                     .of(context)
-                                                //                 .showSnackBar(
-                                                //                     SnackBar(
-                                                //                 content: Text(
-                                                //                     'Add description'),
-                                                //               ))
-                                                //             : _description[
-                                                //                     index] =
-                                                //                 _DescrptionController[
-                                                //                         index]
-                                                //                     .text;
-                                                //         _DescrptionController[
-                                                //                 index]
-                                                //             .clear();
-                                                //       },
-                                                //     ),
-                                                //     width: 50,
-                                                //   ),
-                                                // )
-                                              ],
+                                                                  .transparent)),
+                                                  enabledBorder:
+                                                      UnderlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Colors
+                                                                  .transparent)),
+                                                  border: UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors
+                                                              .transparent))),
                                             ),
                                           ),
                                         ],

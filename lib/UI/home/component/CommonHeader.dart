@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 class CommonHeader extends StatelessWidget {
   final String title;
   final bool isback;
-  const CommonHeader({Key? key, required this.title, required this.isback})
+  final VoidCallback? back;
+  const CommonHeader(
+      {Key? key, required this.title, required this.isback, this.back})
       : super(key: key);
 
   @override
@@ -24,7 +26,12 @@ class CommonHeader extends StatelessWidget {
           children: [
             InkWell(
                 onTap: () {
-                  Navigator.of(context).pop();
+                  if (isback && back == null) {
+                    Navigator.of(context).pop();
+                  } else if (back != null) {
+                    print("sdzhkhdfk");
+                    back!();
+                  }
                 },
                 child: SizedBox(
                   width: 30,

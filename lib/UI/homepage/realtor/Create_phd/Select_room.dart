@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
@@ -46,7 +48,7 @@ class _selectRoomState extends ConsumerState<selectRoom> {
       body: Container(
         child: Column(
           children: [
-            CommonHeader(title: "Create a new phd",isback:false),
+            CommonHeader(title: "Create a new phd", isback: false),
             // SizedBox(
             //   height: size.height * 0.02,
             // ),
@@ -77,6 +79,7 @@ class _selectRoomState extends ConsumerState<selectRoom> {
                                   } else
                                     currentindex = index;
                                   roomid = _roomsNotifier.listOfRoom[index].id;
+                                  log("shhfdhdf  ${_roomsNotifier.listOfRoom[index].id}");
                                 });
                               },
                               child: Card(
