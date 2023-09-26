@@ -27,6 +27,7 @@ class RealtorNotifier extends BaseNotifier {
   GetComplitedPhdRealtor? singleComplitedPhdReport;
   RealtorUser? realtorUser;
   Housedata? housedata;
+  
   Future<void> setRealtorUser(String user) async {
     log("realtor ====== $user");
     realtorUser = RealtorUser.fromJson(jsonDecode(user));
@@ -90,7 +91,7 @@ class RealtorNotifier extends BaseNotifier {
   Future<Response> createPhdReport(Map<String, dynamic> data) async {
     Response res = await dioClient.PostwithFormData(
         apiEnd: create_phd_realtor, Data: data);
-    log("Response === ${res.data}");
+    log("Response === ${res.statusCode}");
     return res;
   }
 

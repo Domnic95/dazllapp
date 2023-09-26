@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'dart:developer';
+import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/api.dart';
 import 'package:dazllapp/config/global.dart';
@@ -130,12 +131,16 @@ Future<String> login(
         });
     print(response.data);
     if (response.statusCode == 200) {
-      SpHelpers.setPref(
-          SharedPrefsKeys.Realtor_id, response.data['data']['id'].toString());
+      //   index == 0
+      //       ? SpHelpers.setPref(SharedPrefsKeys.Realtor_id,
+      //           response.data['data']['id'].toString())
+      //       : null;
 
-      SpHelpers.setPref(
-          SharedPrefsKeys.Prof_id, response.data['data']['id'].toString());
-
+      //  index==1? SpHelpers.setPref(
+      //       SharedPrefsKeys.Prof_id, response.data['data']['id'].toString()):null;
+      //        index==2? SpHelpers.setPref(
+      //       SharedPrefsKeys.Prof_id, response.data['data']['id'].toString()):null;
+      //   log('cbvhjdasg ${response.data['data']['id'].toString()}');
       SpHelpers.setPref(
           SharedPrefsKeys.key_token, response.data['data']['token']);
 
@@ -158,6 +163,11 @@ Future<String> login(
             content: Text('Login Sucessfully'), backgroundColor: Colors.green));
       } else if (index == 1) {
         SpHelpers.setInt(SharedPrefsKeys.currentindex, index);
+        log('bvsrhiofhieoi ${response.data}');
+        SpHelpers.setPref(
+            SharedPrefsKeys.Prof_id, response.data['data']['id'].toString());
+        SpHelpers.setPref(
+            SharedPrefsKeys.profetionalUser, jsonEncode(response.data) );
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => ProfessionalsHomepage()));
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -200,8 +210,7 @@ logOut(BuildContext context) async {
   print("Log out successfully");
 
   Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => LoginScreen(index: 0)),
-      (route) => false);
+      MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
 }
 
 //sign up
@@ -285,35 +294,65 @@ Future<void> signupProfessional({
   required String mobile,
   required String membershipOption,
 }) async {
+  Map<String, dynamic> data = {
+    "email": email,
+    "password": password,
+    "first_name": fname,
+    "last_name": lname,
+    "company_street_address": company_address,
+    "company_city": city,
+    "state": state,
+    "zip_code": zip_code,
+    "confirm_password": confirm_password,
+    "company_name": company_name,
+    "phone_number": mobile,
+    "company_number": company_number,
+    "years": years,
+    "website": website,
+    "insurance": insurance,
+    "insurance_contact_number": "test test",
+    "twitter": twitterLink,
+    "insurance_number": "3123213123",
+    "images1": image1,
+    //  "images2": image2,
+    // "images3": image3,
+    // "images4": image4,
+    "check_box": true,
+    "services": services,
+    "membershipOption": membershipOption
+  };
+  log("bn hj  " + data.toString());
   try {
-    final response = await dio.post(signup_professional, data: {
-      "check_box": true,
-      "company_city": city,
-      "company_name": company_name,
-      "company_number": company_number,
-      "company_street_address": company_address,
-      "confirm_password": confirm_password,
-      "contactIns": contactIns,
-      "email": email,
-      "fb": facebookLink,
-      "first_name": fname,
-      "images1": image1,
-      "images2": image2,
-      "images3": image3,
-      "images4": image4,
-      "insurance": insurance,
-      "last_name": lname,
-      "numberIns": numberIns,
-      "password": password,
-      "phone_number": mobile,
-      "services": services,
-      "state": state,
-      "twitter": twitterLink,
-      "website": website,
-      "years": years,
-      "zip_code": zip_code,
-      "membershipOption": membershipOption,
-    });
+    final response =
+        await dio.post(signup_professional, data: json.encode(data));
+    // {
+    //   // "check_box": true,
+    //   // "company_city": city,
+    //   // "company_name": company_name,
+    //   // "company_number": company_number,
+    //   // "company_street_address": company_address,
+    //   // "confirm_password": confirm_password,
+    //   // // "contactIns": contactIns,
+    //   // "email": email,
+    //   // // "fb": facebookLink,
+    //   // "first_name": fname,
+    //   // "images1": image1,
+    //   // "images2": image2,
+    //   // "images3": image3,
+    //   // "images4": image4,
+    //   // "insurance": insurance,
+    //   // "last_name": lname,
+    //   // //"numberIns": numberIns,
+    //   // "password": password,
+    //   // "phone_number": mobile,
+    //   // "services": services,
+    //   // "state": state,
+    //   // "twitter": twitterLink,
+    //   // "website": website,
+    //   // "years": years,
+    //   // "zip_code": zip_code,
+    //   // "membershipOption": membershipOption,
+    // });
 
     if (response.statusCode == 201) {
       Navigator.push(
@@ -329,7 +368,7 @@ Future<void> signupProfessional({
       print('fail');
     }
   } catch (e) {
-    // print((e as DioError).response!.data.toString());
+    print("m fbdjiofb f" + e.toString());
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text((e as DioError).response!.data['message']),
         backgroundColor: Colors.red));

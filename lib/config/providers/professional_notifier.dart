@@ -11,11 +11,12 @@ import 'package:dazllapp/model/Professional/professional.dart';
 import 'package:dazllapp/model/Professional/profile.dart';
 import 'package:dazllapp/model/Professional/projectOppourtunites.dart';
 import 'package:dio/dio.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ProfessionalNotifier extends BaseNotifier {
   List<Datum> ServicesData = [];
-  Profile profiles = Profile();
+  ProfileData profiles = ProfileData();
   ProfessionalData professionalData = ProfessionalData();
   ProjectOpportunities? projectOpportunities;
   List<Final> projectList = [];
@@ -28,7 +29,7 @@ class ProfessionalNotifier extends BaseNotifier {
         queryParameter: {
           'professional_id': SpHelpers.getString(SharedPrefsKeys.Prof_id)
         });
-    profiles = Profile.fromJson(res.data);
+    profiles = ProfileData.fromJson(res.data);
     SpHelpers.setString(SharedPrefsKeys.profetionalUser, jsonEncode(profiles));
     // log("Pro Id=" + SpHelpers.getString(SharedPrefsKeys.Prof_id).toString());
     notifyListeners();
@@ -82,7 +83,8 @@ class ProfessionalNotifier extends BaseNotifier {
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //     content: Text("No Data Found for this house with this address")));
     }
-    // log("lshjkbjk"+res.data.toString());
+    log("lshjkbjk   " + res.data.toString());
+    log("lshjkbjkcbdjks   " + projectList.toString());
     notifyListeners();
   }
 
@@ -98,13 +100,50 @@ class ProfessionalNotifier extends BaseNotifier {
         if (pageIndex == 1) {
           projectOpportunities = ProjectOpportunities.fromJson(res.data);
         }
-        projectList = List.from(res.data['data']['final'])
-            .map((e) => Final.fromJson(e))
-            .toList();
+        final profUser =
+            await SpHelpers.getString(SharedPrefsKeys.profetionalUser) ?? "";
 
-        return List.from(res.data['data']['final'])
-            .map((e) => Final.fromJson(e))
-            .toList();
+        log('cjajcfjdgiku $profUser');
+        if (profUser.isNotEmpty) {
+          profiles = await ProfileData.fromJson(jsonDecode(profUser));
+          log('cjajcfjdgiku ${profiles.servicetype.toString()}');
+          projectList.clear();
+          List<Final> projectDataList = List.from(res.data['data']['final'])
+              .map((e) => Final.fromJson(e))
+              .toList();
+          for (var i = 0; i < projectDataList.length; i++) {
+            for (var j = 0; j < projectDataList[i].roominfo!.length; j++) {
+              for (var k = 0;
+                  k < projectDataList[i].roominfo![j].feature!.length;
+                  k++) {
+                for (var l = 0;
+                    l <
+                        projectDataList[i]
+                            .roominfo![j]
+                            .feature![k]
+                            .featureissue!
+                            .length;
+                    l++) {
+                  if (profiles.servicetype!.any((element) =>
+                      element.serviceTypeId ==
+                      projectDataList[i]
+                          .roominfo![j]
+                          .feature![k]
+                          .featureissue![l]
+                          .serviceTypeId)) {
+                    int ind = projectList.indexWhere((element) =>
+                        element.projectId == projectDataList[i].projectId);
+                    if (ind == -1) {
+                      projectList.add(projectDataList[i]);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        log('bskhbkhgsjgriorsjgi ${projectList.toString()}');
+        return projectList;
       } else {
         return projectList;
         // Navigator.of(context!).pop();

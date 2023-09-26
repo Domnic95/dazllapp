@@ -108,7 +108,9 @@ class _MyProfileState extends ConsumerState<MyProfile> {
     _cityNameController = TextEditingController(
         text: realtorNotifier!.realtorUser!.cityOfRealStateAgency ?? "");
     _stateNameController =
-        TextEditingController(text: realtorNotifier!.realtorUser!.state!);
+
+    
+        TextEditingController(text: realtorNotifier!.realtorUser!.state ?? "");
     _zipCodeController = TextEditingController(
         text: realtorNotifier!.realtorUser!.zipCode?.toString() ?? "");
     _phoneController =
@@ -381,8 +383,9 @@ class _MyProfileState extends ConsumerState<MyProfile> {
                       isReadOnly = true;
                       isLoading = false;
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('User Update Successfully')));
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.green,
+                          content: Text('User Update Successfully')));
                       loadData();
                     });
                   }
@@ -400,8 +403,9 @@ class _MyProfileState extends ConsumerState<MyProfile> {
                     isReadOnly = true;
                     isLoading = false;
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('User Update Successfully')));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Text('User Update Successfully')));
                     initializeRealtorTextField();
                     log("message == ${isReadOnly}");
                   });
@@ -415,7 +419,7 @@ class _MyProfileState extends ConsumerState<MyProfile> {
             }
           },
           child: Container(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8), color: primaryColor),
             child: isLoading

@@ -1228,10 +1228,11 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             //   ScaffoldMessenger.of(context)
             //       .showSnackBar(SnackBar(content: Text('Enter zip code')));
             // }
-            else if (_stateController.text.isEmpty) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text('Enter state')));
-            } else if (_mobileNoControllre.text.isEmpty) {
+            // else if (_stateController.text.isEmpty) {
+            //   ScaffoldMessenger.of(context)
+            //       .showSnackBar(SnackBar(content: Text('Enter state')));
+            // } 
+            else if (_mobileNoControllre.text.isEmpty) {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text('Enter mobile number')));
             } else if (paymentRealtor.isEmpty) {
@@ -1288,10 +1289,12 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             } else if (_PzipcodeController.text.isEmpty) {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text('Enter zip code')));
-            } else if (_PstateController.text.isEmpty) {
+            } 
+            else if (_PstateController.text.isEmpty) {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text('Enter state')));
-            } else if (_PCmobileController.text.isEmpty) {
+            } 
+            else if (_PCmobileController.text.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Enter company number')));
             } else if (_PyearinbusinessController.text.isEmpty) {
@@ -1321,7 +1324,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 password: _PpasswordController.text,
                 company_number: _PCmobileController.text,
                 facebookLink: _PfacebookLinkController.text,
-                image1: imgFile[0].toString(),
+                image1: await ref.read(realtorprovider).uploadImage(context,  imgFile[0]),
                 image2: imgFile[1].toString(),
                 image3: imgFile[2].toString(),
                 image4: imgFile[3].toString(),

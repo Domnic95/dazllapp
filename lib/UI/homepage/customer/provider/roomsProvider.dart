@@ -41,6 +41,7 @@ class RoomProvider extends BaseNotifier {
   List<int> _roomIdList = [];
   List<int> get roomIdList => _roomIdList;
   List<bool> isSet = [];
+  
   List<List<RoomFeature>> listOfFeature = [];
   void init({required int roomid, required CustomerNotifier roomsNotifier}) {
     final room =
@@ -85,6 +86,7 @@ class RoomProvider extends BaseNotifier {
   }
 
   reset() {
+    _tabIndex = 0;
     isSet.clear();
     _rooms.clear();
     featurebool.clear();
@@ -202,26 +204,54 @@ class RoomProvider extends BaseNotifier {
     // }
   }
 
+  onSelect(index) {
+    if (select[tabIndex].contains(index)) {
+      select[tabIndex].remove(index);
+      // currentoptionselected[index] = '';
+      imgFile[tabIndex][index].clear();
+      // _addphotodescription[index].clear();
+      featureId[tabIndex][index] = 0;
+      // featureoptionid[index] = 0;
+      description[tabIndex][index] = '';
+      DescrptionController[tabIndex][index].clear();
+      // _PhotoDescrptionController[index]
+      //     .clear();
+      featurebool[tabIndex][index].clear();
+      // FeatureissueName[index].clear();
+      // FeatureissueId[index].clear();
+      // currentindex = index;
+    } else {
+      select[tabIndex].add(index);
+      // log("dnskgfkdjjkdkj === ${_roomProvider.featureId[_roomProvider.tabIndex]}");
+      // log("dnskgfkdjjkdkj === ${_roomProvider.listOfFeature[_roomProvider.tabIndex]}");
+      featureId[tabIndex][index] = listOfFeature[tabIndex][index].id;
+    }
+    notifyListeners();
+  }
+
   load(int i) {
     // listData.clear();
     if (featureId[i].length != 0) {
       for (int j = 0; j < featureId[i].length; j++) {
-        if (featureId[i][j] != 0 &&
-            DescrptionController[i][j].text.isNotEmpty) {
+        if (featureId[i][j] != 0) {
           Map<String, dynamic> _map = {
             "featureOption": "",
             "featureOptionIssues": [],
             "features": featureId[i][j],
-            "inspectionNotes":
-                //"test",
-                DescrptionController[i][j].text.toString() != ''
-                    ? DescrptionController[i][j].text.toString()
-                    : "test",
+            // "inspectionNotes":
+            //     //"test",
+            //     DescrptionController[i][j].text.toString() != ''
+            //         ? DescrptionController[i][j].text.toString()
+            //         : "test",
             "issuetext": "test",
             "roomId": _roomIdList[i],
             "images": imagesList[i][j],
             "imageDesc": [],
           };
+          if (DescrptionController[i][j].text.isNotEmpty) {
+            _map["inspectionNotes"] =
+                DescrptionController[i][j].text.toString();
+          }
           listData.add(_map);
         }
       }

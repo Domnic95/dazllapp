@@ -61,6 +61,31 @@ class RealtorRoomProvider extends BaseNotifier {
     isSet.add(false);
   }
 
+  onSelect(int index) {
+    if (select[tabIndex].contains(index)) {
+      select[tabIndex].remove(index);
+      // _roomProvider. currentoptionselected[index] = '';
+
+      imgFile[tabIndex][index].clear();
+      // _addphotodescription[index].clear();
+      featureId[tabIndex][index] = 0;
+      // featureoptionid[index] = 0;
+      description[tabIndex][index] = '';
+      DescrptionController[tabIndex][index].clear();
+      // _PhotoDescrptionController[index]
+      //     .clear();
+      featurebool[tabIndex][index].clear();
+      // FeatureissueName[index].clear();
+      // FeatureissueId[index].clear();
+
+      // currentindex = index;
+    } else {
+      select[tabIndex].add(index);
+      featureId[tabIndex][index] = listOfFeature[tabIndex][index].id;
+    }
+    notifyListeners();
+  }
+
   Future getImage(
       BuildContext context,
       int tabIndex,
@@ -208,11 +233,15 @@ class RealtorRoomProvider extends BaseNotifier {
   }
 
   load(int i) {
+    log("cnsiubdx ");
     // listData.clear();
     if (featureId[i].length != 0) {
+      log("cnsiubdx ===");
       for (int j = 0; j < featureId[i].length; j++) {
-        if (featureId[i][j] != 0 &&
-            DescrptionController[i][j].text.isNotEmpty) {
+        log("cnsiubdx ===!!!!");
+
+        if (featureId[i][j] != 0) {
+          log("cnsiubdx ===++++++++");
           Map<String, dynamic> _map = {
             // "email": widget.customeremail,
             // if (widget.customeremail == '')
@@ -221,16 +250,18 @@ class RealtorRoomProvider extends BaseNotifier {
             "featureOption": "",
             "featureOptionIssues": [],
             "features": featureId[i][j],
-            "inspectionNotes":
-                //"test",
-                _DescrptionController[i][j].text.toString() != ''
-                    ? _DescrptionController[i][j].text.toString()
-                    : "test",
+
             "issuetext": "",
             "roomId": _roomIdList[i],
             "images": imagesList[i][j],
             "imageDesc": [],
           };
+          if (DescrptionController[i][j].text.isNotEmpty) {
+            _map["inspectionNotes"] =
+              _DescrptionController[i][j].text.toString();
+                    
+          }
+          log('massssssssss  ======>>> ${_map.toString()}');
           listData.add(_map);
         }
       }

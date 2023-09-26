@@ -38,6 +38,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
   loadData() {
     _roomsNotifier = ref.read(customernotifier);
     _roomProvider = ref.read(customerRoomsProvider);
+
     // for (int i = 0; i < widget.roomId.length; i++) {
     _roomProvider.init(roomid: widget.roomId, roomsNotifier: _roomsNotifier);
     // }
@@ -230,22 +231,22 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                                         padding: const EdgeInsets.all(8.0),
                                         child: ListTile(
                                           contentPadding: EdgeInsets.zero,
-                                          leading: _roomsNotifier
-                                                      .listOfRoom[index]
-                                                      .image ==
-                                                  ""
-                                              ? Image.asset(
-                                                  'assets/images/noimage.png',
-                                                  width: 70,
-                                                  color: primaryColor,
-                                                )
-                                              : Image.network(
-                                                  _roomsNotifier
-                                                      .listOfRoom[index].image
-                                                      .toString(),
-                                                  width: 50,
-                                                  color: primaryColor,
-                                                ),
+                                          // leading: _roomsNotifier
+                                          //             .listOfRoom[index]
+                                          //             .image ==
+                                          //         ""
+                                          //     ? Image.asset(
+                                          //         'assets/images/noimage.png',
+                                          //         width: 70,
+                                          //         color: primaryColor,
+                                          //       )
+                                          //     : Image.network(
+                                          //         _roomsNotifier
+                                          //             .listOfRoom[index].image
+                                          //             .toString(),
+                                          //         width: 50,
+                                          //         color: primaryColor,
+                                          //       ),
                                           title: Text(
                                             "${_roomsNotifier.listOfRoom[index].name}",
                                             style: Theme.of(context)
@@ -322,7 +323,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                         j < _roomProvider.featureId[i].length;
                         j++) {
                       if (_roomProvider.featureId[i][j] != 0 &&
-                          _roomProvider  
+                          _roomProvider
                               .DescrptionController[i][j].text.isNotEmpty &&
                           _roomProvider.imgFile[i][j].isNotEmpty) {
                         // for (var k = 0;
@@ -383,36 +384,39 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                 //   );
                 // }
                 // log("api Call" + _roomProvider.isSet.toString());
-                if (!_roomProvider.isSet.contains(false)) {
-                  for (int i = 0; i < _roomProvider.featureId.length; i++) {
-                    if (_roomProvider.featureId[i].isNotEmpty) {
-                      _roomProvider.removeempty();
-                      _roomProvider.images(i);
-                      _roomProvider.load(i);
-                      if (_roomProvider.listData.isNotEmpty &&
-                          _roomProvider.file.isNotEmpty) {
-                        // log("data === = == ${_roomProvider.listData}");
-                      }
+                // if (!_roomProvider.isSet.contains(false)) {
+                log("data === = == ${_roomProvider.listData}");
+                for (int i = 0; i < _roomProvider.featureId.length; i++) {
+                  if (_roomProvider.featureId[i].isNotEmpty) {
+                    _roomProvider.removeempty();
+                    _roomProvider.images(i);
+                    _roomProvider.load(i);
+                    if (_roomProvider.listData.isNotEmpty &&
+                        _roomProvider.file.isNotEmpty) {
+                      // log("data === = == ${_roomProvider.listData}");
                     }
                   }
-                  final projectId = await ref
-                      .read(customernotifier)
-                      .createproject(_roomProvider.listData);
-                  // await ref
-                  //     .read(customernotifier)
-                  //     .uploadimages(projectId, _roomProvider.file);
                 }
+
+                log('bcsdbfjkdfjk =======>>>> ${_roomProvider.listData}');
+                final projectId = await ref
+                    .read(customernotifier)
+                    .createproject(_roomProvider.listData);
+                // await ref
+                //     .read(customernotifier)
+                //     .uploadimages(projectId, _roomProvider.file);
+                Utils.loaderDialog(context, false);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Project created sucessfully'),
+                  backgroundColor: teamColor,
+                ));
+
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => myproject()),
+                    (route) => false);
+                _roomProvider.reset();
                 if (!_roomProvider.isSet.contains(false)) {
-                  Utils.loaderDialog(context, false);
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('Project created sucessfully'),
-                    backgroundColor: teamColor,
-                  ));
-                  _roomProvider.reset();
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => myproject()),
-                      (route) => false);
                 } else {
                   Utils.loaderDialog(context, false);
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(

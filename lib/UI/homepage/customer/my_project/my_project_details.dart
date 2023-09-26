@@ -59,11 +59,12 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
     isLoading = true;
     super.initState();
     projectprovider = ref.read(customernotifier);
-    loadData();
+    
   }
 
+ 
+
   void loadData() async {
-    await projectprovider!.setCustomerModel();
     for (int i = 0;
         i < projectprovider!.listofproject[widget.index].roominfo!.length;
         i++) {

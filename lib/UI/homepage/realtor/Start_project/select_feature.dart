@@ -131,6 +131,7 @@ class _Select_featureState extends ConsumerState<Select_feature> {
     // final _roomsfeature = ref.read(customernotifier);
     _roomProvider = ref.watch(realtorRoomsProvider);
     final size = MediaQuery.of(context).size;
+    // log('bcshjsbdhjcbjkd ${ _roomProvider.select[_roomProvider.tabIndex]}' );
     return SafeArea(
       child: _roomProvider.loading
           ? LoadingWidget()
@@ -139,11 +140,14 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "What items in this area would you like to dazl up ?",
-                      maxLines: 2,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        "What items in this area would you like to dazl up ?",
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                        ),
                       ),
                     ),
                     // Container(
@@ -190,54 +194,56 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                           .select[_roomProvider.tabIndex]
                                           .contains(index),
                                       onChanged: (val) {
-                                        setState(() {
-                                          if (_roomProvider
-                                              .select[_roomProvider.tabIndex]
-                                              .contains(index)) {
-                                            _roomProvider
-                                                .select[_roomProvider.tabIndex]
-                                                .remove(index);
-                                            // _roomProvider. currentoptionselected[index] = '';
-                                            _roomProvider
-                                                .imgFile[_roomProvider.tabIndex]
-                                                    [index]
-                                                .clear();
-                                            // _addphotodescription[index].clear();
-                                            _roomProvider.featureId[
-                                                    _roomProvider.tabIndex]
-                                                [index] = 0;
-                                            // featureoptionid[index] = 0;
-                                            _roomProvider.description[
-                                                    _roomProvider.tabIndex]
-                                                [index] = '';
-                                            _roomProvider.DescrptionController[
-                                                    _roomProvider.tabIndex]
-                                                    [index]
-                                                .clear();
-                                            // _PhotoDescrptionController[index]
-                                            //     .clear();
-                                            _roomProvider.featurebool[
-                                                    _roomProvider.tabIndex]
-                                                    [index]
-                                                .clear();
-                                            // FeatureissueName[index].clear();
-                                            // FeatureissueId[index].clear();
-                                            indexs = 0;
-                                            // currentindex = index;
-                                          } else {
-                                            _roomProvider
-                                                .select[_roomProvider.tabIndex]
-                                                .add(index);
-                                            _roomProvider.featureId[
-                                                        _roomProvider.tabIndex]
-                                                    [index] =
-                                                _roomProvider
-                                                    .listOfFeature[_roomProvider
-                                                        .tabIndex][index]
-                                                    .id;
-                                            indexs = 0;
-                                          }
-                                        });
+                                        _roomProvider.onSelect(index);
+                                        // setState(() {
+                                        //   if (_roomProvider
+                                        //       .select[_roomProvider.tabIndex]
+                                        //       .contains(index)) {
+                                        //     _roomProvider
+                                        //         .select[_roomProvider.tabIndex]
+                                        //         .remove(index);
+                                        //     // _roomProvider. currentoptionselected[index] = '';
+                                        //     _roomProvider
+                                        //         .imgFile[_roomProvider.tabIndex]
+                                        //             [index]
+                                        //         .clear();
+                                        //     // _addphotodescription[index].clear();
+                                        //     _roomProvider.featureId[
+                                        //             _roomProvider.tabIndex]
+                                        //         [index] = 0;
+                                        //     // featureoptionid[index] = 0;
+                                        //     _roomProvider.description[
+                                        //             _roomProvider.tabIndex]
+                                        //         [index] = '';
+                                        //     _roomProvider.DescrptionController[
+                                        //             _roomProvider.tabIndex]
+                                        //             [index]
+                                        //         .clear();
+                                        //     // _PhotoDescrptionController[index]
+                                        //     //     .clear();
+                                        //     _roomProvider.featurebool[
+                                        //             _roomProvider.tabIndex]
+                                        //             [index]
+                                        //         .clear();
+                                        //     // FeatureissueName[index].clear();
+                                        //     // FeatureissueId[index].clear();
+                                        //     indexs = 0;
+                                        //     // currentindex = index;
+                                        //   } else {
+                                        //     _roomProvider
+                                        //         .select[_roomProvider.tabIndex]
+                                        //         .add(index);
+                                        //     _roomProvider.featureId[
+                                        //                 _roomProvider.tabIndex]
+                                        //             [index] =
+                                        //         _roomProvider
+                                        //             .listOfFeature[_roomProvider
+                                        //                 .tabIndex][index]
+                                        //             .id;
+                                        //     indexs = 0;
+
+                                        //   }_roomProvider.notifyListeners();
+                                        // });
                                       }),
                                   Text(
                                     _roomProvider

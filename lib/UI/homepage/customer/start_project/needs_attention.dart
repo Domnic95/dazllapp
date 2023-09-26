@@ -120,6 +120,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
     final _roomsfeature = ref.read(customernotifier);
     _roomProvider = ref.watch(customerRoomsProvider);
     final size = MediaQuery.of(context).size;
+    log("fcbhjuvy   " + _roomProvider.tabIndex.toString());
     return SafeArea(
       child: _roomProvider.loading
           ? LoadingWidget()
@@ -180,56 +181,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                           .select[_roomProvider.tabIndex]
                                           .contains(index),
                                       onChanged: (val) {
-                                        setState(() {
-                                          if (_roomProvider
-                                              .select[_roomProvider.tabIndex]
-                                              .contains(index)) {
-                                            _roomProvider
-                                                .select[_roomProvider.tabIndex]
-                                                .remove(index);
-                                            // currentoptionselected[index] = '';
-                                            _roomProvider
-                                                .imgFile[_roomProvider.tabIndex]
-                                                    [index]
-                                                .clear();
-                                            // _addphotodescription[index].clear();
-                                            _roomProvider.featureId[
-                                                    _roomProvider.tabIndex]
-                                                [index] = 0;
-                                            // featureoptionid[index] = 0;
-                                            _roomProvider.description[
-                                                    _roomProvider.tabIndex]
-                                                [index] = '';
-                                            _roomProvider.DescrptionController[
-                                                    _roomProvider.tabIndex]
-                                                    [index]
-                                                .clear();
-                                            // _PhotoDescrptionController[index]
-                                            //     .clear();
-                                            _roomProvider.featurebool[
-                                                    _roomProvider.tabIndex]
-                                                    [index]
-                                                .clear();
-                                            // FeatureissueName[index].clear();
-                                            // FeatureissueId[index].clear();
-                                            // currentindex = index;
-                                            indexs = 0;
-                                          } else {
-                                            _roomProvider
-                                                .select[_roomProvider.tabIndex]
-                                                .add(index);
-                                            // log("dnskgfkdjjkdkj === ${_roomProvider.featureId[_roomProvider.tabIndex]}");
-                                            // log("dnskgfkdjjkdkj === ${_roomProvider.listOfFeature[_roomProvider.tabIndex]}");
-                                            _roomProvider.featureId[
-                                                        _roomProvider.tabIndex]
-                                                    [index] =
-                                                _roomProvider
-                                                    .listOfFeature[_roomProvider
-                                                        .tabIndex][index]
-                                                    .id;
-                                            indexs = 0;
-                                          }
-                                        });
+                                        _roomProvider.onSelect(index);
                                       }),
                                   Text(
                                     _roomProvider

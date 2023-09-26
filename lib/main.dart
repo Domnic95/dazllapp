@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use, prefer_const_literals_to_create_immutables, avoid_print, prefer_const_constructors_in_immutables
 
+import 'dart:async';
+
+import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/professional/professionals_homepage.dart';
 import 'package:dazllapp/UI/homepage/realtor/realtor_homepage.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
@@ -15,9 +18,14 @@ import 'config/global.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
-  SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: primaryColor, ));
-  runApp(ProviderScope(child: const MyApp()));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: primaryColor,
+  ));
+  runApp(
+    ProviderScope(
+      child: const MyApp(),
+    ),
+  );
 }
 
 // Future<void> initPrefs() async {
@@ -102,90 +110,107 @@ class _WelcomeState extends State<Welcome> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Image.asset(
+              'assets/images/logo.jpg',
+              height: 200,
+            ),
+          ),
+          SizedBox(height: 20),
+          Text(
+            "A real estate collaboration hub",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> initPrefs() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     // await SpHelpers.setPref();
-    if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) !=
-        null) {
-      // print(sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in).toString());
-      if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) ==
-              true &&
-          sharedPreferences.getInt(SharedPrefsKeys.key_current) == 0) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute<dynamic>(
-            builder: (BuildContext context) => RealtorHomePage(),
-          ),
-        );
-      }
-      if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) ==
-              true &&
-          sharedPreferences.getInt(SharedPrefsKeys.key_current) == 1) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute<dynamic>(
-            builder: (BuildContext context) => ProfessionalsHomepage(),
-          ),
-        );
-      }
+    Timer(const Duration(seconds: 3), () {
+      if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) !=
+          null) {
+        // print(sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in).toString());
+        if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) ==
+                true &&
+            sharedPreferences.getInt(SharedPrefsKeys.key_current) == 0) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute<dynamic>(
+              builder: (BuildContext context) => RealtorHomePage(),
+            ),
+          );
+        }
+        if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) ==
+                true &&
+            sharedPreferences.getInt(SharedPrefsKeys.key_current) == 1) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute<dynamic>(
+              builder: (BuildContext context) => ProfessionalsHomepage(),
+            ),
+          );
+        }
 
-      if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) ==
-              true &&
-          sharedPreferences.getInt(SharedPrefsKeys.key_current) == 2) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute<dynamic>(
-            builder: (BuildContext context) => CustomerHomepage(),
-          ),
-        );
-      }
-      if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) ==
-          false) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute<dynamic>(
-            builder: (BuildContext context) => LoginScreen(index: 0),
-          ),
-        );
-      }
+        if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) ==
+                true &&
+            sharedPreferences.getInt(SharedPrefsKeys.key_current) == 2) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute<dynamic>(
+              builder: (BuildContext context) => CustomerHomepage(),
+            ),
+          );
+        }
+        if (sharedPreferences.getBool(SharedPrefsKeys.key_keep_me_logged_in) ==
+            false) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute<dynamic>(
+              builder: (BuildContext context) => HomePage(),
+            ),
+          );
+        }
 
-      //if (sharedPreferences.getBool(key)) {
-      //       Navigator.pushReplacement(
-      //         context,
-      //         MaterialPageRoute<dynamic>(
-      //           builder: (BuildContext context) => RealtorHomePage(),
-      //         ),
-      //       );
-      //     } else {
-      //       Navigator.pushReplacement(
-      //         context,
-      //         MaterialPageRoute<dynamic>(
-      //           builder: (BuildContext context) => T2WalkThrough(),
-      //         ),
-      //       );
-      //     }
-      //   } else {
-      //     Navigator.pushReplacement(
-      //       context,
-      //       MaterialPageRoute<dynamic>(
-      //         builder: (BuildContext context) => T2WalkThrough(),
-      //       ),
-      //     );
-      //   }
-      // }
-    } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute<dynamic>(
-          builder: (BuildContext context) => LoginScreen(
-            index: 0,
-          ),
-        ),
-      );
-    }
+        //if (sharedPreferences.getBool(key)) {
+        //       Navigator.pushReplacement(
+        //         context,
+        //         MaterialPageRoute<dynamic>(
+        //           builder: (BuildContext context) => RealtorHomePage(),
+        //         ),
+        //       );
+        //     } else {
+        //       Navigator.pushReplacement(
+        //         context,
+        //         MaterialPageRoute<dynamic>(
+        //           builder: (BuildContext context) => T2WalkThrough(),
+        //         ),
+        //       );
+        //     }
+        //   } else {
+        //     Navigator.pushReplacement(
+        //       context,
+        //       MaterialPageRoute<dynamic>(
+        //         builder: (BuildContext context) => T2WalkThrough(),
+        //       ),
+        //     );
+        //   }
+        // }
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute<dynamic>(
+              builder: (BuildContext context) => HomePage()),
+        );
+      }
+    });
   }
 }
 

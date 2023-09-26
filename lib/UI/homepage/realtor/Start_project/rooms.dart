@@ -120,6 +120,8 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final roomProvider = ref.watch(realtorRoomsProvider);
+    log('bcshjsbdhjcbjkd ${_roomProvider.select[_roomProvider.tabIndex]}');
     return Scaffold(
       // appBar: AppBar(
       //   title: Container(
@@ -233,22 +235,22 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                         padding: const EdgeInsets.all(8.0),
                                         child: ListTile(
                                           contentPadding: EdgeInsets.zero,
-                                          leading: _roomsNotifier
-                                                      .listOfRoom[index]
-                                                      .image ==
-                                                  ""
-                                              ? Image.asset(
-                                                  'assets/images/noimage.png',
-                                                  width: 70,
-                                                  color: primaryColor,
-                                                )
-                                              : Image.network(
-                                                  _roomsNotifier
-                                                      .listOfRoom[index].image
-                                                      .toString(),
-                                                  width: 50,
-                                                  color: primaryColor,
-                                                ),
+                                          // leading: _roomsNotifier
+                                          //             .listOfRoom[index]
+                                          //             .image ==
+                                          //         ""
+                                          //     ? Image.asset(
+                                          //         'assets/images/noimage.png',
+                                          //         width: 70,
+                                          //         color: primaryColor,
+                                          //       )
+                                          //     : Image.network(
+                                          //         _roomsNotifier
+                                          //             .listOfRoom[index].image
+                                          //             .toString(),
+                                          //         width: 50,
+                                          //         color: primaryColor,
+                                          //       ),
                                           title: Text(
                                             "${_roomsNotifier.listOfRoom[index].name}",
                                             style: Theme.of(context)
@@ -315,149 +317,170 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: () async {
-                Utils.loaderDialog(context, true);
-                // log("api Call" + _roomProvider.featureId.toString());
-                for (int i = 0; i < _roomProvider.featureId.length; i++) {
-                  _roomProvider.set(false, i);
-                  if (_roomProvider.featureId[i].isNotEmpty) {
-                    for (int j = 0;
-                        j < _roomProvider.featureId[i].length;
-                        j++) {
-                      if (_roomProvider.featureId[i][j] != 0 &&
-                          _roomProvider
-                              .DescrptionController[i][j].text.isNotEmpty &&
-                          _roomProvider.imagesList[i][j].isNotEmpty) {
-                        // for (var k = 0;
-                        //     k < _roomProvider.imgFile[i][j].length;
-                        //     k++) {
-                        //   await _roomProvider.getImage(context, i, j, k, ref);
+            roomProvider.select.any((element) => element.isEmpty)
+                ? SizedBox()
+                : GestureDetector(
+                    onTap: () async {
+                      log('cdhsbchjsd ${roomProvider.select}');
+                      if (roomProvider.select
+                          .any((element) => element.isNotEmpty)) {
+                        Utils.loaderDialog(context, true);
+                        // log("api Call" + _roomProvider.featureId.toString());
+                        // for (int i = 0;
+                        //     i < _roomProvider.featureId.length;
+                        //     i++) {
+                        //   _roomProvider.set(false, i);
+                        //   if (_roomProvider.featureId[i].isNotEmpty) {
+                        //     for (int j = 0;
+                        //         j < _roomProvider.featureId[i].length;
+                        //         j++) {
+                        //       if (_roomProvider.featureId[i][j] != 0 &&
+                        //           _roomProvider.DescrptionController[i][j].text
+                        //               .isNotEmpty &&
+                        //           _roomProvider.imagesList[i][j].isNotEmpty) {
+                        //         // for (var k = 0;
+                        //         //     k < _roomProvider.imgFile[i][j].length;
+                        //         //     k++) {
+                        //         //   await _roomProvider.getImage(context, i, j, k, ref);
+                        //         // }
+
+                        //         _roomProvider.set(true, i);
+                        //       }
+                        //     }
+                        //   }
                         // }
+                        // // print("jkldn" + select.toString());
+                        // // print("jkldn" + _description.toString());
+                        // List<bool> desempty = [];
+                        // List<bool> featureissueempty = [];
+                        // for (int i = 0; i < select.length; i++) {
+                        //   if (_description[select[i]].isEmpty) {
+                        //     desempty.add(false);
+                        //     ScaffoldMessenger.of(context).showSnackBar(
+                        //         SnackBar(
+                        //             content: Text(
+                        //                 'Add Description of ${_roomsfeature.listOfFeature[select[i]].name}')));
+                        //     break;
+                        //   } else {
+                        //     //  print("jkldn = " + i.toString());
+                        //     desempty.add(true);
+                        //   }
+                        //   // if (FeatureissueId[select[i]].isEmpty) {
+                        //   //   featureissueempty.add(false);
+                        //   //   ScaffoldMessenger.of(context).showSnackBar(
+                        //   //       SnackBar(
+                        //   //           content: Text(
+                        //   //               'Select issue ${_roomsfeature.listOfFeature[select[i]].name}')));
+                        //   //   break;
+                        //   // }
+                        //   // else {
+                        //   //   featureissueempty.add(true);
+                        //   // }
+                        // }
+                        // //  print("jkldn" + desempty.toString());
 
-                        _roomProvider.set(true, i);
+                        // if (!desempty.contains(false) &&
+                        //     !featureissueempty.contains(false)) {
+                        //   removeempty();
+                        //   Navigator.of(context).pushReplacement(
+                        //     MaterialPageRoute(
+                        //       builder: (context) => TellusMore(
+                        //         featureid: featureId,
+                        //         featureoptionid: featureoptionid,
+                        //         // featureissueid: FeatureissueId,
+                        //         imgFile: imgFile,
+                        //         // addphotodescription:
+                        //         //     _addphotodescription,
+                        //         Descrption: _description,
+                        //       ),
+                        //     ),
+                        //   );
+                        // }
+                        // log("api Call" + _roomProvider.isSet.toString());
+
+                        // if (!_roomProvider.isSet.contains(false)) {
+                        for (int i = 0;
+                            i < _roomProvider.featureId.length;
+                            i++) {
+                          if (_roomProvider.featureId[i].isNotEmpty) {
+                            _roomProvider.removeempty();
+                            _roomProvider.images(i);
+                            _roomProvider.load(i);
+                            // log("imagesList == ${_roomProvider.imagesList}");
+                            if (_roomProvider.listData.isNotEmpty &&
+                                _roomProvider.file.isNotEmpty) {
+                              // final projectId = await ref
+                              //     .read(realtorprovider)
+                              //     .createprojectrealtor(_roomProvider.listData);
+                              // await ref
+                              //     .read(realtorprovider)
+                              //     .uploadimagesrealtor(projectId, _roomProvider.file);
+                            }
+                          }
+                          // }
+                          log('message =====>>> ${_roomProvider.listData}');
+                          final projectId = await ref
+                              .read(realtorprovider)
+                              .createprojectrealtor(_roomProvider.listData)
+                              .then((value) {
+                            Utils.loaderDialog(context, false);
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Project created sucessfully'),
+                              backgroundColor: teamColor,
+                            ));
+                            _roomProvider.reset();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Realtor_project()),
+                                (route) => false);
+                            log('message ${value.toString()}');
+                          });
+                        }
+                        if (!_roomProvider.isSet.contains(false)) {
+                        } else {
+                          Utils.loaderDialog(context, false);
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                'please Add Atleast one feature note and Add one Images!'),
+                            backgroundColor: primaryColor,
+                          ));
+                        }
+
+                        // setState(() {
+                        //   loading = false;
+                        // });
+
+                        // log(_file.toString());
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('please select atlest one item'),
+                          backgroundColor: primaryColor,
+                        ));
                       }
-                    }
-                  }
-                }
-                // // print("jkldn" + select.toString());
-                // // print("jkldn" + _description.toString());
-                // List<bool> desempty = [];
-                // List<bool> featureissueempty = [];
-                // for (int i = 0; i < select.length; i++) {
-                //   if (_description[select[i]].isEmpty) {
-                //     desempty.add(false);
-                //     ScaffoldMessenger.of(context).showSnackBar(
-                //         SnackBar(
-                //             content: Text(
-                //                 'Add Description of ${_roomsfeature.listOfFeature[select[i]].name}')));
-                //     break;
-                //   } else {
-                //     //  print("jkldn = " + i.toString());
-                //     desempty.add(true);
-                //   }
-                //   // if (FeatureissueId[select[i]].isEmpty) {
-                //   //   featureissueempty.add(false);
-                //   //   ScaffoldMessenger.of(context).showSnackBar(
-                //   //       SnackBar(
-                //   //           content: Text(
-                //   //               'Select issue ${_roomsfeature.listOfFeature[select[i]].name}')));
-                //   //   break;
-                //   // }
-                //   // else {
-                //   //   featureissueempty.add(true);
-                //   // }
-                // }
-                // //  print("jkldn" + desempty.toString());
-
-                // if (!desempty.contains(false) &&
-                //     !featureissueempty.contains(false)) {
-                //   removeempty();
-                //   Navigator.of(context).pushReplacement(
-                //     MaterialPageRoute(
-                //       builder: (context) => TellusMore(
-                //         featureid: featureId,
-                //         featureoptionid: featureoptionid,
-                //         // featureissueid: FeatureissueId,
-                //         imgFile: imgFile,
-                //         // addphotodescription:
-                //         //     _addphotodescription,
-                //         Descrption: _description,
-                //       ),
-                //     ),
-                //   );
-                // }
-                // log("api Call" + _roomProvider.isSet.toString());
-                if (!_roomProvider.isSet.contains(false)) {
-                  for (int i = 0; i < _roomProvider.featureId.length; i++) {
-                    if (_roomProvider.featureId[i].isNotEmpty) {
-                      _roomProvider.removeempty();
-                      _roomProvider.images(i);
-                      _roomProvider.load(i);
-                      // log("imagesList == ${_roomProvider.imagesList}");
-                      if (_roomProvider.listData.isNotEmpty &&
-                          _roomProvider.file.isNotEmpty) {
-                        // final projectId = await ref
-                        //     .read(realtorprovider)
-                        //     .createprojectrealtor(_roomProvider.listData);
-                        // await ref
-                        //     .read(realtorprovider)
-                        //     .uploadimagesrealtor(projectId, _roomProvider.file);
-                      }
-                    }
-                  }
-                  final projectId = await ref
-                      .read(realtorprovider)
-                      .createprojectrealtor(_roomProvider.listData);
-                }
-                if (!_roomProvider.isSet.contains(false)) {
-                  Utils.loaderDialog(context, false);
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('Project created sucessfully'),
-                    backgroundColor: teamColor,
-                  ));
-                  _roomProvider.reset();
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Realtor_project()),
-                      (route) => false);
-                } else {
-                  Utils.loaderDialog(context, false);
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(
-                        'please Add Atleast one feature note and Add one Images!'),
-                    backgroundColor: primaryColor,
-                  ));
-                }
-
-                // setState(() {
-                //   loading = false;
-                // });
-
-                // log(_file.toString());
-              },
-              child:
-                  //  featureissueid[indexs] == 0
-                  //     ? SizedBox()
-                  //     :
-                  Row(
-                children: [
-                  Text(
-                    "Next",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 18,
-                          color: lightColor.withOpacity(.9),
+                    },
+                    child:
+                        //  featureissueid[indexs] == 0
+                        //     ? SizedBox()
+                        //     :
+                        Row(
+                      children: [
+                        Text(
+                          "Next",
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 18,
+                                    color: lightColor.withOpacity(.9),
+                                  ),
                         ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                          color: AppTheme.white,
+                        ),
+                      ],
+                    ),
                   ),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    size: 20,
-                    color: AppTheme.white,
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),

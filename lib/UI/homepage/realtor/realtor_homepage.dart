@@ -97,6 +97,7 @@ class _RealtorHomePageState extends ConsumerState<RealtorHomePage> {
                       ),
                       Text(
                         Selections[index].name,
+                        textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,

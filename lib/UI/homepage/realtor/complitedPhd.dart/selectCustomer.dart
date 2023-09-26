@@ -1,4 +1,3 @@
-
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/complitedPhd.dart/complitedPhd.dart';
@@ -70,94 +69,135 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
                   SizedBox(
                     height: 20,
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Container(
-                      width: size.width,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 0.2),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: 10,
-                            right: 10,
-                            top: 0,
-                          ),
-                          child: DropdownButton<FilterProject>(
-                            underline: Container(),
-                            isExpanded: true,
-                            // borderRadius: BorderRadius.circular(20),
-                            hint:
-                                _complitedPhdProvider!.selectedCustomer == null
-                                    ? Text('Select Customer')
-                                    : Text(
-                                        _complitedPhdProvider!
-                                            .selectedCustomer!.location
-                                            .toString(),
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: realtorProvider.filterProjectList.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 4.0, horizontal: 8),
+                          child: GestureDetector(
+                            onTap: () {
+                              _complitedPhdProvider!.selectCustomer(
+                                  realtorProvider.filterProjectList[index]);
+                              setState(() {});
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => ComplitedPhd(
+                                      // customerid: customerid!,
                                       ),
-                            items: realtorProvider.filterProjectList
-                                .map((dropdownselect) {
-                              return DropdownMenuItem<FilterProject>(
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        border: Border(
-                                            bottom: BorderSide(
-                                                color: darkTextColor))),
-                                    child: Text(
-                                      dropdownselect.location!,
-                                      overflow: TextOverflow.ellipsis,
-                                    )),
-                                value:
-                                    _complitedPhdProvider!.selectedCustomer ??
-                                        _complitedPhdProvider!
-                                            .listOfFilterProject.first,
-                                onTap: () {
-                                  _complitedPhdProvider!
-                                      .selectCustomer(dropdownselect);
-                                },
+                                ),
                               );
-                            }).toList(),
-                            onChanged: (newselectedvalue) async {
-                              // log("djfgldjfgjlkdfgjlkf 123=== ${newselectedvalue!.email}");
-                              // // _complitedPhdProvider!
-                              // //     .selectCustomer(newselectedvalue!);
-                              // // log("djfgldjfgjlkdfgjlkf === ${_complitedPhdProvider!.selectedCustomer!.email}");
-                              // setState(() {});
-                              // // setState(() {
-                              // //   customer_provider.listofcustomers[0].name =
-                              // //       newselectedvalue!;
-                              // // });
                             },
+                            child: Card(
+                              child: Container(
+                                height: 50,
+                                padding: EdgeInsets.only(left: 10),
+                                alignment: Alignment.centerLeft,
+                                width: double.infinity,
+                                color: Colors.grey.shade200,
+                                child: Text(
+                                  realtorProvider
+                                      .filterProjectList[index].location!,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ),
 
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: AppTheme.colorPrimary),
-                    onPressed: () {
-                      // if (customer_provider.listofcustomers[0].name ==
-                      //     "Select Customer") {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //       SnackBar(content: Text('Select customer')));
-                      // } else {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ComplitedPhd(
-                              // customerid: customerid!,
-                              )));
-                      // }
-                    },
-                    child: Text(
-                      'Next',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: EdgeInsets.all(8.0),
+                  //   child: Container(
+                  //     width: size.width,
+                  //     child: DecoratedBox(
+                  //       decoration: BoxDecoration(
+                  //         border: Border.all(width: 0.2),
+                  //       ),
+                  //       child: Padding(
+                  //         padding: EdgeInsets.only(
+                  //           left: 10,
+                  //           right: 10,
+                  //           top: 0,
+                  //         ),
+                  //         child: DropdownButton<FilterProject>(
+                  //           underline: Container(),
+                  //           isExpanded: true,
+                  //           // borderRadius: BorderRadius.circular(20),
+                  //           hint:
+                  //               _complitedPhdProvider!.selectedCustomer == null
+                  //                   ? Text('Select Customer')
+                  //                   : Text(
+                  //                       _complitedPhdProvider!
+                  //                           .selectedCustomer!.location
+                  //                           .toString(),
+                  //                     ),
+                  //           items: realtorProvider.filterProjectList
+                  //               .map((dropdownselect) {
+                  //             return DropdownMenuItem<FilterProject>(
+                  //               child: Container(
+                  //                   decoration: BoxDecoration(
+                  //                       border: Border(
+                  //                           bottom: BorderSide(
+                  //                               color: darkTextColor))),
+                  //                   child: Text(
+                  //                     dropdownselect.location!,
+                  //                     overflow: TextOverflow.ellipsis,
+                  //                   )),
+                  //               value:
+                  //                   _complitedPhdProvider!.selectedCustomer ??
+                  //                       _complitedPhdProvider!
+                  //                           .listOfFilterProject.first,
+                  //               onTap: () {
+                  //                 _complitedPhdProvider!
+                  //                     .selectCustomer(dropdownselect);
+                  //               },
+                  //             );
+                  //           }).toList(),
+                  //           onChanged: (newselectedvalue) async {
+                  //             // log("djfgldjfgjlkdfgjlkf 123=== ${newselectedvalue!.email}");
+                  //             // // _complitedPhdProvider!
+                  //             // //     .selectCustomer(newselectedvalue!);
+                  //             // // log("djfgldjfgjlkdfgjlkf === ${_complitedPhdProvider!.selectedCustomer!.email}");
+                  //             // setState(() {});
+                  //             // // setState(() {
+                  //             // //   customer_provider.listofcustomers[0].name =
+                  //             // //       newselectedvalue!;
+                  //             // // });
+                  //           },
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+
+                  // ElevatedButton(
+                  //   style: ElevatedButton.styleFrom(
+                  //       primary: AppTheme.colorPrimary),
+                  //   onPressed: () {
+                  //     // if (customer_provider.listofcustomers[0].name ==
+                  //     //     "Select Customer") {
+                  //     //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     //       SnackBar(content: Text('Select customer')));
+                  //     // } else {
+                  //     Navigator.of(context).push(MaterialPageRoute(
+                  //         builder: (context) => ComplitedPhd(
+                  //             // customerid: customerid!,
+                  //             )));
+                  //     // }
+                  //   },
+                  //   child: Text(
+                  //     'Next',
+                  //     style: TextStyle(
+                  //       color: Colors.white,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // ),
                   //   SizedBox(
                   //     height: 50,
                   //   ),

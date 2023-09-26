@@ -46,6 +46,7 @@ class _Start_projectState extends ConsumerState<Start_project> {
   @override
   Widget build(BuildContext context) {
     final _roomsNotifier = ref.read(customernotifier);
+    final _roomProvider = ref.read(realtorRoomsProvider);
     final size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
@@ -213,6 +214,7 @@ class _Start_projectState extends ConsumerState<Start_project> {
                             //           // customeremail: widget.customeremail,
                             //           cutomerid: widget.customerid,
                             //         )));
+                            _roomProvider.reset();
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => RealtorRooms(
                                       roomId: roomid ?? 0,

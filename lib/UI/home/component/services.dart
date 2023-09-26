@@ -13,9 +13,9 @@ class ServiceModel {
 }
 
 List<ServiceModel> services = [
-  ServiceModel(label: 'Real Estate Pros', image: 'assets/images/kichen.png'),
-  ServiceModel(label: 'Service Props', image: 'assets/images/livingRoom.png'),
-  ServiceModel(label: 'Homeowners', image: 'assets/images/bathroom.png'),
+  ServiceModel(label: 'Real Estate Pros', image: 'assets/images/realtorBG.jpg'),
+  ServiceModel(label: 'Service Props', image: 'assets/images/proBG.jpg'),
+  ServiceModel(label: 'Homeowners', image: 'assets/images/customerBG.jpg'),
 ];
 
 class ServicesWidget extends StatelessWidget {
@@ -44,7 +44,7 @@ class ServicesWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage(
-                                model.image ?? 'assets/images/kichen.png'),
+                                model.image ?? 'assets/images/logo.jpg'),
                             fit: BoxFit.cover,
                             colorFilter: ColorFilter.mode(
                                 Colors.black.withOpacity(.2), BlendMode.darken),

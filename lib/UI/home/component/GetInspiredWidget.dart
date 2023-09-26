@@ -75,9 +75,9 @@ class GetInspiredModel {
 }
 
 List<GetInspiredModel> inpriredModel = [
-  GetInspiredModel(label: 'Living Room', image: 'assets/images/kichen.png'),
-  GetInspiredModel(label: 'Kitchen', image: 'assets/images/livingRoom.png'),
-  GetInspiredModel(label: 'Bathroom', image: 'assets/images/bathroom.png'),
+  GetInspiredModel(label: 'Living Room', image: 'assets/images/LivingRm-Img.jpg'),
+  GetInspiredModel(label: 'Kitchen', image: 'assets/images/Kitchen-Img.jpg'),
+  GetInspiredModel(label: 'Bathroom', image: 'assets/images/Bath-Img.jpg'),
   GetInspiredModel(
-      label: 'Outedoor Space', image: 'assets/images/outdorr_space.png'),
+      label: 'Outedoor Space', image: 'assets/images/Outdoor-Img.jpg'),
 ];

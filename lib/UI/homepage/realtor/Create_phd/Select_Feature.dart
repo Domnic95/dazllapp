@@ -336,7 +336,8 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                   //         },
                                   //         child: Center(
                                   //           child: Icon(
-                                  //             Icons.more_horiz,
+                                  //
+                                  //       Icons.more_horiz,
                                   //             color: Colors.black,
                                   //           ),
                                   //         ),
@@ -350,17 +351,18 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                   //     //         Index
                                   //     ?
                                   Padding(
-                                padding: const EdgeInsets.all(6.0),
+                                padding: EdgeInsets.zero,
                                 child: Stack(
                                   clipBehavior: Clip.none,
                                   children: [
                                     Container(
                                       // height: 60,
                                       // width: 60,
+                                      margin: EdgeInsets.only(left: 5),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         image: DecorationImage(
-                                          fit: BoxFit.cover,
+                                          fit: BoxFit.fill,
                                           image: FileImage(
                                             _phdProvider.mainImgFile[
                                                     _phdProvider.tabIndex]
@@ -458,81 +460,93 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                           SizedBox(
                             height: 10,
                           ),
-                          SizedBox(
-                            height: 60,
-                            width: size.width,
-                            child: ListView.separated(
-                              separatorBuilder: (context, index) {
-                                return SizedBox(
-                                  width: size.width * 0.1 - 16,
-                                );
-                              },
-                              padding: EdgeInsets.all(8),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: _reltorProvider
-                                  .roomTypes[_phdProvider.tabIndex].length,
-                              itemBuilder: (context, index) {
-                                // log("snkdcksdkljdf === ${_phdProvider.selectRoomTypeFeature[_phdProvider.tabIndex]}");
-                                return Container(
-                                  width: size.width * 0.45 - 16,
-                                  // margin: EdgeInsets.symmetric(horizontal: 10),
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: blackColor)),
-                                  child: Center(
-                                    child: DropdownButton<AddValueData>(
-                                      borderRadius: BorderRadius.zero,
-                                      underline: Container(),
-                                      hint: SizedBox(
-                                        width: size.width * 0.3 - 16,
-                                        child: Text(
-                                          // _phdProvider.selectRoomTypeFeature
-                                          //                 .length ==
-                                          //             0 ||
-                                          _phdProvider.selectRoomTypeFeature[
-                                                          _phdProvider.tabIndex]
-                                                      [index] ==
-                                                  null
-                                              ? _reltorProvider
-                                                  .roomTypes[_phdProvider
-                                                      .tabIndex][index]
-                                                  .type!
-                                                  .name!
-                                              : _phdProvider
+                          _reltorProvider.roomTypes[_phdProvider.tabIndex]
+                                      .length >=
+                                  0
+                              ? SizedBox(height: 10)
+                              : SizedBox(
+                                  height: 60,
+                                  width: size.width,
+                                  child: ListView.separated(
+                                    separatorBuilder: (context, index) {
+                                      return SizedBox(
+                                        width: size.width * 0.1 - 16,
+                                      );
+                                    },
+                                    padding: EdgeInsets.all(8),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: _reltorProvider
+                                        .roomTypes[_phdProvider.tabIndex]
+                                        .length,
+                                    itemBuilder: (context, index) {
+                                      // log("snkdcksdkljdf === ${_phdProvider.selectRoomTypeFeature[_phdProvider.tabIndex]}");
+                                      return Container(
+                                        width: size.width * 0.45 - 16,
+                                        // margin: EdgeInsets.symmetric(horizontal: 10),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        decoration: BoxDecoration(
+                                            border:
+                                                Border.all(color: blackColor)),
+                                        child: Center(
+                                          child: DropdownButton<AddValueData>(
+                                            borderRadius: BorderRadius.zero,
+                                            underline: Container(),
+                                            hint: SizedBox(
+                                              width: size.width * 0.3 - 16,
+                                              child: Text(
+                                                // _phdProvider.selectRoomTypeFeature
+                                                //                 .length ==
+                                                //             0 ||
+                                                _phdProvider.selectRoomTypeFeature[
+                                                                _phdProvider
+                                                                    .tabIndex]
+                                                            [index] ==
+                                                        null
+                                                    ? _reltorProvider
+                                                        .roomTypes[_phdProvider
+                                                            .tabIndex][index]
+                                                        .type!
+                                                        .name!
+                                                    : _phdProvider
+                                                        .selectRoomTypeFeature[
+                                                            _phdProvider
+                                                                .tabIndex]
+                                                            [index]!
+                                                        .name!,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    color: darkTextColor),
+                                              ),
+                                            ),
+                                            items: _reltorProvider
+                                                .roomTypes[_phdProvider
+                                                    .tabIndex][index]
+                                                .type!
+                                                .featureOptions!
+                                                .map((value) {
+                                              return DropdownMenuItem<
+                                                  AddValueData>(
+                                                value: value,
+                                                child:
+                                                    Text(value.name.toString()),
+                                              );
+                                            }).toList(),
+                                            onChanged: (value) {
+                                              _phdProvider.selectRoomType(
+                                                  value!, index);
+                                              setState(() {});
+                                              log(_phdProvider
                                                   .selectRoomTypeFeature[
                                                       _phdProvider.tabIndex]
-                                                      [index]!
-                                                  .name!,
-                                          overflow: TextOverflow.ellipsis,
-                                          style:
-                                              TextStyle(color: darkTextColor),
+                                                  .toString());
+                                            },
+                                          ),
                                         ),
-                                      ),
-                                      items: _reltorProvider
-                                          .roomTypes[_phdProvider.tabIndex]
-                                              [index]
-                                          .type!
-                                          .featureOptions!
-                                          .map((value) {
-                                        return DropdownMenuItem<AddValueData>(
-                                          value: value,
-                                          child: Text(value.name.toString()),
-                                        );
-                                      }).toList(),
-                                      onChanged: (value) {
-                                        _phdProvider.selectRoomType(
-                                            value!, index);
-                                        setState(() {});
-                                        log(_phdProvider.selectRoomTypeFeature[
-                                                _phdProvider.tabIndex]
-                                            .toString());
-                                      },
-                                    ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
-                            ),
-                          ),
+                                ),
                           Row(
                             children: [],
                           ),
@@ -566,40 +580,48 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                           //     ],
                           //   ),
                           // ),
-                          SizedBox(
-                            height: 60,
-                            // width: size.width,
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              separatorBuilder: (context, index) => SizedBox(
-                                width: 15,
-                              ),
-                              itemCount: _reltorProvider
-                                  .addValueData[_phdProvider.tabIndex].length,
-                              itemBuilder: (context, index) {
-                                return Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Checkbox(
-                                      activeColor: AppTheme.colorPrimary,
-                                      value: _phdProvider.selectedaddValueData[
-                                          _phdProvider.tabIndex][index],
-                                      onChanged: (value) {
-                                        _phdProvider.SelectAddValueData(
-                                            value!, index);
-                                        setState(() {});
-                                      },
+                          _reltorProvider.addValueData[_phdProvider.tabIndex]
+                                      .length >=
+                                  0
+                              ? SizedBox()
+                              : SizedBox(
+                                  height: 60,
+                                  // width: size.width,
+                                  child: ListView.separated(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    separatorBuilder: (context, index) =>
+                                        SizedBox(
+                                      width: 15,
                                     ),
-                                    Text(
-                                      "${_reltorProvider.addValueData[_phdProvider.tabIndex][index].name}",
-                                      style: TextStyle(color: darkTextColor),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
+                                    itemCount: _reltorProvider
+                                        .addValueData[_phdProvider.tabIndex]
+                                        .length,
+                                    itemBuilder: (context, index) {
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Checkbox(
+                                            activeColor: AppTheme.colorPrimary,
+                                            value: _phdProvider
+                                                    .selectedaddValueData[
+                                                _phdProvider.tabIndex][index],
+                                            onChanged: (value) {
+                                              _phdProvider.SelectAddValueData(
+                                                  value!, index);
+                                              setState(() {});
+                                            },
+                                          ),
+                                          Text(
+                                            "${_reltorProvider.addValueData[_phdProvider.tabIndex][index].name}",
+                                            style:
+                                                TextStyle(color: darkTextColor),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ),
                           // SingleChildScrollView(
                           //   scrollDirection: Axis.horizontal,
                           //   child: Row(

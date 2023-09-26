@@ -181,7 +181,8 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                                           borderRadius:
                                               BorderRadius.circular(8)),
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12.0, vertical: 8.0),
                                         child: ListTile(
                                           contentPadding: EdgeInsets.zero,
                                           // leading: _roomsfeature
@@ -273,10 +274,11 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                 // for (int i = 0; i < _phdProvider.mainImgFile.length; i++) {
                 //   _phdProvider.set(false, i);
                 //   for (int j = 0; j < _phdProvider.mainImgFile[i].length; j++) {
-                //     await _phdProvider.getImage(context, i, j,
-                //         _phdProvider.mainImgFile[i][j], true, ref);
+                //     // await _phdProvider.getImage(context, i, j,
+                //     //     _phdProvider.mainImgFile[i][j], true, ref);
+                //     _phdProvider.set(true, i);
                 //   }
-                //   _phdProvider.set(true, i);
+
                 // }
                 // for (int i = 0; i < _phdProvider.featureId.length; i++) {
                 //   _phdProvider.set(false, i);
@@ -286,12 +288,12 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                 //           _phdProvider
                 //               .DescrptionController2[i][j].text.isNotEmpty &&
                 //           _phdProvider.imgFile[i][j].isNotEmpty) {
-                //         for (var k = 0;
-                //             k < _phdProvider.imgFile[i][j].length;
-                //             k++) {
-                //           await _phdProvider.getImage(context, i, j,
-                //               _phdProvider.imgFile[i][j][k], false, ref);
-                //         }
+                //         // for (var k = 0;
+                //         //     k < _phdProvider.imgFile[i][j].length;
+                //         //     k++) {
+                //         //   // await _phdProvider.getImage(context, i, j,
+                //         //       // _phdProvider.imgFile[i][j][k], false, ref);
+                //         // }
 
                 //         _phdProvider.set(true, i);
                 //       }
@@ -328,14 +330,14 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                       ? "01-11-2021"
                       : _realtorProvider.housedata!.saleDate,
                   "lowest_price": _phdProvider.startRange,
-//left:calc(-50% - 4px)
-                  "highest_price": _phdProvider.endRange,
+                  //left:calc(-50% - 4px)
+                  "highest_price": _phdProvider.endRange.toString(),
                   // "zip_code": _phdProvider.zipCode,
                   "zip_code": "123456",
                   "house_id": '',
                   // "customer_id": 1,
-                  "mid_price": 500,
-
+                  "mid_price": '500',
+                  // "true": 'true',
                   // "phd_description": phdDes.toString(),
                 };
 
@@ -344,22 +346,30 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                   _phdProvider.set(false, i);
                   phdDes.add(_phdProvider.DescrptionController[i].text);
                   data["room_id"] = _phdProvider.roomIdList[i].toString();
-                  data["phd_description"] = phdDes[i].toString();
+
+                  if (phdDes[i].isNotEmpty) {
+                    data["phd_description"] = phdDes[i].toString();
+                  }
                   log("main image 123 === ${_phdProvider.mainImgList}");
                   if (_phdProvider.mainImgList[i].isNotEmpty) {
                     for (var j = 0;
                         j < _phdProvider.mainImgList[i].length;
                         j++) {
-                      data['images[$j]'] =
-                          _phdProvider.mainImgList[i][j].toString();
-                      log("main image === ${_phdProvider.mainImgList[i][j]}");
+                      if (_phdProvider.mainImgList[i][j].isNotEmpty) {
+                        data['images[$j]'] =
+                            _phdProvider.mainImgList[i][j].toString();
+                        log("main image === ${_phdProvider.mainImgList[i][j]}");
+                      }
                     }
-                  } else {
-                    data['images[0]'] = "";
-                  }
+                  } 
+                  // else {
+                  //   data['images[0]'] = "";
+                  // }
 
-                  data["rooms[${_phdProvider.roomIdList[i]}][status]"] =
-                      _phdProvider.selectedFristImpressionList[i];
+                  if (_phdProvider.selectedFristImpressionList[i].isNotEmpty) {
+                    data["rooms[${_phdProvider.roomIdList[i]}][status]"] =
+                        _phdProvider.selectedFristImpressionList[i];
+                  }
                   // for (int j = 0;
                   //     j < _phdProvider.mainImgList[i].length;
                   //     j++) {}
@@ -393,7 +403,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                       j++) {
                     if (_phdProvider.selectRoomTypeFeature[i][j] != null) {
                       data["rooms[${_phdProvider.roomIdList[i]}]['feature_type'][${_realtorProvider.roomTypes[i][j].id}]"] =
-                          _phdProvider.selectRoomTypeFeature[i][j]!.id;
+                          _phdProvider.selectRoomTypeFeature[i][j]!.id ?? 0;
                     }
                   }
                   for (var j = 0;
@@ -401,7 +411,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                       j++) {
                     if (_phdProvider.selectedaddValueData[i][j]) {
                       data["rooms[${_phdProvider.roomIdList[i]}][additional][$j]"] =
-                          _realtorProvider.addValueData[i][j].id;
+                          _realtorProvider.addValueData[i][j].id ?? 0;
                     }
                   }
 
@@ -437,8 +447,9 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                     }
                   }
                 }
-                // log("data === $data");
+                log("data === $data");
                 // if (!_phdProvider.isSet.contains(false)) {
+                //  if(_phdProvider.isSet.contains(false)){
                 await _realtorProvider.createPhdReport(data).then((value) {
                   Utils.loaderDialog(context, false);
                   log("value.statusCode  === ${value.statusCode}");
@@ -456,10 +467,16 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                         (route) => false);
 
                     _realtorProvider.reset();
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('Please fill the all field'),
+                      backgroundColor: Colors.red.shade300,
+                    ));
                   }
                   // }
                   phdDes.clear();
                 });
+                // }
                 // } else {
                 //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 //     content: Text('Something Missing'),

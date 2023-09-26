@@ -71,7 +71,7 @@ class PhdProvider extends BaseNotifier {
   String clientEmail = '';
   String _stateName = '';
   String get stateName => _stateName;
-  String zipCode = "";
+  String zipCode = "415241";
   int startRange = 450;
   int endRange = 800;
   void setRange(int start, int end) {
@@ -93,13 +93,13 @@ class PhdProvider extends BaseNotifier {
   void storePropertiesDetails(
       {required String paddress,
       // required String state,
-      required String pincode,
+      // required String pincode,
       required String firstname,
       required String lastname,
       required String clientemail}) {
     address = paddress;
     // _stateName = state;
-    zipCode = pincode;
+    // zipCode = pincode;
     firstName = firstname;
     lastName = lastname;
     clientEmail = clientemail;

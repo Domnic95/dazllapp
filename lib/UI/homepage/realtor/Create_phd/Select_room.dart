@@ -38,6 +38,7 @@ class _selectRoomState extends ConsumerState<selectRoom> {
   @override
   Widget build(BuildContext context) {
     final _roomsNotifier = ref.read(customernotifier);
+    final _roomProvider = ref.read(realtorRoomsProvider);
     final size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
@@ -182,6 +183,7 @@ class _selectRoomState extends ConsumerState<selectRoom> {
                       currentindex == -1;
                       // ? SizedBox()
                       // :
+                      _roomProvider.reset();
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Phd(roomId: roomid ?? 0)));
                     },

@@ -38,17 +38,17 @@ class _HomePageState extends ConsumerState<HomePage> {
           "Home",
           style: Theme.of(context)
               .textTheme
-              .bodyText1!
-              .copyWith(fontSize: 16, color: darkTextColor.withOpacity(.9)),
+              .bodyText2!
+              .copyWith(fontSize: 18, color: lightColor),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(14.0),
-            child: Image.asset(
-              "assets/images/search.png",
-            ),
-          )
-        ],
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.all(14.0),
+        //     child: Image.asset(
+        //       "assets/images/search.png",
+        //     ),
+        //   )
+        // ],
       ),
       body: Container(
         child: SingleChildScrollView(
@@ -477,7 +477,7 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                       },
                       child: Text(
                         'Change Password',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.white),
                       ),
                     )
                   ],

@@ -1,6 +1,7 @@
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Utils {
   static void loaderDialog(BuildContext context, bool isShow) {
@@ -49,9 +50,44 @@ class Utils {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Image.network(
-            url,
-            fit: BoxFit.contain,
+          title: Column(
+            children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              url.contains('.svg')
+                  ? SvgPicture.network(
+                      url,
+                      placeholderBuilder: (BuildContext context) => Container(
+                          padding: const EdgeInsets.all(30.0),
+                          child: const CircularProgressIndicator()),
+                    )
+                  : Image.network(
+                      url,
+                      fit: BoxFit.contain,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
+                    ),
+            ],
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -75,17 +111,17 @@ class Utils {
               ),
             ],
           ),
-          actions: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: primaryColor),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  'Ok',
-                  style: TextStyle(color: Colors.white),
-                ))
-          ],
+          // actions: [
+          //   ElevatedButton(
+          //       style: ElevatedButton.styleFrom(primary: primaryColor),
+          //       onPressed: () {
+          //         Navigator.pop(context);
+          //       },
+          //       child: Text(
+          //         'Ok',
+          //         style: TextStyle(color: Colors.white),
+          //       ))
+          // ],
         );
       },
     );

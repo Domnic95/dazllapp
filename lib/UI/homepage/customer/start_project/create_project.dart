@@ -43,6 +43,7 @@ class _CreateProjectState extends ConsumerState<CreateProject> {
   @override
   Widget build(BuildContext context) {
     final _roomsNotifier = ref.read(customernotifier);
+    final _roomProvider = ref.read(customerRoomsProvider);
     final size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
@@ -55,7 +56,7 @@ class _CreateProjectState extends ConsumerState<CreateProject> {
           : Container(
               child: Column(
                 children: [
-                  CommonHeader(title: "Select Room",isback: false),
+                  CommonHeader(title: "Select Room", isback: false),
                   // SizedBox(
                   //   height: size.height * 0.02,
                   // ),
@@ -187,6 +188,8 @@ class _CreateProjectState extends ConsumerState<CreateProject> {
                         ),
                         GestureDetector(
                           onTap: () {
+                            _roomProvider.reset();
+                            
                             currentindex == -1
                                 ? SizedBox()
                                 : Navigator.of(context).push(MaterialPageRoute(
@@ -194,6 +197,7 @@ class _CreateProjectState extends ConsumerState<CreateProject> {
                                           roomId: roomid ?? 0,
                                           // roomId: listRoomId ?? [0],
                                         )));
+
                             // Navigator.of(context).push(MaterialPageRoute(
                             //     builder: (context) => NeedAttention()));
                             _roomsNotifier.listOfoption.clear();

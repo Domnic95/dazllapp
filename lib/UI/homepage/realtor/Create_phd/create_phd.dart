@@ -284,36 +284,36 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                           // SizedBox(
                           //   height: 15,
                           // ),
-                          TextFormField(
-                            validator: (text) {
-                              if (text!.isEmpty) {
-                                return 'Pincode can\'t be empty';
-                              }
-                              return null;
-                            },
-                            controller: _pincodeController,
-                            cursorColor: AppTheme.nearlyBlack,
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              hintText: "Enter Your Pincode",
-                              label: Text('PINCODE'),
-                              isDense: true,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black)),
-                              hintStyle: TextStyle(
-                                  color: AppTheme.darkerText,
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                              labelStyle: TextStyle(
-                                  color: const Color(0xFF424242),
-                                  fontFamily: AppTheme.fontName,
-                                  fontSize: 14),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                            ),
-                          ),
+                          // TextFormField(
+                          //   validator: (text) {
+                          //     if (text!.isEmpty) {
+                          //       return 'Pincode can\'t be empty';
+                          //     }
+                          //     return null;
+                          //   },
+                          //   controller: _pincodeController,
+                          //   cursorColor: AppTheme.nearlyBlack,
+                          //   keyboardType: TextInputType.number,
+                          //   decoration: InputDecoration(
+                          //     hintText: "Enter Your Pincode",
+                          //     label: Text('PINCODE'),
+                          //     isDense: true,
+                          //     focusedBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(color: Colors.black)),
+                          //     hintStyle: TextStyle(
+                          //         color: AppTheme.darkerText,
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14,
+                          //         fontWeight: FontWeight.w400),
+                          //     labelStyle: TextStyle(
+                          //         color: const Color(0xFF424242),
+                          //         fontFamily: AppTheme.fontName,
+                          //         fontSize: 14),
+                          //     border: OutlineInputBorder(
+                          //       borderSide: BorderSide(color: Colors.black),
+                          //     ),
+                          //   ),
+                          // ),
                           SizedBox(
                             height: 15,
                           ),
@@ -503,7 +503,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                           } else {
                             _phdProvider.storePropertiesDetails(
                                 paddress: _addressController.text,
-                                pincode: _pincodeController.text,
+                                // pincode: _pincodeController.text,
                                 // state: _stateController.text,
                                 // _propertynumber.text +
                                 //     ", " +

@@ -112,7 +112,6 @@ class CustomerNotifier extends BaseNotifier {
 
   Future myproject() async {
     Response res = await dioClient.getRequest(apiEnd: my_project);
-
     listofproject =
         List<Project>.from(res.data['data'].map((x) => Project.fromJson(x)));
     listofproject.sort((a, b) => b.projectId!.compareTo(a.projectId ?? 0));
@@ -120,6 +119,7 @@ class CustomerNotifier extends BaseNotifier {
       for (int b = 0; b < res.data['data'][a]['roominfo'].length; b++) {
         listofRoomsinfo
             .add(Roominfo.fromJson(res.data['data'][a]['roominfo'][b]));
+    
       }
     }
 
@@ -139,6 +139,7 @@ class CustomerNotifier extends BaseNotifier {
         }
       }
     }
+    log('--------------->>>>' + listofFeatureinfo.toString());
     notifyListeners();
   }
 }
