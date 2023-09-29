@@ -13,9 +13,9 @@ class ServiceModel {
 }
 
 List<ServiceModel> services = [
-  ServiceModel(label: 'Real Estate Pros', image: 'assets/images/realtorBG.jpg'),
-  ServiceModel(label: 'Service Props', image: 'assets/images/proBG.jpg'),
-  ServiceModel(label: 'Homeowners', image: 'assets/images/customerBG.jpg'),
+  ServiceModel(label: 'For Agents', image: 'assets/images/realtorBG.jpg'),
+  ServiceModel(label: 'For Homeowners', image: 'assets/images/proBG.jpg'),
+  ServiceModel(label: 'For Pros', image: 'assets/images/customerBG.jpg'),
 ];
 
 class ServicesWidget extends StatelessWidget {
@@ -52,29 +52,30 @@ class ServicesWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10)),
                       child: GestureDetector(
                         onTap: () {
-                          if (SpHelpers.getInt(SharedPrefsKeys.key_current) != i) {
+                          // if (SpHelpers.getInt(SharedPrefsKeys.key_current) !=
+                          //     i) {
                             Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreen(
-                                          index: i,
-                                        )));
-                          }
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(
+                                  index: i,
+                                ),
+                              ),
+                            );
+                          // }
                         },
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
+                        child: Center(
                           child: Container(
                             decoration: BoxDecoration(
-                                color: primaryColor,
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10))),
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 4),
+                                  horizontal: 20, vertical: 6),
                               child: Text(
-                                "Read More \n or Sign Up",
+                                services[i].label,
                                 style: textTheme.bodyText1!
-                                    .copyWith(color: lightColor, fontSize: 10),
+                                    .copyWith(color: lightColor, fontSize: 13),
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -87,14 +88,14 @@ class ServicesWidget extends StatelessWidget {
                 SizedBox(
                   height: 4,
                 ),
-                Center(
-                  child: Text(
-                    services[i].label,
-                    style: textTheme.bodyText1!
-                        .copyWith(fontWeight: FontWeight.w500, fontSize: 14),
-                    maxLines: 1,
-                  ),
-                ),
+                // Center(
+                //   child: Text(
+                //     services[i].label,
+                //     style: textTheme.bodyText1!
+                //         .copyWith(fontWeight: FontWeight.w500, fontSize: 14),
+                //     maxLines: 1,
+                //   ),
+                // ),
               ],
             ),
           );

@@ -84,21 +84,21 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         propertyDetailIteams(
-                                            key: "Homeowners Name",
+                                            key: "Owners Name",
                                             value: _realtorProvider
                                                     .singleComplitedPhdReport!
                                                     .reports!
                                                     .isEmpty
                                                 ? ""
-                                                : "${_realtorProvider.singleComplitedPhdReport!.reports!.first.customer!.firstName} ${_realtorProvider.singleComplitedPhdReport!.reports!.first.customer!.lastName}"),
+                                                : " ${_realtorProvider.singleComplitedPhdReport!.reports!.first.customer!.firstName} ${_realtorProvider.singleComplitedPhdReport!.reports!.first.customer!.lastName}"),
                                         propertyDetailIteams(
-                                            key: "Email Address",
+                                            key: "Email ",
                                             value:
-                                                "${_complitedPhdProvider.selectedCustomer?.email}"),
+                                                " ${_complitedPhdProvider.selectedCustomer?.email}"),
                                         propertyDetailIteams(
-                                            key: "Property Address",
+                                            key: "Property ",
                                             value:
-                                                "${_complitedPhdProvider.selectedCustomer?.location ?? "Unknown"}"),
+                                                " ${_complitedPhdProvider.selectedCustomer?.location ?? "Unknown"}"),
                                       ],
                                     ),
                                   ),

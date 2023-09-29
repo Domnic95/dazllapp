@@ -179,7 +179,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         backgroundColor: primaryColor,
         onPressed: () {
           showModalBottomSheet<void>(
@@ -277,10 +277,11 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                 );
               });
         },
-        child: Icon(
-          Icons.add,
-          color: lightColor,
-        ),
+         label: Text('Add Room'),
+        // child: Icon(
+        //   Icons.add,
+        //   color: lightColor,
+        // ),
       ),
 
       bottomNavigationBar: Container(

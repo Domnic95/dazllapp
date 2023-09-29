@@ -241,16 +241,16 @@ class RealtorRoomProvider extends BaseNotifier {
         log("cnsiubdx ===!!!!");
 
         if (featureId[i][j] != 0) {
-          log("cnsiubdx ===++++++++");
+          log("cnsiubdx ===++++++++ ${SpHelpers.getString(SharedPrefsKeys.Realtor_id)}");
           Map<String, dynamic> _map = {
-            // "email": widget.customeremail,
+            // "email": widge
+            // t.customeremail,
             // if (widget.customeremail == '')
             "realtor_id": SpHelpers.getString(SharedPrefsKeys.Realtor_id),
             // "customer_id": widget.cutomerid,
             "featureOption": "",
             "featureOptionIssues": [],
             "features": featureId[i][j],
-
             "issuetext": "",
             "roomId": _roomIdList[i],
             "images": imagesList[i][j],
@@ -258,8 +258,7 @@ class RealtorRoomProvider extends BaseNotifier {
           };
           if (DescrptionController[i][j].text.isNotEmpty) {
             _map["inspectionNotes"] =
-              _DescrptionController[i][j].text.toString();
-                    
+                _DescrptionController[i][j].text.toString();
           }
           log('massssssssss  ======>>> ${_map.toString()}');
           listData.add(_map);

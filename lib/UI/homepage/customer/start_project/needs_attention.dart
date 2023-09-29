@@ -560,8 +560,209 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                           //   ),
                                           // ),
 
+                                          // ListView.separated(
+                                          //     separatorBuilder:
+                                          //         (context, subIndex) {
+                                          //       return SizedBox(
+                                          //         height: 10,
+                                          //       );
+                                          //     },
+                                          //     shrinkWrap: true,
+                                          //     physics:
+                                          //         NeverScrollableScrollPhysics(),
+                                          //     itemCount:
+                                          //         imgFile[index].length,
+                                          //     itemBuilder:
+                                          //         (BuildContext context,
+                                          //             int subIndex) {
+                                          //       return imgFile[index][
+                                          //                       subIndex] ==
+                                          //                   File('') ||
+                                          //               _addphotodescription[
+                                          //                           index][
+                                          //                       subIndex] ==
+                                          //                   ''
+                                          //           ? SizedBox()
+                                          //           : ListTile(
+                                          //               leading: Container(
+                                          //                 height: 60,
+                                          //                 width: 60,
+                                          //                 decoration:
+                                          //                     BoxDecoration(
+                                          //                   borderRadius:
+                                          //                       BorderRadius
+                                          //                           .circular(
+                                          //                               10),
+                                          //                   image:
+                                          //                       DecorationImage(
+                                          //                     fit: BoxFit
+                                          //                         .cover,
+                                          //                     image:
+                                          //                         FileImage(
+                                          //                       imgFile[index]
+                                          //                           [
+                                          //                           subIndex],
+                                          //                     ),
+                                          //                   ),
+                                          //                 ),
+                                          //               ),
+                                          //               title: _addphotodescription[
+                                          //                           subIndex] ==
+                                          //                       ''
+                                          //                   ? Text('')
+                                          //                   : Text(_addphotodescription[
+                                          //                           index]
+                                          //                       [subIndex]),
+                                          //               trailing:
+                                          //                   IconButton(
+                                          //                       onPressed:
+                                          //                           () {
+                                          //                         setState(
+                                          //                             () {
+                                          //                           imgFile[index]
+                                          //                               .removeAt(subIndex);
+                                          //                           _addphotodescription[index]
+                                          //                               .removeAt(subIndex);
+                                          //                         });
+                                          //                       },
+                                          //                       icon: Icon(
+                                          //                         Icons
+                                          //                             .cancel,
+                                          //                         size: 20,
+                                          //                       )),
+                                          //             );
+                                          //     },
+                                          //   ),
+                                          
                                           SizedBox(
-                                            height: 10,
+                                            height: 5,
+                                          ),
+                                          Container(
+                                            height: size.height * 0.12,
+                                            padding: EdgeInsets.only(left: 15),
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: AppTheme.grey
+                                                        .withOpacity(0.5),
+                                                    width: 2),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Colors.white),
+                                            child: Stack(
+                                              children: [
+                                                TextFormField(
+                                                  controller: _roomProvider
+                                                          .DescrptionController[
+                                                      _roomProvider
+                                                          .tabIndex][index],
+                                                  minLines: 2,
+                                                  maxLines: 100,
+                                                  textInputAction:
+                                                      TextInputAction.done,
+                                                  cursorColor:
+                                                      AppTheme.colorPrimary,
+                                                  decoration: InputDecoration(
+                                                      hintText:
+                                                          "Tell us the issue or desired outcome.",
+                                                      hintStyle:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText1,
+                                                      focusedBorder:
+                                                          UnderlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: Colors
+                                                                      .transparent)),
+                                                      enabledBorder:
+                                                          UnderlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: Colors
+                                                                      .transparent)),
+                                                      border: UnderlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Colors
+                                                                  .transparent))),
+                                                ),
+                                                // Align(
+                                                //   alignment:
+                                                //       Alignment.centerRight,
+                                                //   child: Container(
+                                                //     decoration: BoxDecoration(
+                                                //       color:
+                                                //           AppTheme.colorPrimary,
+                                                //       borderRadius:
+                                                //           BorderRadius.only(
+                                                //         bottomLeft:
+                                                //             Radius.circular(10),
+                                                //         topLeft:
+                                                //             Radius.circular(10),
+                                                //       ),
+                                                //     ),
+                                                //     child: IconButton(
+                                                //       icon: Icon(
+                                                //         Icons.arrow_forward_ios,
+                                                //         color: Colors.white,
+                                                //       ),
+                                                //       onPressed: () {
+                                                //         _roomProvider
+                                                //                 .DescrptionController[
+                                                //                     _roomProvider
+                                                //                         .tabIndex]
+                                                //                     [index]
+                                                //                 .text
+                                                //                 .isEmpty
+                                                //             ? ScaffoldMessenger.of(context)
+                                                //                 .showSnackBar(
+                                                //                     SnackBar(
+                                                //                 content: Text(
+                                                //                     'Add description'),
+                                                //               ))
+                                                //             : _roomProvider
+                                                //                         .description[_roomProvider.tabIndex]
+                                                //                     [index] =
+                                                //                 _roomProvider
+                                                //                     .DescrptionController[
+                                                //                         _roomProvider
+                                                //                             .tabIndex]
+                                                //                         [index]
+                                                //                     .text;
+                                                //         _roomProvider
+                                                //             .DescrptionController[
+                                                //                 _roomProvider
+                                                //                     .tabIndex]
+                                                //                 [index]
+                                                //             .clear();
+                                                //       },
+                                                //     ),
+                                                //     width: 50,
+                                                //   ),
+                                                // )
+                                              ],
+                                            ),
+                                          ),
+                                       SizedBox(
+                                            height: 5,
+                                          ),
+                                          RichText(
+                                              text: TextSpan(
+                                                  text: "UPLOAD PHOTOS OF ",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: blackColor,
+                                                      fontSize: 12),
+                                                  children: [
+                                                TextSpan(
+                                                  text:
+                                                      "your project or photos that inspire your renovation",
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: AppTheme.grey61,
+                                                  ),
+                                                )
+                                              ])),
+                                        SizedBox(
+                                            height: 15,
                                           ),
                                           _roomProvider.imgFile[_roomProvider
                                                           .tabIndex][index] ==
@@ -678,207 +879,6 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                           );
                                                   },
                                                 ),
-
-                                          // ListView.separated(
-                                          //     separatorBuilder:
-                                          //         (context, subIndex) {
-                                          //       return SizedBox(
-                                          //         height: 10,
-                                          //       );
-                                          //     },
-                                          //     shrinkWrap: true,
-                                          //     physics:
-                                          //         NeverScrollableScrollPhysics(),
-                                          //     itemCount:
-                                          //         imgFile[index].length,
-                                          //     itemBuilder:
-                                          //         (BuildContext context,
-                                          //             int subIndex) {
-                                          //       return imgFile[index][
-                                          //                       subIndex] ==
-                                          //                   File('') ||
-                                          //               _addphotodescription[
-                                          //                           index][
-                                          //                       subIndex] ==
-                                          //                   ''
-                                          //           ? SizedBox()
-                                          //           : ListTile(
-                                          //               leading: Container(
-                                          //                 height: 60,
-                                          //                 width: 60,
-                                          //                 decoration:
-                                          //                     BoxDecoration(
-                                          //                   borderRadius:
-                                          //                       BorderRadius
-                                          //                           .circular(
-                                          //                               10),
-                                          //                   image:
-                                          //                       DecorationImage(
-                                          //                     fit: BoxFit
-                                          //                         .cover,
-                                          //                     image:
-                                          //                         FileImage(
-                                          //                       imgFile[index]
-                                          //                           [
-                                          //                           subIndex],
-                                          //                     ),
-                                          //                   ),
-                                          //                 ),
-                                          //               ),
-                                          //               title: _addphotodescription[
-                                          //                           subIndex] ==
-                                          //                       ''
-                                          //                   ? Text('')
-                                          //                   : Text(_addphotodescription[
-                                          //                           index]
-                                          //                       [subIndex]),
-                                          //               trailing:
-                                          //                   IconButton(
-                                          //                       onPressed:
-                                          //                           () {
-                                          //                         setState(
-                                          //                             () {
-                                          //                           imgFile[index]
-                                          //                               .removeAt(subIndex);
-                                          //                           _addphotodescription[index]
-                                          //                               .removeAt(subIndex);
-                                          //                         });
-                                          //                       },
-                                          //                       icon: Icon(
-                                          //                         Icons
-                                          //                             .cancel,
-                                          //                         size: 20,
-                                          //                       )),
-                                          //             );
-                                          //     },
-                                          //   ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          RichText(
-                                              text: TextSpan(
-                                                  text: "UPLOAD PHOTOS OF ",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: blackColor,
-                                                      fontSize: 12),
-                                                  children: [
-                                                TextSpan(
-                                                  text:
-                                                      "your project or photos that inspire your renovation",
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: AppTheme.grey61,
-                                                  ),
-                                                )
-                                              ])),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Container(
-                                            height: size.height * 0.12,
-                                            padding: EdgeInsets.only(left: 15),
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: AppTheme.grey
-                                                        .withOpacity(0.5),
-                                                    width: 2),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                color: Colors.white),
-                                            child: Stack(
-                                              children: [
-                                                TextFormField(
-                                                  controller: _roomProvider
-                                                          .DescrptionController[
-                                                      _roomProvider
-                                                          .tabIndex][index],
-                                                  minLines: 2,
-                                                  maxLines: 100,
-                                                  textInputAction:
-                                                      TextInputAction.done,
-                                                  cursorColor:
-                                                      AppTheme.colorPrimary,
-                                                  decoration: InputDecoration(
-                                                      hintText:
-                                                          "Add note to inspection report",
-                                                      hintStyle:
-                                                          Theme.of(context)
-                                                              .textTheme
-                                                              .bodyText1,
-                                                      focusedBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .transparent)),
-                                                      enabledBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .transparent)),
-                                                      border: UnderlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color: Colors
-                                                                  .transparent))),
-                                                ),
-                                                // Align(
-                                                //   alignment:
-                                                //       Alignment.centerRight,
-                                                //   child: Container(
-                                                //     decoration: BoxDecoration(
-                                                //       color:
-                                                //           AppTheme.colorPrimary,
-                                                //       borderRadius:
-                                                //           BorderRadius.only(
-                                                //         bottomLeft:
-                                                //             Radius.circular(10),
-                                                //         topLeft:
-                                                //             Radius.circular(10),
-                                                //       ),
-                                                //     ),
-                                                //     child: IconButton(
-                                                //       icon: Icon(
-                                                //         Icons.arrow_forward_ios,
-                                                //         color: Colors.white,
-                                                //       ),
-                                                //       onPressed: () {
-                                                //         _roomProvider
-                                                //                 .DescrptionController[
-                                                //                     _roomProvider
-                                                //                         .tabIndex]
-                                                //                     [index]
-                                                //                 .text
-                                                //                 .isEmpty
-                                                //             ? ScaffoldMessenger.of(context)
-                                                //                 .showSnackBar(
-                                                //                     SnackBar(
-                                                //                 content: Text(
-                                                //                     'Add description'),
-                                                //               ))
-                                                //             : _roomProvider
-                                                //                         .description[_roomProvider.tabIndex]
-                                                //                     [index] =
-                                                //                 _roomProvider
-                                                //                     .DescrptionController[
-                                                //                         _roomProvider
-                                                //                             .tabIndex]
-                                                //                         [index]
-                                                //                     .text;
-                                                //         _roomProvider
-                                                //             .DescrptionController[
-                                                //                 _roomProvider
-                                                //                     .tabIndex]
-                                                //                 [index]
-                                                //             .clear();
-                                                //       },
-                                                //     ),
-                                                //     width: 50,
-                                                //   ),
-                                                // )
-                                              ],
-                                            ),
-                                          ),
                                         ],
                                       ),
                                     )

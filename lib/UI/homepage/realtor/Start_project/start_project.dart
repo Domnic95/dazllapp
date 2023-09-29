@@ -129,20 +129,20 @@ class _Start_projectState extends ConsumerState<Start_project> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      _roomsNotifier.listOfRoom[index].image ==
-                                              ""
-                                          ? Image.asset(
-                                              'assets/images/noimage.png',
-                                              width: 70,
-                                              color: primaryColor,
-                                            )
-                                          : Image.network(
-                                              _roomsNotifier
-                                                  .listOfRoom[index].image
-                                                  .toString(),
-                                              width: 50,
-                                              color: primaryColor,
-                                            ),
+                                      // _roomsNotifier.listOfRoom[index].image ==
+                                      //         ""
+                                      //     ? Image.asset(
+                                      //         'assets/images/noimage.png',
+                                      //         width: 70,
+                                      //         color: primaryColor,
+                                      //       )
+                                      //     : Image.network(
+                                      //         _roomsNotifier
+                                      //             .listOfRoom[index].image
+                                      //             .toString(),
+                                      //         width: 50,
+                                      //         color: primaryColor,
+                                      //       ),
                                       SizedBox(
                                         height: 8,
                                       ),

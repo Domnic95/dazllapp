@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, avoid_unnecessary_containers
 
 import 'package:dazllapp/UI/component/banner.dart';
+import 'package:dazllapp/UI/component/home_popup_button.dart';
 import 'package:dazllapp/UI/home/component/GetInspiredWidget.dart';
 import 'package:dazllapp/UI/home/component/on_trend_widget.dart';
 import 'package:dazllapp/UI/home/component/services.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/apicall.dart';
+import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
@@ -33,14 +35,17 @@ class _HomePageState extends ConsumerState<HomePage> {
         //   //   "assets/images/navigation.png",
         //   // ),
         // ),
-        centerTitle: true,
+        backgroundColor: AppTheme.colorPrimaryDark,
+        centerTitle: false,
         title: Text(
           "Home",
-          style: Theme.of(context)
-              .textTheme
-              .bodyText2!
-              .copyWith(fontSize: 18, color: lightColor),
+          style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+                color: lightColor,
+              ),
         ),
+        actions: [HomePopupButton()],
         // actions: [
         //   Padding(
         //     padding: const EdgeInsets.all(14.0),
@@ -62,9 +67,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                   child: Banners(),
                 ),
-              ),
-              SizedBox(
-                height: 4,
               ),
               ServicesWidget(),
               SizedBox(

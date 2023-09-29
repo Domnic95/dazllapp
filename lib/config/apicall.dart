@@ -131,16 +131,20 @@ Future<String> login(
         });
     print(response.data);
     if (response.statusCode == 200) {
-      //   index == 0
-      //       ? SpHelpers.setPref(SharedPrefsKeys.Realtor_id,
-      //           response.data['data']['id'].toString())
-      //       : null;
+      index == 0
+          ? SpHelpers.setPref(SharedPrefsKeys.Realtor_id,
+              response.data['data']['id'].toString())
+          : null;
 
-      //  index==1? SpHelpers.setPref(
-      //       SharedPrefsKeys.Prof_id, response.data['data']['id'].toString()):null;
-      //        index==2? SpHelpers.setPref(
-      //       SharedPrefsKeys.Prof_id, response.data['data']['id'].toString()):null;
-      //   log('cbvhjdasg ${response.data['data']['id'].toString()}');
+      index == 1
+          ? SpHelpers.setPref(
+              SharedPrefsKeys.Prof_id, response.data['data']['id'].toString())
+          : null;
+      index == 2
+          ? SpHelpers.setPref(
+              SharedPrefsKeys.Prof_id, response.data['data']['id'].toString())
+          : null;
+    
       SpHelpers.setPref(
           SharedPrefsKeys.key_token, response.data['data']['token']);
 
@@ -167,7 +171,7 @@ Future<String> login(
         SpHelpers.setPref(
             SharedPrefsKeys.Prof_id, response.data['data']['id'].toString());
         SpHelpers.setPref(
-            SharedPrefsKeys.profetionalUser, jsonEncode(response.data) );
+            SharedPrefsKeys.profetionalUser, jsonEncode(response.data));
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => ProfessionalsHomepage()));
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

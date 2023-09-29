@@ -175,7 +175,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         backgroundColor: primaryColor,
         onPressed: () {
           showModalBottomSheet<void>(
@@ -273,10 +273,11 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                 );
               });
         },
-        child: Icon(
-          Icons.add,
-          color: lightColor,
-        ),
+         label: Text('Add Room'),
+        // child: Icon(
+        //   Icons.add,
+        //   color: lightColor,
+        // ),
       ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -439,7 +440,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                   Row(
                 children: [
                   Text(
-                    "Next",
+                    "Finish",
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 18,
                           color: lightColor.withOpacity(.9),

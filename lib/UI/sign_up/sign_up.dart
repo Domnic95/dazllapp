@@ -12,6 +12,7 @@ import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dazllapp/constant/strings.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -469,6 +470,11 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                           color: AppTheme.darkText),
                                       children: [
                                         TextSpan(
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              commonTermConditionshowModalSheet(
+                                                  size);
+                                            },
                                           text: "DAZl'S TERMS AND CONDITIONS.*",
                                           style: TextStyle(
                                               fontWeight: FontWeight.w900,
@@ -984,6 +990,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                     fontSize: 12, color: AppTheme.darkText),
                                 children: [
                                   TextSpan(
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        commonTermConditionshowModalSheet(size);
+                                      },
                                     text: "DAZl'S TERMS AND CONDITIONS.*",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w900,
@@ -1096,6 +1106,11 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                             color: AppTheme.darkText),
                                         children: [
                                           TextSpan(
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () {
+                                                commonTermConditionshowModalSheet(
+                                                    size);
+                                              },
                                             text:
                                                 "DAZl'S TERMS AND CONDITIONS.*",
                                             style: TextStyle(
@@ -1178,6 +1193,249 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     ));
   }
 
+  void commonTermConditionshowModalSheet(size) {
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: size.height * 0.88,
+          decoration: BoxDecoration(
+              // color: Colors.amber,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+            child: ListView(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(1),
+                  child: Text(
+                    'TERMS AND CONDITIONS and SERVICE COMMITMENT',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      color: primaryColor,
+                      letterSpacing: 0.3,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  'DAZL SERVICE COMMITMENT',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: profcolor,
+                    letterSpacing: 0.3,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.all(2),
+                  child: Text(
+                    serviceComment,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13,
+                      color: AppTheme.darkText,
+                      letterSpacing: 0.3,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  'ACCEPTANCE OF THESE TERMS',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: profcolor,
+                    letterSpacing: 0.3,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.all(2),
+                  child: Column(
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          text: acceptionsOfTheseTerms,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13,
+                            color: AppTheme.darkText,
+                            letterSpacing: 0.5,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: ' ${acceptionsOfTheseTerms1}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 13,
+                                color: AppTheme.darkText,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Text(
+                        acceptionsOfTheseTerms2,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 13,
+                          color: AppTheme.darkText,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  'MODIFICATIONS',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: profcolor,
+                    letterSpacing: 0.3,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.all(2),
+                  child: Text(
+                    modifications,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13,
+                      color: AppTheme.darkText,
+                      letterSpacing: 0.3,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  'PRIVACY POLICY, ADDITIONAL TERMS AND POLICIES',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: profcolor,
+                    letterSpacing: 0.3,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.all(2),
+                  child: Column(
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          text: 'Please review',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13,
+                            color: AppTheme.darkText,
+                            letterSpacing: 0.5,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: ' DAZLPRO, LLC OR DAZL LP Privacy Policy',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 13,
+                                color: AppTheme.colorPrimaryDark,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                            TextSpan(
+                              text: privacyPolicy,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 13,
+                                color: AppTheme.darkText,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  'KEY TERMS',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: profcolor,
+                    letterSpacing: 0.3,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.all(2),
+                  child: Column(
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          text: keyTerms,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13,
+                            color: AppTheme.darkText,
+                            letterSpacing: 0.5,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: keyTerms1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 13,
+                                color: AppTheme.darkText,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  static const String serviceComment =
+      "Dazl-affiliated Service Professionals must provide proof of professional licensure; proof of registration in the states in which they operate; proof of liability insurance; and project portfolios that demonstrate the company's expertise. Dazl requires that all affiliated Service Professionals perform their work at, or higher than, industry standards according to their peers. To report workmanship or service that is below industry standards, please tell us about your experience here .";
+
+  static const String acceptionsOfTheseTerms =
+      'This Terms of Use Agreement ("Terms") governs your access to, use of, and participation in the Platformmade available by DAZLPRO LLC OR DAZL LP ("DAZLPRO LLC OR DAZL LP)" "We" "our" or "us"). PLEASE';
+
+  static const String acceptionsOfTheseTerms1 =
+      ' READ THE TERMS THOROUGHLY AND CAREFULLY. BY CLICKING THE "ACCEPT" BUTTON AND ACCESSING OR USING THE PLATFORM, YOU AGREE TO BE BOUND BY ALL THESE TERMS AND CONDITIONS. IF YOU DO NOT AGREE TO BE BOUND BY ALL THE TERMS AND CONDITIONS THEN DO NOT CLICK THE "ACCEPT" BUTTON WHEREBY YOU MAY NOT ACCESS OR USE THE PLATFORM.';
+  static const String acceptionsOfTheseTerms2 =
+      'All references to "you" or "your," as applicable, mean the person who accesses, uses, and/or participates in the Platform in any manner, and each of your heirs, assigns, and successors. If you use the Platform on behalf of an entity, you represent and warrant that you have the authority to bind that entity, your acceptance of the Terms will be deemed an acceptance by that entity, and "you" and "your" herein shall refer to that entity.';
+
+  static const String modifications =
+      'DAZL PRO OR DAZL reserves the right, in its sole discretion, to modify these Terms, and any other documents incorporated by reference herein, at any time and without prior notice. DAZLPRO LLC OR DAZL LP will notify you of changes by posting on the Platform or sending you an email. Amendments will become effective thirty (30) days after they are posted on the Platform. Your use of the Platform after the expiration of the thirty (30) days shall constitute your consent to the changes. If you do not agree, you may not access or use the Platform.';
+
+  static const String privacyPolicy =
+      ' incorporated herein by reference, for information and notices concerning DAZLPRO LLC OR DAZL LP, collection and use of your information. Certain areas of and/or products on the Platform may have different terms and conditions posted or may require you to agree with and accept additional terms and conditions or policies. If there is a conflict between these Terms and terms and conditions or policies posted for a specific area or product, the latter take precedence with respect to your use of that area or product.';
+
+  static const String keyTerms =
+      "'Platform' means all DAZLPRO LLC OR DAZL LP websites, mobile or other applications (including any and all DAZLPRO LLC OR DAZL LP's Content and materials";
+
+  static const String keyTerms1 =
+      ' published, offered, uploaded to, posted, transmitted, or displayed on the website or application, software, processes including duplication and any other services provided by or through DAZLPRO LLC OR DAZL LP.';
+
   Widget submitButton(String fName, String lName, String emailId,
           String mobileNum, String password) =>
       ElevatedButton(
@@ -1231,7 +1489,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             // else if (_stateController.text.isEmpty) {
             //   ScaffoldMessenger.of(context)
             //       .showSnackBar(SnackBar(content: Text('Enter state')));
-            // } 
+            // }
             else if (_mobileNoControllre.text.isEmpty) {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text('Enter mobile number')));
@@ -1289,12 +1547,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             } else if (_PzipcodeController.text.isEmpty) {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text('Enter zip code')));
-            } 
-            else if (_PstateController.text.isEmpty) {
+            } else if (_PstateController.text.isEmpty) {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text('Enter state')));
-            } 
-            else if (_PCmobileController.text.isEmpty) {
+            } else if (_PCmobileController.text.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Enter company number')));
             } else if (_PyearinbusinessController.text.isEmpty) {
@@ -1324,7 +1580,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 password: _PpasswordController.text,
                 company_number: _PCmobileController.text,
                 facebookLink: _PfacebookLinkController.text,
-                image1: await ref.read(realtorprovider).uploadImage(context,  imgFile[0]),
+                image1: await ref
+                    .read(realtorprovider)
+                    .uploadImage(context, imgFile[0]),
                 image2: imgFile[1].toString(),
                 image3: imgFile[2].toString(),
                 image4: imgFile[3].toString(),
@@ -1718,3 +1976,26 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 //     ),
 //   );
 // }
+
+const String serviceComment =
+    "Dazl-affiliated Service Professionals must provide proof of professional licensure; proof of registration in the states in which they operate; proof of liability insurance; and project portfolios that demonstrate the company's expertise. Dazl requires that all affiliated Service Professionals perform their work at, or higher than, industry standards according to their peers. To report workmanship or service that is below industry standards, please tell us about your experience here .";
+
+const String acceptionsOfTheseTerms =
+    'This Terms of Use Agreement ("Terms") governs your access to, use of, and participation in the Platformmade available by DAZLPRO LLC OR DAZL LP ("DAZLPRO LLC OR DAZL LP)" "We" "our" or "us"). PLEASE';
+
+const String acceptionsOfTheseTerms1 =
+    ' READ THE TERMS THOROUGHLY AND CAREFULLY. BY CLICKING THE "ACCEPT" BUTTON AND ACCESSING OR USING THE PLATFORM, YOU AGREE TO BE BOUND BY ALL THESE TERMS AND CONDITIONS. IF YOU DO NOT AGREE TO BE BOUND BY ALL THE TERMS AND CONDITIONS THEN DO NOT CLICK THE "ACCEPT" BUTTON WHEREBY YOU MAY NOT ACCESS OR USE THE PLATFORM.';
+const String acceptionsOfTheseTerms2 =
+    'All references to "you" or "your," as applicable, mean the person who accesses, uses, and/or participates in the Platform in any manner, and each of your heirs, assigns, and successors. If you use the Platform on behalf of an entity, you represent and warrant that you have the authority to bind that entity, your acceptance of the Terms will be deemed an acceptance by that entity, and "you" and "your" herein shall refer to that entity.';
+
+const String modifications =
+    'DAZL PRO OR DAZL reserves the right, in its sole discretion, to modify these Terms, and any other documents incorporated by reference herein, at any time and without prior notice. DAZLPRO LLC OR DAZL LP will notify you of changes by posting on the Platform or sending you an email. Amendments will become effective thirty (30) days after they are posted on the Platform. Your use of the Platform after the expiration of the thirty (30) days shall constitute your consent to the changes. If you do not agree, you may not access or use the Platform.';
+
+const String privacyPolicy =
+    ' incorporated herein by reference, for information and notices concerning DAZLPRO LLC OR DAZL LP, collection and use of your information. Certain areas of and/or products on the Platform may have different terms and conditions posted or may require you to agree with and accept additional terms and conditions or policies. If there is a conflict between these Terms and terms and conditions or policies posted for a specific area or product, the latter take precedence with respect to your use of that area or product.';
+
+const String keyTerms =
+    "'Platform' means all DAZLPRO LLC OR DAZL LP websites, mobile or other applications (including any and all DAZLPRO LLC OR DAZL LP's Content and materials";
+
+const String keyTerms1 =
+    ' published, offered, uploaded to, posted, transmitted, or displayed on the website or application, software, processes including duplication and any other services provided by or through DAZLPRO LLC OR DAZL LP.';

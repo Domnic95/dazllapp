@@ -111,23 +111,23 @@ class _CreateProjectState extends ConsumerState<CreateProject> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      _roomsNotifier.listOfRoom[index].image ==
-                                              ""
-                                          ? Image.asset(
-                                              'assets/images/noimage.png',
-                                              width: 70,
-                                              color: primaryColor,
-                                            )
-                                          : Image.network(
-                                              _roomsNotifier
-                                                  .listOfRoom[index].image
-                                                  .toString(),
-                                              width: 50,
-                                              color: primaryColor,
-                                            ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
+                                      // _roomsNotifier.listOfRoom[index].image ==
+                                      //         ""
+                                      //     ? Image.asset(
+                                      //         'assets/images/noimage.png',
+                                      //         width: 70,
+                                      //         color: primaryColor,
+                                      //       )
+                                      //     : Image.network(
+                                      //         _roomsNotifier
+                                      //             .listOfRoom[index].image
+                                      //             .toString(),
+                                      //         width: 50,
+                                      //         color: primaryColor,
+                                      //       ),
+                                      // SizedBox(
+                                      //   height: 8,
+                                      // ),
                                       Center(
                                         child: Text(
                                           _roomsNotifier.listOfRoom[index].name,

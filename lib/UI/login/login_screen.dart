@@ -237,20 +237,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         child: Text(
                                           'Welcome Back!',
                                           style: TextStyle(
-                                              color: AppTheme.white,
-                                              fontFamily: AppTheme.fontName,
-                                              fontWeight: FontWeight.w800,
-                                              fontSize: 35),
+                                            color: AppTheme.white,
+                                            fontFamily: AppTheme.fontName,
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 35,
+                                          ),
                                         ),
                                       ),
                                       Center(
                                         child: Text(
-                                          'Signin to your account',
+                                          'Sign In to your account',
                                           style: TextStyle(
-                                              color: AppTheme.white,
-                                              fontFamily: AppTheme.fontName,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 18),
+                                            color: AppTheme.white,
+                                            fontFamily: AppTheme.fontName,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 18,
+                                          ),
                                         ),
                                       )
                                     ],
