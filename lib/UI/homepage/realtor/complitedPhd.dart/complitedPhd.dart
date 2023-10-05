@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
+import 'package:dazllapp/UI/homepage/realtor/Start_project/pdf_api.dart';
+import 'package:dazllapp/UI/homepage/realtor/Start_project/pdf_invoice_api.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/complitedPhdProvider.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -22,6 +24,7 @@ class ComplitedPhd extends ConsumerStatefulWidget {
 class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
   late ComplitedPhdProvider _complitedPhdProvider;
   late RealtorNotifier _realtorProvider;
+  List<bool> loader = [];
   @override
   void initState() {
     _complitedPhdProvider = ref.read(complitedPhdProvider);
@@ -33,6 +36,21 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
     await _complitedPhdProvider.loadComplitedPhd(ref: ref);
 
     _complitedPhdProvider.loader(Loading.complited);
+    if (_realtorProvider.singleComplitedPhdReport!.reports!.isNotEmpty) {
+      for (var i = 0;
+          i <
+              _realtorProvider
+                  .singleComplitedPhdReport!.reports!.first.roominfo!.length;
+          i++) {
+        for (var j = 0;
+            j <
+                _realtorProvider.singleComplitedPhdReport!.reports!.first
+                    .roominfo![i].feature!.length;
+            j++) {
+          loader.add(false);
+        }
+      }
+    }
   }
 
   @override
@@ -519,6 +537,12 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                                     ?.length ??
                                                 0,
                                             itemBuilder: (context, index1) {
+                                              final item = _realtorProvider
+                                                  .singleComplitedPhdReport!
+                                                  .reports!
+                                                  .first
+                                                  .roominfo![index]
+                                                  .feature?[index1];
                                               return SizedBox(
                                                 child: Column(
                                                   crossAxisAlignment:
@@ -781,9 +805,111 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                                                 2000000) *
                                                             100),
                                                     SizedBox(height: 10),
-                                                    Divider(
-                                                      color: Colors.grey,
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                'Estimated DAZL value :- ',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 13,
+                                                                  color:
+                                                                      blackColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                '5000000',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 13,
+                                                                  color:
+                                                                      teamColor,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          _realtorProvider
+                                                                      .singleComplitedPhdReport!
+                                                                      .reports!
+                                                                      .first
+                                                                      .roominfo![
+                                                                          index]
+                                                                      .feature![
+                                                                          index1]
+                                                                      .images
+                                                                      ?.length ==
+                                                                  0
+                                                              ? SizedBox()
+                                                              : loader[index1] ==
+                                                                      true
+                                                                  ? Center(
+                                                                      child:
+                                                                          CircularProgressIndicator())
+                                                                  : GestureDetector(
+                                                                      onTap:
+                                                                          () async {
+                                                                        loader[index1] =
+                                                                            true;
+                                                                        setState(
+                                                                            () {});
+                                                                        final pdfFile = await PdfInvoiceApi.generate(
+                                                                            item,
+                                                                            _realtorProvider.singleComplitedPhdReport!.reports!.first.phdPrice.toString());
+                                                                        loader[index1] =
+                                                                            false;
+                                                                        await PdfApi.openFile(
+                                                                            pdfFile);
+
+                                                                        setState(
+                                                                            () {});
+                                                                      },
+                                                                      child:
+                                                                          Row(
+                                                                        children: [
+                                                                          Icon(
+                                                                            Icons.share,
+                                                                            size:
+                                                                                14,
+                                                                          ),
+                                                                          Text(
+                                                                            ' SHARE',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontWeight: FontWeight.w700,
+                                                                              color: primaryColor,
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                        ],
+                                                      ),
                                                     ),
+                                                    index >=
+                                                            _realtorProvider
+                                                                .singleComplitedPhdReport!
+                                                                .reports!
+                                                                .first
+                                                                .roominfo!
+                                                                .length
+                                                        ? SizedBox()
+                                                        : Divider(
+                                                            color: Colors.grey,
+                                                          ),
                                                     SizedBox(height: 10),
                                                   ],
                                                 ),
@@ -844,7 +970,7 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                         // )
                                       ],
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),

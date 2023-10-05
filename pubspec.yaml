@@ -49,6 +49,10 @@ dependencies:
   cached_network_image: ^3.2.3
   infinite_scroll_pagination: ^3.2.0
   flutter_svg: ^1.1.6
+  pdf: ^3.8.2 
+  path_provider: ^2.1.1
+  printing: ^5.7.2
+  open_filex: ^4.3.2
   
  
 # dependency_overrides:

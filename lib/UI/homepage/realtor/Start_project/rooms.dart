@@ -277,7 +277,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                 );
               });
         },
-         label: Text('Add Room'),
+        label: Text('Add Room'),
         // child: Icon(
         //   Icons.add,
         //   color: lightColor,
@@ -418,26 +418,26 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                               //     .uploadimagesrealtor(projectId, _roomProvider.file);
                             }
                           }
-                          // }
-                          log('message =====>>> ${_roomProvider.listData}');
-                          final projectId = await ref
-                              .read(realtorprovider)
-                              .createprojectrealtor(_roomProvider.listData)
-                              .then((value) {
-                            Utils.loaderDialog(context, false);
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text('Project created sucessfully'),
-                              backgroundColor: teamColor,
-                            ));
-                            _roomProvider.reset();
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Realtor_project()),
-                                (route) => false);
-                            log('message ${value.toString()}');
-                          });
                         }
+                        log('message =====>>> ${_roomProvider.listData}');
+                        final projectId = await ref
+                            .read(realtorprovider)
+                            .createprojectrealtor(_roomProvider.listData)
+                            .then((value) {
+                          Utils.loaderDialog(context, false);
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text('Project created sucessfully'),
+                            backgroundColor: teamColor,
+                          ));
+                          _roomProvider.reset();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Realtor_project()),
+                              (route) => false);
+                          log('message ${value.toString()}');
+                        });
+                        // }
                         if (!_roomProvider.isSet.contains(false)) {
                         } else {
                           Utils.loaderDialog(context, false);

@@ -120,6 +120,8 @@ class RealtorRoomProvider extends BaseNotifier {
     isSet.clear();
     _rooms.clear();
     featurebool.clear();
+    _tabIndex = 0;
+    listData.clear();
     // currenoptionselectedid.add(0);
     featureId.clear();
     DescrptionController.clear();

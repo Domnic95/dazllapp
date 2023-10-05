@@ -26,7 +26,7 @@ class _RealtorHomePageState extends ConsumerState<RealtorHomePage> {
       // drawer: drawer(context, ref),
       appBar: AppBar(
         leading: PopupButton(),
-
+        backgroundColor: primaryColor,
         // InkWell(
         //   onTap: () {
 

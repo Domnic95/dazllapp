@@ -461,7 +461,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                             height: 10,
                           ),
                           _reltorProvider.roomTypes[_phdProvider.tabIndex]
-                                      .length >=
+                                      .length <=
                                   0
                               ? SizedBox(height: 10)
                               : SizedBox(
@@ -581,7 +581,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                           //   ),
                           // ),
                           _reltorProvider.addValueData[_phdProvider.tabIndex]
-                                      .length >=
+                                      .length <=
                                   0
                               ? SizedBox()
                               : SizedBox(
@@ -2302,7 +2302,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                                       textInputAction:
                                                           TextInputAction.done,
                                                       cursorColor:
-                                                           AppTheme.colorPrimary,
+                                                          AppTheme.colorPrimary,
                                                       decoration: InputDecoration(
                                                           hintText:
                                                               "Tell us the issue or desired outcome.",
@@ -2827,10 +2827,11 @@ class _CatagoryExampleState extends ConsumerState<CatagoryExample> {
                           }
                         });
                         ref.read(customernotifier).getfeatureissue(
-                            widget.listOfFeature[widget.index].id);
+                              widget.listOfFeature[widget.index].id,
+                            );
                       },
                       title: Text(
-                          "${subindex == 0 ? "DAZLING" : subindex == 1 ? "MARKET READY" : "NEEDS DAZL"}"),
+                          "${subindex == 0 ? "DAZLING" : subindex == 1 ? "MARKET READY" : "NEEDS DAZL"}",),
                     );
                   }),
             ),

@@ -339,7 +339,8 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                   "house_id": '',
                   // "customer_id": 1,
                   "mid_price": '500',
-                  // "true": 'true',
+                  // "tr
+                  //ue": 'true',
                   // "phd_description": phdDes.toString(),
                 };
 
@@ -471,7 +472,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                     _realtorProvider.reset();
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Please fill the all field'),
+                      content: Text('Please Select Road ----'),
                       backgroundColor: Colors.red.shade300,
                     ));
                   }

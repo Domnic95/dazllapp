@@ -47,20 +47,22 @@ class ServicesWidget extends StatelessWidget {
                                 model.image ?? 'assets/images/logo.jpg'),
                             fit: BoxFit.cover,
                             colorFilter: ColorFilter.mode(
-                                Colors.black.withOpacity(.2), BlendMode.darken),
+                              Colors.black.withOpacity(.2),
+                              BlendMode.darken,
+                            ),
                           ),
                           borderRadius: BorderRadius.circular(10)),
                       child: GestureDetector(
                         onTap: () {
                           // if (SpHelpers.getInt(SharedPrefsKeys.key_current) !=
                           //     i) {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => LoginScreen(
-                                  index: i,
-                                ),
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => LoginScreen(
+                                index: i,
                               ),
-                            );
+                            ),
+                          );
                           // }
                         },
                         child: Center(
