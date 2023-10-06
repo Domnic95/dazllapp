@@ -189,7 +189,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                       leading: Icon(
                                         Icons.person,
                                       ),
-                                      title: Text(
+                                         title: Text(
                                         'Name : ',
                                         style: TextStyle(
                                           fontSize: 14,
@@ -449,7 +449,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                         Icons.phone,
                                       ),
                                       title: Text(
-                                        'Insurance Contact Person : ',
+                                        'Insurance Contact : ',
                                         style: TextStyle(
                                           fontSize: 14,
                                         ),
@@ -486,7 +486,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                         Icons.phone,
                                       ),
                                       title: Text(
-                                        'Insurance Number : ',
+                                        'Agent Phone Number :',
                                         style: TextStyle(
                                           fontSize: 14,
                                         ),
