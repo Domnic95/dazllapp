@@ -189,246 +189,254 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           // ),
           //child:
           SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              height: size.height / 3,
-              child: Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  Positioned(
-                      top: 0,
-                      left: 0,
-                      child: Stack(
-                        children: [
-                          Container(
-                              height: size.height * 0.33,
-                              width: size.width,
-                              decoration: new BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.bottomRight,
-                                    end: Alignment.centerLeft,
-                                    colors: [
-                                      AppTheme.colorPrimary,
-                                      AppTheme.colorPrimaryDark
-                                    ]),
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.lerp(Radius.circular(50),
-                                        Radius.circular(50), 5)!,
-                                    bottomRight: Radius.lerp(
-                                        Radius.circular(50),
-                                        Radius.circular(50),
-                                        5)!),
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Image.asset(
-                                    "assets/images/dotsbg.png",
-                                    width: 200,
-                                    height: 200,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Center(
-                                        child: Text(
-                                          'Welcome Back!',
-                                          style: TextStyle(
-                                            color: AppTheme.white,
-                                            fontFamily: AppTheme.fontName,
-                                            fontWeight: FontWeight.w800,
-                                            fontSize: 35,
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                width: double.infinity,
+                height: size.height / 3,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    Positioned(
+                        top: 0,
+                        left: 0,
+                        child: Stack(
+                          children: [
+                            Container(
+                                height: size.height * 0.33,
+                                width: size.width,
+                                decoration: new BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.bottomRight,
+                                      end: Alignment.centerLeft,
+                                      colors: [
+                                        AppTheme.colorPrimary,
+                                        AppTheme.colorPrimaryDark
+                                      ]),
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.lerp(
+                                          Radius.circular(50),
+                                          Radius.circular(50),
+                                          5)!,
+                                      bottomRight: Radius.lerp(
+                                          Radius.circular(50),
+                                          Radius.circular(50),
+                                          5)!),
+                                ),
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/dotsbg.png",
+                                      width: 200,
+                                      height: 200,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Center(
+                                          child: Text(
+                                            'Welcome Back!',
+                                            style: TextStyle(
+                                              color: AppTheme.white,
+                                              fontFamily: AppTheme.fontName,
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 35,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          'Sign In to your account',
-                                          style: TextStyle(
-                                            color: AppTheme.white,
-                                            fontFamily: AppTheme.fontName,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 18,
+                                        Center(
+                                          child: Text(
+                                            'Sign In to your account',
+                                            style: TextStyle(
+                                              color: AppTheme.white,
+                                              fontFamily: AppTheme.fontName,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 18,
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              )),
-                        ],
-                      )),
-                ],
-              ),
-            ),
-            SizedBox(height: size.height * 0.03),
-            SizedBox(height: size.height * 0.03),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: ButtonTheme(
-                child: DropdownButton<String>(
-                  isExpanded: true,
-                  value: dropdownValue,
-
-                  icon: const Icon(Icons.expand_more),
-                  iconSize: 24,
-                  elevation: 16,
-                  // style: const TextStyle(color: Colors.deepPurple),
-                  underline: Container(
-                    height: 2,
-                    // color: Colors.deepPurpleAccent,
-                  ),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownValue = newValue!;
-                      curruntindex = DropsDownvalue.indexOf(newValue);
-                      SpHelpers.setInt(
-                          SharedPrefsKeys.currentindex, curruntindex);
-                      print(curruntindex);
-                    });
-                  },
-                  items: DropsDownvalue.map((String value) {
-                    return new DropdownMenuItem<String>(
-                      value: value,
-                      child: new Text(value),
-                    );
-                  }).toList(),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                )),
+                          ],
+                        )),
+                  ],
                 ),
               ),
-            ),
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 25, right: 25),
-                  child: TextField(
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    // inputFormatters:<TextInputFormatter>[formater],
-                    cursorColor: AppTheme.nearlyBlack,
+              SizedBox(height: size.height * 0.03),
+              SizedBox(height: size.height * 0.03),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: ButtonTheme(
+                  child: DropdownButton<String>(
+                    isExpanded: true,
+                    value: dropdownValue,
 
-                    decoration: InputDecoration(
-                        hintText: "Email",
+                    icon: const Icon(Icons.expand_more),
+                    iconSize: 24,
+                    elevation: 16,
+                    // style: const TextStyle(color: Colors.deepPurple),
+                    underline: Container(
+                      height: 2,
+                      // color: Colors.deepPurpleAccent,
+                    ),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownValue = newValue!;
+                        curruntindex = DropsDownvalue.indexOf(newValue);
+                        SpHelpers.setInt(
+                            SharedPrefsKeys.currentindex, curruntindex);
+                        print(curruntindex);
+                      });
+                    },
+                    items: DropsDownvalue.map((String value) {
+                      return new DropdownMenuItem<String>(
+                        value: value,
+                        child: new Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 25, right: 25),
+                    child: TextField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      // inputFormatters:<TextInputFormatter>[formater],
+                      cursorColor: AppTheme.nearlyBlack,
+
+                      decoration: InputDecoration(
+                          hintText: "Email",
+                          hintStyle: new TextStyle(
+                              color: AppTheme.darkerText,
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400),
+                          labelStyle: new TextStyle(
+                              color: const Color(0xFF424242),
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 15),
+                          border: new UnderlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.red))),
+                    ),
+                  ),
+                  SizedBox(height: size.height * 0.03),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25, right: 25),
+                    child: TextField(
+                      controller: _passwordController,
+                      keyboardType: TextInputType.text,
+                      // inputFormatters:<TextInputFormatter>[formater],
+                      obscureText: !_showPassword,
+                      cursorColor: AppTheme.nearlyBlack,
+                      decoration: InputDecoration(
                         hintStyle: new TextStyle(
                             color: AppTheme.darkerText,
                             fontFamily: AppTheme.fontName,
                             fontSize: 15,
                             fontWeight: FontWeight.w400),
+                        hintText: "Password",
                         labelStyle: new TextStyle(
                             color: const Color(0xFF424242),
                             fontFamily: AppTheme.fontName,
-                            fontSize: 15),
+                            fontSize: 12),
                         border: new UnderlineInputBorder(
-                            borderSide: new BorderSide(color: Colors.red))),
-                  ),
-                ),
-                SizedBox(height: size.height * 0.03),
-                Padding(
-                  padding: EdgeInsets.only(left: 25, right: 25),
-                  child: TextField(
-                    controller: _passwordController,
-                    keyboardType: TextInputType.text,
-                    // inputFormatters:<TextInputFormatter>[formater],
-                    obscureText: !_showPassword,
-                    cursorColor: AppTheme.nearlyBlack,
-                    decoration: InputDecoration(
-                      hintStyle: new TextStyle(
-                          color: AppTheme.darkerText,
-                          fontFamily: AppTheme.fontName,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400),
-                      hintText: "Password",
-                      labelStyle: new TextStyle(
-                          color: const Color(0xFF424242),
-                          fontFamily: AppTheme.fontName,
-                          fontSize: 12),
-                      border: new UnderlineInputBorder(
-                          borderSide: new BorderSide(color: Colors.red)),
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          _togglevisibility();
-                        },
-                        child: Icon(
-                          _showPassword
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          color: Colors.red,
+                            borderSide: new BorderSide(color: Colors.red)),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            _togglevisibility();
+                          },
+                          child: Icon(
+                            _showPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Colors.red,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 15, right: 15),
-                      child: Row(
-                        children: [
-                          Checkbox(
-                              activeColor: primaryColor,
-                              value: keep_me_logged_in,
-                              onChanged: (v) {
-                                keep_me_logged_in = v ?? false;
-                                setState(() {});
-                              }),
-                          Text(
-                            "Keep me login",
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: AppTheme.fontName,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
                         padding: EdgeInsets.only(left: 15, right: 15),
-                        child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute<dynamic>(
-                                  builder: (BuildContext context) =>
-                                      ForgotPasswordScreen(),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              'Forgot Password?',
-                              textAlign: TextAlign.right,
+                        child: Row(
+                          children: [
+                            Checkbox(
+                                activeColor: primaryColor,
+                                value: keep_me_logged_in,
+                                onChanged: (v) {
+                                  keep_me_logged_in = v ?? false;
+                                  setState(() {});
+                                }),
+                            Text(
+                              "Keep me login",
                               style: TextStyle(
-                                fontSize:
-                                    AppTheme.textTheme.bodyText1!.fontSize,
+                                fontSize: 12,
                                 fontFamily: AppTheme.fontName,
-                                color: Colors.blue,
-                                decoration: TextDecoration.underline,
                               ),
-                            )))
-                  ],
-                )
-              ],
-            ),
-            SizedBox(height: size.height * 0.03),
-            submitButton(_emailController.text.toString(),
-                _passwordController.text.toString(), ref),
-            SizedBox(height: size.height * 0.03),
-            AlreadyHaveAnAccountCheck(
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return SignUpScreen();
-                    },
-                  ),
-                );
-              },
-            ),
-          ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                          padding: EdgeInsets.only(left: 15, right: 15),
+                          child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<dynamic>(
+                                    builder: (BuildContext context) =>
+                                        ForgotPasswordScreen(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'Forgot Password?',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  fontSize:
+                                      AppTheme.textTheme.bodyText1!.fontSize,
+                                  fontFamily: AppTheme.fontName,
+                                  color: Colors.blue,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              )))
+                    ],
+                  )
+                ],
+              ),
+              SizedBox(height: size.height * 0.03),
+              submitButton(_emailController.text.toString(),
+                  _passwordController.text.toString(), ref),
+              SizedBox(height: size.height * 0.03),
+              AlreadyHaveAnAccountCheck(
+                press: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return SignUpScreen();
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
       // )

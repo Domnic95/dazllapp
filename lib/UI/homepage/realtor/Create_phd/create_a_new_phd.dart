@@ -79,7 +79,7 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
         child: Scaffold(
       body: Column(
         children: [
-          CommonHeader(title: "Create a new phd",isback:false),
+          CommonHeader(title: "Create a new phd", isback: false),
           Expanded(
               child: loading
                   ? LoadingWidget()
@@ -89,10 +89,11 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
                           height: 10,
                         ),
                         Center(
-                            child: Text("Adjust the value based on your knowledge"
-                          // "\$ " +
-                          //     "${(_phdProvider.startRange + _phdProvider.endRange) / 2}",
-                        )),
+                            child: Text(
+                                "Adjust the value based on your knowledge"
+                                // "\$ " +
+                                //     "${(_phdProvider.startRange + _phdProvider.endRange) / 2}",
+                                )),
                         SliderTheme(
                           data: SliderTheme.of(context).copyWith(
                             trackShape: RectangularSliderTrackShape(),
@@ -118,11 +119,12 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
                                 _phdProvider.endRange.toDouble()),
                             min: 450,
                             max: 800,
+
                             semanticFormatterCallback: (rangeValues) {
                               return '${_phdProvider.startRange.round()} - ${_phdProvider.endRange.round()} dollars';
                             },
                             //added talk back feature for android
-                            divisions: 100,
+                            divisions: 35,
                             labels: RangeLabels('\$ ${_phdProvider.startRange}',
                                 '\$ ${_phdProvider.endRange}'),
                             activeColor: AppTheme.colorPrimary,
@@ -144,6 +146,9 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+                            // Text("300K"),
+                            // Text("350K"),
+                            // Text("400K"),
                             Text("450K"),
                             Text("500K"),
                             Text("550K"),

@@ -158,7 +158,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                   textInputAction: TextInputAction.done,
                                   cursorColor: AppTheme.colorPrimary,
                                   decoration: InputDecoration(
-                                      hintText: "Add note to inspection report",
+                                      hintText: "",
                                       hintStyle:
                                           Theme.of(context).textTheme.bodyText1,
                                       focusedBorder: UnderlineInputBorder(
@@ -528,8 +528,13 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                               return DropdownMenuItem<
                                                   AddValueData>(
                                                 value: value,
-                                                child:
-                                                    Text(value.name.toString()),
+                                                child: SizedBox(
+                                                    width: size.width * 0.2,
+                                                    child: Text(
+                                                      value.name.toString(),
+                                                      // overflow:
+                                                      //     TextOverflow.ellipsis,
+                                                    )),
                                               );
                                             }).toList(),
                                             onChanged: (value) {
@@ -547,14 +552,16 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                     },
                                   ),
                                 ),
-                          Row(
-                            children: [],
-                          ),
-                          Text(
-                              "3. Provide room-specific details [ADD NOTES AND PHOTOS ON THE NEXT PAGE]"),
-                          SizedBox(
-                            height: 10,
-                          ),
+                          Row(children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              child: Text(
+                                "3. Are there any additional value added  items",
+                                maxLines: 2,
+                              ),
+                            ),
+                          ]),
+
                           // Expanded(
                           //   child: Row(
                           //     children: [
@@ -2831,7 +2838,8 @@ class _CatagoryExampleState extends ConsumerState<CatagoryExample> {
                             );
                       },
                       title: Text(
-                          "${subindex == 0 ? "DAZLING" : subindex == 1 ? "MARKET READY" : "NEEDS DAZL"}",),
+                        "${subindex == 0 ? "DAZLING" : subindex == 1 ? "MARKET READY" : "NEEDS DAZL"}",
+                      ),
                     );
                   }),
             ),

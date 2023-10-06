@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unused_import, sized_box_for_whitespace
 
+import 'dart:developer';
+
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/global.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -18,8 +20,23 @@ List<ServiceModel> services = [
   ServiceModel(label: 'For Pros', image: 'assets/images/customerBG.jpg'),
 ];
 
-class ServicesWidget extends StatelessWidget {
+class ServicesWidget extends StatefulWidget {
   const ServicesWidget({Key? key}) : super(key: key);
+
+  @override
+  State<ServicesWidget> createState() => _ServicesWidgetState();
+}
+
+class _ServicesWidgetState extends State<ServicesWidget> {
+  int selectedIndx = -1;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+    setState(() {
+      selectedIndx = -1;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +71,14 @@ class ServicesWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10)),
                       child: GestureDetector(
                         onTap: () {
+                          setState(() {
+                            selectedIndx = i;
+                            log("selected index are=-=-=-${selectedIndx}");
+                          });
+
                           // if (SpHelpers.getInt(SharedPrefsKeys.key_current) !=
                           //     i) {
+
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => LoginScreen(
@@ -68,7 +91,9 @@ class ServicesWidget extends StatelessWidget {
                         child: Center(
                           child: Container(
                             decoration: BoxDecoration(
-                              color: primaryColor,
+                              color: selectedIndx == i
+                                  ? primaryColor.withOpacity(0.7)
+                                  : primaryColor,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Padding(

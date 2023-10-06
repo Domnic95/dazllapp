@@ -186,6 +186,7 @@ class PhdProvider extends BaseNotifier {
 
     await _roomProvider.getRoomFeature(roomid);
     _selectedaddValueData[_tabIndex].clear();
+    log('this for that index ok--->> ' + _selectRoomTypeFeature[_tabIndex].toString());
     _selectRoomTypeFeature[_tabIndex].clear();
     for (var i = 0; i < _roomProvider.roomTypes[_tabIndex].length; i++) {
       _selectRoomTypeFeature[_tabIndex].add(null);
