@@ -4,9 +4,11 @@ import 'dart:developer';
 
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/global.dart';
+import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ServiceModel {
   final String? image;
@@ -16,23 +18,22 @@ class ServiceModel {
 
 List<ServiceModel> services = [
   ServiceModel(label: 'For Agents', image: 'assets/images/realtorBG.jpg'),
-  ServiceModel(label: 'For Homeowners', image: 'assets/images/proBG.jpg'),
-  ServiceModel(label: 'For Pros', image: 'assets/images/customerBG.jpg'),
+  ServiceModel(label: 'For Pros', image: 'assets/images/proBG.jpg'),
+  ServiceModel(label: 'For Homeowners', image: 'assets/images/customerBG.jpg'),
 ];
 
-class ServicesWidget extends StatefulWidget {
+class ServicesWidget extends ConsumerStatefulWidget {
   const ServicesWidget({Key? key}) : super(key: key);
 
   @override
-  State<ServicesWidget> createState() => _ServicesWidgetState();
+  ConsumerState<ServicesWidget> createState() => _ServicesWidgetState();
 }
 
-class _ServicesWidgetState extends State<ServicesWidget> {
+class _ServicesWidgetState extends ConsumerState<ServicesWidget> {
   int selectedIndx = -1;
   @override
   void dispose() {
-    // TODO: implement dispose
-
+    super.dispose();
     setState(() {
       selectedIndx = -1;
     });
@@ -42,6 +43,9 @@ class _ServicesWidgetState extends State<ServicesWidget> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
+    final serviceProvider = ref.read(serviceProviders);
+    selectedIndx = serviceProvider.curruntindex;
+
     return Container(
       height: size.width * .4,
       child: ListView.builder(
@@ -70,12 +74,12 @@ class _ServicesWidgetState extends State<ServicesWidget> {
                           ),
                           borderRadius: BorderRadius.circular(10)),
                       child: GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           setState(() {
                             selectedIndx = i;
                             log("selected index are=-=-=-${selectedIndx}");
                           });
-
+                          await serviceProvider.setSevice(selectedIndx);
                           // if (SpHelpers.getInt(SharedPrefsKeys.key_current) !=
                           //     i) {
 

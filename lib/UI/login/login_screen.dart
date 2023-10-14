@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:dazllapp/UI/forgot_password.dart/forgot_password_screen.dart';
 import 'package:dazllapp/UI/sign_up/sign_up.dart';
 import 'package:dazllapp/config/app_theme.dart';
+import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,7 +27,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
-  int curruntindex = 0;
+  // int curruntindex = 0;
   bool keep_me_logged_in = false;
   bool loading = false;
   final _emailController = TextEditingController();
@@ -34,13 +35,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   // SharedPreferences prefs;
   bool _showPassword = false;
-  String dropdownValue = "Realtor";
-
-  List<String> DropsDownvalue = [
-    'Realtor',
-    'Professional',
-    'Customer',
-  ];
 
   @override
   void initState() {
@@ -172,6 +166,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final serviceProvider = ref.watch(serviceProviders);
     return Scaffold(
       body:
           //   UpgradeAlert(
@@ -278,7 +273,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 child: ButtonTheme(
                   child: DropdownButton<String>(
                     isExpanded: true,
-                    value: dropdownValue,
+                    value: serviceProvider.dropdownValue,
 
                     icon: const Icon(Icons.expand_more),
                     iconSize: 24,
@@ -290,14 +285,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                     onChanged: (String? newValue) {
                       setState(() {
-                        dropdownValue = newValue!;
-                        curruntindex = DropsDownvalue.indexOf(newValue);
-                        SpHelpers.setInt(
-                            SharedPrefsKeys.currentindex, curruntindex);
-                        print(curruntindex);
+                        serviceProvider.dropdownValue = newValue!;
+                        serviceProvider.setSevice(
+                            serviceProvider.DropsDownvalue.indexOf(newValue));
+
+                        SpHelpers.setInt(SharedPrefsKeys.currentindex,
+                            serviceProvider.curruntindex);
                       });
                     },
-                    items: DropsDownvalue.map((String value) {
+                    items: serviceProvider.DropsDownvalue.map((String value) {
                       return new DropdownMenuItem<String>(
                         value: value,
                         child: new Text(value),
@@ -446,56 +442,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget submitButton(String emailId, String password, WidgetRef ref) =>
       InkWell(
         onTap: () async {
-          // _emailController.text = "tire@roadrunnersclub.net",
-          // _passwordController.text = "123456",
-          // _emailController.text = "apitest24@mail.com",
-          // _passwordController.text = "12345678",
-          // _emailController.text = "apitest24@mail.com",
-          // _passwordController.text = "12345678",
-          // Navigator.pushReplacement(context,
-          //     MaterialPageRoute(builder: (context) {
-          //   if (widget.index == 0) {
-          //     return RealtorHomePage();
-          //   }
-          //   if (widget.index == 1) {
-          //     return ProfessionalsHomepage();
-          //   }
-          //   if (widget.index == 2) {
-          //     return CustomerHomepage();
-          //   }
-          //   return Container();
-          // })),
-          // if (_emailController.text.toString().isEmpty) {
-          //   showAlertDialog(
-          //       context: context,
-          //       title: "Require Email",
-          //       content: "Please Enter Email Id",
-          //       defaultActionText: "OK");
-          // } else if (_passwordController.text.toString().isEmpty) {
-          //   showAlertDialog(
-          //       context: context,
-          //       title: "Require Password",
-          //       content: "Please Enter Password",
-          //       defaultActionText: "OK");
-          // } else {
-          // bloc.loginReq(
-          //     _emailController.text.toString(),
-          //     _passwordController.text.toString(),
-          //     await _getId(),
-          //     context),
-          // if (snap.hasData)
-          //   {
-          //     prefs = await SharedPreferences.getInstance(),
-          //     prefs.setString(SharedPrefsKeys.ACCESS_TOKEN,
-          //         snap.data.accessToken),
-
-          //     // prefs.setString(SharedPrefsKeys.CURRENCY,
-          //     //     snap.data.currency)
-          //     // bloc.userProfileReq(await _getId(), context,snap.data.access_token,snap.data.token_type),
-
-          //     //  getProfile()
-          //   }
-          //}
           if (_emailController.text.isEmpty) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text('Enter email')));
@@ -505,8 +451,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           } else {
             loading = true;
             setState(() {});
-            await login(curruntindex, _emailController.text,
-                _passwordController.text, context, keep_me_logged_in, ref);
+            await login(
+                ref.read(serviceProviders).curruntindex,
+                _emailController.text,
+                _passwordController.text,
+                context,
+                keep_me_logged_in,
+                ref);
             loading = false;
             setState(() {});
           }
@@ -523,7 +474,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ? CircularProgressIndicator(
                   color: lightColor,
                 )
-              : Text("Login",
+              : Text("Sign In",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16, color: lightColor)),
         ),
