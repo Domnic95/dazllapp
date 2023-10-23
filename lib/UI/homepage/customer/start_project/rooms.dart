@@ -150,30 +150,28 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
       //       controller: _tabController,
       //       tabs: buildTabs()),
       // ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            CommonHeader(title: "Create a Project", isback: false),
-            TabBar(
-                unselectedLabelStyle: TextStyle(color: blackColor),
-                unselectedLabelColor: blackColor,
-                onTap: (value) {
-                  _roomProvider.setTabIndex(tabIndex: value);
-                },
-                // automaticIndicatorColorAdjustment: true,
-                indicatorPadding: EdgeInsets.all(4),
-                indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: primaryColor),
-                isScrollable: true,
-                controller: _tabController,
-                tabs: buildTabs()),
-            Divider(),
-            Expanded(
-                child: TabBarView(
-                    controller: _tabController, children: buildTabView())),
-          ],
-        ),
+      body: Column(
+        children: [
+          CommonHeader(title: "Create a Project", isback: false),
+          TabBar(
+              unselectedLabelStyle: TextStyle(color: blackColor),
+              unselectedLabelColor: blackColor,
+              onTap: (value) {
+                _roomProvider.setTabIndex(tabIndex: value);
+              },
+              // automaticIndicatorColorAdjustment: true,
+              indicatorPadding: EdgeInsets.all(4),
+              indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: primaryColor),
+              isScrollable: true,
+              controller: _tabController,
+              tabs: buildTabs()),
+          Divider(),
+          Expanded(
+              child: TabBarView(
+                  controller: _tabController, children: buildTabView())),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: primaryColor,
@@ -281,180 +279,184 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
       ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
-        height: size.height * 0.08,
+        height: size.height * 0.09,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             ),
             color: AppTheme.colorPrimary),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                _roomProvider.reset();
-                Navigator.of(context).pop();
-              },
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.arrow_back_ios,
-                    size: 20,
-                    color: AppTheme.white,
-                  ),
-                  Text(
-                    "Previous",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 18,
-                          color: lightColor.withOpacity(.9),
-                        ),
-                  )
-                ],
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  _roomProvider.reset();
+                  Navigator.of(context).pop();
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.arrow_back_ios,
+                      size: 20,
+                      color: AppTheme.white,
+                    ),
+                    Text(
+                      "Previous",
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 18,
+                            color: lightColor.withOpacity(.9),
+                          ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            GestureDetector(
-              onTap: () async {
-                Utils.loaderDialog(context, true);
-                log("api Call" + _roomProvider.featureId.toString());
-                for (int i = 0; i < _roomProvider.featureId.length; i++) {
-                  _roomProvider.set(false, i);
-                  if (_roomProvider.featureId[i].isNotEmpty) {
-                    for (int j = 0;
-                        j < _roomProvider.featureId[i].length;
-                        j++) {
-                      if (_roomProvider.featureId[i][j] != 0 &&
-                          _roomProvider
-                              .DescrptionController[i][j].text.isNotEmpty &&
-                          _roomProvider.imgFile[i][j].isNotEmpty) {
-                        // for (var k = 0;
-                        //     k < _roomProvider.imgFile[i][j].length;
-                        //     k++) {
-                        //   await _roomProvider.getImage(context, i, j, k, ref);
-                        // }
-                        _roomProvider.set(true, i);
+              GestureDetector(
+                onTap: () async {
+                  Utils.loaderDialog(context, true);
+                  log("api Call" + _roomProvider.featureId.toString());
+                  for (int i = 0; i < _roomProvider.featureId.length; i++) {
+                    _roomProvider.set(false, i);
+                    if (_roomProvider.featureId[i].isNotEmpty) {
+                      for (int j = 0;
+                          j < _roomProvider.featureId[i].length;
+                          j++) {
+                        if (_roomProvider.featureId[i][j] != 0 &&
+                            _roomProvider
+                                .DescrptionController[i][j].text.isNotEmpty &&
+                            _roomProvider.imgFile[i][j].isNotEmpty) {
+                          // for (var k = 0;
+                          //     k < _roomProvider.imgFile[i][j].length;
+                          //     k++) {
+                          //   await _roomProvider.getImage(context, i, j, k, ref);
+                          // }
+                          _roomProvider.set(true, i);
+                        }
                       }
                     }
                   }
-                }
-                // // print("jkldn" + select.toString());
-                // // print("jkldn" + _description.toString());
-                // List<bool> desempty = [];
-                // List<bool> featureissueempty = [];
-                // for (int i = 0; i < select.length; i++) {
-                //   if (_description[select[i]].isEmpty) {
-                //     desempty.add(false);
-                //     ScaffoldMessenger.of(context).showSnackBar(
-                //         SnackBar(
-                //             content: Text(
-                //                 'Add Description of ${_roomsfeature.listOfFeature[select[i]].name}')));
-                //     break;
-                //   } else {
-                //     //  print("jkldn = " + i.toString());
-                //     desempty.add(true);
-                //   }
-                //   // if (FeatureissueId[select[i]].isEmpty) {
-                //   //   featureissueempty.add(false);
-                //   //   ScaffoldMessenger.of(context).showSnackBar(
-                //   //       SnackBar(
-                //   //           content: Text(
-                //   //               'Select issue ${_roomsfeature.listOfFeature[select[i]].name}')));
-                //   //   break;
-                //   // }
-                //   // else {
-                //   //   featureissueempty.add(true);
-                //   // }
-                // }
-                // //  print("jkldn" + desempty.toString());
-
-                // if (!desempty.contains(false) &&
-                //     !featureissueempty.contains(false)) {
-                //   removeempty();
-                //   Navigator.of(context).pushReplacement(
-                //     MaterialPageRoute(
-                //       builder: (context) => TellusMore(
-                //         featureid: featureId,
-                //         featureoptionid: featureoptionid,
-                //         // featureissueid: FeatureissueId,
-                //         imgFile: imgFile,
-                //         // addphotodescription:
-                //         //     _addphotodescription,
-                //         Descrption: _description,
-                //       ),
-                //     ),
-                //   );
-                // }
-                // log("api Call" + _roomProvider.isSet.toString());
-                // if (!_roomProvider.isSet.contains(false)) {
-                log("data === = == ${_roomProvider.listData}");
-                for (int i = 0; i < _roomProvider.featureId.length; i++) {
-                  if (_roomProvider.featureId[i].isNotEmpty) {
-                    _roomProvider.removeempty();
-                    _roomProvider.images(i);
-                    _roomProvider.load(i);
-                    if (_roomProvider.listData.isNotEmpty &&
-                        _roomProvider.file.isNotEmpty) {
-                      // log("data === = == ${_roomProvider.listData}");
+                  // // print("jkldn" + select.toString());
+                  // // print("jkldn" + _description.toString());
+                  // List<bool> desempty = [];
+                  // List<bool> featureissueempty = [];
+                  // for (int i = 0; i < select.length; i++) {
+                  //   if (_description[select[i]].isEmpty) {
+                  //     desempty.add(false);
+                  //     ScaffoldMessenger.of(context).showSnackBar(
+                  //         SnackBar(
+                  //             content: Text(
+                  //                 'Add Description of ${_roomsfeature.listOfFeature[select[i]].name}')));
+                  //     break;
+                  //   } else {
+                  //     //  print("jkldn = " + i.toString());
+                  //     desempty.add(true);
+                  //   }
+                  //   // if (FeatureissueId[select[i]].isEmpty) {
+                  //   //   featureissueempty.add(false);
+                  //   //   ScaffoldMessenger.of(context).showSnackBar(
+                  //   //       SnackBar(
+                  //   //           content: Text(
+                  //   //               'Select issue ${_roomsfeature.listOfFeature[select[i]].name}')));
+                  //   //   break;
+                  //   // }
+                  //   // else {
+                  //   //   featureissueempty.add(true);
+                  //   // }
+                  // }
+                  // //  print("jkldn" + desempty.toString());
+        
+                  // if (!desempty.contains(false) &&
+                  //     !featureissueempty.contains(false)) {
+                  //   removeempty();
+                  //   Navigator.of(context).pushReplacement(
+                  //     MaterialPageRoute(
+                  //       builder: (context) => TellusMore(
+                  //         featureid: featureId,
+                  //         featureoptionid: featureoptionid,
+                  //         // featureissueid: FeatureissueId,
+                  //         imgFile: imgFile,
+                  //         // addphotodescription:
+                  //         //     _addphotodescription,
+                  //         Descrption: _description,
+                  //       ),
+                  //     ),
+                  //   );
+                  // }
+                  // log("api Call" + _roomProvider.isSet.toString());
+                  // if (!_roomProvider.isSet.contains(false)) {
+                  log("data === = == ${_roomProvider.listData}");
+                  for (int i = 0; i < _roomProvider.featureId.length; i++) {
+                    if (_roomProvider.featureId[i].isNotEmpty) {
+                      _roomProvider.removeempty();
+                      _roomProvider.images(i);
+                      _roomProvider.load(i);
+                      if (_roomProvider.listData.isNotEmpty &&
+                          _roomProvider.file.isNotEmpty) {
+                        // log("data === = == ${_roomProvider.listData}");
+                      }
                     }
                   }
-                }
-
-                log('bcsdbfjkdfjk =======>>>> ${_roomProvider.listData}');
-                final projectId = await ref
-                    .read(customernotifier)
-                    .createproject(_roomProvider.listData);
-                // await ref
-                //     .read(customernotifier)
-                //     .uploadimages(projectId, _roomProvider.file);
-                Utils.loaderDialog(context, false);
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Project created sucessfully'),
-                  backgroundColor: teamColor,
-                ));
-
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => myproject()),
-                    (route) => false);
-                _roomProvider.reset();
-                if (!_roomProvider.isSet.contains(false)) {
-                } else {
+        
+                  log('bcsdbfjkdfjk =======>>>> ${_roomProvider.listData}');
+                  final projectId = await ref
+                      .read(customernotifier)
+                      .createproject(_roomProvider.listData);
+                  // await ref
+                  //     .read(customernotifier)
+                  //     .uploadimages(projectId, _roomProvider.file);
                   Utils.loaderDialog(context, false);
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(
-                        'please Add Atleast one feature note and Add one Images!'),
-                    backgroundColor: primaryColor,
+                    content: Text('Project created sucessfully'),
+                    backgroundColor: teamColor,
                   ));
-                }
-
-                // setState(() {
-                //   loading = false;
-                // });
-
-                // log(_file.toString());
-              },
-              child:
-                  //  featureissueid[indexs] == 0
-                  //     ? SizedBox()
-                  //     :
-                  Row(
-                children: [
-                  Text(
-                    "Finish",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 18,
-                          color: lightColor.withOpacity(.9),
-                        ),
-                  ),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    size: 20,
-                    color: AppTheme.white,
-                  ),
-                ],
+        
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => myproject()),
+                      (route) => false);
+                  _roomProvider.reset();
+                  if (!_roomProvider.isSet.contains(false)) {
+                  } else {
+                    Utils.loaderDialog(context, false);
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                          'please Add Atleast one feature note and Add one Images!'),
+                      backgroundColor: primaryColor,
+                    ));
+                  }
+        
+                  // setState(() {
+                  //   loading = false;
+                  // });
+        
+                  // log(_file.toString());
+                },
+                child:
+                    //  featureissueid[indexs] == 0
+                    //     ? SizedBox()
+                    //     :
+                    Row(
+                  children: [
+                    Text(
+                      "Finish",
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 18,
+                            color: lightColor.withOpacity(.9),
+                          ),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 20,
+                      color: AppTheme.white,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

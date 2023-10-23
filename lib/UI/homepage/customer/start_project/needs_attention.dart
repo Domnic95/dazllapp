@@ -121,11 +121,12 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
     _roomProvider = ref.watch(customerRoomsProvider);
     final size = MediaQuery.of(context).size;
     log("fcbhjuvy   " + _roomProvider.tabIndex.toString());
-    return SafeArea(
-      child: _roomProvider.loading
-          ? LoadingWidget()
-          : Scaffold(
-              body: Container(
+    return _roomProvider.loading
+        ? LoadingWidget()
+        : Scaffold(
+            body: Container(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal:  14.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -158,10 +159,11 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                     SizedBox(
                       height: size.height * 0.02,
                     ),
-
+              
                     Expanded(
                       // height: size.height * 0.63,
                       child: ListView.separated(
+                        padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         itemCount: _roomProvider
                             .listOfFeature[_roomProvider.tabIndex].length,
@@ -267,7 +269,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                           //               .clear();
                                           //           FeatureissueId[index]
                                           //               .clear();
-
+              
                                           //           setState(() {});
                                           //           await context
                                           //               .read(customernotifier)
@@ -559,7 +561,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                           //     ),
                                           //   ),
                                           // ),
-
+              
                                           // ListView.separated(
                                           //     separatorBuilder:
                                           //         (context, subIndex) {
@@ -633,7 +635,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                           //             );
                                           //     },
                                           //   ),
-                                          
+              
                                           SizedBox(
                                             height: 5,
                                           ),
@@ -664,10 +666,9 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                   decoration: InputDecoration(
                                                       hintText:
                                                           "Tell us the issue or desired outcome.",
-                                                      hintStyle:
-                                                          Theme.of(context)
-                                                              .textTheme
-                                                              .bodyText1,
+                                                      hintStyle: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyText1,
                                                       focusedBorder:
                                                           UnderlineInputBorder(
                                                               borderSide: BorderSide(
@@ -740,15 +741,14 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                               ],
                                             ),
                                           ),
-                                       SizedBox(
+                                          SizedBox(
                                             height: 5,
                                           ),
                                           RichText(
                                               text: TextSpan(
                                                   text: "UPLOAD PHOTOS OF ",
                                                   style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      fontWeight: FontWeight.bold,
                                                       color: blackColor,
                                                       fontSize: 12),
                                                   children: [
@@ -761,7 +761,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                   ),
                                                 )
                                               ])),
-                                        SizedBox(
+                                          SizedBox(
                                             height: 15,
                                           ),
                                           _roomProvider.imgFile[_roomProvider
@@ -774,6 +774,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                       File('').toString()
                                               ? SizedBox()
                                               : GridView.builder(
+                                                  padding: EdgeInsets.zero,
                                                   physics:
                                                       NeverScrollableScrollPhysics(),
                                                   shrinkWrap: true,
@@ -784,15 +785,15 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                       1,
                                                   gridDelegate:
                                                       SliverGridDelegateWithFixedCrossAxisCount(
-                                                          crossAxisCount: 4,
-                                                          crossAxisSpacing: 4.0,
-                                                          mainAxisSpacing: 4.0),
+                                                    crossAxisCount: 4,
+                                                    crossAxisSpacing: 4.0,
+                                                    mainAxisSpacing: 4.0,
+                                                  ),
                                                   itemBuilder:
                                                       (context, subIndex) {
                                                     if (subIndex == 0) {
                                                       return Container(
-                                                        decoration:
-                                                            BoxDecoration(
+                                                        decoration: BoxDecoration(
                                                           border: Border.all(
                                                               color:
                                                                   Colors.black),
@@ -803,8 +804,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                         child: IconButton(
                                                             onPressed: () {
                                                               showOptionsDialog(
-                                                                  context,
-                                                                  index);
+                                                                  context, index);
                                                             },
                                                             icon: Icon(Icons
                                                                 .add_a_photo)),
@@ -812,9 +812,9 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                     }
                                                     return _roomProvider.imgFile[
                                                                     _roomProvider
-                                                                        .tabIndex][index]
+                                                                        .tabIndex]
                                                                 [
-                                                                subIndex - 1] ==
+                                                                index][subIndex - 1] ==
                                                             File('')
                                                         ? SizedBox()
                                                         : Container(
@@ -829,9 +829,8 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                                           10),
                                                             ),
                                                             child: Stack(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
+                                                              alignment: Alignment
+                                                                  .center,
                                                               children: [
                                                                 Container(
                                                                   // height: 60,
@@ -839,15 +838,17 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                                   decoration:
                                                                       BoxDecoration(
                                                                     borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10),
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                                10),
                                                                     image:
                                                                         DecorationImage(
                                                                       fit: BoxFit
                                                                           .cover,
                                                                       image:
                                                                           FileImage(
-                                                                        _roomProvider.imgFile[
+                                                                        _roomProvider
+                                                                                .imgFile[
                                                                             _roomProvider
                                                                                 .tabIndex][index][subIndex -
                                                                             1],
@@ -862,14 +863,18 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                                       IconButton(
                                                                           onPressed:
                                                                               () {
-                                                                            setState(() {
-                                                                              _roomProvider.imgFile[_roomProvider.tabIndex][index].removeAt(subIndex - 1);
-                                                                              _roomProvider.imagesList[_roomProvider.tabIndex][index].removeAt(subIndex - 1);
+                                                                            setState(
+                                                                                () {
+                                                                              _roomProvider.imgFile[_roomProvider.tabIndex][index].removeAt(subIndex -
+                                                                                  1);
+                                                                              _roomProvider.imagesList[_roomProvider.tabIndex][index].removeAt(subIndex -
+                                                                                  1);
                                                                             });
                                                                           },
                                                                           icon:
                                                                               Icon(
-                                                                            Icons.cancel,
+                                                                            Icons
+                                                                                .cancel,
                                                                             size:
                                                                                 25,
                                                                           )),
@@ -894,7 +899,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                     // Align(
                     //   alignment: Alignment.bottomCenter,
                     //   child:
-
+              
                     //   Container(
                     //     padding: EdgeInsets.symmetric(horizontal: 20),
                     //     height: size.height * 0.08,
@@ -962,7 +967,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                     //               // }
                     //             }
                     //             //  print("jkldn" + desempty.toString());
-
+              
                     //             if (!desempty.contains(false) &&
                     //                 !featureissueempty.contains(false)) {
                     //               removeempty();
@@ -1013,7 +1018,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                 ),
               ),
             ),
-    );
+          );
   }
 
   Future<void> showOptionsDialog(

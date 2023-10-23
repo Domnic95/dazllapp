@@ -75,8 +75,7 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
     final _phdProvider = ref.read(
       phdProvider,
     );
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       body: Column(
         children: [
           CommonHeader(title: "Create a new phd", isback: false),
@@ -440,64 +439,70 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
                     )),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
-            height: size.height * 0.08,
+            height: size.height * 0.09,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 ),
                 color: AppTheme.colorPrimary),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.arrow_back_ios,
-                        size: 20,
-                        color: AppTheme.white,
-                      ),
-                      Text(
-                        "Previous",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              fontSize: 18,
-                              color: lightColor.withOpacity(.9),
-                            ),
-                      )
-                    ],
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.arrow_back_ios,
+                          size: 20,
+                          color: AppTheme.white,
+                        ),
+                        Text(
+                          "Previous",
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 18,
+                                    color: lightColor.withOpacity(.9),
+                                  ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => selectRoom()));
-                  },
-                  child: Row(
-                    children: [
-                      Text(
-                        "Next",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              fontSize: 18,
-                              color: lightColor.withOpacity(.9),
-                            ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 20,
-                        color: AppTheme.white,
-                      ),
-                    ],
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => selectRoom()));
+                    },
+                    child: Row(
+                      children: [
+                        Text(
+                          "Next",
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 18,
+                                    color: lightColor.withOpacity(.9),
+                                  ),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                          color: AppTheme.white,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
       ),
-    ));
+    );
   }
 }

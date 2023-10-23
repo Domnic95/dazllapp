@@ -58,7 +58,7 @@ class PhdProvider extends BaseNotifier {
   // List<List<bool>> DataLoding = [];
   List<List<List<bool>>> featurebool = [];
   List<List<List<String>>> imagesList = [];
-  List<List<AddValueData?>> _selectRoomTypeFeature = [];
+  List<List<AddValueData>> _selectRoomTypeFeature = [];
   List<List<AddValueData?>> get selectRoomTypeFeature => _selectRoomTypeFeature;
   List<List<bool>> _selectedaddValueData = [];
   List<List<bool>> get selectedaddValueData => _selectedaddValueData;
@@ -82,6 +82,7 @@ class PhdProvider extends BaseNotifier {
 
   void selectRoomType(AddValueData data, int index) {
     _selectRoomTypeFeature[_tabIndex][index] = data;
+    log('vjksdbvkjskj--  selectroom ---- ${_selectRoomTypeFeature[_tabIndex][index]}');
     notifyListeners();
   }
 
@@ -119,7 +120,7 @@ class PhdProvider extends BaseNotifier {
     mainImgList.add([]);
     _selectRoomTypeFeature.add([]);
     _selectedaddValueData.add([]);
-    selectedFristImpressionList.add('');
+    selectedFristImpressionList.add('DAZLING');
     // featureoptionid.add([]);
     select.add([]);
     selectedCheckbox.add([]);
@@ -186,10 +187,18 @@ class PhdProvider extends BaseNotifier {
 
     await _roomProvider.getRoomFeature(roomid);
     _selectedaddValueData[_tabIndex].clear();
-    log('this for that index ok--->> ' + _selectRoomTypeFeature[_tabIndex].toString());
+    log('this for that index ok--->> ' +
+        _roomProvider.roomTypes[_tabIndex].last.type!.name!.toString());
+    log('this for that index ok--->> ' +
+        _roomProvider.roomTypes[_tabIndex].toString());
+    log('this for that index ok--->> ' +
+         _selectRoomTypeFeature[_tabIndex].toString());
     _selectRoomTypeFeature[_tabIndex].clear();
+    // _selectRoomTypeFeature[_tabIndex] =
+        _roomProvider.roomTypes[_tabIndex].last.type!;
     for (var i = 0; i < _roomProvider.roomTypes[_tabIndex].length; i++) {
-      _selectRoomTypeFeature[_tabIndex].add(null);
+      _selectRoomTypeFeature[_tabIndex].add(_roomProvider.roomTypes[_tabIndex][i].type!);
+      // _selectRoomTypeFeature[_tabIndex]=_roomProvider.roomTypes[_tabIndex].;
     }
     for (var i = 0; i < _roomProvider.addValueData[_tabIndex].length; i++) {
       _selectedaddValueData[_tabIndex].add(false);

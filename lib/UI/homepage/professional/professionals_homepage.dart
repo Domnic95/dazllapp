@@ -27,7 +27,8 @@ class _ProfessionalsHomepageState extends ConsumerState<ProfessionalsHomepage> {
     return Scaffold(
       // drawer: drawer(context, ref),
       appBar: AppBar(
-         leading: PopupButton(),
+        backgroundColor: primaryColor,
+        leading: PopupButton(),
         centerTitle: true,
         title: Text(
           "Service Professional",

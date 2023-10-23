@@ -108,8 +108,6 @@ class _MyProfileState extends ConsumerState<MyProfile> {
     _cityNameController = TextEditingController(
         text: realtorNotifier!.realtorUser!.cityOfRealStateAgency ?? "");
     _stateNameController =
-
-    
         TextEditingController(text: realtorNotifier!.realtorUser!.state ?? "");
     _zipCodeController = TextEditingController(
         text: realtorNotifier!.realtorUser!.zipCode?.toString() ?? "");
@@ -139,201 +137,247 @@ class _MyProfileState extends ConsumerState<MyProfile> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
         // resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+          ),
+          backgroundColor: primaryColor,
+          leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: SizedBox(
+              width: 30,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Icon(
+                  Icons.arrow_back,
+                  color: lightColor,
+                ),
+              ),
+            ),
+          ),
+          centerTitle: true,
+          title: Text(
+            currentIndex == 0
+                ? "Agent Profile"
+                : currentIndex == 1
+                    ? ""
+                    : currentIndex == 2
+                        ? "My Info"
+                        : "",
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  fontSize: 16,
+                  color: lightColor.withOpacity(.9),
+                ),
+          ),
+        ),
         body: isLoading2
             ? LoadingWidget()
-            : SafeArea(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        height: size.height * 0.09,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            ),
-                            color: AppTheme.colorPrimary),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: SizedBox(
-                                width: 30,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Icon(
-                                    Icons.arrow_back,
-                                    color: lightColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Text(
-                              currentIndex == 0
-                                  ? "Agent Profile"
-                                  : currentIndex == 1
-                                      ? ""
-                                      : currentIndex == 2
-                                          ? "My Info"
-                                          : "",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(
-                                    fontSize: 14,
-                                    color: lightColor.withOpacity(.9),
-                                  ),
-                            ),
-                            SizedBox(
-                              width: 38,
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "First Name:",
-                            ),
-                            SizedBox(
-                              height: 3,
-                            ),
-                            CustomTextField(
-                              controller: _nameController,
-                              label: 'Frist Name',
-                              // initialValue: realtorNotifier!.realtorUser!.firstName!,
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Container(
+                    //   height: size.height * 0.12,
+                    //   decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.only(
+                    //         bottomLeft: Radius.circular(20),
+                    //         bottomRight: Radius.circular(20),
+                    //       ),
+                    //       color: AppTheme.colorPrimary),
+                    //   child: SafeArea(
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+                    //         InkWell(
+                    //           onTap: () {
+                    //             Navigator.of(context).pop();
+                    //           },
+                    //           child: SizedBox(
+                    //             width: 30,
+                    //             child: Padding(
+                    //               padding: const EdgeInsets.only(left: 8.0),
+                    //               child: Icon(
+                    //                 Icons.arrow_back,
+                    //                 color: lightColor,
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         Text(
+                    //           currentIndex == 0
+                    //               ? "Agent Profile"
+                    //               : currentIndex == 1
+                    //                   ? ""
+                    //                   : currentIndex == 2
+                    //                       ? "My Info"
+                    //                       : "",
+                    //           style: Theme.of(context)
+                    //               .textTheme
+                    //               .bodyText1!
+                    //               .copyWith(
+                    //                 fontSize: 16,
+                    //                 color: lightColor.withOpacity(.9),
+                    //               ),
+                    //           // style: Theme.of(context)
+                    //           //     .textTheme
+                    //           //     .bodyText1!
+                    //           //     .copyWith(
+                    //           //       fontSize: 14,
+                    //           //       color: lightColor.withOpacity(.9),
+                    //           //     ),
+                    //         ),
+                    //         SizedBox(
+                    //           width: 38,
+                    //         )
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                   
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "First Name:",
+                          ),
+                          SizedBox(
+                            height: 3,
+                          ),
+                          CustomTextField(
+                            controller: _nameController,
+                            label: 'Frist Name',
+                            // initialValue: realtorNotifier!.realtorUser!.firstName!,
+                            isReadOnly: isReadOnly,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "Last Name:",
+                          ),
+                          SizedBox(
+                            height: 3,
+                          ),
+                          CustomTextField(
+                            controller: _lastNameController,
+                            label: 'Last Name',
+                            // initialValue: realtorNotifier!.realtorUser!.lastName!,
+                            isReadOnly: isReadOnly,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "Email Id:",
+                          ),
+                          SizedBox(
+                            height: 3,
+                          ),
+                          CustomTextField(
+                              // initialValue: realtorNotifier!.realtorUser!.email!,
+                              controller: _emailController,
                               isReadOnly: isReadOnly,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "Last Name:",
-                            ),
-                            SizedBox(
-                              height: 3,
-                            ),
-                            CustomTextField(
-                              controller: _lastNameController,
-                              label: 'Last Name',
-                              // initialValue: realtorNotifier!.realtorUser!.lastName!,
+                              label: 'Email Id'),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          currentIndex == 0
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Real Estate Agency Name:",
+                                    ),
+                                    SizedBox(
+                                      height: 3,
+                                    ),
+                                    CustomTextField(
+                                        // initialValue:
+                                        //     realtorNotifier!.realtorUser!.realStateAgencyName!,
+                                        isReadOnly: isReadOnly,
+                                        controller: _agencyNameController,
+                                        label: 'Real Estate Agency Name'),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "Real Estate City:",
+                                    ),
+                                    SizedBox(
+                                      height: 3,
+                                    ),
+                                    CustomTextField(
+                                        isReadOnly: isReadOnly,
+                                        // initialValue: realtorNotifier!
+                                        // .realtorUser!.cityOfRealStateAgency!,
+                                        controller: _cityNameController,
+                                        label: 'Real Estate City'),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "Real Estate State:",
+                                    ),
+                                    SizedBox(
+                                      height: 3,
+                                    ),
+                                    CustomTextField(
+                                        isReadOnly: isReadOnly,
+                                        // initialValue: realtorNotifier!.realtorUser!.state!,
+                                        controller: _stateNameController,
+                                        label: 'Real Estate State'),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "Zip Code:",
+                                    ),
+                                    SizedBox(
+                                      height: 3,
+                                    ),
+                                    CustomTextField(
+                                        isReadOnly: isReadOnly,
+                                        keyboardType: TextInputType.number,
+                                        // initialValue:
+                                        //     realtorNotifier!.realtorUser!.zipCode!.toString(),
+                                        controller: _zipCodeController,
+                                        label: 'Zip code'),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                )
+                              : SizedBox(),
+                          Text(
+                            "Phone:",
+                          ),
+                          SizedBox(
+                            height: 3,
+                          ),
+                          CustomTextField(
                               isReadOnly: isReadOnly,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "Email Id:",
-                            ),
-                            SizedBox(
-                              height: 3,
-                            ),
-                            CustomTextField(
-                                // initialValue: realtorNotifier!.realtorUser!.email!,
-                                controller: _emailController,
-                                isReadOnly: isReadOnly,
-                                label: 'Email Id'),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            currentIndex == 0
-                                ? Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Real Estate Agency Name:",
-                                      ),
-                                      SizedBox(
-                                        height: 3,
-                                      ),
-                                      CustomTextField(
-                                          // initialValue:
-                                          //     realtorNotifier!.realtorUser!.realStateAgencyName!,
-                                          isReadOnly: isReadOnly,
-                                          controller: _agencyNameController,
-                                          label: 'Real Estate Agency Name'),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        "Real Estate City:",
-                                      ),
-                                      SizedBox(
-                                        height: 3,
-                                      ),
-                                      CustomTextField(
-                                          isReadOnly: isReadOnly,
-                                          // initialValue: realtorNotifier!
-                                          // .realtorUser!.cityOfRealStateAgency!,
-                                          controller: _cityNameController,
-                                          label: 'Real Estate City'),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        "Real Estate State:",
-                                      ),
-                                      SizedBox(
-                                        height: 3,
-                                      ),
-                                      CustomTextField(
-                                          isReadOnly: isReadOnly,
-                                          // initialValue: realtorNotifier!.realtorUser!.state!,
-                                          controller: _stateNameController,
-                                          label: 'Real Estate State'),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        "Zip Code:",
-                                      ),
-                                      SizedBox(
-                                        height: 3,
-                                      ),
-                                      CustomTextField(
-                                          isReadOnly: isReadOnly,
-                                          keyboardType: TextInputType.number,
-                                          // initialValue:
-                                          //     realtorNotifier!.realtorUser!.zipCode!.toString(),
-                                          controller: _zipCodeController,
-                                          label: 'Zip code'),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                    ],
-                                  )
-                                : SizedBox(),
-                            Text(
-                              "Phone:",
-                            ),
-                            SizedBox(
-                              height: 3,
-                            ),
-                            CustomTextField(
-                                isReadOnly: isReadOnly,
-                                // initialValue:
-                                //     realtorNotifier!.realtorUser!.phoneNumber!??"",
-                                controller: _phoneController,
-                                label: 'Phone'),
-                            SizedBox(
-                              height: 70,
-                            ),
-                          ],
-                        ),
+                              // initialValue:
+                              //     realtorNotifier!.realtorUser!.phoneNumber!??"",
+                              controller: _phoneController,
+                              label: 'Phone'),
+                          SizedBox(
+                            height: 70,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
         floatingActionButton: InkWell(

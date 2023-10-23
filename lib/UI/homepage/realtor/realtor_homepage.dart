@@ -21,8 +21,7 @@ class RealtorHomePage extends ConsumerStatefulWidget {
 class _RealtorHomePageState extends ConsumerState<RealtorHomePage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       // drawer: drawer(context, ref),
       appBar: AppBar(
         leading: PopupButton(),
@@ -110,7 +109,7 @@ class _RealtorHomePageState extends ConsumerState<RealtorHomePage> {
               );
             }),
       ),
-    ));
+    );
   }
 }
 

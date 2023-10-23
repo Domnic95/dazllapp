@@ -45,8 +45,7 @@ class _CreateProjectState extends ConsumerState<CreateProject> {
     final _roomsNotifier = ref.read(customernotifier);
     final _roomProvider = ref.read(customerRoomsProvider);
     final size = MediaQuery.of(context).size;
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       // appBar: AppBar(
       //   leading: Container(),
       //   elevation: 0,
@@ -67,9 +66,11 @@ class _CreateProjectState extends ConsumerState<CreateProject> {
                         // top: size.height * 0.02,
                         left: 10,
                         right: 10,
+                        top: 10,
                         // bottom: size.height * 0.01
                       ),
                       child: GridView.builder(
+                        padding: EdgeInsets.zero,
                           itemCount: _roomsNotifier.listOfRoom.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
@@ -152,88 +153,93 @@ class _CreateProjectState extends ConsumerState<CreateProject> {
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
-                    height: size.height * 0.08,
+                    height: size.height * 0.09,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20),
                         ),
                         color: AppTheme.colorPrimary),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.arrow_back_ios,
-                                size: 20,
-                                color: AppTheme.white,
-                              ),
-                              Text(
-                                "Previous",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                      fontSize: 18,
-                                      color: lightColor.withOpacity(.9),
-                                    ),
-                              )
-                            ],
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 20,
+                                  color: AppTheme.white,
+                                ),
+                                Text(
+                                  "Previous",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                        fontSize: 18,
+                                        color: lightColor.withOpacity(.9),
+                                      ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            _roomProvider.reset();
-                            
-                            currentindex == -1
-                                ? SizedBox()
-                                : Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => CustomerRooms(
-                                          roomId: roomid ?? 0,
-                                          // roomId: listRoomId ?? [0],
-                                        )));
+                          GestureDetector(
+                            onTap: () {
+                              _roomProvider.reset();
 
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //     builder: (context) => NeedAttention()));
-                            _roomsNotifier.listOfoption.clear();
-                            _roomsNotifier.listOfissues.clear();
-                          },
-                          child: Row(
-                            children: [
                               currentindex == -1
                                   ? SizedBox()
-                                  : Text(
-                                      "Next",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1!
-                                          .copyWith(
-                                            fontSize: 18,
-                                            color: lightColor.withOpacity(.9),
-                                          ),
-                                    ),
-                              currentindex == -1
-                                  ? SizedBox()
-                                  : Icon(
-                                      Icons.arrow_forward_ios,
-                                      size: 20,
-                                      color: AppTheme.white,
-                                    ),
-                            ],
+                                  : Navigator.of(context)
+                                      .push(MaterialPageRoute(
+                                          builder: (context) => CustomerRooms(
+                                                roomId: roomid ?? 0,
+                                                // roomId: listRoomId ?? [0],
+                                              )));
+
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) => NeedAttention()));
+                              _roomsNotifier.listOfoption.clear();
+                              _roomsNotifier.listOfissues.clear();
+                            },
+                            child: Row(
+                              children: [
+                                currentindex == -1
+                                    ? SizedBox()
+                                    : Text(
+                                        "Next",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                              fontSize: 18,
+                                              color: lightColor.withOpacity(.9),
+                                            ),
+                                      ),
+                                currentindex == -1
+                                    ? SizedBox()
+                                    : Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 20,
+                                        color: AppTheme.white,
+                                      ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-    ));
+    );
   }
 }
 

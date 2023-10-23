@@ -70,8 +70,8 @@ class AddValueData {
   });
 
   factory AddValueData.fromJson(Map<String, dynamic> json) => AddValueData(
-        id: json["id"],
-        name: json["name"],
+        id: json["id"] ?? 0,
+        name: json["name"] ?? '',
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),

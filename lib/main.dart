@@ -73,8 +73,11 @@ class MyApp extends StatelessWidget {
         title: 'DAZL',
         theme: ThemeData(
           fontFamily: 'OpenSans',
-          // appBarTheme: AppBarTheme(backgroundColor: ),
-
+          // appBarTheme: AppBarTheme(
+          //   systemOverlayStyle: SystemUiOverlayStyle(
+          //     statusBarColor: primaryColor,
+          //   ),
+          // ),
           textTheme: TextTheme(
             bodyText1: TextStyle(color: darkTextColor, letterSpacing: .5),
             bodyText2: TextStyle(

@@ -48,38 +48,54 @@ class _Start_projectState extends ConsumerState<Start_project> {
     final _roomsNotifier = ref.read(customernotifier);
     final _roomProvider = ref.read(realtorRoomsProvider);
     final size = MediaQuery.of(context).size;
-    return SafeArea(
-        child: Scaffold(
-      // appBar: AppBar(
-      //   leading: Container(),
-      //   elevation: 0,
-      // ),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
+        backgroundColor: primaryColor,
+        centerTitle: true,
+        leading: SizedBox(),
+        title: Text(
+          "Create a Project",
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                fontSize: 16,
+                color: lightColor.withOpacity(.9),
+              ),
+        ),
+      ),
       body: isloading
           ? LoadingWidget()
           : Container(
               child: Column(
                 children: [
-                  Container(
-                    height: size.height * 0.08,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                        ),
-                        color: AppTheme.colorPrimary),
-                    child: Center(
-                      child: Text(
-                        "Create a Project",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              fontSize: 16,
-                              color: lightColor.withOpacity(.9),
-                            ),
-                      ),
-                    ),
-                  ),
-                  // SizedBox(
-                  //   height: size.height * 0.02,
+                  // Container(
+                  //   height: size.height * 0.12,
+                  //   decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.only(
+                  //         bottomLeft: Radius.circular(20),
+                  //         bottomRight: Radius.circular(20),
+                  //       ),
+                  //       color: AppTheme.colorPrimary),
+                  //   child: SafeArea(
+                  //     child: Center(
+                  //       child: Text(
+                  //         "Create a Project",
+                  //         style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  //               fontSize: 16,
+                  //               color: lightColor.withOpacity(.9),
+                  //             ),
+                  //       ),
+                  //     ),
+                  //   ),
                   // ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Expanded(
                     child: Container(
                       color: AppTheme.white,
@@ -90,6 +106,7 @@ class _Start_projectState extends ConsumerState<Start_project> {
                         // bottom: size.height * 0.01
                       ),
                       child: GridView.builder(
+                          padding: EdgeInsets.zero,
                           itemCount: _roomsNotifier.listOfRoom.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
@@ -170,89 +187,93 @@ class _Start_projectState extends ConsumerState<Start_project> {
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
-                    height: size.height * 0.08,
+                    height: size.height * 0.09,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20),
                         ),
                         color: AppTheme.colorPrimary),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.arrow_back_ios,
-                                size: 20,
-                                color: AppTheme.white,
-                              ),
-                              Text(
-                                "Previous",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                      fontSize: 18,
-                                      color: lightColor.withOpacity(.9),
-                                    ),
-                              )
-                            ],
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 20,
+                                  color: AppTheme.white,
+                                ),
+                                Text(
+                                  "Previous",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                        fontSize: 18,
+                                        color: lightColor.withOpacity(.9),
+                                      ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            currentindex == -1;
-                            // ? SizedBox()
-                            // :
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //     builder: (context) => Select_feature(
-                            //           // customeremail: widget.customeremail,
-                            //           cutomerid: widget.customerid,
-                            //         )));
-                            _roomProvider.reset();
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => RealtorRooms(
-                                      roomId: roomid ?? 0,
-                                      // roomId: listRoomId ?? [0],
-                                    )));
-                            _roomsNotifier.listOfoption.clear();
-                            _roomsNotifier.listOfissues.clear();
-                          },
-                          child: Row(
-                            children: [
-                              currentindex == -1
-                                  ? SizedBox()
-                                  : Text(
-                                      "Next",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1!
-                                          .copyWith(
-                                            fontSize: 18,
-                                            color: lightColor.withOpacity(.9),
-                                          ),
-                                    ),
-                              currentindex == -1
-                                  ? SizedBox()
-                                  : Icon(
-                                      Icons.arrow_forward_ios,
-                                      size: 20,
-                                      color: AppTheme.white,
-                                    ),
-                            ],
+                          GestureDetector(
+                            onTap: () {
+                              currentindex == -1;
+                              // ? SizedBox()
+                              // :
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) => Select_feature(
+                              //           // customeremail: widget.customeremail,
+                              //           cutomerid: widget.customerid,
+                              //         )));
+                              _roomProvider.reset();
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => RealtorRooms(
+                                        roomId: roomid ?? 0,
+                                        // roomId: listRoomId ?? [0],
+                                      )));
+                              _roomsNotifier.listOfoption.clear();
+                              _roomsNotifier.listOfissues.clear();
+                            },
+                            child: Row(
+                              children: [
+                                currentindex == -1
+                                    ? SizedBox()
+                                    : Text(
+                                        "Next",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                              fontSize: 18,
+                                              color: lightColor.withOpacity(.9),
+                                            ),
+                                      ),
+                                currentindex == -1
+                                    ? SizedBox()
+                                    : Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 20,
+                                        color: AppTheme.white,
+                                      ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-    ));
+    );
   }
 }

@@ -22,8 +22,7 @@ class _CustomerHomepageState extends ConsumerState<CustomerHomepage> {
   @override
   Widget build(BuildContext context) {
     final _roomsprovider = ref.read(customernotifier);
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       // drawer:
       //  HomeDrawer(
       //   screenIndex: DrawerIndex.HOME,
@@ -97,7 +96,7 @@ class _CustomerHomepageState extends ConsumerState<CustomerHomepage> {
                   ),
                 );
               })),
-    ));
+    );
   }
 }
 
