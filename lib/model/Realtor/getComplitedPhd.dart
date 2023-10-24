@@ -309,7 +309,7 @@ class Roominfo {
   final String? roomName;
   final dynamic flooringType;
   final String? status;
-  final dynamic additional;
+  final List<FeatureOptionsElement>? additional;
   final List<FeatureElement>? feature;
 
   Roominfo({
@@ -326,7 +326,10 @@ class Roominfo {
         roomName: json["room_name"],
         flooringType: json["flooring_type"],
         status: json["status"],
-        additional: json["additional"],
+        additional: json["additional"] == null
+            ? []
+            : List<FeatureOptionsElement>.from(json["additional"]!
+                .map((x) => FeatureOptionsElement.fromJson(x))),
         feature: json["feature"] == null
             ? []
             : List<FeatureElement>.from(
@@ -338,10 +341,49 @@ class Roominfo {
         "room_name": roomName,
         "flooring_type": flooringType,
         "status": status,
-        "additional": additional,
+        "additional": additional == null
+            ? []
+            : List<dynamic>.from(additional!.map((x) => x.toJson())),
         "feature": feature == null
             ? []
             : List<dynamic>.from(feature!.map((x) => x.toJson())),
+      };
+}
+
+class FeatureOptionsElement {
+  final int? id;
+  final String? name;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final int? featureId;
+
+  FeatureOptionsElement({
+    this.id,
+    this.name,
+    this.createdAt,
+    this.updatedAt,
+    this.featureId,
+  });
+
+  factory FeatureOptionsElement.fromJson(Map<String, dynamic> json) =>
+      FeatureOptionsElement(
+        id: json["id"],
+        name: json["name"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        featureId: json["feature_id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "feature_id": featureId,
       };
 }
 

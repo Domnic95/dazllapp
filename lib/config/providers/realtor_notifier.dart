@@ -45,7 +45,7 @@ class RealtorNotifier extends BaseNotifier {
       Response res = await dioClient.getRequest(apiEnd: filter_project);
       filterProjectList =
           List.from(res.data).map((e) => FilterProject.fromJson(e)).toList();
-
+      filterProjectList.reversed;
       notifyListeners();
       return filterProjectList;
     } catch (e) {

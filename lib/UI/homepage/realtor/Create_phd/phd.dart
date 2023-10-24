@@ -14,8 +14,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Phd extends ConsumerStatefulWidget {
   final int roomId;
-  const 
-  Phd({Key? key, required this.roomId}) : super(key: key);
+  const Phd({Key? key, required this.roomId}) : super(key: key);
 
   @override
   ConsumerState<Phd> createState() => _PhdState();
@@ -123,8 +122,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
               // automaticIndicatorColorAdjustment: true,
               indicatorPadding: EdgeInsets.all(4),
               indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: primaryColor),
+                  borderRadius: BorderRadius.circular(8), color: primaryColor),
               isScrollable: true,
               controller: _tabController,
               tabs: buildTabs(),
@@ -153,8 +151,8 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                     return Container(
                       height: size.height * 0.55,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(15))),
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(15))),
                       child: Column(
                         children: [
                           Align(
@@ -173,8 +171,8 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                                 return InkWell(
                                   onTap: () {
                                     _phdProvider.init(
-                                        roomid: _roomsfeature
-                                            .listOfRoom[index].id,
+                                        roomid:
+                                            _roomsfeature.listOfRoom[index].id,
                                         roomsNotifier: _roomsfeature);
                                     _phdProvider.setTabIndex(
                                         tabIndex:
@@ -276,7 +274,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                 onTap: () async {
                   // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>selectRoom()));
                   Utils.loaderDialog(context, true);
-        
+
                   // for (int i = 0; i < _phdProvider.mainImgFile.length; i++) {
                   //   _phdProvider.set(false, i);
                   //   for (int j = 0; j < _phdProvider.mainImgFile[i].length; j++) {
@@ -284,7 +282,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                   //     //     _phdProvider.mainImgFile[i][j], true, ref);
                   //     _phdProvider.set(true, i);
                   //   }
-        
+
                   // }
                   // for (int i = 0; i < _phdProvider.featureId.length; i++) {
                   //   _phdProvider.set(false, i);
@@ -300,7 +298,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                   //         //   // await _phdProvider.getImage(context, i, j,
                   //         //       // _phdProvider.imgFile[i][j][k], false, ref);
                   //         // }
-        
+
                   //         _phdProvider.set(true, i);
                   //       }
                   //     }
@@ -349,17 +347,16 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                     //ue": 'true',
                     // "phd_description": phdDes.toString(),
                   };
-        
+
                   log("phd descreption == ${phdDes}");
                   for (var i = 0; i < _phdProvider.roomIdList.length; i++) {
                     _phdProvider.set(false, i);
                     phdDes.add(_phdProvider.DescrptionController[i].text);
                     data["room_id"] = _phdProvider.roomIdList[i].toString();
-        
+
                     if (phdDes[i].isNotEmpty) {
                       data["phd_description"] = phdDes[i].toString();
                     }
-                    log("main image 123 === ${_phdProvider.mainImgList}");
                     if (_phdProvider.mainImgList[i].isNotEmpty) {
                       for (var j = 0;
                           j < _phdProvider.mainImgList[i].length;
@@ -374,7 +371,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                     // else {
                     //   data['images[0]'] = "";
                     // }
-        
+
                     if (_phdProvider
                         .selectedFristImpressionList[i].isNotEmpty) {
                       data["rooms[${_phdProvider.roomIdList[i]}][status]"] =
@@ -405,14 +402,14 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                     //   //     "https://res.cloudinary.com/dev-gnome/image/upload/v1679384298/gst9s0ravt26jon6kwvq.svg",
                     //   // "rooms[3][feature_issues_images_descr][2]": "test",
                     // };
-        
+
                     // log("roomType ==== ${_realtorProvider.roomTypes[i].toString()}");
                     // log("selectRoomTypeFeature ==== ${_phdProvider.selectRoomTypeFeature[i].toString()}");
                     for (var j = 0;
                         j < _phdProvider.selectRoomTypeFeature[i].length;
                         j++) {
                       if (_phdProvider.selectRoomTypeFeature[i][j] != null) {
-                        data["rooms[${_phdProvider.roomIdList[i]}]['feature_type'][${_realtorProvider.roomTypes[i][j].id}]"] =
+                        data["rooms[${_phdProvider.roomIdList[i]}][feature_type][${_realtorProvider.roomTypes[i][j].type!.id}]"] =
                             _phdProvider.selectRoomTypeFeature[i][j]!.id ?? 0;
                       }
                     }
@@ -424,7 +421,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                             _realtorProvider.addValueData[i][j].id ?? 0;
                       }
                     }
-        
+
                     if (_phdProvider.featureId[i].isNotEmpty) {
                       for (int j = 0;
                           j < _phdProvider.featureId[i].length;
@@ -437,23 +434,22 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                               _phdProvider.selectedFristImpressionList[i];
                           data["rooms[${_phdProvider.roomIdList[i]}][feature_issues_images_descr][${_phdProvider.featureId[i][j]}]"] =
                               _phdProvider.DescrptionController2[i][j].text;
-        
+
                           for (var k = 0;
                               k < _phdProvider.imagesList[i][j].length;
                               k++) {
                             data["rooms[${_phdProvider.roomIdList[i]}][feature_issues_images][${_phdProvider.featureId[i][j]}][$k]"] =
                                 _phdProvider.imagesList[i][j][k];
                           }
-        
+
                           _phdProvider.set(true, i);
-                        }
-                         else if (_phdProvider.featureId[i][j] != 0) {
+                        } else if (_phdProvider.featureId[i][j] != 0) {
                           log("message for empty");
                           data["rooms[${_phdProvider.roomIdList[i]}][feature_status][${_phdProvider.featureId[i][j]}]"] =
                               'DAZLING';
                           data["rooms[${_phdProvider.roomIdList[i]}][feature_issues_images_descr][${_phdProvider.featureId[i][j]}]"] =
                               _phdProvider.DescrptionController2[i][j].text;
-        
+
                           data["rooms[${_phdProvider.roomIdList[i]}][feature_issues_images][${_phdProvider.featureId[i][j]}][0]"] =
                               '';
                         }
@@ -478,7 +474,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                             builder: (context) => SelectCustomer(),
                           ),
                           (route) => false);
-        
+
                       _realtorProvider.reset();
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

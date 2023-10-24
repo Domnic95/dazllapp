@@ -8,6 +8,7 @@ import 'package:dazllapp/config/Utils/utils.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/config/providers/realtor_notifier.dart';
 import 'package:dazllapp/constant/colors.dart';
+import 'package:dazllapp/model/Realtor/getComplitedPhd.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -30,6 +31,32 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
     _complitedPhdProvider = ref.read(complitedPhdProvider);
     load();
     super.initState();
+  }
+
+  List<Widget> buildAddValueDataText(List<FeatureOptionsElement> list) {
+    return list.map((e) {
+      return Text("${e.name},");
+    }).toList();
+  }
+
+  List<Widget> buildRoomTypeData(List<Roomtypedatum> list) {
+    return list
+        .map((e) => Row(
+              children: [
+                Text(
+                  _realtorProvider.singleComplitedPhdReport!.reports!.isEmpty
+                      ? ""
+                      : e.feature!.name!.indexOf('Type') == -1
+                          ? '${e.feature!.name!} Type : '
+                          : '${e.feature!.name!} : ',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(_realtorProvider.singleComplitedPhdReport!.reports!.isEmpty
+                    ? ""
+                    : "${e.featureOptions!.name!}"),
+              ],
+            ))
+        .toList();
   }
 
   load() async {
@@ -224,51 +251,67 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                         SizedBox(
                           height: 10,
                         ),
-                        progressWidget(
-                            size: size,
-                            title: "Preliminary Value/Score",
-                            minLimit: "\$200k",
-                            midleLimit: _realtorProvider
-                                    .singleComplitedPhdReport!.reports!.isEmpty
-                                ? ""
-                                : "\$${NumberFormat.compactCurrency(decimalDigits: 2, symbol: "").format(int.parse(_realtorProvider.singleComplitedPhdReport!.reports!.first.prePrice.toString()))}",
-                            maxLimit: "\$2M",
-                            percentag: (_realtorProvider
-                                        .singleComplitedPhdReport!
-                                        .reports!
-                                        .isEmpty
-                                    ? 0.0
-                                    : int.parse(_realtorProvider
-                                            .singleComplitedPhdReport!
-                                            .reports!
-                                            .first
-                                            .prePrice!) /
-                                        2000000) *
-                                100),
-                        progressWidget(
-                            size: size,
-                            title: "PHD Value/Score",
-                            minLimit: "\$200k",
-                            midleLimit: _realtorProvider
-                                    .singleComplitedPhdReport!.reports!.isEmpty
-                                ? ""
-                                : "\$${NumberFormat.compactCurrency(decimalDigits: 2, symbol: "").format(int.parse(_realtorProvider.singleComplitedPhdReport!.reports!.first.phdPrice.toString()))}",
-                            maxLimit: "\$2M",
-                            percentag: (_realtorProvider
-                                        .singleComplitedPhdReport!
-                                        .reports!
-                                        .isEmpty
-                                    ? 0.0
-                                    : int.parse(_realtorProvider
-                                            .singleComplitedPhdReport!
-                                            .reports!
-                                            .first
-                                            .phdPrice!) /
-                                        2000000) *
-                                100),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        // progressWidget(
+                        //     size: size,
+                        //     title: "Preliminary Value/Score",
+                        //     minLimit: "\$200k",
+                        //     midleLimit: _realtorProvider
+                        //             .singleComplitedPhdReport!.reports!.isEmpty
+                        //         ? ""
+                        //         : "\$${NumberFormat.compactCurrency(decimalDigits: 2, symbol: "").format(int.parse(_realtorProvider.singleComplitedPhdReport!.reports!.first.prePrice.toString()))}",
+                        //     maxLimit: "\$2M",
+                        //     percentag: (_realtorProvider
+                        //                 .singleComplitedPhdReport!
+                        //                 .reports!
+                        //                 .isEmpty
+                        //             ? 0.0
+                        //             : int.parse(_realtorProvider
+                        //                     .singleComplitedPhdReport!
+                        //                     .reports!
+                        //                     .first
+                        //                     .prePrice!) /
+                        //                 2000000) *
+                        //         100),
+                        // progressWidget(
+                        //     size: size,
+                        //     title: "PHD Value/Score",
+                        //     minLimit: "\$200k",
+                        //     midleLimit: _realtorProvider
+                        //             .singleComplitedPhdReport!.reports!.isEmpty
+                        //         ? ""
+                        //         : "\$${NumberFormat.compactCurrency(decimalDigits: 2, symbol: "").format(int.parse(_realtorProvider.singleComplitedPhdReport!.reports!.first.phdPrice.toString()))}",
+                        //     maxLimit: "\$2M",
+                        //     percentag: (_realtorProvider
+                        //                 .singleComplitedPhdReport!
+                        //                 .reports!
+                        //                 .isEmpty
+                        //             ? 0.0
+                        //             : int.parse(_realtorProvider
+                        //                     .singleComplitedPhdReport!
+                        //                     .reports!
+                        //                     .first
+                        //                     .phdPrice!) /
+                        //                 2000000) *
+                        //         100),
+                        // progressWidget(
+                        //     size: size,
+                        //     title: "DAZL Value/Score",
+                        //     minLimit: "\$200k",
+                        //     midleLimit: _realtorProvider
+                        //             .singleComplitedPhdReport!.reports!.isEmpty
+                        //         ? ""
+                        //         : "\$${NumberFormat.compactCurrency(decimalDigits: 2, symbol: "").format(int.parse(_realtorProvider.singleComplitedPhdReport!.reports!.first.phdPrice.toString()))}",
+                        //     maxLimit: "\$2M",
+                        //     percentag: (int.parse(_realtorProvider
+                        //                 .singleComplitedPhdReport!
+                        //                 .reports!
+                        //                 .first
+                        //                 .phdPrice!) /
+                        //             2000000) *
+                        //         100),
+                        // SizedBox(
+                        //   height: 10,
+                        // ),
                         ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: _realtorProvider
@@ -278,103 +321,105 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                       .reports!.first.roominfo?.length ??
                                   0,
                           shrinkWrap: true,
-                          itemBuilder: (context, index) => Card(
-                            shape: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(8.0),
-                                  decoration: BoxDecoration(
-                                      color: primaryColor,
-                                      borderRadius: BorderRadius.vertical(
-                                          top: Radius.circular(10))),
-                                  child: Center(
-                                    child: Text("Room/Area Details",
-                                        style: TextStyle(
-                                            color: lightColor,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18)),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                          itemBuilder: (context, index) => Column(
+                            children: [
+                              Card(
+                                shape: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                          color: primaryColor,
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(10))),
+                                      child: Center(
+                                        child: Text("Room/Area Details",
+                                            style: TextStyle(
+                                                color: lightColor,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18)),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            _realtorProvider
-                                                    .singleComplitedPhdReport!
-                                                    .reports!
-                                                    .isEmpty
-                                                ? ""
-                                                : "${_realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].roomName}",
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                                color: blackColor),
-                                          ),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            _realtorProvider
-                                                    .singleComplitedPhdReport!
-                                                    .reports!
-                                                    .isEmpty
-                                                ? ""
-                                                : "${_realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].status ?? ""}",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                color: primaryColor),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 3,
-                                      ),
-                                      _realtorProvider
-                                                  .singleComplitedPhdReport!
-                                                  .reports!
-                                                  .first
-                                                  .images
-                                                  ?.length ==
-                                              0
-                                          ? SizedBox()
-                                          : SizedBox(
-                                              width: size.width,
-                                              height: 80,
-                                              child: ListView.builder(
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                shrinkWrap: true,
-                                                itemCount: _realtorProvider
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                _realtorProvider
                                                         .singleComplitedPhdReport!
                                                         .reports!
-                                                        .first
-                                                        .images
-                                                        ?.length ??
-                                                    0,
-                                                itemBuilder:
-                                                    (context, subIndex) {
-                                                  return InkWell(
-                                                    onTap: () {
-                                                      Utils.imageInfoDialog(
-                                                          context: context,
-                                                          url: _realtorProvider
-                                                              .singleComplitedPhdReport!
-                                                              .reports!
-                                                              .first
-                                                              .images![subIndex]
-                                                              .url
-                                                              .toString(),
-                                                          description:
-                                                              _realtorProvider
+                                                        .isEmpty
+                                                    ? ""
+                                                    : "${_realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].roomName}",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: blackColor),
+                                              ),
+                                              SizedBox(height: 10),
+                                              Text(
+                                                _realtorProvider
+                                                        .singleComplitedPhdReport!
+                                                        .reports!
+                                                        .isEmpty
+                                                    ? ""
+                                                    : "${_realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].status ?? ""}",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: primaryColor),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 3,
+                                          ),
+                                          _realtorProvider
+                                                      .singleComplitedPhdReport!
+                                                      .reports!
+                                                      .first
+                                                      .images
+                                                      ?.length ==
+                                                  0
+                                              ? SizedBox()
+                                              : SizedBox(
+                                                  width: size.width,
+                                                  height: 80,
+                                                  child: ListView.builder(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    shrinkWrap: true,
+                                                    itemCount: _realtorProvider
+                                                            .singleComplitedPhdReport!
+                                                            .reports!
+                                                            .first
+                                                            .images
+                                                            ?.length ??
+                                                        0,
+                                                    itemBuilder:
+                                                        (context, subIndex) {
+                                                      return InkWell(
+                                                        onTap: () {
+                                                          Utils.imageInfoDialog(
+                                                              context: context,
+                                                              url: _realtorProvider
+                                                                  .singleComplitedPhdReport!
+                                                                  .reports!
+                                                                  .first
+                                                                  .images![
+                                                                      subIndex]
+                                                                  .url
+                                                                  .toString(),
+                                                              description: _realtorProvider
                                                                   .singleComplitedPhdReport!
                                                                   .reports!
                                                                   .first
@@ -382,266 +427,259 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                                                       subIndex]
                                                                   .description
                                                                   .toString());
-                                                    },
-                                                    child: Container(
-                                                      margin: EdgeInsets.all(3),
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10)),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5),
-                                                        child: _realtorProvider
-                                                                .singleComplitedPhdReport!
-                                                                .reports!
-                                                                .first
-                                                                .images![
-                                                                    subIndex]
-                                                                .url
-                                                                .toString()
-                                                                .contains(
-                                                                    '.svg')
-                                                            ? SvgPicture
-                                                                .network(
-                                                                _realtorProvider
+                                                        },
+                                                        child: Container(
+                                                          margin:
+                                                              EdgeInsets.all(3),
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10)),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                            child: _realtorProvider
                                                                     .singleComplitedPhdReport!
                                                                     .reports!
                                                                     .first
                                                                     .images![
                                                                         subIndex]
                                                                     .url
-                                                                    .toString(),
-                                                                placeholderBuilder: (BuildContext
-                                                                        context) =>
-                                                                    Container(
+                                                                    .toString()
+                                                                    .contains(
+                                                                        '.svg')
+                                                                ? SvgPicture
+                                                                    .network(
+                                                                    _realtorProvider
+                                                                        .singleComplitedPhdReport!
+                                                                        .reports!
+                                                                        .first
+                                                                        .images![
+                                                                            subIndex]
+                                                                        .url
+                                                                        .toString(),
+                                                                    placeholderBuilder: (BuildContext context) => Container(
                                                                         padding: const EdgeInsets
                                                                             .all(
                                                                             30.0),
                                                                         child:
                                                                             const CircularProgressIndicator()),
-                                                              )
-                                                            : CachedNetworkImage(
-                                                                imageUrl: _realtorProvider
-                                                                    .singleComplitedPhdReport!
-                                                                    .reports!
-                                                                    .first
-                                                                    .images![
-                                                                        subIndex]
-                                                                    .url
-                                                                    .toString(),
-                                                                errorWidget: (context,
-                                                                        url,
-                                                                        error) =>
-                                                                    SizedBox(),
-                                                              ),
-                                                        // Image.network(
-                                                        //     _realtorProvider
-                                                        //         .singleComplitedPhdReport!
-                                                        //         .reports!
-                                                        //         .first
-                                                        //         .images![subIndex]
-                                                        //         .url
-                                                        //         .toString(),
-                                                        //     fit: BoxFit.contain,
-                                                        //     height: 60),
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      _realtorProvider
-                                                  .singleComplitedPhdReport!
-                                                  .reports!
-                                                  .first
-                                                  .roomtypedata!
-                                                  .isNotEmpty &&
-                                              _realtorProvider
-                                                      .singleComplitedPhdReport!
-                                                      .reports!
-                                                      .first
-                                                      .roomtypedata!
-                                                      .first
-                                                      .feature !=
-                                                  null
-                                          ? Row(
-                                              children: [
-                                                Text(_realtorProvider
-                                                        .singleComplitedPhdReport!
-                                                        .reports!
-                                                        .isEmpty
-                                                    ? ""
-                                                    : '${_realtorProvider.singleComplitedPhdReport!.reports!.first.roomtypedata!.first.feature!.name!} Type : '),
-                                                Text(_realtorProvider
-                                                        .singleComplitedPhdReport!
-                                                        .reports!
-                                                        .isEmpty
-                                                    ? ""
-                                                    : "${_realtorProvider.singleComplitedPhdReport!.reports!.first.roomtypedata!.first.featureOptions!.name!}"),
-                                              ],
-                                            )
-                                          : SizedBox(),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      // Text(
-                                      //   "Value Add Items-",
-                                      //   style: TextStyle(
-                                      //       fontWeight: FontWeight.bold,
-                                      //       fontSize: 16,
-                                      //       decoration:
-                                      //           TextDecoration.underline,
-                                      //       decorationThickness: 4,
-                                      //       decorationStyle:
-                                      //           TextDecorationStyle.solid,
-                                      //       color: blackColor),
-                                      // ),
-                                      // SizedBox(
-                                      //   height: 3,
-                                      // ),
-                                      // Text("Upgraded Flooring,"),
-                                      // SizedBox(
-                                      //   height: 8,
-                                      // ),
-                                      Text(
-                                        "Buyer Road Blocks or Recommendations",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                            color: primaryColor),
-                                      ),
-                                      SizedBox(height: 15),
-                                      ListView.builder(
-                                          padding: EdgeInsets.zero,
-                                          physics:
-                                              NeverScrollableScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemCount: _realtorProvider
+                                                                  )
+                                                                : CachedNetworkImage(
+                                                                    imageUrl: _realtorProvider
+                                                                        .singleComplitedPhdReport!
+                                                                        .reports!
+                                                                        .first
+                                                                        .images![
+                                                                            subIndex]
+                                                                        .url
+                                                                        .toString(),
+                                                                    errorWidget: (context,
+                                                                            url,
+                                                                            error) =>
+                                                                        SizedBox(),
+                                                                  ),
+                                                            // Image.network(
+                                                            //     _realtorProvider
+                                                            //         .singleComplitedPhdReport!
+                                                            //         .reports!
+                                                            //         .first
+                                                            //         .images![subIndex]
+                                                            //         .url
+                                                            //         .toString(),
+                                                            //     fit: BoxFit.contain,
+                                                            //     height: 60),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          Text(
+                                            _realtorProvider
+                                                    .singleComplitedPhdReport!
+                                                    .reports!
+                                                    .first
+                                                    .roominfo![index]
+                                                    .additional!
+                                                    .isEmpty
+                                                ? ""
+                                                : "Value Add Items-",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w800,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                fontSize: 16),
+                                          ),
+                                          SizedBox(
+                                            height: _realtorProvider
+                                                    .singleComplitedPhdReport!
+                                                    .reports!
+                                                    .first
+                                                    .roominfo![index]
+                                                    .additional!
+                                                    .isEmpty
+                                                ? 8
+                                                : 0,
+                                          ),
+                                          _realtorProvider
                                                   .singleComplitedPhdReport!
                                                   .reports!
                                                   .first
                                                   .roominfo![index]
-                                                  .feature
-                                                  ?.length ??
-                                              0,
-                                          itemBuilder: (context, index1) {
-                                            final item = _realtorProvider
-                                                .singleComplitedPhdReport!
-                                                .reports!
-                                                .first
-                                                .roominfo![index]
-                                                .feature?[index1];
-                                            return SizedBox(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Text(
-                                                    _realtorProvider
-                                                            .singleComplitedPhdReport!
-                                                            .reports!
-                                                            .isEmpty
-                                                        ? ""
-                                                        : "${_realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].feature![index1].featureName}",
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: blackColor),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 8,
-                                                  ),
-                                                  _realtorProvider
+                                                  .additional!
+                                                  .isEmpty
+                                              ? SizedBox()
+                                              : Wrap(
+                                                  children: buildAddValueDataText(
+                                                      _realtorProvider
                                                           .singleComplitedPhdReport!
                                                           .reports!
                                                           .first
                                                           .roominfo![index]
-                                                          .feature![index1]
-                                                          .imageDesc!
-                                                          .isNotEmpty
-                                                      ? _realtorProvider
-                                                                      .singleComplitedPhdReport!
-                                                                      .reports!
-                                                                      .first
-                                                                      .roominfo![
-                                                                          index]
-                                                                      .feature![
-                                                                          index1]
-                                                                      .imageDesc !=
-                                                                  null ||
-                                                              _realtorProvider
-                                                                  .singleComplitedPhdReport!
-                                                                  .reports!
-                                                                  .first
-                                                                  .roominfo![
-                                                                      index]
-                                                                  .feature![
-                                                                      index1]
-                                                                  .imageDesc!
-                                                                  .isNotEmpty
-                                                          ? Row(
-                                                              children: [
-                                                                Text(
-                                                                    'Comments: '),
-                                                                Text(
-                                                                    "${_realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].feature![index1].imageDesc}"),
-                                                              ],
-                                                            )
-                                                          : SizedBox()
-                                                      : SizedBox(height: 0),
-                                                  SizedBox(
-                                                    height: 8,
-                                                  ),
-                                                  _realtorProvider
+                                                          .additional!)),
+                                          SizedBox(
+                                            height: _realtorProvider
+                                                    .singleComplitedPhdReport!
+                                                    .reports!
+                                                    .first
+                                                    .roominfo![index]
+                                                    .additional!
+                                                    .isEmpty
+                                                ? 8
+                                                : 0,
+                                          ),
+                                          SizedBox(
+                                            height: _realtorProvider
+                                                    .singleComplitedPhdReport!
+                                                    .reports!
+                                                    .first
+                                                    .roomtypedata!
+                                                    .isNotEmpty
+                                                ? 8
+                                                : 0,
+                                          ),
+                                          _realtorProvider
+                                                  .singleComplitedPhdReport!
+                                                  .reports!
+                                                  .first
+                                                  .roomtypedata!
+                                                  .isNotEmpty
+                                              ? Column(
+                                                  children: buildRoomTypeData(
+                                                      _realtorProvider
+                                                          .singleComplitedPhdReport!
+                                                          .reports!
+                                                          .first
+                                                          .roomtypedata!),
+                                                )
+                                              //  Row(
+                                              //     children: [
+                                              //       Text(_realtorProvider
+                                              //               .singleComplitedPhdReport!
+                                              //               .reports!
+                                              //               .isEmpty
+                                              //           ? ""
+                                              //           : '${_realtorProvider.singleComplitedPhdReport!.reports!.first.roomtypedata!.first.feature!.name!} Type : '),
+                                              //       Text(_realtorProvider
+                                              //               .singleComplitedPhdReport!
+                                              //               .reports!
+                                              //               .isEmpty
+                                              //           ? ""
+                                              //           : "${_realtorProvider.singleComplitedPhdReport!.reports!.first.roomtypedata!.first.featureOptions!.name!}"),
+                                              //     ],
+                                              //   )
+
+                                              : SizedBox(),
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          // Text(
+                                          //   "Value Add Items-",
+                                          //   style: TextStyle(
+                                          //       fontWeight: FontWeight.bold,
+                                          //       fontSize: 16,
+                                          //       decoration:
+                                          //           TextDecoration.underline,
+                                          //       decorationThickness: 4,
+                                          //       decorationStyle:
+                                          //           TextDecorationStyle.solid,
+                                          //       color: blackColor),
+                                          // ),
+                                          // SizedBox(
+                                          //   height: 3,
+                                          // ),
+                                          // Text("Upgraded Flooring,"),
+                                          // SizedBox(
+                                          //   height: 8,
+                                          // ),
+                                          Text(
+                                            "Buyer Road Blocks or Recommendations",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: primaryColor),
+                                          ),
+                                          SizedBox(height: 15),
+                                          ListView.builder(
+                                              padding: EdgeInsets.zero,
+                                              physics:
+                                                  NeverScrollableScrollPhysics(),
+                                              shrinkWrap: true,
+                                              itemCount: _realtorProvider
+                                                      .singleComplitedPhdReport!
+                                                      .reports!
+                                                      .first
+                                                      .roominfo![index]
+                                                      .feature
+                                                      ?.length ??
+                                                  0,
+                                              itemBuilder: (context, index1) {
+                                                final item = _realtorProvider
+                                                    .singleComplitedPhdReport!
+                                                    .reports!
+                                                    .first
+                                                    .roominfo![index]
+                                                    .feature?[index1];
+                                                return SizedBox(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      Text(
+                                                        _realtorProvider
+                                                                .singleComplitedPhdReport!
+                                                                .reports!
+                                                                .isEmpty
+                                                            ? ""
+                                                            : "${_realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].feature![index1].featureName}",
+                                                        style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: blackColor),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 8,
+                                                      ),
+                                                      _realtorProvider
                                                               .singleComplitedPhdReport!
                                                               .reports!
                                                               .first
                                                               .roominfo![index]
                                                               .feature![index1]
-                                                              .images
-                                                              ?.length ==
-                                                          0
-                                                      ? SizedBox(height: 10)
-                                                      : SizedBox(
-                                                          height: 80,
-                                                          child:
-                                                              ListView.builder(
-                                                            scrollDirection:
-                                                                Axis.horizontal,
-                                                            padding:
-                                                                EdgeInsets
-                                                                    .all(3),
-                                                            // physics:
-                                                            //     NeverScrollableScrollPhysics(),
-                                                            shrinkWrap: true,
-                                                            itemCount: _realtorProvider
-                                                                    .singleComplitedPhdReport!
-                                                                    .reports!
-                                                                    .first
-                                                                    .roominfo![
-                                                                        index]
-                                                                    .feature![
-                                                                        index1]
-                                                                    .images
-                                                                    ?.length ??
-                                                                0,
-                                                            itemBuilder:
-                                                                (context,
-                                                                    subIndex) {
-                                                              return InkWell(
-                                                                onTap: () {
-                                                                  Utils.imageInfoDialog(
-                                                                      context:
-                                                                          context,
-                                                                      url: _realtorProvider
+                                                              .imageDesc!
+                                                              .isNotEmpty
+                                                          ? _realtorProvider
                                                                           .singleComplitedPhdReport!
                                                                           .reports!
                                                                           .first
@@ -649,339 +687,451 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                                                               index]
                                                                           .feature![
                                                                               index1]
-                                                                          .images![
-                                                                              subIndex]
-                                                                          .toString(),
-                                                                      description: _realtorProvider
+                                                                          .imageDesc !=
+                                                                      null ||
+                                                                  _realtorProvider
+                                                                      .singleComplitedPhdReport!
+                                                                      .reports!
+                                                                      .first
+                                                                      .roominfo![
+                                                                          index]
+                                                                      .feature![
+                                                                          index1]
+                                                                      .imageDesc!
+                                                                      .isNotEmpty
+                                                              ? Row(
+                                                                  children: [
+                                                                    Text(
+                                                                        'Comments: '),
+                                                                    Text(
+                                                                        "${_realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].feature![index1].imageDesc}"),
+                                                                  ],
+                                                                )
+                                                              : SizedBox()
+                                                          : SizedBox(height: 0),
+                                                      SizedBox(
+                                                        height: 8,
+                                                      ),
+                                                      _realtorProvider
+                                                                  .singleComplitedPhdReport!
+                                                                  .reports!
+                                                                  .first
+                                                                  .roominfo![
+                                                                      index]
+                                                                  .feature![
+                                                                      index1]
+                                                                  .images
+                                                                  ?.length ==
+                                                              0
+                                                          ? SizedBox(height: 10)
+                                                          : SizedBox(
+                                                              height: 80,
+                                                              child: ListView
+                                                                  .builder(
+                                                                scrollDirection:
+                                                                    Axis.horizontal,
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(3),
+                                                                // physics:
+                                                                //     NeverScrollableScrollPhysics(),
+                                                                shrinkWrap:
+                                                                    true,
+                                                                itemCount: _realtorProvider
+                                                                        .singleComplitedPhdReport!
+                                                                        .reports!
+                                                                        .first
+                                                                        .roominfo![
+                                                                            index]
+                                                                        .feature![
+                                                                            index1]
+                                                                        .images
+                                                                        ?.length ??
+                                                                    0,
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        subIndex) {
+                                                                  return InkWell(
+                                                                    onTap: () {
+                                                                      Utils.imageInfoDialog(
+                                                                          context:
+                                                                              context,
+                                                                          url: _realtorProvider
                                                                               .singleComplitedPhdReport!
                                                                               .reports!
-                                                                              .isEmpty
-                                                                          ? ""
-                                                                          : _realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].feature![index1].imageDesc ??
-                                                                              "");
-                                                                },
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
+                                                                              .first
+                                                                              .roominfo![index]
+                                                                              .feature![index1]
+                                                                              .images![subIndex]
+                                                                              .toString(),
+                                                                          description: _realtorProvider.singleComplitedPhdReport!.reports!.isEmpty ? "" : _realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].feature![index1].imageDesc ?? "");
+                                                                    },
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: const EdgeInsets
                                                                           .only(
                                                                           left:
                                                                               5,
                                                                           right:
                                                                               3),
-                                                                  child:
-                                                                      ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(5),
-                                                                    child: _realtorProvider
+                                                                      child:
+                                                                          ClipRRect(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5),
+                                                                        child: _realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].feature![index1].images![subIndex].contains('.svg')
+                                                                            ? SvgPicture.network(
+                                                                                _realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].feature![index1].images![subIndex],
+                                                                                placeholderBuilder: (BuildContext context) => const CircularProgressIndicator(),
+                                                                              )
+                                                                            : CachedNetworkImage(
+                                                                                imageUrl: _realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].feature![index1].images![subIndex].toString(),
+                                                                                errorWidget: (context, url, error) => SizedBox(),
+                                                                              ),
+                                                                        // Image.network(
+                                                                        //     _realtorProvider
+                                                                        //         .singleComplitedPhdReport!
+                                                                        //         .reports!
+                                                                        //         .first
+                                                                        //         .roominfo![
+                                                                        //             index]
+                                                                        //         .feature![
+                                                                        //             index1]
+                                                                        //         .images![
+                                                                        //             subIndex]
+                                                                        //         .toString(),
+                                                                        //     fit: BoxFit
+                                                                        //         .contain,
+                                                                        //     height: 60),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ),
+                                                            ),
+                                                      // SizedBox(
+                                                      //   height: 8,
+                                                      // ),
+                                                      Row(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Checkbox(
+                                                                value: _realtorProvider
                                                                             .singleComplitedPhdReport!
                                                                             .reports!
                                                                             .first
-                                                                            .roominfo![
-                                                                                index]
-                                                                            .feature![
-                                                                                index1]
-                                                                            .images![
-                                                                                subIndex]
-                                                                            .contains(
-                                                                                '.svg')
-                                                                        ? SvgPicture
-                                                                            .network(
-                                                                            _realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].feature![index1].images![subIndex],
-                                                                            placeholderBuilder: (BuildContext context) =>
-                                                                                const CircularProgressIndicator(),
-                                                                          )
-                                                                        : CachedNetworkImage(
-                                                                            imageUrl:
-                                                                                _realtorProvider.singleComplitedPhdReport!.reports!.first.roominfo![index].feature![index1].images![subIndex].toString(),
-                                                                            errorWidget: (context, url, error) =>
-                                                                                SizedBox(),
-                                                                          ),
-                                                                    // Image.network(
-                                                                    //     _realtorProvider
-                                                                    //         .singleComplitedPhdReport!
-                                                                    //         .reports!
-                                                                    //         .first
-                                                                    //         .roominfo![
-                                                                    //             index]
-                                                                    //         .feature![
-                                                                    //             index1]
-                                                                    //         .images![
-                                                                    //             subIndex]
-                                                                    //         .toString(),
-                                                                    //     fit: BoxFit
-                                                                    //         .contain,
-                                                                    //     height: 60),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
+                                                                            .roominfo![index]
+                                                                            .feature?[index1]
+                                                                            .bidStatus ==
+                                                                        "Bid"
+                                                                    ? true
+                                                                    : false,
+                                                                onChanged:
+                                                                    (value) {},
+                                                              ),
+                                                              Text("Bid"),
+                                                            ],
                                                           ),
-                                                        ),
-                                                  // SizedBox(
-                                                  //   height: 8,
-                                                  // ),
-                                                  Row(
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Checkbox(
-                                                            value: _realtorProvider
-                                                                        .singleComplitedPhdReport!
-                                                                        .reports!
-                                                                        .first
-                                                                        .roominfo![
-                                                                            index]
-                                                                        .feature?[
-                                                                            index1]
-                                                                        .bidStatus ==
-                                                                    "Bid"
-                                                                ? true
-                                                                : false,
-                                                            onChanged:
-                                                                (value) {},
+                                                          Row(
+                                                            children: [
+                                                              Checkbox(
+                                                                value: _realtorProvider
+                                                                            .singleComplitedPhdReport!
+                                                                            .reports!
+                                                                            .first
+                                                                            .roominfo![index]
+                                                                            .feature?[index1]
+                                                                            .bidStatus ==
+                                                                        "D.I.Y"
+                                                                    ? true
+                                                                    : false,
+                                                                onChanged:
+                                                                    (value) {},
+                                                              ),
+                                                              Text("D.I.Y"),
+                                                            ],
                                                           ),
-                                                          Text("Bid"),
+                                                          Row(
+                                                            children: [
+                                                              Checkbox(
+                                                                value: _realtorProvider
+                                                                            .singleComplitedPhdReport!
+                                                                            .reports!
+                                                                            .first
+                                                                            .roominfo![index]
+                                                                            .feature?[index1]
+                                                                            .bidStatus ==
+                                                                        "Pass"
+                                                                    ? true
+                                                                    : false,
+                                                                onChanged:
+                                                                    (value) {},
+                                                              ),
+                                                              Text("Pass"),
+                                                            ],
+                                                          ),
                                                         ],
                                                       ),
-                                                      Row(
-                                                        children: [
-                                                          Checkbox(
-                                                            value: _realtorProvider
-                                                                        .singleComplitedPhdReport!
-                                                                        .reports!
-                                                                        .first
-                                                                        .roominfo![
-                                                                            index]
-                                                                        .feature?[
-                                                                            index1]
-                                                                        .bidStatus ==
-                                                                    "D.I.Y"
-                                                                ? true
-                                                                : false,
-                                                            onChanged:
-                                                                (value) {},
-                                                          ),
-                                                          Text("D.I.Y"),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          Checkbox(
-                                                            value: _realtorProvider
-                                                                        .singleComplitedPhdReport!
-                                                                        .reports!
-                                                                        .first
-                                                                        .roominfo![
-                                                                            index]
-                                                                        .feature?[
-                                                                            index1]
-                                                                        .bidStatus ==
-                                                                    "Pass"
-                                                                ? true
-                                                                : false,
-                                                            onChanged:
-                                                                (value) {},
-                                                          ),
-                                                          Text("Pass"),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  progressWidget(
-                                                      size: size,
-                                                      title: "",
-                                                      minLimit: "\$200k",
-                                                      midleLimit: _realtorProvider
-                                                              .singleComplitedPhdReport!
-                                                              .reports!
-                                                              .isEmpty
-                                                          ? ""
-                                                          : "\$${NumberFormat.compactCurrency(decimalDigits: 2, symbol: "").format(int.parse(_realtorProvider.singleComplitedPhdReport!.reports!.first.phdPrice.toString()))}",
-                                                      maxLimit: "\$2M",
-                                                      percentag: (int.parse(
-                                                                  _realtorProvider
+                                                      progressWidget(
+                                                          size: size,
+                                                          title: "",
+                                                          minLimit: "\$200k",
+                                                          midleLimit: _realtorProvider
+                                                                  .singleComplitedPhdReport!
+                                                                  .reports!
+                                                                  .isEmpty
+                                                              ? ""
+                                                              : "\$${NumberFormat.compactCurrency(decimalDigits: 2, symbol: "").format(int.parse(_realtorProvider.singleComplitedPhdReport!.reports!.first.phdPrice.toString()))}",
+                                                          maxLimit: "\$2M",
+                                                          percentag: (int.parse(_realtorProvider
                                                                       .singleComplitedPhdReport!
                                                                       .reports!
                                                                       .first
                                                                       .phdPrice!) /
-                                                              2000000) *
-                                                          100),
-                                                  SizedBox(height: 10),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Row(
+                                                                  2000000) *
+                                                              100),
+                                                      SizedBox(height: 10),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
                                                           children: [
-                                                            Text(
-                                                              'Estimated DAZL value :- ',
-                                                              style: TextStyle(
-                                                                fontSize: 13,
-                                                                color:
-                                                                    blackColor,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                              ),
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                  'Estimated DAZL value :- ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        13,
+                                                                    color:
+                                                                        blackColor,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  '5000000',
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        13,
+                                                                    color:
+                                                                        teamColor,
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
-                                                            Text(
-                                                              '5000000',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: TextStyle(
-                                                                fontSize: 13,
-                                                                color:
-                                                                    teamColor,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        _realtorProvider
-                                                                    .singleComplitedPhdReport!
-                                                                    .reports!
-                                                                    .first
-                                                                    .roominfo![
-                                                                        index]
-                                                                    .feature![
-                                                                        index1]
-                                                                    .images
-                                                                    ?.length ==
-                                                                0
-                                                            ? SizedBox()
-                                                            : loader[index1] ==
-                                                                    true
-                                                                ? Center(
-                                                                    child:
-                                                                        CircularProgressIndicator())
-                                                                : GestureDetector(
-                                                                    onTap:
-                                                                        () async {
-                                                                      loader[index1] =
-                                                                          true;
-                                                                      setState(
-                                                                          () {});
-                                                                      final pdfFile = await PdfInvoiceApi.generate(
-                                                                          item,
-                                                                          _realtorProvider
-                                                                              .singleComplitedPhdReport!
-                                                                              .reports!
-                                                                              .first
-                                                                              .phdPrice
-                                                                              .toString());
-                                                                      loader[index1] =
-                                                                          false;
-                                                                      await PdfApi
-                                                                          .openFile(
+                                                            _realtorProvider
+                                                                        .singleComplitedPhdReport!
+                                                                        .reports!
+                                                                        .first
+                                                                        .roominfo![
+                                                                            index]
+                                                                        .feature![
+                                                                            index1]
+                                                                        .images
+                                                                        ?.length ==
+                                                                    0
+                                                                ? SizedBox()
+                                                                : loader[index1] ==
+                                                                        true
+                                                                    ? Center(
+                                                                        child:
+                                                                            CircularProgressIndicator())
+                                                                    : GestureDetector(
+                                                                        onTap:
+                                                                            () async {
+                                                                          loader[index1] =
+                                                                              true;
+                                                                          setState(
+                                                                              () {});
+                                                                          final pdfFile = await PdfInvoiceApi.generate(
+                                                                              item,
+                                                                              _realtorProvider.singleComplitedPhdReport!.reports!.first.phdPrice.toString());
+                                                                          loader[index1] =
+                                                                              false;
+                                                                          await PdfApi.openFile(
                                                                               pdfFile);
 
-                                                                      setState(
-                                                                          () {});
-                                                                    },
-                                                                    child: Row(
-                                                                      children: [
-                                                                        Icon(
-                                                                          Icons
-                                                                              .share,
-                                                                          size:
-                                                                              14,
+                                                                          setState(
+                                                                              () {});
+                                                                        },
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.share,
+                                                                              size: 14,
+                                                                            ),
+                                                                            Text(
+                                                                              ' SHARE',
+                                                                              style: TextStyle(
+                                                                                fontWeight: FontWeight.w700,
+                                                                                color: primaryColor,
+                                                                              ),
+                                                                            )
+                                                                          ],
                                                                         ),
-                                                                        Text(
-                                                                          ' SHARE',
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontWeight:
-                                                                                FontWeight.w700,
-                                                                            color:
-                                                                                primaryColor,
-                                                                          ),
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  index >=
-                                                          _realtorProvider
-                                                              .singleComplitedPhdReport!
-                                                              .reports!
-                                                              .first
-                                                              .roominfo!
-                                                              .length
-                                                      ? SizedBox()
-                                                      : Divider(
-                                                          color: Colors.grey,
+                                                                      ),
+                                                          ],
                                                         ),
-                                                  SizedBox(height: 10),
-                                                ],
-                                              ),
-                                            );
-                                          }),
+                                                      ),
+                                                      index >=
+                                                              _realtorProvider
+                                                                  .singleComplitedPhdReport!
+                                                                  .reports!
+                                                                  .first
+                                                                  .roominfo!
+                                                                  .length
+                                                          ? SizedBox()
+                                                          : Divider(
+                                                              color:
+                                                                  Colors.grey,
+                                                            ),
+                                                      SizedBox(height: 10),
+                                                    ],
+                                                  ),
+                                                );
+                                              }),
 
-                                      SizedBox(
-                                        height: 8,
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+
+                                          // progressWidget(
+                                          //     size: size,
+                                          //     title: "",
+                                          //     minLimit: "\$200,000",
+                                          //     midleLimit:
+                                          //         "\$${_realtorProvider.singleComplitedPhdReport!.reports!.first.phdPrice}",
+                                          //     maxLimit: "\$2,000,000",
+                                          //     percentag: (int.parse(_realtorProvider
+                                          //                 .singleComplitedPhdReport!
+                                          //                 .reports!
+                                          //                 .first
+                                          //                 .phdPrice!) /
+                                          //             2000000) *
+                                          //         100),
+                                          // SizedBox(
+                                          //   height: 8,
+                                          // ),
+                                          // Row(
+                                          //   children: [
+                                          //     Row(
+                                          //       children: [
+                                          //         Checkbox(
+                                          //           value: false,
+                                          //           onChanged: (value) {},
+                                          //         ),
+                                          //         Text("Bid"),
+                                          //       ],
+                                          //     ),
+                                          //     Row(
+                                          //       children: [
+                                          //         Checkbox(
+                                          //           value: false,
+                                          //           onChanged: (value) {},
+                                          //         ),
+                                          //         Text("D.I.Y"),
+                                          //       ],
+                                          //     ),
+                                          //     Row(
+                                          //       children: [
+                                          //         Checkbox(
+                                          //           value: false,
+                                          //           onChanged: (value) {},
+                                          //         ),
+                                          //         Text("Pass"),
+                                          //       ],
+                                          //     ),
+                                          //   ],
+                                          // )
+                                        ],
                                       ),
-
-                                      // progressWidget(
-                                      //     size: size,
-                                      //     title: "",
-                                      //     minLimit: "\$200,000",
-                                      //     midleLimit:
-                                      //         "\$${_realtorProvider.singleComplitedPhdReport!.reports!.first.phdPrice}",
-                                      //     maxLimit: "\$2,000,000",
-                                      //     percentag: (int.parse(_realtorProvider
-                                      //                 .singleComplitedPhdReport!
-                                      //                 .reports!
-                                      //                 .first
-                                      //                 .phdPrice!) /
-                                      //             2000000) *
-                                      //         100),
-                                      // SizedBox(
-                                      //   height: 8,
-                                      // ),
-                                      // Row(
-                                      //   children: [
-                                      //     Row(
-                                      //       children: [
-                                      //         Checkbox(
-                                      //           value: false,
-                                      //           onChanged: (value) {},
-                                      //         ),
-                                      //         Text("Bid"),
-                                      //       ],
-                                      //     ),
-                                      //     Row(
-                                      //       children: [
-                                      //         Checkbox(
-                                      //           value: false,
-                                      //           onChanged: (value) {},
-                                      //         ),
-                                      //         Text("D.I.Y"),
-                                      //       ],
-                                      //     ),
-                                      //     Row(
-                                      //       children: [
-                                      //         Checkbox(
-                                      //           value: false,
-                                      //           onChanged: (value) {},
-                                      //         ),
-                                      //         Text("Pass"),
-                                      //       ],
-                                      //     ),
-                                      //   ],
-                                      // )
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              progressWidget(
+                                  size: size,
+                                  title: "Preliminary Value/Score",
+                                  minLimit: "\$200k",
+                                  midleLimit: _realtorProvider
+                                          .singleComplitedPhdReport!
+                                          .reports!
+                                          .isEmpty
+                                      ? ""
+                                      : "\$${NumberFormat.compactCurrency(decimalDigits: 2, symbol: "").format(int.parse(_realtorProvider.singleComplitedPhdReport!.reports!.first.prePrice.toString()))}",
+                                  maxLimit: "\$2M",
+                                  percentag: (_realtorProvider
+                                              .singleComplitedPhdReport!
+                                              .reports!
+                                              .isEmpty
+                                          ? 0.0
+                                          : int.parse(_realtorProvider
+                                                  .singleComplitedPhdReport!
+                                                  .reports!
+                                                  .first
+                                                  .prePrice!) /
+                                              2000000) *
+                                      100),
+                              progressWidget(
+                                  size: size,
+                                  title: "PHD Value/Score",
+                                  minLimit: "\$200k",
+                                  midleLimit: _realtorProvider
+                                          .singleComplitedPhdReport!
+                                          .reports!
+                                          .isEmpty
+                                      ? ""
+                                      : "\$${NumberFormat.compactCurrency(decimalDigits: 2, symbol: "").format(int.parse(_realtorProvider.singleComplitedPhdReport!.reports!.first.phdPrice.toString()))}",
+                                  maxLimit: "\$2M",
+                                  percentag: (_realtorProvider
+                                              .singleComplitedPhdReport!
+                                              .reports!
+                                              .isEmpty
+                                          ? 0.0
+                                          : int.parse(_realtorProvider
+                                                  .singleComplitedPhdReport!
+                                                  .reports!
+                                                  .first
+                                                  .phdPrice!) /
+                                              2000000) *
+                                      100),
+                              progressWidget(
+                                  size: size,
+                                  title: "DAZL Value/Score",
+                                  minLimit: "\$200k",
+                                  midleLimit: _realtorProvider
+                                          .singleComplitedPhdReport!
+                                          .reports!
+                                          .isEmpty
+                                      ? ""
+                                      : "\$${NumberFormat.compactCurrency(decimalDigits: 2, symbol: "").format(int.parse(_realtorProvider.singleComplitedPhdReport!.reports!.first.phdPrice.toString()))}",
+                                  maxLimit: "\$2M",
+                                  percentag: (int.parse(_realtorProvider
+                                              .singleComplitedPhdReport!
+                                              .reports!
+                                              .first
+                                              .phdPrice!) /
+                                          2000000) *
+                                      100),
+                              SizedBox(
+                                height: 10,
+                              ),
+                            ],
                           ),
                         )
                       ],
