@@ -1,7 +1,6 @@
 import 'package:dazllapp/config/providers/base_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/model/Realtor/filterProject.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 enum Loading { loding, complited }
@@ -32,7 +31,7 @@ class ComplitedPhdProvider extends BaseNotifier {
 
   selectCustomer(FilterProject cus) {
     _selectedCustomer = cus;
-    
+
     notifyListeners();
   }
 }

@@ -1,5 +1,4 @@
 import 'package:dazllapp/UI/component/loadingWidget.dart';
-import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/rooms.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';

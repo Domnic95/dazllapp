@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
-import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/realtor_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/select_feature.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';
@@ -166,8 +165,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
               // automaticIndicatorColorAdjustment: true,
               indicatorPadding: EdgeInsets.all(4),
               indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: primaryColor),
+                  borderRadius: BorderRadius.circular(8), color: primaryColor),
               isScrollable: true,
               controller: _tabController,
               tabs: buildTabs()),
@@ -214,11 +212,11 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                         roomid:
                                             _roomsNotifier.listOfRoom[index].id,
                                         roomsNotifier: _roomsNotifier);
-    
+
                                     buildTabController();
                                     _roomProvider.setTabIndex(tabIndex: 0);
                                     setState1(() {});
-    
+
                                     setState(() {});
                                     Navigator.pop(context);
                                   },
@@ -226,14 +224,14 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 8.0, vertical: 6),
                                     child: Card(
-                                       color: AppTheme.light_grey,
+                                      color: AppTheme.light_grey,
                                       // shape: OutlineInputBorder(
                                       //     borderRadius:
                                       //         BorderRadius.circular(8)),
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 12.0, vertical: 15.0),
-                                            child: Align(
+                                        child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
                                             "${_roomsNotifier.listOfRoom[index].name}",
@@ -297,7 +295,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
         //   color: lightColor,
         // ),
       ),
-    
+
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
         height: size.height * 0.09,
@@ -361,7 +359,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                           //         //     k++) {
                           //         //   await _roomProvider.getImage(context, i, j, k, ref);
                           //         // }
-            
+
                           //         _roomProvider.set(true, i);
                           //       }
                           //     }
@@ -396,7 +394,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                           //   // }
                           // }
                           // //  print("jkldn" + desempty.toString());
-            
+
                           // if (!desempty.contains(false) &&
                           //     !featureissueempty.contains(false)) {
                           //   removeempty();
@@ -415,7 +413,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                           //   );
                           // }
                           // log("api Call" + _roomProvider.isSet.toString());
-            
+
                           // if (!_roomProvider.isSet.contains(false)) {
                           for (int i = 0;
                               i < _roomProvider.featureId.length;
@@ -464,11 +462,11 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                               backgroundColor: primaryColor,
                             ));
                           }
-            
+
                           // setState(() {
                           //   loading = false;
                           // });
-            
+
                           // log(_file.toString());
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(

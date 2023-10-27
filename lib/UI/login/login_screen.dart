@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:dazllapp/UI/forgot_password.dart/forgot_password_screen.dart';
 import 'package:dazllapp/UI/sign_up/sign_up.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -17,11 +18,8 @@ import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../config/apicall.dart';
-
 class LoginScreen extends ConsumerStatefulWidget {
-  int index;
-  LoginScreen({required this.index});
+  LoginScreen({Key? key}) : super(key: key);
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -311,7 +309,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       keyboardType: TextInputType.emailAddress,
                       // inputFormatters:<TextInputFormatter>[formater],
                       cursorColor: AppTheme.nearlyBlack,
-
                       decoration: InputDecoration(
                           hintText: "Email",
                           hintStyle: new TextStyle(
@@ -701,7 +698,7 @@ Future<bool> showAlertDialog({
 
 class AlreadyHaveAnAccountCheck extends StatelessWidget {
   final bool login;
-  final Function? press;
+  final VoidCallback? press;
 
   const AlreadyHaveAnAccountCheck({
     Key? key,
@@ -721,7 +718,7 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
               style: TextStyle(color: Colors.black),
             ),
             GestureDetector(
-              onTap: press as void Function()?,
+              onTap: press,
               child: Text(
                 login ? "Sign Up" : "Sign In",
                 style: TextStyle(

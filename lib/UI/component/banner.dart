@@ -30,7 +30,6 @@ class _BannersState extends State<Banners> {
   void initState() {
     super.initState();
     // getdata();
-    print(" immm" + imgListdata.length.toString());
   }
 
   @override

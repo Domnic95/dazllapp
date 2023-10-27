@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
-import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -657,7 +656,6 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                         // SizedBox(
                                         //   height: 10,
                                         // ),
-                                        
 
                                         // ListView.separated(
                                         //     separatorBuilder:
@@ -751,15 +749,13 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                               color: Colors.white),
                                           child: TextFormField(
                                             controller: _roomProvider
-                                                        .DescrptionController[
-                                                    _roomProvider.tabIndex]
-                                                [index],
+                                                    .DescrptionController[
+                                                _roomProvider.tabIndex][index],
                                             minLines: 2,
                                             maxLines: 100,
                                             textInputAction:
                                                 TextInputAction.done,
-                                            cursorColor:
-                                                AppTheme.colorPrimary,
+                                            cursorColor: AppTheme.colorPrimary,
                                             decoration: InputDecoration(
                                                 hintText:
                                                     "Tell us the issue or desired outcome.",
@@ -782,15 +778,14 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                                             .transparent))),
                                           ),
                                         ),
-                                      SizedBox(
+                                        SizedBox(
                                           height: 10,
                                         ),
                                         RichText(
                                             text: TextSpan(
                                                 text: "UPLOAD PHOTOS OF ",
                                                 style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                     color: blackColor,
                                                     fontSize: 12),
                                                 children: [
@@ -799,7 +794,6 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                                     "your project or photos that inspire your renovation",
                                                 style: TextStyle(
                                                   fontSize: 12,
-                                                  
                                                   color: AppTheme.grey61,
                                                 ),
                                               )
@@ -807,7 +801,7 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                         SizedBox(
                                           height: 15,
                                         ),
-                                      _roomProvider.imgFile[_roomProvider
+                                        _roomProvider.imgFile[_roomProvider
                                                         .tabIndex][index]
                                                     .toString() ==
                                                 File('').toString()
@@ -830,8 +824,7 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                                     (context, subIndex) {
                                                   if (subIndex == 0) {
                                                     return Container(
-                                                      decoration:
-                                                          BoxDecoration(
+                                                      decoration: BoxDecoration(
                                                         border: Border.all(
                                                             color:
                                                                 Colors.black),
@@ -842,8 +835,7 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                                       child: IconButton(
                                                           onPressed: () {
                                                             showOptionsDialog(
-                                                                context,
-                                                                index);
+                                                                context, index);
                                                           },
                                                           icon: Icon(Icons
                                                               .add_a_photo)),
@@ -851,9 +843,9 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                                   }
                                                   return _roomProvider.imgFile[
                                                                   _roomProvider
-                                                                      .tabIndex][index]
+                                                                      .tabIndex]
                                                               [
-                                                              subIndex - 1] ==
+                                                              index][subIndex - 1] ==
                                                           File('')
                                                       //      ||
                                                       // _addphotodescription[
@@ -873,9 +865,8 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                                                         10),
                                                           ),
                                                           child: Stack(
-                                                            alignment:
-                                                                Alignment
-                                                                    .center,
+                                                            alignment: Alignment
+                                                                .center,
                                                             children: [
                                                               Container(
                                                                 // height: 60,
@@ -883,15 +874,17 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   borderRadius:
-                                                                      BorderRadius.circular(
-                                                                          10),
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
                                                                   image:
                                                                       DecorationImage(
                                                                     fit: BoxFit
                                                                         .cover,
                                                                     image:
                                                                         FileImage(
-                                                                      _roomProvider.imgFile[
+                                                                      _roomProvider
+                                                                              .imgFile[
                                                                           _roomProvider
                                                                               .tabIndex][index][subIndex -
                                                                           1],
@@ -906,9 +899,12 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                                                     IconButton(
                                                                         onPressed:
                                                                             () {
-                                                                          setState(() {
-                                                                            _roomProvider.imgFile[_roomProvider.tabIndex][index].removeAt(subIndex - 1);
-                                                                            _roomProvider.imagesList[_roomProvider.tabIndex][index].removeAt(subIndex - 1);
+                                                                          setState(
+                                                                              () {
+                                                                            _roomProvider.imgFile[_roomProvider.tabIndex][index].removeAt(subIndex -
+                                                                                1);
+                                                                            _roomProvider.imagesList[_roomProvider.tabIndex][index].removeAt(subIndex -
+                                                                                1);
                                                                             log("dfjlxdjkfg === ${_roomProvider.imagesList}");
                                                                             // _addphotodescription[index]
                                                                             //     .removeAt(subIndex);
@@ -916,7 +912,8 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                                                         },
                                                                         icon:
                                                                             Icon(
-                                                                          Icons.cancel,
+                                                                          Icons
+                                                                              .cancel,
                                                                           size:
                                                                               25,
                                                                         )),

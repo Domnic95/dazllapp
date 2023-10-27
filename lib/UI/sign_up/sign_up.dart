@@ -62,7 +62,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _PstateController = TextEditingController();
   // final _zipCodeController = TextEditingController();
   final _CzipController = TextEditingController();
-  final _stateController = TextEditingController();
+  // final _stateController = TextEditingController();
 
   // List<ServiceType> servicesType = [];
   List<DropdownMenuItem> items = [

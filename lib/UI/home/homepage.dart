@@ -39,7 +39,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         centerTitle: false,
         title: Text(
           "Home",
-          style: Theme.of(context).textTheme.bodyText2!.copyWith(
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w700,
                 fontSize: 18,
                 color: lightColor,
@@ -453,7 +453,7 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
                                   builder: (context) => LoginScreen(
-                                    index: 0,
+                               
                                   ),
                                 ),
                                 (route) => false);

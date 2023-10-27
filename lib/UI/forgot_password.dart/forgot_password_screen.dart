@@ -139,7 +139,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => LoginScreen(index: 0)),
+                        builder: (context) => LoginScreen()),
                     (route) => false);
               },
               child: Text(

@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/config/providers/base_notifier.dart';
 import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -192,12 +191,13 @@ class PhdProvider extends BaseNotifier {
     log('this for that index ok--->> ' +
         _roomProvider.roomTypes[_tabIndex].toString());
     log('this for that index ok--->> ' +
-         _selectRoomTypeFeature[_tabIndex].toString());
+        _selectRoomTypeFeature[_tabIndex].toString());
     _selectRoomTypeFeature[_tabIndex].clear();
     // _selectRoomTypeFeature[_tabIndex] =
-        _roomProvider.roomTypes[_tabIndex].last.type!;
+    _roomProvider.roomTypes[_tabIndex].last.type!;
     for (var i = 0; i < _roomProvider.roomTypes[_tabIndex].length; i++) {
-      _selectRoomTypeFeature[_tabIndex].add(_roomProvider.roomTypes[_tabIndex][i].type!);
+      _selectRoomTypeFeature[_tabIndex]
+          .add(_roomProvider.roomTypes[_tabIndex][i].type!);
       // _selectRoomTypeFeature[_tabIndex]=_roomProvider.roomTypes[_tabIndex].;
     }
     for (var i = 0; i < _roomProvider.addValueData[_tabIndex].length; i++) {

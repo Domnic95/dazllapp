@@ -2,7 +2,6 @@
 
 import 'package:dazllapp/UI/Profile/profile.dart';
 import 'package:dazllapp/UI/component/popup_button.dart';
-import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/create_phd.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/realtor_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/start_project.dart';

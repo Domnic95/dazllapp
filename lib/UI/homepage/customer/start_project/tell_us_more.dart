@@ -1,14 +1,10 @@
-
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/customer/home/customer_homepage.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/needs_attention.dart';
-import 'package:dazllapp/config/api.dart';
 import 'package:dazllapp/config/app_theme.dart';
-import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';

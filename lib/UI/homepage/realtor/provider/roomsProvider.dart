@@ -1,14 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/config/providers/base_notifier.dart';
 import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dazllapp/model/Customer/Features.dart';
 import 'package:dazllapp/model/Customer/Rooms.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';

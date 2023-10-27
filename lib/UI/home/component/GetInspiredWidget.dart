@@ -22,7 +22,7 @@ class _GetInspiredWidgetState extends State<GetInspiredWidget> {
           padding: const EdgeInsets.only(left: 10, top: 10),
           child: Text(
             'Get Inspired',
-            style: textTheme.bodyText1!.copyWith(
+            style: textTheme.bodyLarge!.copyWith(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: darkTextColor.withOpacity(.7)),
@@ -52,7 +52,7 @@ class _GetInspiredWidgetState extends State<GetInspiredWidget> {
                     child: Center(
                       child: Text(
                         model.label,
-                        style: textTheme.bodyText2!
+                        style: textTheme.bodyMedium!
                             .copyWith(color: lightColor, fontSize: 20),
                       ),
                     ),

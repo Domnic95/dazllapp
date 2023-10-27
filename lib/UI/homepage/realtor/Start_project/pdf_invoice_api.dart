@@ -3,12 +3,10 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/pdf_api.dart';
 import 'package:dazllapp/model/Realtor/getComplitedPhd.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 
 class ImageModel {

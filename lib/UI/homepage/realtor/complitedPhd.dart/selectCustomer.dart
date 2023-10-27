@@ -3,10 +3,7 @@ import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/complitedPhd.dart/complitedPhd.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/complitedPhdProvider.dart';
 import 'package:dazllapp/UI/homepage/realtor/realtor_homepage.dart';
-import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
-import 'package:dazllapp/constant/colors.dart';
-import 'package:dazllapp/model/Realtor/filterProject.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

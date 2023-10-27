@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/professional/professionals_homepage.dart';
 import 'package:dazllapp/UI/homepage/realtor/realtor_homepage.dart';
-import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:flutter/material.dart';
@@ -92,7 +91,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {},
         home: Welcome()
-        //key_keep_me_logged_in=="true"?RealtorHomePage():LoginScreen(index: 0)
+        //key_keep_me_logged_in=="true"?RealtorHomePage():LoginScreen()
         );
   }
 }
@@ -218,7 +217,9 @@ class _WelcomeState extends State<Welcome> {
 }
 
 class MyHomePage extends StatelessWidget {
-  var tags = [
+  MyHomePage({Key? key}): super(key: key);
+
+  final List<String> tags = [
     "love",
     "instagood",
     "photooftheday",
@@ -237,7 +238,7 @@ class MyHomePage extends StatelessWidget {
     "instadaily"
   ];
 
-  var selected_tags = ["love", "me", "summer"];
+  List selected_tags = ["love", "me", "summer"];
 
   @override
   Widget build(BuildContext context) {

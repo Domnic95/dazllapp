@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
 import 'package:dazllapp/config/app_theme.dart';

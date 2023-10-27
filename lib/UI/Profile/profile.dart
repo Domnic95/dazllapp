@@ -2,8 +2,6 @@ import 'dart:developer';
 
 import 'package:dazllapp/UI/component/customTextfield.dart';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
-import 'package:dazllapp/config/apicall.dart';
-import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/config/providers/realtor_notifier.dart';
@@ -238,7 +236,7 @@ class _MyProfileState extends ConsumerState<MyProfile> {
                     //     ),
                     //   ),
                     // ),
-                   
+
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Column(

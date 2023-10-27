@@ -251,7 +251,7 @@ Future<void> signupRealtor(
         context,
         MaterialPageRoute(
           builder: (context) => LoginScreen(
-            index: 0,
+          
           ),
         ),
       );
@@ -363,7 +363,7 @@ Future<void> signupProfessional({
           context,
           MaterialPageRoute(
               builder: (context) => LoginScreen(
-                    index: 0,
+                  
                   )));
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Registerd Sucessfully'),
@@ -405,7 +405,7 @@ Future<void> signupCustomer(
           context,
           MaterialPageRoute(
               builder: (context) => LoginScreen(
-                    index: 0,
+                    
                   )));
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Registerd Sucessfully'),

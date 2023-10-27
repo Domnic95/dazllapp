@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
-import 'package:dazllapp/UI/homepage/customer/home/customer_homepage.dart';
 import 'package:dazllapp/UI/homepage/customer/my_project/myproject.dart';
 import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/needs_attention.dart';
@@ -162,8 +161,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
               // automaticIndicatorColorAdjustment: true,
               indicatorPadding: EdgeInsets.all(4),
               indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: primaryColor),
+                  borderRadius: BorderRadius.circular(8), color: primaryColor),
               isScrollable: true,
               controller: _tabController,
               tabs: buildTabs()),
@@ -271,7 +269,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                 );
               });
         },
-         label: Text('Add Room'),
+        label: Text('Add Room'),
         // child: Icon(
         //   Icons.add,
         //   color: lightColor,
@@ -367,7 +365,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                   //   // }
                   // }
                   // //  print("jkldn" + desempty.toString());
-        
+
                   // if (!desempty.contains(false) &&
                   //     !featureissueempty.contains(false)) {
                   //   removeempty();
@@ -399,7 +397,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                       }
                     }
                   }
-        
+
                   log('bcsdbfjkdfjk =======>>>> ${_roomProvider.listData}');
                   final projectId = await ref
                       .read(customernotifier)
@@ -412,7 +410,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                     content: Text('Project created sucessfully'),
                     backgroundColor: teamColor,
                   ));
-        
+
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => myproject()),
@@ -427,11 +425,11 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                       backgroundColor: primaryColor,
                     ));
                   }
-        
+
                   // setState(() {
                   //   loading = false;
                   // });
-        
+
                   // log(_file.toString());
                 },
                 child:

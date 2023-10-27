@@ -85,10 +85,7 @@ class _ServicesWidgetState extends ConsumerState<ServicesWidget> {
 
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => LoginScreen(
-                                index: i,
-                              ),
-                            ),
+                                builder: (context) => LoginScreen()),
                           );
                           // }
                         },
@@ -104,8 +101,8 @@ class _ServicesWidgetState extends ConsumerState<ServicesWidget> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 6),
                               child: Text(
-                                services[i].label,
-                                style: textTheme.bodyText1!
+                                model.label,
+                                style: textTheme.bodyLarge!
                                     .copyWith(color: lightColor, fontSize: 13),
                                 textAlign: TextAlign.center,
                               ),

@@ -1,11 +1,9 @@
 import 'dart:developer';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dazllapp/UI/component/customTextfield.dart';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/customer/home/customer_homepage.dart';
-import 'package:dazllapp/UI/homepage/customer/my_project/my_project_details.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/customer_notifier.dart';
@@ -418,7 +416,8 @@ class _myprojectState extends ConsumerState<myproject> {
                                                           ),
                                                           ListView.builder(
                                                             shrinkWrap: true,
-                                                            padding: EdgeInsets.zero,
+                                                            padding:
+                                                                EdgeInsets.zero,
                                                             physics:
                                                                 NeverScrollableScrollPhysics(),
                                                             itemCount: projectprovider!

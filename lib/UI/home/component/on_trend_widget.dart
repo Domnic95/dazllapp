@@ -18,7 +18,6 @@ class _OnTrendWidgetState extends State<OnTrendWidget> {
   
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (onTrendDesc.length > 120) {
       firstHalf = onTrendDesc.substring(0, 120);
@@ -55,7 +54,7 @@ class _OnTrendWidgetState extends State<OnTrendWidget> {
               children: [
                 Text(
                   "On Trend",
-                  style: theme.bodyText1!.copyWith(
+                  style: theme.bodyLarge!.copyWith(
                     color: lightColor,
                     fontSize: 18,
                   ),
@@ -75,7 +74,7 @@ class _OnTrendWidgetState extends State<OnTrendWidget> {
               children: [
                 Text(
                   "Retro Colors Make a Comeback:",
-                  style: theme.bodyText1!.copyWith(
+                  style: theme.bodyLarge!.copyWith(
                     color: primaryColor,
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
@@ -83,7 +82,7 @@ class _OnTrendWidgetState extends State<OnTrendWidget> {
                 ),
                 Text(
                   "What’s Hot in Decor Right Now",
-                  style: theme.bodyText1!.copyWith(
+                  style: theme.bodyLarge!.copyWith(
                     color: primaryColor,
                     fontSize: 18,
                     fontWeight: FontWeight.w500,

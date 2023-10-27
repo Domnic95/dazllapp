@@ -1,4 +1,3 @@
-import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/UI/sign_up/sign_up.dart';
 import 'package:dazllapp/config/app_theme.dart';
@@ -104,7 +103,7 @@ class _HomePopupButtonState extends ConsumerState<HomePopupButton> {
       ],
       offset: Offset(0, 50),
       color: lightColor,
-      elevation: 2, 
+      elevation: 2,
       // on selected we show the dialog box
       onSelected: (value) {
         // if value 1 show dialog
@@ -115,9 +114,7 @@ class _HomePopupButtonState extends ConsumerState<HomePopupButton> {
         } else if (value == 2) {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => LoginScreen(
-                index: 0,
-              ),
+              builder: (context) => LoginScreen(),
             ),
           );
         } else if (value == 3) {
