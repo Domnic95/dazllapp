@@ -13,21 +13,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Company_profile extends ConsumerStatefulWidget {
-  Company_profile({Key? key}) : super(key: key);
+class CompanyProfile extends ConsumerStatefulWidget {
+  CompanyProfile({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<Company_profile> createState() => _Company_profileState();
+  ConsumerState<CompanyProfile> createState() => _CompanyProfileState();
 }
 
-class _Company_profileState extends ConsumerState<Company_profile> {
+class _CompanyProfileState extends ConsumerState<CompanyProfile> {
   bool loading = true;
-  // List images = [
-  //   "https://dazlpro.com/_next/static/image/Modules/CompanyProfile/Views/FirstForm/realtorBackGround.3b3d6cd5b7e04669508cd69684d7a842.jpg",
-  //   "https://dazlpro.com/_next/static/image/Modules/CompanyProfile/Views/FirstForm/realtorBackGround.3b3d6cd5b7e04669508cd69684d7a842.jpg",
-  //   "https://dazlpro.com/_next/static/image/Modules/CompanyProfile/Views/FirstForm/realtorBackGround.3b3d6cd5b7e04669508cd69684d7a842.jpg",
-  //   "https://dazlpro.com/_next/static/image/Modules/CompanyProfile/Views/FirstForm/realtorBackGround.3b3d6cd5b7e04669508cd69684d7a842.jpg",
-  // ];
+
   @override
   void initState() {
     super.initState();
@@ -118,16 +113,13 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      _profileNotifier.professionalData.yearsInBusiness ==
-                              null
+                      _profileNotifier.professionalData.yearsInBusiness == null
                           ? Text(
                               'Add your Years in Bussiness',
-                              style:
-                                  TextStyle(fontSize: 12, color: blackColor),
+                              style: TextStyle(fontSize: 12, color: blackColor),
                             )
                           : Text(
-                              _profileNotifier
-                                  .professionalData.yearsInBusiness
+                              _profileNotifier.professionalData.yearsInBusiness
                                   .toString(),
                               style: TextStyle(
                                 fontSize: 12,
@@ -152,8 +144,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                               height: 10,
                             ),
                             Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   'INFORMATION : ',
@@ -189,7 +180,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                     leading: Icon(
                                       Icons.person,
                                     ),
-                                       title: Text(
+                                    title: Text(
                                       'Name : ',
                                       style: TextStyle(
                                         fontSize: 14,
@@ -294,8 +285,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                     ),
                                   ),
                                   ListTile(
-                                      leading:
-                                          Icon(Icons.location_on_rounded),
+                                      leading: Icon(Icons.location_on_rounded),
                                       title: Text(
                                         'Address : ',
                                         style: TextStyle(
@@ -325,13 +315,11 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                                       style: TextStyle(
                                                           fontSize: 13,
                                                           fontWeight:
-                                                              FontWeight
-                                                                  .normal,
+                                                              FontWeight.normal,
                                                           color: blackColor)),
                                                   TextSpan(
                                                       text: _profileNotifier
-                                                          .professionalData
-                                                          .city
+                                                          .professionalData.city
                                                           .toString(),
                                                       style: TextStyle(
                                                           fontSize: 13,
@@ -343,8 +331,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                                       style: TextStyle(
                                                           fontSize: 13,
                                                           fontWeight:
-                                                              FontWeight
-                                                                  .normal,
+                                                              FontWeight.normal,
                                                           color: blackColor)),
                                                   TextSpan(
                                                       text: _profileNotifier
@@ -417,8 +404,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                         fontSize: 14,
                                       ),
                                     ),
-                                    subtitle: _profileNotifier
-                                                .professionalData
+                                    subtitle: _profileNotifier.professionalData
                                                 .insuranceCertificate ==
                                             ''
                                         ? Text(
@@ -446,7 +432,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                   ),
                                   ListTile(
                                     leading: Icon(
-                                      Icons.phone,
+                                      Icons.person,
                                     ),
                                     title: Text(
                                       'Insurance Contact : ',
@@ -454,8 +440,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                         fontSize: 14,
                                       ),
                                     ),
-                                    subtitle: _profileNotifier
-                                                .professionalData
+                                    subtitle: _profileNotifier.professionalData
                                                 .insuranceContactNumber ==
                                             ''
                                         ? Text(
@@ -491,8 +476,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                         fontSize: 14,
                                       ),
                                     ),
-                                    subtitle: _profileNotifier
-                                                .professionalData
+                                    subtitle: _profileNotifier.professionalData
                                                 .insuranceNumber ==
                                             ''
                                         ? Text(
@@ -519,16 +503,14 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                     ),
                                   ),
                                   ListTile(
-                                    leading:
-                                        Icon(Icons.local_parking_outlined),
+                                    leading: Icon(Icons.local_parking_outlined),
                                     title: Text(
                                       'Project Portfolio : ',
                                       style: TextStyle(
                                         fontSize: 14,
                                       ),
                                     ),
-                                    subtitle: _profileNotifier
-                                                    .professionalData
+                                    subtitle: _profileNotifier.professionalData
                                                     .projectPortfolio ==
                                                 null ||
                                             _profileNotifier.professionalData
@@ -739,19 +721,16 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                               child: Row(
                                 children: [
                                   Container(
-                                    margin:
-                                        EdgeInsets.only(left: 5, right: 5),
+                                    margin: EdgeInsets.only(left: 5, right: 5),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     height: 90,
                                     width: 90,
                                     child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(15),
+                                        borderRadius: BorderRadius.circular(15),
                                         child: _profileNotifier
-                                                    .professionalData
-                                                    .images1 ==
+                                                    .professionalData.images1 ==
                                                 ""
                                             ? Center(child: SizedBox())
                                             : Center(
@@ -765,19 +744,16 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                               ))),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.only(left: 5, right: 5),
+                                    margin: EdgeInsets.only(left: 5, right: 5),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     height: 90,
                                     width: 90,
                                     child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(15),
+                                        borderRadius: BorderRadius.circular(15),
                                         child: _profileNotifier
-                                                    .professionalData
-                                                    .images2 ==
+                                                    .professionalData.images2 ==
                                                 ""
                                             ? Center(child: SizedBox())
                                             : Center(
@@ -791,19 +767,16 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                               ))),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.only(left: 5, right: 5),
+                                    margin: EdgeInsets.only(left: 5, right: 5),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     height: 90,
                                     width: 90,
                                     child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(15),
+                                        borderRadius: BorderRadius.circular(15),
                                         child: _profileNotifier
-                                                    .professionalData
-                                                    .images3 ==
+                                                    .professionalData.images3 ==
                                                 ""
                                             ? Center(child: SizedBox())
                                             : Center(
@@ -817,19 +790,16 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                               ))),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.only(left: 5, right: 5),
+                                    margin: EdgeInsets.only(left: 5, right: 5),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     height: 90,
                                     width: 90,
                                     child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(15),
+                                        borderRadius: BorderRadius.circular(15),
                                         child: _profileNotifier
-                                                    .professionalData
-                                                    .images4 ==
+                                                    .professionalData.images4 ==
                                                 ""
                                             ? Center(child: SizedBox())
                                             : Center(
@@ -864,7 +834,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                       ),
                       color: AppTheme.colorPrimary),
                   child: Padding(
-                    padding: const EdgeInsets.only(top:  20.0),
+                    padding: const EdgeInsets.only(top: 20.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -884,7 +854,7 @@ class _Company_profileState extends ConsumerState<Company_profile> {
                                 "Previous",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1!
+                                    .bodyLarge!
                                     .copyWith(
                                       fontSize: 18,
                                       color: lightColor.withOpacity(.9),

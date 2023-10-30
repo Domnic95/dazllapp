@@ -144,7 +144,7 @@ Future<String> login(
           ? SpHelpers.setPref(
               SharedPrefsKeys.Prof_id, response.data['data']['id'].toString())
           : null;
-    
+
       SpHelpers.setPref(
           SharedPrefsKeys.key_token, response.data['data']['token']);
 
@@ -250,9 +250,7 @@ Future<void> signupRealtor(
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginScreen(
-          
-          ),
+          builder: (context) => LoginScreen(),
         ),
       );
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -360,11 +358,7 @@ Future<void> signupProfessional({
 
     if (response.statusCode == 201) {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => LoginScreen(
-                  
-                  )));
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Registerd Sucessfully'),
           backgroundColor: Colors.green));
@@ -402,11 +396,7 @@ Future<void> signupCustomer(
     });
     if (response.statusCode == 201) {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => LoginScreen(
-                    
-                  )));
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Registerd Sucessfully'),
           backgroundColor: Colors.green));

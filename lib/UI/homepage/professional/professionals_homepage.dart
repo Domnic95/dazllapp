@@ -34,7 +34,7 @@ class _ProfessionalsHomepageState extends ConsumerState<ProfessionalsHomepage> {
           "Service Professional",
           style: Theme.of(context)
               .textTheme
-              .bodyText1!
+              .bodyLarge!
               .copyWith(fontSize: 16, color: lightColor.withOpacity(.9)),
         ),
         actions: [],
@@ -51,7 +51,7 @@ class _ProfessionalsHomepageState extends ConsumerState<ProfessionalsHomepage> {
                   //     SpHelpers.getString(SharedPrefsKeys.Prof_id)
                   //         .toString());
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Company_profile()));
+                      builder: (context) => CompanyProfile()));
                 } else if (index == 0) {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => ProjectOpportunities()));
@@ -81,7 +81,7 @@ class _ProfessionalsHomepageState extends ConsumerState<ProfessionalsHomepage> {
                           Selections[index].name,
                           textAlign: TextAlign.center,
                           style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                     color: AppTheme.colorPrimary,

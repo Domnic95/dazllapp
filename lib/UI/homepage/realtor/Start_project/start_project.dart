@@ -61,7 +61,7 @@ class _Start_projectState extends ConsumerState<Start_project> {
         leading: SizedBox(),
         title: Text(
           "Create a Project",
-          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 fontSize: 16,
                 color: lightColor.withOpacity(.9),
               ),
@@ -168,7 +168,7 @@ class _Start_projectState extends ConsumerState<Start_project> {
                                           textAlign: TextAlign.center,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyText1!
+                                              .bodyLarge!
                                               .copyWith(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 16,
@@ -214,7 +214,7 @@ class _Start_projectState extends ConsumerState<Start_project> {
                                   "Previous",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1!
+                                      .bodyLarge!
                                       .copyWith(
                                         fontSize: 18,
                                         color: lightColor.withOpacity(.9),
@@ -250,7 +250,7 @@ class _Start_projectState extends ConsumerState<Start_project> {
                                         "Next",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText1!
+                                            .bodyLarge!
                                             .copyWith(
                                               fontSize: 18,
                                               color: lightColor.withOpacity(.9),

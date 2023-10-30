@@ -43,7 +43,7 @@ class _RealtorHomePageState extends ConsumerState<RealtorHomePage> {
           "Real State Professional",
           style: Theme.of(context)
               .textTheme
-              .bodyText1!
+              .bodyLarge!
               .copyWith(fontSize: 16, color: lightColor.withOpacity(.9)),
         ),
         actions: [],
@@ -96,7 +96,7 @@ class _RealtorHomePageState extends ConsumerState<RealtorHomePage> {
                       Text(
                         Selections[index].name,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
                               color: AppTheme.colorPrimary,

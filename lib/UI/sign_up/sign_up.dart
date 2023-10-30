@@ -1643,7 +1643,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text("Loading data from API...",
-            style: Theme.of(context).textTheme.subtitle1),
+            style: Theme.of(context).textTheme.titleMedium),
         Padding(
           padding: EdgeInsets.only(top: 5),
         ),
@@ -1660,14 +1660,14 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text("Error occured: $error",
-            style: Theme.of(context).textTheme.subtitle1),
+            style: Theme.of(context).textTheme.titleMedium),
       ],
     ));
   }
 
   late var imgCamera;
   void openCamera(int index) async {
-    imgCamera = await imgPicker.getImage(source: ImageSource.camera);
+    imgCamera = await imgPicker.pickImage(source: ImageSource.camera);
     setState(() {
       if (imgCamera == null) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -1683,7 +1683,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   late var imgGallery;
   void openGallery(int index) async {
-    imgGallery = await imgPicker.getImage(source: ImageSource.gallery);
+    imgGallery = await imgPicker.pickImage(source: ImageSource.gallery);
     log("scncndcdb" + imgGallery.path.toString());
     setState(() {
       // if (imgGallery == null) {

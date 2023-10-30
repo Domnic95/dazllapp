@@ -436,46 +436,47 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
-  Widget submitButton(String emailId, String password, WidgetRef ref) =>
-      InkWell(
-        onTap: () async {
-          if (_emailController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter email')));
-          } else if (_passwordController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter password')));
-          } else {
-            loading = true;
-            setState(() {});
-            await login(
-                ref.read(serviceProviders).curruntindex,
-                _emailController.text,
-                _passwordController.text,
-                context,
-                keep_me_logged_in,
-                ref);
-            loading = false;
-            setState(() {});
-          }
-        },
-        child: Container(
-          height: 50,
-          width: MediaQuery.of(context).size.width * 0.75,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            color: primaryColor,
-          ),
-          child: loading
-              ? CircularProgressIndicator(
-                  color: lightColor,
-                )
-              : Text("Sign In",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: lightColor)),
+  Widget submitButton(String emailId, String password, WidgetRef ref) {
+    return InkWell(
+      onTap: () async {
+        if (_emailController.text.isEmpty) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('Enter email')));
+        } else if (_passwordController.text.isEmpty) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('Enter password')));
+        } else {
+          loading = true;
+          setState(() {});
+          await login(
+              ref.read(serviceProviders).curruntindex,
+              _emailController.text,
+              _passwordController.text,
+              context,
+              keep_me_logged_in,
+              ref);
+          loading = false;
+          setState(() {});
+        }
+      },
+      child: Container(
+        height: 50,
+        width: MediaQuery.of(context).size.width * 0.75,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: primaryColor,
         ),
-      );
+        child: loading
+            ? CircularProgressIndicator(
+                color: lightColor,
+              )
+            : Text("Sign In",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, color: lightColor)),
+      ),
+    );
+  }
 
   // Widget submitButton(String emailId, String password) =>
   //     StreamBuilder<LoginResponse>(
@@ -623,7 +624,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text("Loading data from API...",
-            style: Theme.of(context).textTheme.subtitle1),
+            style: Theme.of(context).textTheme.titleMedium),
         Padding(
           padding: EdgeInsets.only(top: 5),
         ),
@@ -640,7 +641,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text("Error occured: $error",
-            style: Theme.of(context).textTheme.subtitle1),
+            style: Theme.of(context).textTheme.titleMedium),
       ],
     ));
   }

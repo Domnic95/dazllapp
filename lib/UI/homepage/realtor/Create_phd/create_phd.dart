@@ -501,7 +501,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                           Text(
                             "Previous",
                             style:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
                                       fontSize: 18,
                                       color: lightColor.withOpacity(.9),
                                     ),
@@ -593,7 +593,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                           Text(
                             "Next",
                             style:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
                                       fontSize: 18,
                                       color: lightColor.withOpacity(.9),
                                     ),

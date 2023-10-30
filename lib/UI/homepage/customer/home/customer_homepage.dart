@@ -39,7 +39,7 @@ class _CustomerHomepageState extends ConsumerState<CustomerHomepage> {
           "HOMEOWNERS",
           style: Theme.of(context)
               .textTheme
-              .bodyText1!
+              .bodyLarge!
               .copyWith(fontSize: 16, color: lightColor.withOpacity(.9)),
         ),
         actions: [],

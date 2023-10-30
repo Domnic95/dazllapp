@@ -154,7 +154,7 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Company_profile()));
+                                        builder: (context) => CompanyProfile()));
                               });
           
                               _yearsinbussiness.clear();

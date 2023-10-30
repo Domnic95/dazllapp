@@ -3,7 +3,9 @@ import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/complitedPhd.dart/complitedPhd.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/complitedPhdProvider.dart';
 import 'package:dazllapp/UI/homepage/realtor/realtor_homepage.dart';
+import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
+import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -52,15 +54,7 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
               body: Column(children: [
                 CommonHeader(
                   title: "PHD Project-Summary",
-                  isback: true,
-                  back: () {
-                    print("hdkhkdfskhfdk");
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RealtorHomePage(),
-                        ));
-                  },
+                  isback: false,
                 ),
                 SizedBox(
                   height: 20,
@@ -104,6 +98,52 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
                         ),
                       );
                     },
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  height: size.height * 0.09,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                      color: AppTheme.colorPrimary),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RealtorHomePage(),
+                                  ));
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 20,
+                                  color: AppTheme.white,
+                                ),
+                                Text(
+                                  "Previous",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontSize: 18,
+                                        color: lightColor.withOpacity(.9),
+                                      ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ]),
                   ),
                 ),
 
