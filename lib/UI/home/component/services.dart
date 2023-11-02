@@ -92,9 +92,7 @@ class _ServicesWidgetState extends ConsumerState<ServicesWidget> {
                         child: Center(
                           child: Container(
                             decoration: BoxDecoration(
-                              color: selectedIndx == i
-                                  ? primaryColor.withOpacity(0.7)
-                                  : primaryColor,
+                              color: primaryColor.withOpacity(0.7),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Padding(

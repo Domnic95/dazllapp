@@ -807,6 +807,7 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                                 File('').toString()
                                             ? SizedBox()
                                             : GridView.builder(
+                                              padding: EdgeInsets.zero,
                                                 physics:
                                                     NeverScrollableScrollPhysics(),
                                                 shrinkWrap: true,
