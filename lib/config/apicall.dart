@@ -82,6 +82,16 @@ class DioClient {
     }
   }
 
+  Future<dynamic> deletewithRowData({required String apiEnd}) async {
+    try {
+      final res = await _dio.delete(apiEnd);
+      return res;
+    } catch (e) {
+      print(e);
+      throw e;
+    }
+  }
+
   Future<dynamic> rawwithFormData(
       {required String apiEnd, List<Map<String, dynamic>>? Data}) async {
     try {

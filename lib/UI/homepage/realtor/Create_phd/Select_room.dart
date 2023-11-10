@@ -56,14 +56,14 @@ class _selectRoomState extends ConsumerState<selectRoom> {
               child: loading
                   ? LoadingWidget()
                   : GridView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10),
-            
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 10),
                       itemCount: _roomsNotifier.listOfRoom.length,
-                      gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
@@ -180,8 +180,13 @@ class _selectRoomState extends ConsumerState<selectRoom> {
                         // ? SizedBox()
                         // :
                         _roomProvider.reset();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Phd(roomId: roomid ?? 0)));
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => Phd(
+                              roomId: roomid ?? 0,
+                            ),
+                          ),
+                        );
                       },
                       child: Row(
                         children: [

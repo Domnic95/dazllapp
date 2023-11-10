@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/Select_Feature.dart';
+import 'package:dazllapp/UI/homepage/realtor/Create_phd/Select_room.dart';
 import 'package:dazllapp/UI/homepage/realtor/complitedPhd.dart/selectCustomer.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/phdProvider.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
@@ -252,6 +253,11 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                 onTap: () {
                   Navigator.of(context).pop();
                   _realtorProvider.reset();
+                  // _phdProvider.setTabIndex(tabIndex: 0);
+                  // _realtorProvider.reset();
+                  // log('chjsdkbvkjkfj');
+                  // Navigator.of(context).pushReplacement(
+                  //     MaterialPageRoute(builder: (context) => selectRoom()));
                 },
                 child: Row(
                   children: [

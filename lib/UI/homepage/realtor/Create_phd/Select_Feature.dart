@@ -206,26 +206,14 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                         SizedBox(
                           height: 10,
                         ),
-                        Row(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              child: Text(
-                                "2. Add photos of exceptional features or selling advantages",
-                                maxLines: 2,
-                              ),
-                            ),
-                            // IconButton(
-                            //     // padding: EdgeInsets.zero,
-                            //     onPressed: () {
-                            //       showOptionsDialog(context, 0, 0);
-                            //     },
-                            //     icon: Icon(
-                            //       Icons.add_box,
-                            //       color:
-                            //           AppTheme.colorPrimary.withOpacity(0.6),
-                            //     ))
-                          ],
+                        Container(
+                          // color: Colors.amber,
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 2.0, vertical: 2),
+                          child: Text(
+                            "2. Add photos of exceptional features or selling advantages",
+                          ),
                         ),
                         // SizedBox(
                         //   height: 10,
@@ -485,7 +473,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                     log('vjsdbvkjdfbjk --- ${_reltorProvider.roomTypes[_phdProvider.tabIndex].first.type!.name}');
                                     // log("snkdcksdkljdf === ${_phdProvider.selectRoomTypeFeature[_phdProvider.tabIndex]}");
                                     return Container(
-                                      width: size.width * 0.45 - 16,
+                                      // width: size.width * 0.54 - 16,
                                       // margin: EdgeInsets.symmetric(horizontal: 10),
                                       padding:
                                           EdgeInsets.symmetric(horizontal: 10),
@@ -496,8 +484,10 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                         child: DropdownButton<AddValueData>(
                                           borderRadius: BorderRadius.zero,
                                           underline: Container(),
-                                          hint: SizedBox(
-                                            width: size.width * 0.3 - 18,
+                                          hint: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 4.0),
+                                            // width: size.width * 0.4 - 18,
                                             child: Text(
                                               // _phdProvider.selectRoomTypeFeature
                                               //                 .length ==
@@ -523,15 +513,17 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                           ),
                                           items: _reltorProvider
                                               .roomTypes[_phdProvider.tabIndex]
-                                                  [index]
+                                                   [index]
                                               .type!
                                               .featureOptions!
                                               .map((value) {
                                             return DropdownMenuItem<
                                                 AddValueData>(
                                               value: value,
-                                              child: SizedBox(
-                                                  width: size.width * 0.27,
+                                              child: Container(
+                                                // color: Colors.amber,
+                                                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                                  // width: size.width * 0.27,
                                                   child: Text(
                                                     value.name.toString(),
                                                     // overflow:
@@ -554,16 +546,13 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                   },
                                 ),
                               ),
-                        Row(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              child: Text(
-                                "3. Are there any additional value added  items",
-                                maxLines: 2,
-                              ),
-                            ),
-                          ],
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 2.0, vertical: 2.0),
+                          child: Text(
+                            "3. Are there any additional value added  items",
+                          ),
                         ),
 
                         // Expanded(
@@ -2394,7 +2383,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                                     File('').toString()
                                                 ? SizedBox()
                                                 : GridView.builder(
-                                                  padding: EdgeInsets.zero,
+                                                    padding: EdgeInsets.zero,
                                                     physics:
                                                         NeverScrollableScrollPhysics(),
                                                     shrinkWrap: true,

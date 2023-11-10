@@ -34,6 +34,7 @@ const customer = 'customer_list';
 const featureIssues = 'featureoissueslist/';
 const create_project_realtor = "realtorprojects";
 const create_phd_realtor = "home-diagnostic-reports";
+const delete_phd_realtor = "realtor/project";
 const uploadimages_realtor = "realtorprojectsImages";
 const getImage = "getImage";
 const realtorcustomerproject = "realtorprojects/customers";

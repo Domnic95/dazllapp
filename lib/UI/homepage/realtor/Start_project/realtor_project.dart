@@ -223,12 +223,13 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        Navigator.pushReplacement(
+                                        Navigator.pushAndRemoveUntil(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 RealtorHomePage(),
                                           ),
+                                          (route) => false,
                                         );
                                       },
                                       child: Row(

@@ -118,7 +118,6 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
                                 _phdProvider.endRange.toDouble()),
                             min: 450,
                             max: 800,
-
                             semanticFormatterCallback: (rangeValues) {
                               return '${_phdProvider.startRange.round()} - ${_phdProvider.endRange.round()} dollars';
                             },
@@ -455,6 +454,7 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pop();
+                      // _housedata.reset();
                     },
                     child: Row(
                       children: [

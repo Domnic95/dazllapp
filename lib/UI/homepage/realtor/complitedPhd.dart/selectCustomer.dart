@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/complitedPhd.dart/complitedPhd.dart';
@@ -22,6 +24,7 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
   String selectedvalue = "Select Customer";
   TextEditingController customeremail = TextEditingController();
   ComplitedPhdProvider? _complitedPhdProvider;
+
   @override
   void initState() {
     super.initState();
@@ -44,10 +47,11 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
         : WillPopScope(
             onWillPop: () async {
               Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RealtorHomePage(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RealtorHomePage(),
+                ),
+              );
               return true;
             },
             child: Scaffold(
@@ -84,14 +88,41 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
                           child: Card(
                             child: Container(
                               height: 50,
-                              padding: EdgeInsets.only(left: 10),
+                              padding: EdgeInsets.only(left: 10, right: 15),
                               alignment: Alignment.centerLeft,
                               width: double.infinity,
                               color: Colors.grey.shade200,
-                              child: Text(
-                                realtorProvider
-                                    .filterProjectList[index].location!,
-                                overflow: TextOverflow.ellipsis,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      realtorProvider
+                                          .filterProjectList[index].location!,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      await _complitedPhdProvider!
+                                          .selectCustomer(realtorProvider
+                                              .filterProjectList[index]);
+                                      _complitedPhdProvider?.loadComplitedPhd(
+                                          ref: ref);
+
+                                      _complitedPhdProvider
+                                          ?.loader(Loading.complited);
+                                      deleteProjectDilouge(context);
+                                    },
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: primaryColor,
+                                      size: 20,
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           ),
@@ -104,46 +135,50 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   height: size.height * 0.09,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                      color: AppTheme.colorPrimary),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    color: AppTheme.colorPrimary,
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20.0),
                     child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => RealtorHomePage(),
-                                  ));
-                            },
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.arrow_back_ios,
-                                  size: 20,
-                                  color: AppTheme.white,
-                                ),
-                                Text(
-                                  "Previous",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        fontSize: 18,
-                                        color: lightColor.withOpacity(.9),
-                                      ),
-                                )
-                              ],
-                            ),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RealtorHomePage(),
+                              ),
+                              (route) => false,
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.arrow_back_ios,
+                                size: 20,
+                                color: AppTheme.white,
+                              ),
+                              Text(
+                                "Previous",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      fontSize: 18,
+                                      color: lightColor.withOpacity(.9),
+                                    ),
+                              )
+                            ],
                           ),
-                        ]),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
@@ -301,5 +336,75 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
               ]),
             ),
           );
+  }
+
+  deleteProjectDilouge(BuildContext context) async {
+    final realtorProvider = ref.read(realtorprovider);
+
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Delete Project',
+              style: TextStyle(
+                color: primaryColor,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Are you sure you want to delete this project ?',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
+        actionsPadding: EdgeInsets.all(8),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
+            child: Text(
+              'No',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
+            onPressed: () async {
+              log('value of that data is --.> ' +
+                  realtorProvider
+                      .singleComplitedPhdReport!.reports!.first.projectId!
+                      .toString());
+              await realtorProvider.deletePhdReport(
+                  realtorProvider
+                      .singleComplitedPhdReport!.reports!.first.projectId!,
+                  context);
+
+              load();
+              Navigator.pop(context);
+            },
+            child: Text(
+              'Yes',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

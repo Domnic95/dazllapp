@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 
 class RealtorNotifier extends BaseNotifier {
   List<Customer> listofcustomers = [];
-  List<String> flooringList = [];
+  List<String> flooringList = []; 
   List<List<Roomtype>> roomTypes = [];
   List<List<AddValueData>> addValueData = [];
   List<ProjectList> listofrealtorproject = [];
@@ -45,7 +45,9 @@ class RealtorNotifier extends BaseNotifier {
       Response res = await dioClient.getRequest(apiEnd: filter_project);
       filterProjectList =
           List.from(res.data).map((e) => FilterProject.fromJson(e)).toList();
-      filterProjectList.sort((a, b) => b.id!.compareTo(a.id!),);
+      filterProjectList.sort(
+        (a, b) => b.id!.compareTo(a.id!),
+      );
       notifyListeners();
       return filterProjectList;
     } catch (e) {
@@ -55,10 +57,17 @@ class RealtorNotifier extends BaseNotifier {
 
   Future getSingleComplitedPhd({required String id}) async {
     log("fhjdsjjsz === $id");
-    Response res =
-        await dioClient.getRequest(apiEnd: single_complited_phd_realtor + id);
-    singleComplitedPhdReport = GetComplitedPhdRealtor.fromJson(res.data);
-    notifyListeners();
+    try {
+      Response res =
+          await dioClient.getRequest(apiEnd: single_complited_phd_realtor + id);
+      singleComplitedPhdReport = GetComplitedPhdRealtor.fromJson(res.data);
+
+      log('delte id is this --. ' +
+          res.data['reports'][0]['project_id'].toString());
+      notifyListeners();
+    } catch (e) {
+      log('error is... ' + e.toString());
+    }
   }
 
   void reset() {
@@ -67,8 +76,9 @@ class RealtorNotifier extends BaseNotifier {
   }
 
   Future getRoomFeature(int roomId) async {
+    print("cndcndlcn   " + roomId.toString());
     Response res = await dioClient.getRequest(apiEnd: "$getroomfeature$roomId");
-
+    print("cndcndlcn" + res.toString());
     roomTypes.add(List.from(res.data["roomtype"] as List)
         .map((e) => Roomtype.fromJson(e))
         .toList());
@@ -94,6 +104,29 @@ class RealtorNotifier extends BaseNotifier {
         apiEnd: create_phd_realtor, Data: data);
     log("Response === ${res.statusCode}");
     return res;
+  }
+
+  Future<Response> deletePhdReport(int phdId, BuildContext context) async {
+    try {
+      Response res = await dioClient.deletewithRowData(
+          apiEnd: delete_phd_realtor + '/${phdId}');
+      log("Response === ${res.statusCode}");
+      if (res.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Delete Successfully'),
+          backgroundColor: primaryColor,
+        ));
+      }
+      return res;
+    } catch (e) {
+      Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Something Went to wrong!'),
+        backgroundColor: primaryColor,
+      ));
+
+      throw e;
+    }
   }
 
   Future uploadimagesrealtor(int projectId, List files) async {
@@ -151,17 +184,18 @@ class RealtorNotifier extends BaseNotifier {
     }
   }
 
-  Future gethousedata(
-      {String? address,
-      String? state,
-      String? pincode,
-      String? first_name,
-      String? Last_name,
-      String? ClientEmailAddress,
-      String? streetNum,
-      String? streetName,
-      String? streetType,
-      BuildContext? context}) async {
+  Future gethousedata({
+    String? address,
+    String? state,
+    String? pincode,
+    String? first_name,
+    String? Last_name,
+    String? ClientEmailAddress,
+    String? streetNum,
+    String? streetName,
+    String? streetType,
+    BuildContext? context,
+  }) async {
     Response res =
         await dioClient.getRequest(apiEnd: realtorhousedata, queryParameter: {
       "score": "100",

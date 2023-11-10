@@ -22,6 +22,8 @@ class ComplitedPhdProvider extends BaseNotifier {
     await ref
         .read(realtorprovider)
         .getSingleComplitedPhd(id: _selectedCustomer!.id.toString());
+    _loading = Loading.complited;
+    notifyListeners();
   }
 
   loader(Loading load) {
