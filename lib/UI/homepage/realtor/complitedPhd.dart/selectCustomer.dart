@@ -7,6 +7,7 @@ import 'package:dazllapp/UI/homepage/realtor/provider/complitedPhdProvider.dart'
 import 'package:dazllapp/UI/homepage/realtor/realtor_homepage.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
+import 'package:dazllapp/config/providers/realtor_notifier.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -24,16 +25,19 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
   String selectedvalue = "Select Customer";
   TextEditingController customeremail = TextEditingController();
   ComplitedPhdProvider? _complitedPhdProvider;
+  late RealtorNotifier _realtorProvider;
 
   @override
   void initState() {
     super.initState();
     _complitedPhdProvider = ref.read(complitedPhdProvider);
+    _realtorProvider = ref.read(realtorprovider);
     load();
   }
 
   load() async {
     await _complitedPhdProvider!.loadCustomer(ref: ref);
+    await _realtorProvider.getComplitedPhd();
     _complitedPhdProvider!.loader(Loading.complited);
   }
 
@@ -86,25 +90,43 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
                             );
                           },
                           child: Card(
-                            child: Container(
-                              height: 50,
-                              padding: EdgeInsets.only(left: 10, right: 15),
-                              alignment: Alignment.centerLeft,
-                              width: double.infinity,
-                              color: Colors.grey.shade200,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      realtorProvider
-                                          .filterProjectList[index].location!,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                ListTile(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 12),
+                                  title: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Property :',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(width: 8),
+                                      Expanded(
+                                        child: Text(
+                                          realtorProvider
+                                              .filterProjectList[index]
+                                              .location!
+                                              .toString(),
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            height: 1.4,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(width: 10),
-                                  GestureDetector(
+                                  horizontalTitleGap: 0,
+                                  trailing: GestureDetector(
                                     onTap: () async {
                                       await _complitedPhdProvider!
                                           .selectCustomer(realtorProvider
@@ -121,11 +143,53 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
                                       color: primaryColor,
                                       size: 20,
                                     ),
-                                  )
-                                ],
-                              ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
+
+                          // child: Card(
+                          //   child: Container(
+                          //     height: 50,
+                          //     padding: EdgeInsets.only(left: 10, right: 15),
+                          //     alignment: Alignment.centerLeft,
+                          //     width: double.infinity,
+                          //     color: Colors.grey.shade200,
+                          //     child: Row(
+                          //       mainAxisAlignment:
+                          //           MainAxisAlignment.spaceBetween,
+                          //       children: [
+                          //         Expanded(
+                          //           child: Text(
+                          //             realtorProvider
+                          //                 .filterProjectList[index].location!,
+                          //             overflow: TextOverflow.ellipsis,
+                          //           ),
+                          //         ),
+                          //         SizedBox(width: 10),
+                          //         GestureDetector(
+                          //           onTap: () async {
+                          //             await _complitedPhdProvider!
+                          //                 .selectCustomer(realtorProvider
+                          //                     .filterProjectList[index]);
+                          //             _complitedPhdProvider?.loadComplitedPhd(
+                          //                 ref: ref);
+
+                          //             _complitedPhdProvider
+                          //                 ?.loader(Loading.complited);
+                          //             deleteProjectDilouge(context);
+                          //           },
+                          //           child: Icon(
+                          //             Icons.delete,
+                          //             color: primaryColor,
+                          //             size: 20,
+                          //           ),
+                          //         )
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
                         ),
                       );
                     },

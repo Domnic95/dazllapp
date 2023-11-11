@@ -145,15 +145,15 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                                       .reports!
                                                       .isEmpty
                                                   ? ""
-                                                  : " ${_realtorProvider.singleComplitedPhdReport!.reports!.first.customer!.firstName} ${_realtorProvider.singleComplitedPhdReport!.reports!.first.customer!.lastName}"),
+                                                  : "${_realtorProvider.singleComplitedPhdReport!.reports!.first.customer!.firstName} ${_realtorProvider.singleComplitedPhdReport!.reports!.first.customer!.lastName}"),
                                           propertyDetailIteams(
-                                              key: "Email ",
+                                              key: "Email",
                                               value:
-                                                  " ${_complitedPhdProvider.selectedCustomer?.email}"),
+                                                  "${_complitedPhdProvider.selectedCustomer?.email}"),
                                           propertyDetailIteams(
-                                              key: "Property ",
+                                              key: "Property",
                                               value:
-                                                  " ${_complitedPhdProvider.selectedCustomer?.location ?? "Unknown"}"),
+                                                  "${_complitedPhdProvider.selectedCustomer?.location ?? "Unknown"}"),
                                         ],
                                       ),
                                     ),
@@ -1257,6 +1257,7 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "$key :",
@@ -1264,10 +1265,9 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
+          SizedBox(width: 3),
           Expanded(
             child: Text(value,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
                 style:
                     TextStyle(color: blackColor, fontWeight: FontWeight.bold)),
           )

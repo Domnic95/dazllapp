@@ -19,12 +19,13 @@ import 'package:flutter/material.dart';
 
 class RealtorNotifier extends BaseNotifier {
   List<Customer> listofcustomers = [];
-  List<String> flooringList = []; 
+  List<String> flooringList = [];
   List<List<Roomtype>> roomTypes = [];
   List<List<AddValueData>> addValueData = [];
   List<ProjectList> listofrealtorproject = [];
   List<FilterProject> filterProjectList = [];
   GetComplitedPhdRealtor? singleComplitedPhdReport;
+  GetComplitedPhdRealtor? complitedPhdReport;
   RealtorUser? realtorUser;
   Housedata? housedata;
 
@@ -61,6 +62,19 @@ class RealtorNotifier extends BaseNotifier {
       Response res =
           await dioClient.getRequest(apiEnd: single_complited_phd_realtor + id);
       singleComplitedPhdReport = GetComplitedPhdRealtor.fromJson(res.data);
+
+      log('delte id is this --. ' +
+          res.data['reports'][0]['project_id'].toString());
+      notifyListeners();
+    } catch (e) {
+      log('error is... ' + e.toString());
+    }
+  }
+
+  Future getComplitedPhd() async {
+    try {
+      Response res = await dioClient.getRequest(apiEnd: complited_phd_realtor);
+      complitedPhdReport = GetComplitedPhdRealtor.fromJson(res.data);
 
       log('delte id is this --. ' +
           res.data['reports'][0]['project_id'].toString());
