@@ -484,7 +484,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                       _realtorProvider.reset();
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Please Select Buyer Road Blocks.. '),
+                        content: Text('Something went wrong'),
                         backgroundColor: Colors.red.shade400,
                       ));
                     }

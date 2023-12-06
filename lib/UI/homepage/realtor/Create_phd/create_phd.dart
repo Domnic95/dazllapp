@@ -561,19 +561,19 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                             );
                           }
                         }
-                        Timer(Duration(seconds: 2), () {
-                          setState(() {
-                            _ClientEmailAddress.clear();
-                            _Last_name.clear();
-                            _first_name.clear();
-                            _propertynumber.clear();
-                            _propertyname.clear();
-                            _propertytype.clear();
-                            _pincodeController.clear();
-                            _cityController.clear();
-                            // _stateController.clear();
-                          });
-                        });
+                        // Timer(Duration(seconds: 2), () {
+                        //   setState(() {
+                        //     _ClientEmailAddress.clear();
+                        //     _Last_name.clear();
+                        //     _first_name.clear();
+                        //     _propertynumber.clear();
+                        //     _propertyname.clear();
+                        //     _propertytype.clear();
+                        //     _pincodeController.clear();
+                        //     _cityController.clear();
+                        //     // _stateController.clear();
+                        //   });
+                        // });
                         // Navigator.of(context).push(
                         //   MaterialPageRoute(
                         //     builder: (context) => CreateANewPhd(

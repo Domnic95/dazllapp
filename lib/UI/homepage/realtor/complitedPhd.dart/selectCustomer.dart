@@ -68,7 +68,7 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
                   height: 20,
                 ),
                 Expanded(
-                  child: ListView.builder(
+                  child:realtorProvider.filterProjectList.isEmpty?Center(child:  Text("No Project Found"),): ListView.builder(
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     itemCount: realtorProvider.filterProjectList.length,

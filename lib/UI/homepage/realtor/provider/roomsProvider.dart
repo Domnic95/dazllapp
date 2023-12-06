@@ -146,62 +146,36 @@ class RealtorRoomProvider extends BaseNotifier {
     final _roomsfeature = ref.read(customernotifier);
     await _roomsfeature.getRoomsFeature(roomid);
     await _roomsfeature.getFeatureOptionIssues();
-    listOfFeature.add(_roomsfeature.listOfFeature);
+    listOfFeature.insert(0, _roomsfeature.listOfFeature);
+    // listOfFeature.add(_roomsfeature.listOfFeature);
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
       // currentoptionselected[tabIndex].add('');
-      featurebool[listOfFeature.length - 1].add([]);
+      featurebool[listOfFeature.length - 1].insert(0, []);
       // currenoptionselectedid.add(0);
-      featureId[listOfFeature.length - 1].add(0);
+      featureId[listOfFeature.length - 1].insert(0, 0);
       DescrptionController[listOfFeature.length - 1]
-          .add(TextEditingController());
-      description[listOfFeature.length - 1].add('');
+          .insert(0, TextEditingController());
+      description[listOfFeature.length - 1].insert(0, '');
       // featureoptionid.add(0);
       // _PhotoDescrptionController.add(TextEditingController());
-      imgFile[listOfFeature.length - 1].add([]);
-      imagesList[listOfFeature.length - 1].add([]);
+      imgFile[listOfFeature.length - 1].insert(0, []);
+      imagesList[listOfFeature.length - 1].insert(0, []);
+
+      // // currentoptionselected[tabIndex].add('');
+      // featurebool[listOfFeature.length - 1].add([]);
+      // // currenoptionselectedid.add(0);
+      // featureId[listOfFeature.length - 1].add(0);
+      // DescrptionController[listOfFeature.length - 1]
+      //     .add(TextEditingController());
+      // description[listOfFeature.length - 1].add('');
+      // // featureoptionid.add(0);
+      // // _PhotoDescrptionController.add(TextEditingController());
+      // imgFile[listOfFeature.length - 1].add([]);
+      // imagesList[listOfFeature.length - 1].add([]);
     }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   FeatureissueName.add([]);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   FeatureissueId.add([]);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   featureissueId.add([]);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   featurebool.add([]);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   currenoptionselectedid.add(0);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   featureId.add(0);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   featureoptionid.add(0);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   _addphotodescription.add([]);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   _DescrptionController.add(TextEditingController());
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   _PhotoDescrptionController.add(TextEditingController());
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   imgFile.add([]);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   _addphotodescription.add([]);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   _description.add('');
-    // }
-    // setState(() {
+
     _loading = false;
-    // });
+
     notifyListeners();
   }
 

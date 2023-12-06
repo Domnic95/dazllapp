@@ -51,8 +51,13 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
     log("build Tab Controller");
     _roomProvider.loaddata(
         context, _roomProvider.roomIdList[_roomProvider.rooms.length - 1], ref);
-    _tabController =
-        TabController(length: _roomProvider.rooms.length, vsync: this);
+    _tabController = TabController(
+      length: _roomProvider.rooms.length,
+      vsync: this,
+      initialIndex: _roomProvider.rooms.length - 1 > 0
+          ? _roomProvider.rooms.length - 1
+          : 0,
+    );
   }
 
   List<Widget> buildTabs() {
@@ -210,7 +215,11 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                                         roomsNotifier: _roomsNotifier);
 
                                     buildTabController();
-                                    _roomProvider.setTabIndex(tabIndex: 0);
+                                    _roomProvider.setTabIndex(
+                                        tabIndex:
+                                            _roomProvider.rooms.length - 1 > 0
+          ? _roomProvider.rooms.length - 1
+          : 0,);
                                     setState1(() {});
 
                                     setState(() {});

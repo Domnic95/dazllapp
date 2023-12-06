@@ -357,7 +357,7 @@ class _Realtor_project_detailsState
                                               //   },
                                               // ),
                                               propertyDetailIteams(
-                                                  key: "Inspection Notes ",
+                                                  key: "Project Notes ",
                                                   value: Detailsprovider
                                                       .listofrealtorproject[
                                                           widget.index]

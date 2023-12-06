@@ -59,10 +59,7 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
     isLoading = true;
     super.initState();
     projectprovider = ref.read(customernotifier);
-    
   }
-
- 
 
   void loadData() async {
     for (int i = 0;
@@ -294,7 +291,7 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
                                                                       height:
                                                                           80,
                                                                       padding: const EdgeInsets
-                                                                              .only(
+                                                                          .only(
                                                                           right:
                                                                               3),
                                                                       child:

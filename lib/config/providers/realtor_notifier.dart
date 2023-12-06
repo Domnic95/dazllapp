@@ -62,12 +62,9 @@ class RealtorNotifier extends BaseNotifier {
       Response res =
           await dioClient.getRequest(apiEnd: single_complited_phd_realtor + id);
       singleComplitedPhdReport = GetComplitedPhdRealtor.fromJson(res.data);
-
-      log('delte id is this --. ' +
-          res.data['reports'][0]['project_id'].toString());
       notifyListeners();
     } catch (e) {
-      log('error is... ' + e.toString());
+      log('error is... zdxcf' + e.toString());
     }
   }
 
@@ -76,11 +73,11 @@ class RealtorNotifier extends BaseNotifier {
       Response res = await dioClient.getRequest(apiEnd: complited_phd_realtor);
       complitedPhdReport = GetComplitedPhdRealtor.fromJson(res.data);
 
-      log('delte id is this --. ' +
-          res.data['reports'][0]['project_id'].toString());
+      // log('delte id is this --. ' +
+      //     res.data['reports'][0]['project_id'].toString());
       notifyListeners();
     } catch (e) {
-      log('error is... ' + e.toString());
+      log('error is...' + e.toString());
     }
   }
 
@@ -188,7 +185,9 @@ class RealtorNotifier extends BaseNotifier {
       listofrealtorproject = List<ProjectList>.from(
           res.data['data'].map((x) => ProjectList.fromJson(x)));
       log("response === " + res.toString());
-
+      listofrealtorproject.sort(
+        (a, b) => b.projectId!.compareTo(a.projectId!),
+      );
       notifyListeners();
     } catch (e) {
       log("error ===" + e.toString());

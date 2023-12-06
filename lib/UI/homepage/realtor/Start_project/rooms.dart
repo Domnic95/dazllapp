@@ -53,8 +53,8 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
         context, _roomProvider.roomIdList[_roomProvider.rooms.length - 1], ref);
     _tabController = TabController(
       length: _roomProvider.rooms.length,
-      // initialIndex:
-      //     _roomProvider.rooms.length == 0 ? 0 : _roomProvider.rooms.length - 1,
+      initialIndex: 0,
+          // _roomProvider.rooms.length == 0 ? 0 : _roomProvider.rooms.length - 1,
       vsync: this,
     );
   }
@@ -63,10 +63,15 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
     // for (var i = 0; i < _phdProvider.rooms.length; i++) {
 
     if (_roomProvider.roomIdList.length - 1 == _tabs.length) {
-      _tabs.add(Tab(
-        text:
-            _roomProvider.rooms[_roomProvider.rooms.length - 1].name.toString(),
-      ));
+      _tabs.insert(
+          0,
+          Tab(
+            text: _roomProvider.rooms[_roomProvider.rooms.length - 1].name
+                .toString(),
+            // _tabs.add(Tab(
+            //   text:
+            //       _roomProvider.rooms[_roomProvider.rooms.length - 1].name.toString(),
+          ));
     }
     // }
     return _tabs;
@@ -74,7 +79,14 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
 
   List<Widget> buildTabView() {
     if (_roomProvider.roomIdList.length - 1 == _tabviews.length) {
-      _tabviews.add(Select_feature());
+      _tabviews.insert(0, Select_feature());
+      // _tabviews.add(Select_feature());
+      _roomProvider.setTabIndex(
+        tabIndex: 0,
+        // _roomProvider.rooms.length == 0
+        //     ? 0
+        //     : _roomProvider.rooms.length - 1,
+      );
     }
     return _tabviews;
   }
@@ -87,6 +99,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
   // List<Widget> buildTabs() {
   //   List<Widget> _tabs = [];
   //   for (var i = 0; i < _roomProvider.rooms.length; i++) {
+  //     _tabs.add(Tab(
   //     _tabs.add(Tab(
   //       text: _roomProvider.rooms[i].name.toString(),
   //       // child: Text(
@@ -162,8 +175,9 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
               onTap: (value) {
                 _roomProvider.setTabIndex(tabIndex: value);
               },
+            
               // automaticIndicatorColorAdjustment: true,
-              indicatorPadding: EdgeInsets.all(4),
+              indicatorPadding: EdgeInsets.all(6),
               indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(8), color: primaryColor),
               isScrollable: true,
@@ -214,7 +228,11 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                         roomsNotifier: _roomsNotifier);
 
                                     buildTabController();
-                                    _roomProvider.setTabIndex(tabIndex: 0);
+                                    _roomProvider.setTabIndex(
+                                        tabIndex: _roomProvider.rooms.length ==
+                                                0
+                                            ? 0
+                                            : _roomProvider.rooms.length - 1);
                                     setState1(() {});
 
                                     setState(() {});
@@ -289,7 +307,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                 );
               });
         },
-        label: Text('Add Room'),
+        label: Text('Finalize Report'),
         // child: Icon(
         //   Icons.add,
         //   color: lightColor,
@@ -440,16 +458,18 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                               .createprojectrealtor(_roomProvider.listData)
                               .then((value) {
                             Utils.loaderDialog(context, false);
+
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text('Project created sucessfully'),
                               backgroundColor: teamColor,
                             ));
                             _roomProvider.reset();
                             Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Realtor_project()),
-                                (route) => false);
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Realtor_project()),
+                              (route) => false,
+                            );
                             log('message ${value.toString()}');
                           });
                           // }
@@ -482,7 +502,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                           Row(
                         children: [
                           Text(
-                            "Next",
+                            "Next Area",
                             style:
                                 Theme.of(context).textTheme.bodyText1!.copyWith(
                                       fontSize: 18,
