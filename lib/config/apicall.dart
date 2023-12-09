@@ -104,10 +104,8 @@ class DioClient {
 }
 
 Dio dio = Dio(BaseOptions(baseUrl: base_url));
-Future<String> login(
-    index, email, password, context, keepmelogin, WidgetRef ref) async {
-  SpHelpers.setBool(SharedPrefsKeys.key_keep_me_logged_in, keepmelogin);
-  SpHelpers.setInt(SharedPrefsKeys.key_current, index);
+Future<String> login(index, String email, String password, BuildContext context,
+    keepmelogin, WidgetRef ref) async {
   String url = login_realtor;
   try {
     switch (index) {
@@ -141,6 +139,8 @@ Future<String> login(
         });
     print(response.data);
     if (response.statusCode == 200) {
+      SpHelpers.setBool(SharedPrefsKeys.key_keep_me_logged_in, keepmelogin);
+      SpHelpers.setInt(SharedPrefsKeys.key_current, index);
       index == 0
           ? SpHelpers.setPref(SharedPrefsKeys.Realtor_id,
               response.data['data']['id'].toString())
@@ -203,6 +203,7 @@ Future<String> login(
       print('fail');
     }
   } catch (e) {
+    loading = false;
     //print((e as DioError).response!.data.toString());
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text((e as DioError).response!.data['message']),

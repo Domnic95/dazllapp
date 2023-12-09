@@ -450,8 +450,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           setState(() {});
           await login(
               ref.read(serviceProviders).curruntindex,
-              _emailController.text,
-              _passwordController.text,
+              _emailController.text.trim(),
+              _passwordController.text.trim(),
               context,
               keep_me_logged_in,
               ref);

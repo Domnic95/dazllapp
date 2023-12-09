@@ -69,23 +69,29 @@ class ProfessionalNotifier extends BaseNotifier {
   }
 
   Future getProjectOpportunities() async {
-    Response res = await dioClient.getRequest(
-      apiEnd: project_opportunities + "/1",
-    );
-    if (res.statusCode == 200) {
-      projectOpportunities = ProjectOpportunities.fromJson(res.data);
-      _pageSize = projectOpportunities!.data!.pages!;
-      projectList = List.from(res.data['data']['final'])
-          .map((e) => Final.fromJson(e))
-          .toList();
-    } else {
-      // Navigator.of(context!).pop();
-      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //     content: Text("No Data Found for this house with this address")));
+    try {
+      Response res = await dioClient.getRequest(
+        apiEnd: project_opportunities + "/1",
+      );
+      if (res.statusCode == 200) {
+        log("lshjkbjk   " + res.data.toString());
+
+        projectOpportunities = ProjectOpportunities.fromJson(res.data);
+        _pageSize = projectOpportunities!.data!.pages!;
+        projectList = List.from(res.data['data']['final'])
+            .map((e) => Final.fromJson(e))
+            .toList();
+      } else {
+        // Navigator.of(context!).pop();
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //     content: Text("No Data Found for this house with this address")));
+      }
+      log("lshjkbjk   " + res.data.toString());
+      log("lshjkbjkcbdjks   " + projectList.toString());
+      notifyListeners();
+    } catch (e) {
+      log('error for getProjectOpportunities is ' + e.toString());
     }
-    log("lshjkbjk   " + res.data.toString());
-    log("lshjkbjkcbdjks   " + projectList.toString());
-    notifyListeners();
   }
 
   Future<List<Final>> getProjectOpportunitiesWithPagination(
