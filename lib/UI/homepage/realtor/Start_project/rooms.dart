@@ -50,11 +50,11 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
   buildTabController() {
     log("build Tab Controller");
     _roomProvider.loaddata(
-        context, _roomProvider.roomIdList[_roomProvider.rooms.length - 1], ref);
+        context, _roomProvider.roomIdList[0], ref);
     _tabController = TabController(
       length: _roomProvider.rooms.length,
       initialIndex: 0,
-          // _roomProvider.rooms.length == 0 ? 0 : _roomProvider.rooms.length - 1,
+      // _roomProvider.rooms.length == 0 ? 0 : _roomProvider.rooms.length - 1,
       vsync: this,
     );
   }
@@ -66,7 +66,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
       _tabs.insert(
           0,
           Tab(
-            text: _roomProvider.rooms[_roomProvider.rooms.length - 1].name
+            text: _roomProvider.rooms[0].name
                 .toString(),
             // _tabs.add(Tab(
             //   text:
@@ -81,7 +81,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
     if (_roomProvider.roomIdList.length - 1 == _tabviews.length) {
       _tabviews.insert(0, Select_feature());
       // _tabviews.add(Select_feature());
-      _roomProvider.setTabIndex(
+      _roomProvider.setTabIndexInitialy(
         tabIndex: 0,
         // _roomProvider.rooms.length == 0
         //     ? 0
@@ -133,7 +133,6 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final roomProvider = ref.watch(realtorRoomsProvider);
-    log('bcshjsbdhjcbjkd ${_roomProvider.select[_roomProvider.tabIndex]}');
     return Scaffold(
       // appBar: AppBar(
       //   title: Container(
@@ -175,9 +174,10 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
               onTap: (value) {
                 _roomProvider.setTabIndex(tabIndex: value);
               },
-            
-              // automaticIndicatorColorAdjustment: true,
-              indicatorPadding: EdgeInsets.all(6),
+              indicatorPadding: EdgeInsets.all(3),
+              labelColor: lightColor,
+              automaticIndicatorColorAdjustment: true,
+              indicatorSize: TabBarIndicatorSize.tab,
               indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(8), color: primaryColor),
               isScrollable: true,
@@ -229,10 +229,12 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
 
                                     buildTabController();
                                     _roomProvider.setTabIndex(
-                                        tabIndex: _roomProvider.rooms.length ==
-                                                0
-                                            ? 0
-                                            : _roomProvider.rooms.length - 1);
+                                        tabIndex: 0);
+                                    // _roomProvider.setTabIndex(
+                                    //     tabIndex: _roomProvider.rooms.length ==
+                                    //             0
+                                    //         ? 0
+                                    //         : _roomProvider.rooms.length - 1);
                                     setState1(() {});
 
                                     setState(() {});

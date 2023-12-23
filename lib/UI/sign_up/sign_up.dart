@@ -404,6 +404,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                   Row(
                                     children: [
                                       Checkbox(
+                                          checkColor: lightColor,
                                           activeColor: primaryColor,
                                           value: realtor_month,
                                           onChanged: (v) {
@@ -431,6 +432,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                   Row(
                                     children: [
                                       Checkbox(
+                                          checkColor: lightColor,
                                           activeColor: primaryColor,
                                           value: realtor_year,
                                           onChanged: (v) {
@@ -851,6 +853,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(0),
                                   child: Checkbox(
+                                      checkColor: lightColor,
                                       activeColor: primaryColor,
                                       value: professional_month,
                                       onChanged: (v) {
@@ -881,6 +884,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(0),
                                   child: Checkbox(
+                                      checkColor: lightColor,
                                       activeColor: primaryColor,
                                       value: professional_year,
                                       onChanged: (v) {

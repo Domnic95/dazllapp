@@ -121,10 +121,14 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                 // setState(() {});
               },
               // automaticIndicatorColorAdjustment: true,
-              indicatorPadding: EdgeInsets.all(4),
+              indicatorPadding: EdgeInsets.all(3),
+              labelColor: lightColor,
+              automaticIndicatorColorAdjustment: true,
+              indicatorSize: TabBarIndicatorSize.tab,
               indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(8), color: primaryColor),
               isScrollable: true,
+              // labelStyle: TextStyle(color: lightColor),
               controller: _tabController,
               tabs: buildTabs(),
             ),

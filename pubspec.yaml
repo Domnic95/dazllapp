@@ -46,7 +46,7 @@ dependencies:
   map_autocomplete_field: ^0.0.2
   percent_indicator: ^4.2.3
   intl: ^0.18.1
-  cached_network_image: ^3.2.3
+  cached_network_image: ^3.3.0
   infinite_scroll_pagination: ^3.2.0
   flutter_svg: ^1.1.6
   pdf: ^3.8.2 

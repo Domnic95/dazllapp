@@ -77,6 +77,11 @@ class MyApp extends StatelessWidget {
           //     statusBarColor: primaryColor,
           //   ),
           // ),
+          inputDecorationTheme: InputDecorationTheme(
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey)),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: blackColor))),
           textTheme: TextTheme(
             bodyText1: TextStyle(color: darkTextColor, letterSpacing: .5),
             bodyText2: TextStyle(
@@ -85,9 +90,20 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.w500),
           ),
           dividerColor: Colors.transparent,
-          colorScheme: ColorScheme.fromSwatch(
-                  primarySwatch: MaterialColor(0xffef4444, primaryColors))
-              .copyWith(secondary: primaryColor),
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+              primaryContainer: lightColor,
+              secondaryContainer: lightColor,
+              onPrimary: primaryColor,
+              background: lightColor,
+              onSecondaryContainer: lightColor,
+              secondary: primaryColor,
+              primary: primaryColor,
+              onBackground: lightColor,
+              surfaceTint: lightColor,
+              brightness: Brightness.light),
+          // colorScheme: ColorScheme.fromSwatch(
+          //         primarySwatch: MaterialColor(0xffef4444, primaryColors))
+          //     .copyWith(secondary: primaryColor),
         ),
         routes: {},
         home: Welcome()
@@ -217,7 +233,7 @@ class _WelcomeState extends State<Welcome> {
 }
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({Key? key}): super(key: key);
+  MyHomePage({Key? key}) : super(key: key);
 
   final List<String> tags = [
     "love",

@@ -98,7 +98,7 @@ class ProfessionalNotifier extends BaseNotifier {
       int pageIndex) async {
     try {
       String api = project_opportunities + "/" + pageIndex.toString();
-
+      log("dkkdgkgdk===== $api");
       Response res = await dioClient.getRequest(
         apiEnd: api,
       );

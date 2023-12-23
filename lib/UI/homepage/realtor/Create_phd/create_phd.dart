@@ -62,7 +62,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
             CommonHeader(title: 'Create a Phd', isback: false),
             Expanded(
               child: ListView(
-                 padding: EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(10.0),
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,8 +113,14 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                               color: const Color(0xFF424242),
                               fontFamily: AppTheme.fontName,
                               fontSize: 14),
-                          border: OutlineInputBorder(
+                          enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: primaryColor),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: secondaryTextColor),
                           ),
                         ),
                       ),
@@ -307,9 +313,15 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                       //         color: const Color(0xFF424242),
                       //         fontFamily: AppTheme.fontName,
                       //         fontSize: 14),
-                      //     border: OutlineInputBorder(
-                      //       borderSide: BorderSide(color: Colors.black),
-                      //     ),
+                      //  enabledBorder: OutlineInputBorder(
+                      //         borderSide: BorderSide(color: Colors.black),
+                      //       ),
+                      //       errorBorder: OutlineInputBorder(
+                      //         borderSide: BorderSide(color: primaryColor),
+                      //       ),
+                      //        border: OutlineInputBorder(
+                      //         borderSide: BorderSide(color: secondaryTextColor),
+                      //       ),
                       //   ),
                       // ),
                       SizedBox(
@@ -373,8 +385,14 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                               color: const Color(0xFF424242),
                               fontFamily: AppTheme.fontName,
                               fontSize: 14),
-                          border: OutlineInputBorder(
+                          enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: primaryColor),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: secondaryTextColor),
                           ),
                         ),
                       ),
@@ -405,8 +423,14 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                               color: const Color(0xFF424242),
                               fontFamily: AppTheme.fontName,
                               fontSize: 14),
-                          border: OutlineInputBorder(
+                          enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: primaryColor),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: secondaryTextColor),
                           ),
                         ),
                       ),
@@ -422,8 +446,16 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                           setState(() {});
                         },
                         decoration: InputDecoration(
-                          errorText:
-                              isEmailValid ? null : "Email not valid",
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: primaryColor),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: secondaryTextColor),
+                          ),
+                          errorText: isEmailValid ? null : "Email not valid",
                           hintText: "Enter Client's Address",
                           label: Text("CLIENT'S PRIMARY EMAIL ADDRESS"),
                           isDense: true,
@@ -438,9 +470,6 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                               color: const Color(0xFF424242),
                               fontFamily: AppTheme.fontName,
                               fontSize: 14),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                          ),
                         ),
                       ),
                       SizedBox(
@@ -457,7 +486,8 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                             ),
                             children: [
                               TextSpan(
-                                text: 'Your Clients will receive an email from dazlpro.com asking them if they would like to sign up for a free user account. This will allow them to create projects and receive the PHD report.',
+                                text:
+                                    'Your Clients will receive an email from dazlpro.com asking them if they would like to sign up for a free user account. This will allow them to create projects and receive the PHD report.',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   color: Colors.black,
@@ -540,7 +570,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                                 //     _pincodeController.text +
                                 //     '), ' +
                                 //     _stateController.text
-              
+
                                 firstname: _first_name.text,
                                 lastname: _Last_name.text,
                                 clientemail: _ClientEmailAddress.text);

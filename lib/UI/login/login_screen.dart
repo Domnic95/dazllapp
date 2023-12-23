@@ -264,8 +264,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: size.height * 0.03),
-              SizedBox(height: size.height * 0.03),
+              SizedBox(height: size.height * 0.06),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: ButtonTheme(
@@ -320,8 +319,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               color: const Color(0xFF424242),
                               fontFamily: AppTheme.fontName,
                               fontSize: 15),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: new BorderSide(color: blackColor)),
                           border: new UnderlineInputBorder(
-                              borderSide: new BorderSide(color: Colors.red))),
+                              borderSide: new BorderSide(color: primaryColor))),
                     ),
                   ),
                   SizedBox(height: size.height * 0.03),
@@ -344,8 +345,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             color: const Color(0xFF424242),
                             fontFamily: AppTheme.fontName,
                             fontSize: 12),
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: new BorderSide(color: blackColor)),
                         border: new UnderlineInputBorder(
-                            borderSide: new BorderSide(color: Colors.red)),
+                            borderSide: new BorderSide(color: primaryColor)),
                         suffixIcon: GestureDetector(
                           onTap: () {
                             _togglevisibility();
@@ -354,7 +357,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             _showPassword
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: Colors.red,
+                            color: primaryColor,
                           ),
                         ),
                       ),
@@ -369,6 +372,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         child: Row(
                           children: [
                             Checkbox(
+                                checkColor: lightColor,
                                 activeColor: primaryColor,
                                 value: keep_me_logged_in,
                                 onChanged: (v) {

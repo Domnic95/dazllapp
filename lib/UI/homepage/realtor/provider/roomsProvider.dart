@@ -44,19 +44,19 @@ class RealtorRoomProvider extends BaseNotifier {
   void init({required int roomid, required CustomerNotifier roomsNotifier}) {
     final room =
         roomsNotifier.listOfRoom.where((element) => element.id == roomid);
-    _rooms.add(room.first);
-    _roomIdList.add(roomid);
+    _rooms.insert(0, room.first);
+    _roomIdList.insert(0, roomid);
     // log("asjflsfldslk===   $roomIdList");
-    featureId.add([]);
-    featurebool.add([]);
-    imgFile.add([]);
-    imagesList.add([]);
-    featureoptionid.add([]);
-    select.add([]);
-    selectcheckbox.add([]);
-    _DescrptionController.add([]);
-    _description.add([]);
-    isSet.add(false);
+    featureId.insert(0, []);
+    featurebool.insert(0, []);
+    imgFile.insert(0, []);
+    imagesList.insert(0, []);
+    featureoptionid.insert(0, []);
+    select.insert(0, []);
+    selectcheckbox.insert(0, []);
+    _DescrptionController.insert(0, []);
+    _description.insert(0, []);
+    isSet.insert(0, false);
   }
 
   onSelect(int index) {
@@ -100,6 +100,11 @@ class RealtorRoomProvider extends BaseNotifier {
   set(bool value, int index) {
     isSet[index] = value;
     notifyListeners();
+  }
+
+  void setTabIndexInitialy({required int tabIndex}) {
+    _tabIndex = tabIndex;
+    // notifyListeners();
   }
 
   void setTabIndex({required int tabIndex}) {
@@ -150,16 +155,15 @@ class RealtorRoomProvider extends BaseNotifier {
     // listOfFeature.add(_roomsfeature.listOfFeature);
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
       // currentoptionselected[tabIndex].add('');
-      featurebool[listOfFeature.length - 1].insert(0, []);
+      featurebool[0].insert(0, []);
       // currenoptionselectedid.add(0);
-      featureId[listOfFeature.length - 1].insert(0, 0);
-      DescrptionController[listOfFeature.length - 1]
-          .insert(0, TextEditingController());
-      description[listOfFeature.length - 1].insert(0, '');
+      featureId[0].insert(0, 0);
+      DescrptionController[0].insert(0, TextEditingController());
+      description[0].insert(0, '');
       // featureoptionid.add(0);
       // _PhotoDescrptionController.add(TextEditingController());
-      imgFile[listOfFeature.length - 1].insert(0, []);
-      imagesList[listOfFeature.length - 1].insert(0, []);
+      imgFile[0].insert(0, []);
+      imagesList[0].insert(0, []);
 
       // // currentoptionselected[tabIndex].add('');
       // featurebool[listOfFeature.length - 1].add([]);
@@ -182,16 +186,16 @@ class RealtorRoomProvider extends BaseNotifier {
   void addRoom({required int roomid, required CustomerNotifier roomsNotifier}) {
     final room =
         roomsNotifier.listOfRoom.where((element) => element.id == roomid);
-    _rooms.add(room.first);
-    featureId.add([]);
-    featurebool.add([]);
-    imgFile.add([]);
-    imagesList.add([]);
-    featureoptionid.add([]);
-    select.add([]);
-    selectcheckbox.add([]);
-    _DescrptionController.add([]);
-    _description.add([]);
+    _rooms.insert(0, room.first);
+    featureId.insert(0, []);
+    featurebool.insert(0, []);
+    imgFile.insert(0, []);
+    imagesList.insert(0, []);
+    featureoptionid.insert(0, []);
+    select.insert(0, []);
+    selectcheckbox.insert(0, []);
+    _DescrptionController.insert(0, []);
+    _description.insert(0, []);
     notifyListeners();
   }
 

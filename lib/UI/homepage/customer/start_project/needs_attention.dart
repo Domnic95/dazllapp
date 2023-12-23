@@ -177,7 +177,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                             children: [
                               Row(
                                 children: [
-                                  Checkbox(
+                                  Checkbox(checkColor: lightColor,
                                       activeColor: AppTheme.colorPrimary,
                                       value: _roomProvider
                                           .select[_roomProvider.tabIndex]

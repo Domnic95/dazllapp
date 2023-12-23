@@ -42,21 +42,22 @@ class RoomProvider extends BaseNotifier {
 
   List<List<RoomFeature>> listOfFeature = [];
   void init({required int roomid, required CustomerNotifier roomsNotifier}) {
+    log("init");
     final room =
         roomsNotifier.listOfRoom.where((element) => element.id == roomid);
-    _rooms.add(room.first);
-    _roomIdList.add(roomid);
+    _rooms.insert(0, room.first);
+    _roomIdList.insert(0, roomid);
     // log("asjflsfldslk===   $roomIdList");
-    featureId.add([]);
-    featurebool.add([]);
-    imgFile.add([]);
-    imagesList.add([]);
-    featureoptionid.add([]);
-    select.add([]);
-    selectcheckbox.add([]);
-    _DescrptionController.add([]);
-    _description.add([]);
-    isSet.add(false);
+    featureId.insert(0, []);
+    featurebool.insert(0, []);
+    imgFile.insert(0, []);
+    imagesList.insert(0, []);
+    featureoptionid.insert(0, []);
+    select.insert(0, []);
+    selectcheckbox.insert(0, []);
+    _DescrptionController.insert(0, []);
+    _description.insert(0, []);
+    isSet.insert(0, false);
   }
 
   set(bool value, int index) {
@@ -112,82 +113,40 @@ class RoomProvider extends BaseNotifier {
 
   loaddata(BuildContext context, int roomid, WidgetRef ref) async {
     _loading = true;
-
+    log('loaddata');
     final _roomsfeature = ref.read(customernotifier);
     await _roomsfeature.getRoomsFeature(roomid);
     await _roomsfeature.getFeatureOptionIssues();
-    listOfFeature.add(_roomsfeature.listOfFeature);
+    listOfFeature.insert(0, _roomsfeature.listOfFeature);
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
       // currentoptionselected[tabIndex].add('');
-      featurebool[listOfFeature.length - 1].add([]);
+      featurebool[0].insert(0, []);
       // currenoptionselectedid.add(0);
-      featureId[listOfFeature.length - 1].add(0);
-      DescrptionController[listOfFeature.length - 1]
-          .add(TextEditingController());
-      description[listOfFeature.length - 1].add('');
+      featureId[0].insert(0, 0);
+      DescrptionController[0].insert(0, TextEditingController());
+      description[0].insert(0, '');
       // featureoptionid.add(0);
       // _PhotoDescrptionController.add(TextEditingController());
-      imgFile[listOfFeature.length - 1].add([]);
-      imagesList[listOfFeature.length - 1].add([]);
+      imgFile[0].insert(0, []);
+      imagesList[0].insert(0, []);
     }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   FeatureissueName.add([]);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   FeatureissueId.add([]);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   featureissueId.add([]);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   featurebool.add([]);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   currenoptionselectedid.add(0);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   featureId.add(0);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   featureoptionid.add(0);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   _addphotodescription.add([]);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   _DescrptionController.add(TextEditingController());
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   _PhotoDescrptionController.add(TextEditingController());
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   imgFile.add([]);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   _addphotodescription.add([]);
-    // }
-    // for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-    //   _description.add('');
-    // }
-    // setState(() {
     _loading = false;
-    // });
     notifyListeners();
   }
 
   void addRoom({required int roomid, required CustomerNotifier roomsNotifier}) {
     final room =
         roomsNotifier.listOfRoom.where((element) => element.id == roomid);
-    _rooms.add(room.first);
-    featureId.add([]);
-    featurebool.add([]);
-    imgFile.add([]);
-    imagesList.add([]);
-    featureoptionid.add([]);
-    select.add([]);
-    selectcheckbox.add([]);
-    _DescrptionController.add([]);
-    _description.add([]);
+    _rooms.insert(0, room.first);
+    featureId.insert(0, []);
+    featurebool.insert(0, []);
+    imgFile.insert(0, []);
+    imagesList.insert(0, []);
+    featureoptionid.insert(0, []);
+    select.insert(0, []);
+    selectcheckbox.insert(0, []);
+    _DescrptionController.insert(0, []);
+    _description.insert(0, []);
     notifyListeners();
   }
 

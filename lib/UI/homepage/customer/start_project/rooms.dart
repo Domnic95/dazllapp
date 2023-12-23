@@ -49,14 +49,13 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
 
   buildTabController() {
     log("build Tab Controller");
-    _roomProvider.loaddata(
-        context, _roomProvider.roomIdList[_roomProvider.rooms.length - 1], ref);
+    _roomProvider.loaddata(context, _roomProvider.roomIdList[0], ref);
     _tabController = TabController(
       length: _roomProvider.rooms.length,
       vsync: this,
-      initialIndex: _roomProvider.rooms.length - 1 > 0
-          ? _roomProvider.rooms.length - 1
-          : 0,
+      // initialIndex: _roomProvider.rooms.length - 1 > 0
+      //     ? _roomProvider.rooms.length - 1
+      //     : 0,
     );
   }
 
@@ -64,10 +63,11 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
     // for (var i = 0; i < _phdProvider.rooms.length; i++) {
 
     if (_roomProvider.roomIdList.length - 1 == _tabs.length) {
-      _tabs.add(Tab(
-        text:
-            _roomProvider.rooms[_roomProvider.rooms.length - 1].name.toString(),
-      ));
+      _tabs.insert(
+          0,
+          Tab(
+            text: _roomProvider.rooms[0].name.toString(),
+          ));
     }
     // }
     return _tabs;
@@ -75,7 +75,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
 
   List<Widget> buildTabView() {
     if (_roomProvider.roomIdList.length - 1 == _tabviews.length) {
-      _tabviews.add(NeedAttention());
+      _tabviews.insert(0, NeedAttention());
     }
     return _tabviews;
   }
@@ -163,8 +163,10 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
               onTap: (value) {
                 _roomProvider.setTabIndex(tabIndex: value);
               },
-              // automaticIndicatorColorAdjustment: true,
-              indicatorPadding: EdgeInsets.all(4),
+              indicatorPadding: EdgeInsets.all(3),
+              labelColor: lightColor,
+              automaticIndicatorColorAdjustment: true,
+              indicatorSize: TabBarIndicatorSize.tab,
               indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(8), color: primaryColor),
               isScrollable: true,
@@ -216,10 +218,14 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
 
                                     buildTabController();
                                     _roomProvider.setTabIndex(
-                                        tabIndex:
-                                            _roomProvider.rooms.length - 1 > 0
-          ? _roomProvider.rooms.length - 1
-          : 0,);
+                                      tabIndex: 0,
+                                    );
+                                    // _roomProvider.setTabIndex(
+                                    //   tabIndex:
+                                    //       _roomProvider.rooms.length - 1 > 0
+                                    //           ? _roomProvider.rooms.length - 1
+                                    //           : 0,
+                                    // );
                                     setState1(() {});
 
                                     setState(() {});

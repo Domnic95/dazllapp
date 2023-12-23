@@ -211,7 +211,7 @@ logoutdilouge(BuildContext context) {
             },
             child: Text('No')),
         ElevatedButton(
-            style: ElevatedButton.styleFrom(primary: Colors.red),
+            style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
             onPressed: () {
               logOut(context);
             },
@@ -452,9 +452,7 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                             Navigator.of(context).pop();
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
-                                  builder: (context) => LoginScreen(
-                               
-                                  ),
+                                  builder: (context) => LoginScreen(),
                                 ),
                                 (route) => false);
                             ScaffoldMessenger.of(context).showSnackBar(

@@ -187,7 +187,7 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                           children: [
                             Row(
                               children: [
-                                Checkbox(
+                                Checkbox(checkColor: lightColor,
                                     activeColor: AppTheme.colorPrimary,
                                     value: _roomProvider
                                         .select[_roomProvider.tabIndex]

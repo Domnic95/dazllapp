@@ -61,7 +61,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                   children: [
                     SizedBox(width: 20,height: 20,
                       child: Checkbox(
-                        splashRadius: 5,
+                        splashRadius: 5,checkColor: lightColor,
                         activeColor: AppTheme.colorPrimary,
                         value: _phdProvider.hasBasement,
                         onChanged: (value) {
@@ -553,7 +553,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                         return Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Checkbox(
+                            Checkbox(checkColor: lightColor,
                               activeColor: AppTheme.colorPrimary,
                               value:
                                   _phdProvider.selectedaddValueData[
