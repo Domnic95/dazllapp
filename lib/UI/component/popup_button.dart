@@ -58,7 +58,7 @@ class _PopupButtonState extends ConsumerState<PopupButton> {
               ),
               Text(
                 'Change Password',
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 15),
               )
             ],
           ),

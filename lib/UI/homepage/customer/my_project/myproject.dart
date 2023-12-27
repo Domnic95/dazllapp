@@ -562,7 +562,7 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                                                       "feature_id": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subIndex].featureId,
                                                                                                       "images": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subIndex].images ?? <String>[]
                                                                                                     }, projectId: projectprovider!.listofproject[widgetIndex].projectId!).then((value) {
-                                                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${value["message"]}")));
+                                                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.green, content: Text("${value["message"]}")));
                                                                                                     });
                                                                                                     await ref.read(customernotifier).myproject();
                                                                                                     loadData(widgetIndex);
@@ -586,12 +586,19 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                                                         children: [
                                                                                                           Icon(
                                                                                                             isEdit[widgetIndex][index][subIndex] ? Icons.save : Icons.edit,
+                                                                                                            color: lightColor,
                                                                                                             size: 18,
                                                                                                           ),
                                                                                                           SizedBox(
                                                                                                             width: 8,
                                                                                                           ),
-                                                                                                          Text(isEdit[widgetIndex][index][subIndex] ? "Save" : "Edit"),
+                                                                                                          Text(
+                                                                                                            isEdit[widgetIndex][index][subIndex] ? "Save" : "Edit",
+                                                                                                            style: TextStyle(
+                                                                                                              color: lightColor,
+                                                                                                              fontWeight: FontWeight.w700,
+                                                                                                            ),
+                                                                                                          ),
                                                                                                         ],
                                                                                                       )),
                                                                                           ),
@@ -615,7 +622,7 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                                                     "feature_id": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subIndex].featureId,
                                                                                                     "images": <String>[]
                                                                                                   }, projectId: projectprovider!.listofproject[widgetIndex].projectId!).then((value) {
-                                                                                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${value["message"]}")));
+                                                                                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: primaryColor, content: Text("${value["message"]}")));
                                                                                                   });
                                                                                                   await ref.read(customernotifier).myproject();
                                                                                                   loadData(widgetIndex);
@@ -635,12 +642,19 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                                                         children: [
                                                                                                           Icon(
                                                                                                             Icons.delete,
+                                                                                                            color: lightColor,
                                                                                                             size: 18,
                                                                                                           ),
                                                                                                           SizedBox(
                                                                                                             width: 8,
                                                                                                           ),
-                                                                                                          Text("Delete"),
+                                                                                                          Text(
+                                                                                                            "Delete",
+                                                                                                            style: TextStyle(
+                                                                                                              color: lightColor,
+                                                                                                              fontWeight: FontWeight.w700,
+                                                                                                            ),
+                                                                                                          ),
                                                                                                         ],
                                                                                                       )),
                                                                                           )

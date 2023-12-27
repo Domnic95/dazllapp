@@ -163,6 +163,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
               onTap: (value) {
                 _roomProvider.setTabIndex(tabIndex: value);
               },
+              tabAlignment: TabAlignment.start,
               indicatorPadding: EdgeInsets.all(3),
               labelColor: lightColor,
               automaticIndicatorColorAdjustment: true,

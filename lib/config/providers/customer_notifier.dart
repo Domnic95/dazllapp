@@ -47,6 +47,7 @@ class CustomerNotifier extends BaseNotifier {
     listOfFeature = List<RoomFeature>.from(
         res.data['data'].map((x) => RoomFeature.fromJson(x)));
     log("listOfFeature == $listOfFeature");
+    log("listOfFeature == ${listOfFeature.length}");
     notifyListeners();
   }
 

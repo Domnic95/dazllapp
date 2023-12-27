@@ -53,14 +53,11 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
 
   buildTabController(int index) {
     log("build Tab Controller   ");
-    _phdProvider.loaddata(
-        context, _phdProvider.roomIdList[_phdProvider.rooms.length - 1], ref);
+    _phdProvider.loaddata(context, _phdProvider.roomIdList[0], ref);
     _tabController = TabController(
-        length: _phdProvider.rooms.length,
-        initialIndex: _phdProvider.rooms.length - 1,
-        vsync: this);
+        length: _phdProvider.rooms.length, initialIndex: 0, vsync: this);
     log("tab index === ${_tabController.index}");
-    _tabController.animateTo(_tabController.index);
+    // _tabController.animateTo(_tabController.index);
     if (mounted) {
       setState(() {});
     }
@@ -70,16 +67,18 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
     // for (var i = 0; i < _phdProvider.rooms.length; i++) {
     // log("tab index === ${_tabController.index}");
     if (_phdProvider.roomIdList.length - 1 == _tabs.length) {
-      _tabs.add(Tab(
-        text: _phdProvider.rooms[_phdProvider.rooms.length - 1].name.toString(),
-        // child: Text(
-        //   _roomProvider.rooms[i].name.toString(),
-        //   overflow: TextOverflow.ellipsis,
-        //   maxLines: 2,
-        //   style: TextStyle(color: Colors.black),
-        // ),
-        // icon: Icon(Icons.cloud_outlined),
-      ));
+      _tabs.insert(
+          0,
+          Tab(
+            text: _phdProvider.rooms[0].name.toString(),
+            // child: Text(
+            //   _roomProvider.rooms[i].name.toString(),
+            //   overflow: TextOverflow.ellipsis,
+            //   maxLines: 2,
+            //   style: TextStyle(color: Colors.black),
+            // ),
+            // icon: Icon(Icons.cloud_outlined),
+          ));
     }
     // }
 
@@ -91,7 +90,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
     // for (var i = 0; i < _phdProvider.rooms.length; i++) {
 
     if (_phdProvider.roomIdList.length - 1 == _tabviews.length) {
-      _tabviews.add(SelectFeature(
+      _tabviews.insert(0, SelectFeature(
         setState: () {
           setState(() {});
         },
@@ -120,6 +119,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                 log("message====  ${_tabController.index}");
                 // setState(() {});
               },
+              tabAlignment: TabAlignment.start,
               // automaticIndicatorColorAdjustment: true,
               indicatorPadding: EdgeInsets.all(3),
               labelColor: lightColor,
@@ -175,14 +175,13 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
+                                    _phdProvider.setTabIndex(tabIndex: 0);
                                     _phdProvider.init(
                                         roomid:
                                             _roomsfeature.listOfRoom[index].id,
                                         roomsNotifier: _roomsfeature);
-                                    _phdProvider.setTabIndex(
-                                        tabIndex:
-                                            _phdProvider.rooms.length - 1);
-                                    buildTabController(_phdProvider.tabIndex);
+
+                                    buildTabController(0);
                                     // buildTabs();
                                     // buildTabView();
                                     setState1(() {});
@@ -353,6 +352,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                     // "customer_id": 1,
                     "mid_price": '500',
                     "true": 'true',
+                    "final": 1,
                     // "tr
                     //ue": 'true',
                     // "phd_description": phdDes.toString(),
@@ -384,6 +384,8 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
 
                     if (_phdProvider
                         .selectedFristImpressionList[i].isNotEmpty) {
+                      // data["rooms[${_phdProvider.roomIdList[i]}][feature_status][89]}"] =
+                      //     _phdProvider.selectedFristImpressionList[i];
                       data["rooms[${_phdProvider.roomIdList[i]}][status]"] =
                           _phdProvider.selectedFristImpressionList[i];
                     }
@@ -402,7 +404,8 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                     //   // "rooms[7][feature_issues_images_descr][1]": "test",
                     //   // "rooms[7][feature_status][2]": "NEEDS DAZL",
                     //   // "rooms[7][feature_issues_images][2][0]":
-                    //   //     "https://res.cloudinary.com/dev-gnome/image/upload/v1679384273/jcwbxoykbh8xw2lpd6gk.svg",
+                    //   
+                    ////     "https://res.cloudinary.com/dev-gnome/image/upload/v1679384273/jcwbxoykbh8xw2lpd6gk.svg",
                     //   // "rooms[7][feature_issues_images_descr][2]": "teswt",
                     //   // "rooms[3][feature_type][1]": 2,
                     //   // "rooms[3][additional][1]": 12,
@@ -436,12 +439,14 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                       for (int j = 0;
                           j < _phdProvider.featureId[i].length;
                           j++) {
+                            // ${_phdProvider.featureId[i][j]}
+                             data["rooms[${_phdProvider.roomIdList[i]}][feature_status][89]"] =
+                              _phdProvider.selectedFristImpressionList[i];
                         if (_phdProvider.featureId[i][j] != 0 &&
                             // _phdProvider
                             //     .DescrptionController2[i][j].text.isNotEmpty &&
                             _phdProvider.imagesList[i][j].isNotEmpty) {
-                          data["rooms[${_phdProvider.roomIdList[i]}][feature_status][${_phdProvider.featureId[i][j]}]"] =
-                              _phdProvider.selectedFristImpressionList[i];
+                         
                           data["rooms[${_phdProvider.roomIdList[i]}][feature_issues_images_descr][${_phdProvider.featureId[i][j]}]"] =
                               _phdProvider.DescrptionController2[i][j].text;
 

@@ -49,8 +49,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
 
   buildTabController() {
     log("build Tab Controller");
-    _roomProvider.loaddata(
-        context, _roomProvider.roomIdList[0], ref);
+    _roomProvider.loaddata(context, _roomProvider.roomIdList[0], ref);
     _tabController = TabController(
       length: _roomProvider.rooms.length,
       initialIndex: 0,
@@ -66,8 +65,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
       _tabs.insert(
           0,
           Tab(
-            text: _roomProvider.rooms[0].name
-                .toString(),
+            text: _roomProvider.rooms[0].name.toString(),
             // _tabs.add(Tab(
             //   text:
             //       _roomProvider.rooms[_roomProvider.rooms.length - 1].name.toString(),
@@ -174,6 +172,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
               onTap: (value) {
                 _roomProvider.setTabIndex(tabIndex: value);
               },
+              tabAlignment: TabAlignment.start,
               indicatorPadding: EdgeInsets.all(3),
               labelColor: lightColor,
               automaticIndicatorColorAdjustment: true,
@@ -228,8 +227,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                         roomsNotifier: _roomsNotifier);
 
                                     buildTabController();
-                                    _roomProvider.setTabIndex(
-                                        tabIndex: 0);
+                                    _roomProvider.setTabIndex(tabIndex: 0);
                                     // _roomProvider.setTabIndex(
                                     //     tabIndex: _roomProvider.rooms.length ==
                                     //             0

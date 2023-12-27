@@ -390,7 +390,7 @@ class FeatureOptionsElement {
 class FeatureElement {
   final String? featureName;
   final int? featureId;
-  final String? bidStatus;
+  late final String? bidStatus;
   final String? featureoption;
   final String? featureissue;
   final String? inspectionNotes;

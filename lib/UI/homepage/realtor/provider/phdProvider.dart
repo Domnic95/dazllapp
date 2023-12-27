@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dazllapp/config/providers/base_notifier.dart';
 import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
+import 'package:dazllapp/model/Customer/Features.dart';
 import 'package:dazllapp/model/Customer/Rooms.dart';
 import 'package:dazllapp/model/Realtor/getRoomFeature.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +63,7 @@ class PhdProvider extends BaseNotifier {
   List<List<bool>> _selectedaddValueData = [];
   List<List<bool>> get selectedaddValueData => _selectedaddValueData;
   List<String> fristImpressionList = ["DAZLING", "MARKET READY", "NEEDS DAZL"];
+  List<List<RoomFeature>> phdListOfFeature = [];
   String fristImpression = "DAZLING";
   List<String> selectedFristImpressionList = [];
   String address = "";
@@ -80,7 +82,7 @@ class PhdProvider extends BaseNotifier {
   }
 
   void selectRoomType(AddValueData data, int index) {
-    _selectRoomTypeFeature[_tabIndex][index] = data;
+    _selectRoomTypeFeature[0][index] = data;
     log('vjksdbvkjskj--  selectroom ---- ${_selectRoomTypeFeature[_tabIndex][index]}');
     notifyListeners();
   }
@@ -108,25 +110,25 @@ class PhdProvider extends BaseNotifier {
   void init({required int roomid, required CustomerNotifier roomsNotifier}) {
     final room =
         roomsNotifier.listOfRoom.where((element) => element.id == roomid);
-    _rooms.add(room.first);
-    _roomIdList.add(roomid);
+    _rooms.insert(0, room.first);
+    _roomIdList.insert(0, roomid);
     // // log("asjflsfldslk===   $roomIdList");
-    featureId.add([]);
-    featurebool.add([]);
-    imgFile.add([]);
-    imagesList.add([]);
-    mainImgFile.add([]);
-    mainImgList.add([]);
-    _selectRoomTypeFeature.add([]);
-    _selectedaddValueData.add([]);
-    selectedFristImpressionList.add('DAZLING');
+    featureId.insert(0, []);
+    featurebool.insert(0, []);
+    imgFile.insert(0, []);
+    imagesList.insert(0, []);
+    mainImgFile.insert(0, []);
+    mainImgList.insert(0, []);
+    _selectRoomTypeFeature.insert(0, []);
+    _selectedaddValueData.insert(0, []);
+    selectedFristImpressionList.insert(0, 'DAZLING');
     // featureoptionid.add([]);
-    select.add([]);
-    selectedCheckbox.add([]);
-    _DescrptionController2.add([]);
-    _DescrptionController.add(TextEditingController());
+    select.insert(0, []);
+    selectedCheckbox.insert(0, []);
+    _DescrptionController2.insert(0, []);
+    _DescrptionController.insert(0, TextEditingController());
     // _description.add([]);
-    isSet.add(false);
+    isSet.insert(0, false);
   }
 
   void setTabIndex({required int tabIndex}) {
@@ -157,6 +159,7 @@ class PhdProvider extends BaseNotifier {
   }
 
   void resetData() {
+    phdListOfFeature.clear();
     _rooms.clear();
     _roomIdList.clear();
     _selectRoomTypeFeature.clear();
@@ -191,21 +194,22 @@ class PhdProvider extends BaseNotifier {
     // _roomProvider.roomTypes[_tabIndex].last.type!;
     for (var i = 0; i < _roomProvider.roomTypes[_tabIndex].length; i++) {
       _selectRoomTypeFeature[_tabIndex]
-          .add(_roomProvider.roomTypes[_tabIndex][i].type!);
+          .insert(0, _roomProvider.roomTypes[_tabIndex][i].type!);
       // _selectRoomTypeFeature[_tabIndex]=_roomProvider.roomTypes[_tabIndex].;
     }
     for (var i = 0; i < _roomProvider.addValueData[_tabIndex].length; i++) {
-      _selectedaddValueData[_tabIndex].add(false);
+      _selectedaddValueData[_tabIndex].insert(0, false);
     }
+    phdListOfFeature.insert(0, _roomsfeature.listOfFeature);
     for (int i = 0; i < _roomsfeature.listOfFeature.length; i++) {
-      select.add([]);
+      select.insert(0, []);
       // _description2.add('');
-      _DescrptionController2[tabIndex].add(TextEditingController());
+      _DescrptionController2[tabIndex].insert(0, TextEditingController());
       // DataLoding[tabIndex].add(false);
-      imgFile[tabIndex].add([]);
-      imagesList[tabIndex].add([]);
-      featureId[tabIndex].add(0);
-      featurebool[tabIndex].add([]);
+      imgFile[tabIndex].insert(0, []);
+      imagesList[tabIndex].insert(0, []);
+      featureId[tabIndex].insert(0, 0);
+      featurebool[tabIndex].insert(0, []);
     }
     status = Status.complited;
     notifyListeners();

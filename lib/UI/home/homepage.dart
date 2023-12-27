@@ -202,22 +202,35 @@ logoutdilouge(BuildContext context) {
   return showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
-      title: Text('Are You Sure to want to logout?'),
+      title: Text(
+        'Are You Sure to want to logout?',
+        style: TextStyle(
+          color: primaryColor,
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
       actionsPadding: EdgeInsets.all(8),
       actions: [
         ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text('No')),
+            child: Text(
+              'No',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            )),
         ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
+            style: ElevatedButton.styleFrom( backgroundColor: primaryColor),
             onPressed: () {
               logOut(context);
             },
             child: Text(
               'Yes',
-              style: TextStyle(color: Colors.white),
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
             ))
       ],
     ),
@@ -242,9 +255,18 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
         backgroundColor: Colors.transparent,
         body: StatefulBuilder(builder: (context, setstate) {
           return AlertDialog(
-            title: Text('Change Password'),
+            title: Text(
+              'Change Password',
+              style: TextStyle(
+                color: primaryColor,
+                fontSize: 22,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            titlePadding:
+                EdgeInsets.symmetric(vertical: 18.0, horizontal: 16.0),
             actionsPadding: EdgeInsets.zero,
-            contentPadding: EdgeInsets.all(10),
+            contentPadding: EdgeInsets.all(15),
             actions: [
               Padding(
                 padding: EdgeInsets.only(
@@ -279,14 +301,19 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                     labelStyle: TextStyle(color: Colors.black),
                     hintStyle: TextStyle(fontSize: 16),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      // borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
+                        color: blackColor,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      // borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(
+                        color: blackColor,
                       ),
                     ),
                     filled: true,
-                    contentPadding: EdgeInsets.all(16),
+                    contentPadding: EdgeInsets.all(12),
                     // fillColor: Colors.grey,
                   ),
                 ),
@@ -297,6 +324,8 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
               Padding(
                 padding: EdgeInsets.only(
                   left: 10,
+                  top: 10,
+                  bottom: 10,
                   right: 10,
                 ),
                 child: TextField(
@@ -327,14 +356,19 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                     labelStyle: TextStyle(color: Colors.black),
                     hintStyle: TextStyle(fontSize: 16),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      // borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
+                        color: blackColor,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      // borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(
+                        color: blackColor,
                       ),
                     ),
                     filled: true,
-                    contentPadding: EdgeInsets.all(16),
+                    contentPadding: EdgeInsets.all(12),
                     // fillColor: Colors.grey,
                   ),
                 ),
@@ -375,14 +409,19 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                     labelStyle: TextStyle(color: Colors.black),
                     hintStyle: TextStyle(fontSize: 16),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      // borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
+                        color: blackColor,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      // borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(
+                        color: blackColor,
                       ),
                     ),
                     filled: true,
-                    contentPadding: EdgeInsets.all(16),
+                    contentPadding: EdgeInsets.all(12),
                     // fillColor: Colors.grey,
                   ),
                 ),
@@ -399,15 +438,25 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryColor),
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text('Cancel'),
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
                     SizedBox(
                       width: 10,
                     ),
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryColor),
                       onPressed: () async {
                         if (Oldpassword.text.isEmpty) {
                           ScaffoldMessenger.of(dailogcontext).showSnackBar(
@@ -477,7 +526,10 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                       },
                       child: Text(
                         'Change Password',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     )
                   ],
