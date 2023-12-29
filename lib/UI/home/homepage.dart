@@ -223,7 +223,7 @@ logoutdilouge(BuildContext context) {
                   TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
             )),
         ElevatedButton(
-            style: ElevatedButton.styleFrom( backgroundColor: primaryColor),
+            style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
             onPressed: () {
               logOut(context);
             },
@@ -293,7 +293,7 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                         showoldpassword
                             ? Icons.visibility
                             : Icons.visibility_off,
-                        color: Colors.black,
+                        color: primaryColor,
                       ),
                     ),
                     // label: Text("Old Password"),
@@ -348,7 +348,7 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                         shownewpassword
                             ? Icons.visibility
                             : Icons.visibility_off,
-                        color: Colors.black,
+                        color: primaryColor,
                       ),
                     ),
                     // label: Text("Old Password"),
@@ -401,7 +401,7 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                         showconfirmpassword
                             ? Icons.visibility
                             : Icons.visibility_off,
-                        color: Colors.black,
+                        color: primaryColor,
                       ),
                     ),
                     // label: Text("Old Password"),
@@ -461,6 +461,7 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                         if (Oldpassword.text.isEmpty) {
                           ScaffoldMessenger.of(dailogcontext).showSnackBar(
                             SnackBar(
+                              backgroundColor: Colors.red,
                               content: Text(
                                 "Enter Old Password",
                               ),
@@ -469,6 +470,7 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                         } else if (Newpassword.text.isEmpty) {
                           ScaffoldMessenger.of(dailogcontext).showSnackBar(
                             SnackBar(
+                            backgroundColor: Colors.red,
                               content: Text(
                                 "Enter New Password",
                               ),
@@ -476,7 +478,7 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                           );
                         } else if (Confirmpassword.text.isEmpty) {
                           ScaffoldMessenger.of(dailogcontext).showSnackBar(
-                            SnackBar(
+                            SnackBar(backgroundColor: Colors.red,
                               content: Text(
                                 "Enter Confirm Password",
                               ),
@@ -485,6 +487,7 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                         } else if (Newpassword.text != Confirmpassword.text) {
                           ScaffoldMessenger.of(dailogcontext).showSnackBar(
                             SnackBar(
+                              backgroundColor: Colors.red,
                               content: Text(
                                 "Password does not match",
                               ),
@@ -516,6 +519,7 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                             // Navigator.of(context).pop();
                             ScaffoldMessenger.of(dailogcontext).showSnackBar(
                               SnackBar(
+                                 backgroundColor: Colors.red,
                                 content: Text(
                                   res.data["message"],
                                 ),

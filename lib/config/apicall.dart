@@ -171,8 +171,11 @@ Future<String> login(index, String email, String password, BuildContext context,
         // log("kskfksdkjfkjd === ${realtorUserData!.firstName!}");
         SpHelpers.setString(SharedPrefsKeys.realtorUser,
             jsonEncode(realtorNotifier.realtorUser));
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => RealtorHomePage()));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => RealtorHomePage()),
+          (route) => false,
+        );
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Login Sucessfully'), backgroundColor: Colors.green));
       } else if (index == 1) {
@@ -182,8 +185,11 @@ Future<String> login(index, String email, String password, BuildContext context,
             SharedPrefsKeys.Prof_id, response.data['data']['id'].toString());
         SpHelpers.setPref(
             SharedPrefsKeys.profetionalUser, jsonEncode(response.data));
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => ProfessionalsHomepage()));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => ProfessionalsHomepage()),
+          (route) => false,
+        );
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Login Sucessfully'),
           backgroundColor: Colors.green,
@@ -193,8 +199,11 @@ Future<String> login(index, String email, String password, BuildContext context,
         customerUserData = CustomerUserModel.fromJson(response.data);
         SpHelpers.setString(
             SharedPrefsKeys.customerUser, jsonEncode(customerUserData));
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => CustomerHomepage()));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => CustomerHomepage()),
+          (route) => false,
+        );
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Login Sucessfully'), backgroundColor: Colors.green));
       }

@@ -197,13 +197,27 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                               BorderRadius.vertical(top: Radius.circular(15))),
                       child: Column(
                         children: [
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(Icons.close)),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 6.0, left: 14.0, right: 6.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Add Room',
+                                  style: TextStyle(
+                                    color: primaryColor,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    icon: Icon(Icons.close)),
+                              ],
+                            ),
                           ),
                           Expanded(
                             child: ListView.builder(
@@ -234,36 +248,22 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0, vertical: 4),
+                                        horizontal: 8.0, vertical: 6.0),
                                     child: Card(
-                                      shape: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
+                                      color: AppTheme.light_grey,
+                                      // shape: OutlineInputBorder(
+                                      //     borderRadius:
+                                      //         BorderRadius.circular(8)),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: ListTile(
-                                          contentPadding: EdgeInsets.zero,
-                                          // leading: _roomsNotifier
-                                          //             .listOfRoom[index]
-                                          //             .image ==
-                                          //         ""
-                                          //     ? Image.asset(
-                                          //         'assets/images/noimage.png',
-                                          //         width: 70,
-                                          //         color: primaryColor,
-                                          //       )
-                                          //     : Image.network(
-                                          //         _roomsNotifier
-                                          //             .listOfRoom[index].image
-                                          //             .toString(),
-                                          //         width: 50,
-                                          //         color: primaryColor,
-                                          //       ),
-                                          title: Text(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12.0, vertical: 15.0),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
                                             "${_roomsNotifier.listOfRoom[index].name}",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1!
+                                                .bodyLarge!
                                                 .copyWith(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 16,
@@ -274,6 +274,48 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                                       ),
                                     ),
                                   ),
+                                  // child: Padding(
+                                  //   padding: const EdgeInsets.symmetric(
+                                  //       horizontal: 8.0, vertical: 4),
+                                  //   child: Card(
+                                  //     shape: OutlineInputBorder(
+                                  //         borderRadius:
+                                  //             BorderRadius.circular(8)),
+                                  //     child: Padding(
+                                  //       padding: const EdgeInsets.all(8.0),
+                                  //       child: ListTile(
+                                  //         contentPadding: EdgeInsets.zero,
+                                  //         // leading: _roomsNotifier
+                                  //         //             .listOfRoom[index]
+                                  //         //             .image ==
+                                  //         //         ""
+                                  //         //     ? Image.asset(
+                                  //         //         'assets/images/noimage.png',
+                                  //         //         width: 70,
+                                  //         //         color: primaryColor,
+                                  //         //       )
+                                  //         //     : Image.network(
+                                  //         //         _roomsNotifier
+                                  //         //             .listOfRoom[index].image
+                                  //         //             .toString(),
+                                  //         //         width: 50,
+                                  //         //         color: primaryColor,
+                                  //         //       ),
+                                  //         title: Text(
+                                  //           "${_roomsNotifier.listOfRoom[index].name}",
+                                  //           style: Theme.of(context)
+                                  //               .textTheme
+                                  //               .bodyText1!
+                                  //               .copyWith(
+                                  //                 fontWeight: FontWeight.bold,
+                                  //                 fontSize: 16,
+                                  //                 color: primaryColor,
+                                  //               ),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 );
                               },
                             ),

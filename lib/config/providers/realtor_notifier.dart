@@ -268,7 +268,7 @@ class RealtorNotifier extends BaseNotifier {
       housedata = Housedata.fromJson(res.data);
     } else {
       Navigator.of(context!).pop();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: primaryColor,
           content: Text("No Data Found for this house with this address")));
     }
     // log("lshjkbjk"+res.data.toString());

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/complitedPhd.dart/complitedPhd.dart';

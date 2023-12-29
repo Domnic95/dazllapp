@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/Select_Feature.dart';
-import 'package:dazllapp/UI/homepage/realtor/Create_phd/Select_room.dart';
 import 'package:dazllapp/UI/homepage/realtor/complitedPhd.dart/selectCustomer.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/phdProvider.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
@@ -160,13 +159,27 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                               BorderRadius.vertical(top: Radius.circular(15))),
                       child: Column(
                         children: [
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(Icons.close)),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 6.0, left: 14.0,right: 6.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Add Room',
+                                  style: TextStyle(
+                                    color: primaryColor,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    icon: Icon(Icons.close)),
+                              ],
+                            ),
                           ),
                           Expanded(
                             child: ListView.builder(
@@ -404,7 +417,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                     //   // "rooms[7][feature_issues_images_descr][1]": "test",
                     //   // "rooms[7][feature_status][2]": "NEEDS DAZL",
                     //   // "rooms[7][feature_issues_images][2][0]":
-                    //   
+                    //
                     ////     "https://res.cloudinary.com/dev-gnome/image/upload/v1679384273/jcwbxoykbh8xw2lpd6gk.svg",
                     //   // "rooms[7][feature_issues_images_descr][2]": "teswt",
                     //   // "rooms[3][feature_type][1]": 2,
@@ -439,14 +452,13 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                       for (int j = 0;
                           j < _phdProvider.featureId[i].length;
                           j++) {
-                            // ${_phdProvider.featureId[i][j]}
-                             data["rooms[${_phdProvider.roomIdList[i]}][feature_status][89]"] =
-                              _phdProvider.selectedFristImpressionList[i];
+                        // ${_phdProvider.featureId[i][j]}
+                        data["rooms[${_phdProvider.roomIdList[i]}][feature_status][89]"] =
+                            _phdProvider.selectedFristImpressionList[i];
                         if (_phdProvider.featureId[i][j] != 0 &&
                             // _phdProvider
                             //     .DescrptionController2[i][j].text.isNotEmpty &&
                             _phdProvider.imagesList[i][j].isNotEmpty) {
-                         
                           data["rooms[${_phdProvider.roomIdList[i]}][feature_issues_images_descr][${_phdProvider.featureId[i][j]}]"] =
                               _phdProvider.DescrptionController2[i][j].text;
 

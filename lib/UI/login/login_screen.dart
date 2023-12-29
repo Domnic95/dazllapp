@@ -390,7 +390,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                       ),
                       Padding(
-                          padding: EdgeInsets.only(left: 15, right: 15),
+                          padding: EdgeInsets.only(left: 15, right: 24),
                           child: InkWell(
                               onTap: () {
                                 Navigator.push(
@@ -406,9 +406,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   fontSize:
-                                      AppTheme.textTheme.bodyText1!.fontSize,
+                                      15,
                                   fontFamily: AppTheme.fontName,
-                                  color: Colors.blue,
+                                  color: primaryColor,
                                   decoration: TextDecoration.underline,
                                 ),
                               )))

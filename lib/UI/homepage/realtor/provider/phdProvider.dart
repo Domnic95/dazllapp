@@ -85,7 +85,7 @@ class PhdProvider extends BaseNotifier {
     _selectRoomTypeFeature[0][index] = data;
     log('vjksdbvkjskj--  selectroom ---- ${_selectRoomTypeFeature[_tabIndex][index]}');
     notifyListeners();
-  }
+  } 
 
   void SelectAddValueData(bool value, int index) {
     selectedaddValueData[_tabIndex][index] = value;
