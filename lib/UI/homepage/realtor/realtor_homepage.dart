@@ -5,7 +5,8 @@ import 'package:dazllapp/UI/component/popup_button.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/create_phd.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/realtor_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/start_project.dart';
-import 'package:dazllapp/UI/homepage/realtor/complitedPhd.dart/selectCustomer.dart';
+import 'package:dazllapp/UI/homepage/realtor/complitedPhd/selectCustomer.dart';
+import 'package:dazllapp/UI/homepage/realtor/savePhd/SelectSavePhd.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/model/selection.dart';
@@ -74,7 +75,11 @@ class _RealtorHomePageState extends ConsumerState<RealtorHomePage> {
                         builder: (context) => Start_project(
                             // customerid: customerid!,
                             )));
-                  } else if (index == 5) {
+                  } else if (index == 4) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => SelectSavePhd(),
+                    ));
+                  }else if (index == 5) {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => Realtor_project(),
                     ));
@@ -93,6 +98,7 @@ class _RealtorHomePageState extends ConsumerState<RealtorHomePage> {
                         width: 80,
                         color: AppTheme.colorPrimary,
                       ),
+                      SizedBox(height: 10),
                       Text(
                         Selections[index].name,
                         textAlign: TextAlign.center,
@@ -131,7 +137,7 @@ List<Selection> Selections = [
   ),
   Selection(
     image: "assets/images/document.png",
-    name: "My documents",
+    name: "Saved phd",
   ),
   Selection(
     image: "assets/images/inspire.png",

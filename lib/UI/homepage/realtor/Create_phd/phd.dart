@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/Select_Feature.dart';
-import 'package:dazllapp/UI/homepage/realtor/complitedPhd.dart/selectCustomer.dart';
+import 'package:dazllapp/UI/homepage/realtor/complitedPhd/selectCustomer.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/phdProvider.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
 import 'package:dazllapp/config/app_theme.dart';
