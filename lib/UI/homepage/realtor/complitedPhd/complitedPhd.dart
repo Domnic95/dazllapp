@@ -843,6 +843,10 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                                           Row(
                                                             children: [
                                                               Checkbox(
+                                                                checkColor:
+                                                                    lightColor,
+                                                                activeColor:
+                                                                    primaryColor,
                                                                 value: _realtorProvider
                                                                             .singleComplitedPhdReport!
                                                                             .reports!
@@ -854,7 +858,40 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                                                     ? true
                                                                     : false,
                                                                 onChanged:
-                                                                    (value) {},
+                                                                    (value) async {
+                                                                  await _realtorProvider
+                                                                      .updateBidStatus(
+                                                                    projectId: _realtorProvider
+                                                                        .singleComplitedPhdReport!
+                                                                        .reports!
+                                                                        .first
+                                                                        .projectId!,
+                                                                    featureId: _realtorProvider
+                                                                        .singleComplitedPhdReport!
+                                                                        .reports!
+                                                                        .first
+                                                                        .roominfo![
+                                                                            index]
+                                                                        .feature![
+                                                                            index1]
+                                                                        .featureId!,
+                                                                    roomId: _realtorProvider
+                                                                        .singleComplitedPhdReport!
+                                                                        .reports!
+                                                                        .first
+                                                                        .roominfo![
+                                                                            index]
+                                                                        .roomId!,
+                                                                    bidStatus:
+                                                                        'Bid',
+                                                                  );
+                                                                  await _complitedPhdProvider
+                                                                      .loadComplitedPhd(
+                                                                          ref:
+                                                                              ref);
+                                                                  setState(
+                                                                      () {});
+                                                                },
                                                               ),
                                                               Text("Bid"),
                                                             ],
@@ -862,6 +899,10 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                                           Row(
                                                             children: [
                                                               Checkbox(
+                                                                checkColor:
+                                                                    lightColor,
+                                                                activeColor:
+                                                                    primaryColor,
                                                                 value: _realtorProvider
                                                                             .singleComplitedPhdReport!
                                                                             .reports!
@@ -873,7 +914,42 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                                                     ? true
                                                                     : false,
                                                                 onChanged:
-                                                                    (value) {},
+                                                                    (value) async {
+                                                                  
+                                                                  
+                                                                 await _realtorProvider
+                                                                      .updateBidStatus(
+                                                                    projectId: _realtorProvider
+                                                                        .singleComplitedPhdReport!
+                                                                        .reports!
+                                                                        .first
+                                                                        .projectId!,
+                                                                    featureId: _realtorProvider
+                                                                        .singleComplitedPhdReport!
+                                                                        .reports!
+                                                                        .first
+                                                                        .roominfo![
+                                                                            index]
+                                                                        .feature![
+                                                                            index1]
+                                                                        .featureId!,
+                                                                    roomId: _realtorProvider
+                                                                        .singleComplitedPhdReport!
+                                                                        .reports!
+                                                                        .first
+                                                                        .roominfo![
+                                                                            index]
+                                                                        .roomId!,
+                                                                    bidStatus:
+                                                                        'D.I.Y',
+                                                                  );
+                                                                 await _complitedPhdProvider
+                                                                      .loadComplitedPhd(
+                                                                          ref:
+                                                                              ref);
+                                                                  setState(
+                                                                      () {});
+                                                                },
                                                               ),
                                                               Text("D.I.Y"),
                                                             ],
@@ -881,6 +957,10 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                                           Row(
                                                             children: [
                                                               Checkbox(
+                                                                checkColor:
+                                                                    lightColor,
+                                                                activeColor:
+                                                                    primaryColor,
                                                                 value: _realtorProvider
                                                                             .singleComplitedPhdReport!
                                                                             .reports!
@@ -892,7 +972,40 @@ class _ComplitedPhdState extends ConsumerState<ComplitedPhd> {
                                                                     ? true
                                                                     : false,
                                                                 onChanged:
-                                                                    (value) {},
+                                                                    (value) async {
+                                                                 await _realtorProvider
+                                                                      .updateBidStatus(
+                                                                    projectId: _realtorProvider
+                                                                        .singleComplitedPhdReport!
+                                                                        .reports!
+                                                                        .first
+                                                                        .projectId!,
+                                                                    featureId: _realtorProvider
+                                                                        .singleComplitedPhdReport!
+                                                                        .reports!
+                                                                        .first
+                                                                        .roominfo![
+                                                                            index]
+                                                                        .feature![
+                                                                            index1]
+                                                                        .featureId!,
+                                                                    roomId: _realtorProvider
+                                                                        .singleComplitedPhdReport!
+                                                                        .reports!
+                                                                        .first
+                                                                        .roominfo![
+                                                                            index]
+                                                                        .roomId!,
+                                                                    bidStatus:
+                                                                        'Pass',
+                                                                  );
+                                                                await _complitedPhdProvider
+                                                                      .loadComplitedPhd(
+                                                                          ref:
+                                                                              ref);
+                                                                  setState(
+                                                                      () {});
+                                                                },
                                                               ),
                                                               Text("Pass"),
                                                             ],

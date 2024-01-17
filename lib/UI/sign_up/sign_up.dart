@@ -1711,10 +1711,14 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             title: Center(
               child: Text(
                 "Select Option",
+                style: TextStyle(
+                  color: primaryColor,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
             content: Container(
-              height: MediaQuery.of(context).size.height / 8,
+              height: MediaQuery.of(context).size.height * .08,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

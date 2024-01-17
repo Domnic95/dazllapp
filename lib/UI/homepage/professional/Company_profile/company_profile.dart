@@ -187,8 +187,11 @@ class _CompanyProfileState extends ConsumerState<CompanyProfile> {
                                       ),
                                     ),
                                     subtitle: _profileNotifier
-                                                .professionalData.name ==
-                                            ''
+                                                    .professionalData.name ==
+                                                '' ||
+                                            _profileNotifier
+                                                    .professionalData.name ==
+                                                null
                                         ? Text(
                                             'Add your Name',
                                             style: TextStyle(
@@ -223,8 +226,11 @@ class _CompanyProfileState extends ConsumerState<CompanyProfile> {
                                       ),
                                     ),
                                     subtitle: _profileNotifier
-                                                .professionalData.phone ==
-                                            ''
+                                                    .professionalData.phone ==
+                                                '' ||
+                                            _profileNotifier
+                                                    .professionalData.phone ==
+                                                null
                                         ? Text(
                                             'Add your Phone No',
                                             style: TextStyle(
@@ -303,8 +309,13 @@ class _CompanyProfileState extends ConsumerState<CompanyProfile> {
                                             )
                                           : Text.rich(TextSpan(
                                               text: _profileNotifier
-                                                  .professionalData.address
-                                                  .toString(),
+                                                          .professionalData
+                                                          .address ==
+                                                      null
+                                                  ? 'Add your Address'
+                                                  : _profileNotifier
+                                                      .professionalData.address
+                                                      .toString(),
                                               style: TextStyle(
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.bold,

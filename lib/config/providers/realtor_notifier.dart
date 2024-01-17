@@ -81,6 +81,28 @@ class RealtorNotifier extends BaseNotifier {
     }
   }
 
+  Future updateBidStatus({
+    required int projectId,
+    required int featureId,
+    required int roomId,
+    required String bidStatus,
+  }) async {
+    Response res = await dioClient.patchwithRowData(
+      apiEnd: '/statusUpdate/$projectId',
+      queryParameter: {
+        "feature_id": featureId,
+        "room_id": roomId,
+        "bid_status": bidStatus,
+      },
+    );
+    if (res.statusCode == 200) {
+      log("res ===== == ${res.data}");
+      // await getRealtor(realtorId: realtorId);
+    }
+    notifyListeners();
+    return res.data;
+  }
+
   void reset() {
     roomTypes.clear();
     addValueData.clear();
@@ -90,13 +112,17 @@ class RealtorNotifier extends BaseNotifier {
     print("cndcndlcn   " + roomId.toString());
     Response res = await dioClient.getRequest(apiEnd: "$getroomfeature$roomId");
     print("cndcndlcn" + res.toString());
-    roomTypes.add(List.from(res.data["roomtype"] as List)
-        .map((e) => Roomtype.fromJson(e))
-        .toList());
-    addValueData.add(List.from(res.data["addValueData"] as List)
-        .map((e) => AddValueData.fromJson(e))
-        .toList());
-    print("cndcndlcn" + addValueData.toString());
+    roomTypes.insert(
+        0,
+        List.from(res.data["roomtype"] as List)
+            .map((e) => Roomtype.fromJson(e))
+            .toList());
+    addValueData.insert(
+        0,
+        List.from(res.data["addValueData"] as List)
+            .map((e) => AddValueData.fromJson(e))
+            .toList());
+    // print("cndcndlcn" + addValueData.first[0].name.toString());
     log("cndcndlcn" + addValueData.length.toString());
     notifyListeners();
   }
@@ -111,9 +137,10 @@ class RealtorNotifier extends BaseNotifier {
   }
 
   Future<Response> createPhdReport(Map<String, dynamic> data) async {
+    log('data is --> ' + data.toString());
     Response res = await dioClient.PostwithFormData(
         apiEnd: create_phd_realtor, Data: data);
-    log("Response === ${res.statusCode}");
+    log("Response === createPhdReport ${res.statusCode}");
     return res;
   }
 
@@ -241,7 +268,7 @@ class RealtorNotifier extends BaseNotifier {
       housedata = Housedata.fromJson(res.data);
     } else {
       Navigator.of(context!).pop();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: primaryColor,
           content: Text("No Data Found for this house with this address")));
     }
     // log("lshjkbjk"+res.data.toString());

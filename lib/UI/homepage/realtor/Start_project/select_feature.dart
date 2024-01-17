@@ -187,7 +187,8 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                           children: [
                             Row(
                               children: [
-                                Checkbox(checkColor: lightColor,
+                                Checkbox(
+                                    checkColor: lightColor,
                                     activeColor: AppTheme.colorPrimary,
                                     value: _roomProvider
                                         .select[_roomProvider.tabIndex]
@@ -807,7 +808,7 @@ class _Select_featureState extends ConsumerState<Select_feature> {
                                                 File('').toString()
                                             ? SizedBox()
                                             : GridView.builder(
-                                              padding: EdgeInsets.zero,
+                                                padding: EdgeInsets.zero,
                                                 physics:
                                                     NeverScrollableScrollPhysics(),
                                                 shrinkWrap: true,
@@ -1067,10 +1068,14 @@ class _Select_featureState extends ConsumerState<Select_feature> {
             title: Center(
               child: Text(
                 "Select Option",
+                style: TextStyle(
+                  color: primaryColor,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
             content: Container(
-              height: MediaQuery.of(context).size.height / 8,
+              height: MediaQuery.of(context).size.height *.08,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

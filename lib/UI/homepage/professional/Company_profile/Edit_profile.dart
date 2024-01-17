@@ -119,12 +119,12 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                           style: TextStyle(fontSize: 15),
                         ),
                         ElevatedButton(
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: primaryColor,
+                              shape: 
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
-                                ),
+                                
                               ),
                             ),
                             onPressed: () {
@@ -179,7 +179,7 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                                   color: lightColor,
                                 ),
                                 SizedBox(
-                                  width: 3,
+                                  width: 10,
                                 ),
                                 Container(
                                   child: Text(

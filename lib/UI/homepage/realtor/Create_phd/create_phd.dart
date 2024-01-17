@@ -1,6 +1,4 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, unnecessary_new, prefer_const_literals_to_create_immutables, non_constant_identifier_names
-
-import 'dart:async';
 import 'dart:developer';
 
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';

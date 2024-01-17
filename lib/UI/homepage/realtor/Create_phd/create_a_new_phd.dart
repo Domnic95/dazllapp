@@ -165,9 +165,7 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
                           width: 500,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: NetworkImage(
-                                      "https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75"))),
-                        ),
+                                  image: AssetImage("assets/images/logo.jpg")))),
                         Expanded(
                           child: ListView(
                             children: [

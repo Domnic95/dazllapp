@@ -126,7 +126,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
         : Scaffold(
             body: Container(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal:  14.0),
+                padding: const EdgeInsets.symmetric(horizontal: 14.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -159,7 +159,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                     SizedBox(
                       height: size.height * 0.02,
                     ),
-              
+
                     Expanded(
                       // height: size.height * 0.63,
                       child: ListView.separated(
@@ -177,7 +177,8 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                             children: [
                               Row(
                                 children: [
-                                  Checkbox(checkColor: lightColor,
+                                  Checkbox(
+                                      checkColor: lightColor,
                                       activeColor: AppTheme.colorPrimary,
                                       value: _roomProvider
                                           .select[_roomProvider.tabIndex]
@@ -269,7 +270,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                           //               .clear();
                                           //           FeatureissueId[index]
                                           //               .clear();
-              
+
                                           //           setState(() {});
                                           //           await context
                                           //               .read(customernotifier)
@@ -561,7 +562,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                           //     ),
                                           //   ),
                                           // ),
-              
+
                                           // ListView.separated(
                                           //     separatorBuilder:
                                           //         (context, subIndex) {
@@ -635,7 +636,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                           //             );
                                           //     },
                                           //   ),
-              
+
                                           SizedBox(
                                             height: 5,
                                           ),
@@ -666,9 +667,10 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                   decoration: InputDecoration(
                                                       hintText:
                                                           "Tell us the issue or desired outcome.",
-                                                      hintStyle: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyText1,
+                                                      hintStyle:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText1,
                                                       focusedBorder:
                                                           UnderlineInputBorder(
                                                               borderSide: BorderSide(
@@ -748,7 +750,8 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                               text: TextSpan(
                                                   text: "UPLOAD PHOTOS OF ",
                                                   style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       color: blackColor,
                                                       fontSize: 12),
                                                   children: [
@@ -793,7 +796,8 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                       (context, subIndex) {
                                                     if (subIndex == 0) {
                                                       return Container(
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           border: Border.all(
                                                               color:
                                                                   Colors.black),
@@ -804,7 +808,8 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                         child: IconButton(
                                                             onPressed: () {
                                                               showOptionsDialog(
-                                                                  context, index);
+                                                                  context,
+                                                                  index);
                                                             },
                                                             icon: Icon(Icons
                                                                 .add_a_photo)),
@@ -812,9 +817,9 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                     }
                                                     return _roomProvider.imgFile[
                                                                     _roomProvider
-                                                                        .tabIndex]
+                                                                        .tabIndex][index]
                                                                 [
-                                                                index][subIndex - 1] ==
+                                                                subIndex - 1] ==
                                                             File('')
                                                         ? SizedBox()
                                                         : Container(
@@ -829,8 +834,9 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                                           10),
                                                             ),
                                                             child: Stack(
-                                                              alignment: Alignment
-                                                                  .center,
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
                                                               children: [
                                                                 Container(
                                                                   // height: 60,
@@ -838,17 +844,15 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                                   decoration:
                                                                       BoxDecoration(
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                                10),
+                                                                        BorderRadius.circular(
+                                                                            10),
                                                                     image:
                                                                         DecorationImage(
                                                                       fit: BoxFit
                                                                           .cover,
                                                                       image:
                                                                           FileImage(
-                                                                        _roomProvider
-                                                                                .imgFile[
+                                                                        _roomProvider.imgFile[
                                                                             _roomProvider
                                                                                 .tabIndex][index][subIndex -
                                                                             1],
@@ -863,18 +867,14 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                                                                       IconButton(
                                                                           onPressed:
                                                                               () {
-                                                                            setState(
-                                                                                () {
-                                                                              _roomProvider.imgFile[_roomProvider.tabIndex][index].removeAt(subIndex -
-                                                                                  1);
-                                                                              _roomProvider.imagesList[_roomProvider.tabIndex][index].removeAt(subIndex -
-                                                                                  1);
+                                                                            setState(() {
+                                                                              _roomProvider.imgFile[_roomProvider.tabIndex][index].removeAt(subIndex - 1);
+                                                                              _roomProvider.imagesList[_roomProvider.tabIndex][index].removeAt(subIndex - 1);
                                                                             });
                                                                           },
                                                                           icon:
                                                                               Icon(
-                                                                            Icons
-                                                                                .cancel,
+                                                                            Icons.cancel,
                                                                             size:
                                                                                 25,
                                                                           )),
@@ -899,7 +899,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                     // Align(
                     //   alignment: Alignment.bottomCenter,
                     //   child:
-              
+
                     //   Container(
                     //     padding: EdgeInsets.symmetric(horizontal: 20),
                     //     height: size.height * 0.08,
@@ -967,7 +967,7 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
                     //               // }
                     //             }
                     //             //  print("jkldn" + desempty.toString());
-              
+
                     //             if (!desempty.contains(false) &&
                     //                 !featureissueempty.contains(false)) {
                     //               removeempty();
@@ -1032,10 +1032,14 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
             title: Center(
               child: Text(
                 "Select Option",
+                style: TextStyle(
+                  color: primaryColor,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
             content: Container(
-              height: MediaQuery.of(context).size.height / 8,
+              height: MediaQuery.of(context).size.height * 0.08,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

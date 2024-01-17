@@ -15,22 +15,26 @@ class FilterProject {
   final String? email;
   final int? id;
   final String? location;
+  final int? filterProjectFinal;
 
   FilterProject({
     this.email,
     this.id,
     this.location,
+    this.filterProjectFinal,
   });
 
   factory FilterProject.fromJson(Map<String, dynamic> json) => FilterProject(
         email: json["email"],
         id: json["id"],
         location: json["location"],
+        filterProjectFinal: json["final"],
       );
 
   Map<String, dynamic> toJson() => {
         "email": email,
         "id": id,
         "location": location,
+        "final": filterProjectFinal,
       };
 }

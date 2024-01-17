@@ -59,9 +59,9 @@ class Report {
 
   factory Report.fromJson(Map<String, dynamic> json) => Report(
         house: json["house"] == null ? null : House.fromJson(json["house"]),
-        projectId: json["project_id"],
-        phdPrice: json["phd_price"],
-        prePrice: json["pre_price"],
+        projectId: json["project_id"] ?? '0',
+        phdPrice: json["phd_price"] ?? '0',
+        prePrice: json["pre_price"] ?? '',
         bidStatus: json["bid_status"],
         images: json["images"] == null
             ? []
@@ -390,7 +390,7 @@ class FeatureOptionsElement {
 class FeatureElement {
   final String? featureName;
   final int? featureId;
-  final String? bidStatus;
+  late final String? bidStatus;
   final String? featureoption;
   final String? featureissue;
   final String? inspectionNotes;
