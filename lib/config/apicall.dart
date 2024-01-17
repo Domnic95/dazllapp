@@ -124,20 +124,28 @@ Future<String> login(index, String email, String password, BuildContext context,
 
       default:
     }
-
-    final response = await dio.post(url,
-        // curruntindex == 0
-        //     ? login_realtor
-        //     : curruntindex == 1
-        //         ? login_professional
-        //         : curruntindex == 2
-        //             ? login_realtor
-        //             : "",
-        data: {
-          "email": email,
-          "password": password,
-        });
-    print(response.data);
+    log("dcfdbv ");
+    FormData data = FormData.fromMap({
+      "email": email,
+      "password": password,
+    });
+    Response response = await dio.post(
+      url,
+      // curruntindex == 0
+      //     ? login_realtor
+      //     : curruntindex == 1
+      //         ? login_professional
+      //         : curruntindex == 2
+      //             ? login_realtor
+      //             : "",
+      data: data,
+      options: Options(
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    print("fvdefiobn == " + response.statusCode.toString());
     if (response.statusCode == 200) {
       SpHelpers.setBool(SharedPrefsKeys.key_keep_me_logged_in, keepmelogin);
       SpHelpers.setInt(SharedPrefsKeys.key_current, index);
@@ -209,14 +217,17 @@ Future<String> login(index, String email, String password, BuildContext context,
       }
       loading = false;
     } else {
-      print('fail');
+      print('fail'+response.data.toString());
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(response.data['message'].toString()),
+          backgroundColor: Colors.red));
     }
   } catch (e) {
     loading = false;
-    //print((e as DioError).response!.data.toString());
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text((e as DioError).response!.data['message']),
-        backgroundColor: Colors.red));
+    log("ssab  == " + e.toString());
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //     content: Text((e as DioException).response!.data.toString()),
+    //     backgroundColor: Colors.red));
   }
   return "";
 }
