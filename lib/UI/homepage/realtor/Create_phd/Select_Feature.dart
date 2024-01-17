@@ -670,7 +670,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
               itemBuilder: (context, index) {
                 return Row(
                   children: [
-                    Radio(
+                    Radio<String>(
                       activeColor: primaryColor,
                       value:
                           _phdProvider.fristImpressionList[index],
@@ -1558,7 +1558,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
             //         //       ])
             //         //     : Container(),
 
-            //         // Row(
+            //         // Row(0
             //         //   mainAxisAlignment: MainAxisAlignment.start,
             //         //   crossAxisAlignment: CrossAxisAlignment.end,
             //         //   children: [

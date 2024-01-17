@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:dazllapp/config/providers/base_notifier.dart';
 import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -94,7 +93,6 @@ class RealtorRoomProvider extends BaseNotifier {
     String img = await ref.read(realtorprovider).uploadImage(context, image);
     imagesList[tabIndex][index].add(img);
     // imgFile[_tabIndex][index].add(File(path));
-    log("mage == $imagesList");
   }
 
   set(bool value, int index) {
@@ -214,12 +212,10 @@ class RealtorRoomProvider extends BaseNotifier {
     log("cnsiubdx ");
     // listData.clear();
     if (featureId[i].length != 0) {
-      log("cnsiubdx ===");
       for (int j = 0; j < featureId[i].length; j++) {
-        log("cnsiubdx ===!!!!");
 
         if (featureId[i][j] != 0) {
-          log("cnsiubdx ===++++++++ ${SpHelpers.getString(SharedPrefsKeys.Realtor_id)}");
+          // log("cnsiubdx ===++++++++ ${SpHelpers.getString(SharedPrefsKeys.Realtor_id)}");
           Map<String, dynamic> _map = {
             // "email": widge
             // t.customeremail,
