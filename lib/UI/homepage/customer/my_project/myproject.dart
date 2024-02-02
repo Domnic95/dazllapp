@@ -123,7 +123,13 @@ class _myprojectState extends ConsumerState<myproject> {
             },
             child: Scaffold(
               body: projectprovider!.listofproject.isEmpty
-                  ? Center(child: Text("No Projects Found"))
+                  ? Column(
+                      children: [
+                        CommonHeader(title: "My Project", isback: true),
+                        Expanded(
+                            child: Center(child: Text("No Projects Found"))),
+                      ],
+                    )
                   : Container(
                       child: Column(
                         children: [
