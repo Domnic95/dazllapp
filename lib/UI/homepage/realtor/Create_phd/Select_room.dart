@@ -121,7 +121,7 @@ class _selectRoomState extends ConsumerState<selectRoom> {
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText1!
+                                          .bodyLarge!
                                           .copyWith(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16,
@@ -166,7 +166,7 @@ class _selectRoomState extends ConsumerState<selectRoom> {
                           Text(
                             "Previous",
                             style:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
                                       fontSize: 18,
                                       color: lightColor.withOpacity(.9),
                                     ),
@@ -196,7 +196,7 @@ class _selectRoomState extends ConsumerState<selectRoom> {
                                   "Next",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1!
+                                      .bodyLarge!
                                       .copyWith(
                                         fontSize: 18,
                                         color: lightColor.withOpacity(.9),

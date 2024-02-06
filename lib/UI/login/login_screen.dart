@@ -165,27 +165,27 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final serviceProvider = ref.watch(serviceProviders);
-    return Scaffold(
-      body:
-          //   UpgradeAlert(
-          // upgrader: Upgrader(
-          //   showReleaseNotes: false,
-          //   minAppVersion: '0.0.0',
-          //   dialogStyle: Platform.isAndroid
-          //       ? UpgradeDialogStyle.material
-          //       : UpgradeDialogStyle.cupertino,
-          //   // durationUntilAlertAgain: Duration(seconds: 30),
-          //   onUpdate: () => Platform.isAndroid ? onAndroid() : onIOS(),
-          //   showLater: false,
-          //   showIgnore: false,
-          //   messages: MyEnglishMessages(),
-          // ),
-          //child:
-          SingleChildScrollView(
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        body:
+            //   UpgradeAlert(
+            // upgrader: Upgrader(
+            //   showReleaseNotes: false,
+            //   minAppVersion: '0.0.0',
+            //   dialogStyle: Platform.isAndroid
+            //       ? UpgradeDialogStyle.material
+            //       : UpgradeDialogStyle.cupertino,
+            //   // durationUntilAlertAgain: Duration(seconds: 30),
+            //   onUpdate: () => Platform.isAndroid ? onAndroid() : onIOS(),
+            //   showLater: false,
+            //   showIgnore: false,
+            //   messages: MyEnglishMessages(),
+            // ),
+            //child:
+            SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -405,8 +405,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 'Forgot Password?',
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
-                                  fontSize:
-                                      15,
+                                  fontSize: 15,
                                   fontFamily: AppTheme.fontName,
                                   color: primaryColor,
                                   decoration: TextDecoration.underline,
@@ -435,8 +434,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ],
           ),
         ),
+        // )
       ),
-      // )
     );
   }
 

@@ -47,7 +47,7 @@ class CommonHeader extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       title: Text(
         title,
-        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
               fontSize: 16,
               color: lightColor.withOpacity(.9),
             ),

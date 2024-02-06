@@ -99,649 +99,663 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
             ? _profileNotifier.professionalData.insuranceNumber.toString()
             : '';
     final size = MediaQuery.of(context).size;
-    return Form(
-      child: Scaffold(
-          body: Column(
-        children: [
-          CommonHeader(title: "Edit Profile", isback: false),
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.all(10.0),
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Enter Your Details : ',
-                          style: TextStyle(fontSize: 15),
-                        ),
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: primaryColor,
-                              shape: 
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                
-                              ),
-                            ),
-                            onPressed: () {
-                              Map<String, dynamic> data = {
-                                "name": _name.text,
-                                "phone": _phone.text,
-                                "address": _Address.text,
-                                "references": _reference.text,
-                                // "website": "dazl",
-                                // "twitter": null,
-                                // "facebook": null,
-          
-                                // "description": "",
-                                // "business_licence": "",
-                                // "project_portfolio": [],
-                                // "years_in_business": 12,
-                                // "insurance_certificate": "",
-                              };
-                              _profileNotifier
-                                  .updateProfessional(data)
-                                  .then((value) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content: Text(value['message']),
-                                  backgroundColor: teamColor,
-                                ));
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => CompanyProfile()));
-                              });
-          
-                              _yearsinbussiness.clear();
-                              _name.clear();
-                              _phone.clear();
-                              _Address.clear();
-                              _bussiness_licence.clear();
-                              _insurance_certificate.clear();
-                              _project_portfolio.clear();
-                              _reference.clear();
-                              _website.clear();
-                              _facebook.clear();
-                              _twitter.clear();
-                              _insuranceContactPerson.clear();
-                              _insuranceNumber.clear();
-                            },
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.save,
-                                  size: 20,
-                                  color: lightColor,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  child: Text(
-                                    'Save',
-                                    style: TextStyle(color: lightColor),
-                                  ),
-                                ),
-                              ],
-                            ))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      controller: _yearsinbussiness,
-                      // validator: (text) {
-                      //   if (text!.isEmpty) {
-                      //     return 'Address can\'t be empty';
-                      //   }
-                      //   return null;
-                      // },
-                      cursorColor: AppTheme.nearlyBlack,
-                      decoration: InputDecoration(
-                        hintText: "Enter YEARS IN BUSSINESS",
-                        label: Text('YEARS IN BUSSINESS'),
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(color: Colors.black)),
-                        hintStyle: TextStyle(
-                            color: AppTheme.darkerText,
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                        labelStyle: TextStyle(
-                            color: const Color(0xFF424242),
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      controller: _name,
-                      // validator: (text) {
-                      //   if (text!.isEmpty) {
-                      //     return 'First Name can\'t be empty';
-                      //   }
-                      //   return null;
-                      // },
-                      cursorColor: AppTheme.nearlyBlack,
-                      decoration: InputDecoration(
-                        hintText: "Enter Your Name",
-                        label: Text('NAME'),
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(color: Colors.black)),
-                        hintStyle: TextStyle(
-                            color: AppTheme.darkerText,
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                        labelStyle: TextStyle(
-                            color: const Color(0xFF424242),
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      controller: _phone,
-                      // validator: (text) {
-                      //   if (text!.isEmpty) {
-                      //     return 'Last Name can\'t be empty';
-                      //   }
-                      //   return null;
-                      // },
-                      cursorColor: AppTheme.nearlyBlack,
-                      decoration: InputDecoration(
-                        hintText: "Enter Your Phone",
-                        label: Text('Phone No'),
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(color: Colors.black)),
-                        hintStyle: TextStyle(
-                            color: AppTheme.darkerText,
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                        labelStyle: TextStyle(
-                            color: const Color(0xFF424242),
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextField(
-                      controller: _Address,
-                      cursorColor: AppTheme.nearlyBlack,
-                      decoration: InputDecoration(
-                        hintText: "Enter Your Address",
-                        label: Text("ADDRESS"),
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(color: Colors.black)),
-                        hintStyle: TextStyle(
-                            color: AppTheme.darkerText,
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                        labelStyle: TextStyle(
-                            color: const Color(0xFF424242),
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextField(
-                      controller: _bussiness_licence,
-                      cursorColor: AppTheme.nearlyBlack,
-                      decoration: InputDecoration(
-                        hintText: "Enter Your Bussiness Licence",
-                        label: Text("BUSSINESS LICENCE"),
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(color: Colors.black)),
-                        hintStyle: TextStyle(
-                            color: AppTheme.darkerText,
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                        labelStyle: TextStyle(
-                            color: const Color(0xFF424242),
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextField(
-                      controller: _insurance_certificate,
-                      cursorColor: AppTheme.nearlyBlack,
-                      decoration: InputDecoration(
-                        hintText: "Enter Your Insurance Certificate",
-                        label: Text("INSURANCE CERTIFICATE"),
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(color: Colors.black)),
-                        hintStyle: TextStyle(
-                            color: AppTheme.darkerText,
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                        labelStyle: TextStyle(
-                            color: const Color(0xFF424242),
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextField(
-                      controller: _insuranceContactPerson,
-                      cursorColor: AppTheme.nearlyBlack,
-                      decoration: InputDecoration(
-                        hintText: "Enter Your Insurance Contact Person",
-                        label: Text("INSURANCE CONTACT PERSON"),
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(color: Colors.black)),
-                        hintStyle: TextStyle(
-                            color: AppTheme.darkerText,
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                        labelStyle: TextStyle(
-                            color: const Color(0xFF424242),
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextField(
-                      controller: _insuranceNumber,
-                      cursorColor: AppTheme.nearlyBlack,
-                      decoration: InputDecoration(
-                        hintText: "Enter Your Insurance Number",
-                        label: Text("INSURANCE NUMBER"),
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(color: Colors.black)),
-                        hintStyle: TextStyle(
-                            color: AppTheme.darkerText,
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                        labelStyle: TextStyle(
-                            color: const Color(0xFF424242),
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextField(
-                      controller: _project_portfolio,
-                      cursorColor: AppTheme.nearlyBlack,
-                      decoration: InputDecoration(
-                        hintText: "Enter Your Project Portfolio",
-                        label: Text("PROJECT PORTFOLIO"),
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(color: Colors.black)),
-                        hintStyle: TextStyle(
-                            color: AppTheme.darkerText,
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                        labelStyle: TextStyle(
-                            color: const Color(0xFF424242),
-                            fontFamily: AppTheme.fontName,
-                            fontSize: 14),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    // TextField(
-                    //   controller: _reference,
-                    //   cursorColor: AppTheme.nearlyBlack,
-                    //   decoration: InputDecoration(
-                    //     hintText: "Enter Your Refrence",
-                    //     label: Text("REFRENCE"),
-                    //     isDense: true,
-                    //     focusedBorder: OutlineInputBorder(
-                    //         borderRadius:
-                    //             BorderRadius.all(Radius.circular(20)),
-                    //         borderSide: BorderSide(color: Colors.black)),
-                    //     hintStyle: TextStyle(
-                    //         color: AppTheme.darkerText,
-                    //         fontFamily: AppTheme.fontName,
-                    //         fontSize: 14,
-                    //         fontWeight: FontWeight.w400),
-                    //     labelStyle: TextStyle(
-                    //         color: const Color(0xFF424242),
-                    //         fontFamily: AppTheme.fontName,
-                    //         fontSize: 14),
-                    //     border: OutlineInputBorder(
-                    //       borderRadius:
-                    //           BorderRadius.all(Radius.circular(20)),
-                    //       borderSide: BorderSide(color: Colors.black),
-                    //     ),
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 15,
-                    // ),
-                    // TextField(
-                    //   controller: _website,
-                    //   cursorColor: AppTheme.nearlyBlack,
-                    //   decoration: InputDecoration(
-                    //     hintText: "Enter Your Website",
-                    //     label: Text("WEBSITE"),
-                    //     isDense: true,
-                    //     focusedBorder: OutlineInputBorder(
-                    //         borderRadius:
-                    //             BorderRadius.all(Radius.circular(20)),
-                    //         borderSide: BorderSide(color: Colors.black)),
-                    //     hintStyle: TextStyle(
-                    //         color: AppTheme.darkerText,
-                    //         fontFamily: AppTheme.fontName,
-                    //         fontSize: 14,
-                    //         fontWeight: FontWeight.w400),
-                    //     labelStyle: TextStyle(
-                    //         color: const Color(0xFF424242),
-                    //         fontFamily: AppTheme.fontName,
-                    //         fontSize: 14),
-                    //     border: OutlineInputBorder(
-                    //       borderRadius:
-                    //           BorderRadius.all(Radius.circular(20)),
-                    //       borderSide: BorderSide(color: Colors.black),
-                    //     ),
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 15,
-                    // ),
-                    // TextField(
-                    //   controller: _facebook,
-                    //   cursorColor: AppTheme.nearlyBlack,
-                    //   decoration: InputDecoration(
-                    //     hintText: "Enter Your facebook",
-                    //     label: Text("FACEBOOK"),
-                    //     isDense: true,
-                    //     focusedBorder: OutlineInputBorder(
-                    //         borderRadius:
-                    //             BorderRadius.all(Radius.circular(20)),
-                    //         borderSide: BorderSide(color: Colors.black)),
-                    //     hintStyle: TextStyle(
-                    //         color: AppTheme.darkerText,
-                    //         fontFamily: AppTheme.fontName,
-                    //         fontSize: 14,
-                    //         fontWeight: FontWeight.w400),
-                    //     labelStyle: TextStyle(
-                    //         color: const Color(0xFF424242),
-                    //         fontFamily: AppTheme.fontName,
-                    //         fontSize: 14),
-                    //     border: OutlineInputBorder(
-                    //       borderRadius:
-                    //           BorderRadius.all(Radius.circular(20)),
-                    //       borderSide: BorderSide(color: Colors.black),
-                    //     ),
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 15,
-                    // ),
-                    // TextField(
-                    //   controller: _twitter,
-                    //   cursorColor: AppTheme.nearlyBlack,
-                    //   decoration: InputDecoration(
-                    //     hintText: "Enter Your Twitter",
-                    //     label: Text("TWITTER"),
-                    //     isDense: true,
-                    //     focusedBorder: OutlineInputBorder(
-                    //         borderRadius:
-                    //             BorderRadius.all(Radius.circular(20)),
-                    //         borderSide: BorderSide(color: Colors.black)),
-                    //     hintStyle: TextStyle(
-                    //         color: AppTheme.darkerText,
-                    //         fontFamily: AppTheme.fontName,
-                    //         fontSize: 14,
-                    //         fontWeight: FontWeight.w400),
-                    //     labelStyle: TextStyle(
-                    //         color: const Color(0xFF424242),
-                    //         fontFamily: AppTheme.fontName,
-                    //         fontSize: 14),
-                    //     border: OutlineInputBorder(
-                    //       borderRadius:
-                    //           BorderRadius.all(Radius.circular(20)),
-                    //       borderSide: BorderSide(color: Colors.black),
-                    //     ),
-                    //   ),
-                    // ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    // SingleChildScrollView(
-                    //   scrollDirection: Axis.horizontal,
-                    //   physics: BouncingScrollPhysics(),
-                    //   child: Row(
-                    //     children: [
-                    //       Container(
-                    //         margin: EdgeInsets.only(left: 5, right: 5),
-                    //         decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(15),
-                    //         ),
-                    //         height: 90,
-                    //         width: 90,
-                    //         child: ClipRRect(
-                    //           borderRadius: BorderRadius.circular(15),
-                    //           child: _profileNotifier
-                    //                       .professionalData.images1 ==
-                    //                   ""
-                    //               ? Center(
-                    //                   child: Image.network(
-                    //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
-                    //                     fit: BoxFit.fill,
-                    //                   ),
-                    //                 )
-                    //               : Image.network(
-                    //                   _profileNotifier
-                    //                       .professionalData.images1
-                    //                       .toString(),
-                    //                   fit: BoxFit.cover,
-                    //                 ),
-                    //         ),
-                    //       ),
-                    //       Container(
-                    //         margin: EdgeInsets.only(left: 5, right: 5),
-                    //         decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(15),
-                    //         ),
-                    //         height: 90,
-                    //         width: 90,
-                    //         child: ClipRRect(
-                    //           borderRadius: BorderRadius.circular(15),
-                    //           child: _profileNotifier
-                    //                       .professionalData.images2 ==
-                    //                   ""
-                    //               ? Center(
-                    //                   child: Image.network(
-                    //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
-                    //                     fit: BoxFit.fill,
-                    //                   ),
-                    //                 )
-                    //               : Image.network(
-                    //                   _profileNotifier
-                    //                       .professionalData.images2
-                    //                       .toString(),
-                    //                   fit: BoxFit.cover,
-                    //                 ),
-                    //         ),
-                    //       ),
-                    //       Container(
-                    //         margin: EdgeInsets.only(left: 5, right: 5),
-                    //         decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(15),
-                    //         ),
-                    //         height: 90,
-                    //         width: 90,
-                    //         child: ClipRRect(
-                    //           borderRadius: BorderRadius.circular(15),
-                    //           child: _profileNotifier
-                    //                       .professionalData.images3 ==
-                    //                   ""
-                    //               ? Center(
-                    //                   child: Image.network(
-                    //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
-                    //                     fit: BoxFit.fill,
-                    //                   ),
-                    //                 )
-                    //               : Image.network(
-                    //                   _profileNotifier
-                    //                       .professionalData.images3
-                    //                       .toString(),
-                    //                   fit: BoxFit.cover,
-                    //                 ),
-                    //         ),
-                    //       ),
-                    //       Container(
-                    //         margin: EdgeInsets.only(left: 5, right: 5),
-                    //         decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(15),
-                    //         ),
-                    //         height: 90,
-                    //         width: 90,
-                    //         child: ClipRRect(
-                    //           borderRadius: BorderRadius.circular(15),
-                    //           child: _profileNotifier
-                    //                       .professionalData.images4 ==
-                    //                   ""
-                    //               ? Center(
-                    //                   child: Image.network(
-                    //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
-                    //                     fit: BoxFit.fill,
-                    //                   ),
-                    //                 )
-                    //               : Image.network(
-                    //                   _profileNotifier
-                    //                       .professionalData.images4
-                    //                       .toString(),
-                    //                   fit: BoxFit.cover,
-                    //                 ),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            height: size.height * 0.08,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-                color: AppTheme.colorPrimary),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Row(
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Form(
+        child: Scaffold(
+            body: Column(
+          children: [
+            CommonHeader(title: "Edit Profile", isback: false),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.all(10.0),
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
-                        Icons.arrow_back_ios,
-                        size: 14,
-                        color: AppTheme.white,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Enter Your Details : ',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: primaryColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                ),
+                              ),
+                              onPressed: () {
+                                Map<String, dynamic> data = {
+                                  "name": _name.text,
+                                  "phone": _phone.text,
+                                  "address": _Address.text,
+                                  "references": _reference.text,
+                                  // "website": "dazl",
+                                  // "twitter": null,
+                                  // "facebook": null,
+
+                                  // "description": "",
+                                  // "business_licence": "",
+                                  // "project_portfolio": [],
+                                  // "years_in_business": 12,
+                                  // "insurance_certificate": "",
+                                };
+                                _profileNotifier
+                                    .updateProfessional(data)
+                                    .then((value) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(value['message']),
+                                    backgroundColor: teamColor,
+                                  ));
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              CompanyProfile()));
+                                });
+
+                                _yearsinbussiness.clear();
+                                _name.clear();
+                                _phone.clear();
+                                _Address.clear();
+                                _bussiness_licence.clear();
+                                _insurance_certificate.clear();
+                                _project_portfolio.clear();
+                                _reference.clear();
+                                _website.clear();
+                                _facebook.clear();
+                                _twitter.clear();
+                                _insuranceContactPerson.clear();
+                                _insuranceNumber.clear();
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.save,
+                                    size: 20,
+                                    color: lightColor,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      'Save',
+                                      style: TextStyle(color: lightColor),
+                                    ),
+                                  ),
+                                ],
+                              ))
+                        ],
                       ),
-                      Text(
-                        "Previous",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        controller: _yearsinbussiness,
+                        // validator: (text) {
+                        //   if (text!.isEmpty) {
+                        //     return 'Address can\'t be empty';
+                        //   }
+                        //   return null;
+                        // },
+                        cursorColor: AppTheme.nearlyBlack,
+                        decoration: InputDecoration(
+                          hintText: "Enter YEARS IN BUSSINESS",
+                          label: Text('YEARS IN BUSSINESS'),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black)),
+                          hintStyle: TextStyle(
+                              color: AppTheme.darkerText,
+                              fontFamily: AppTheme.fontName,
                               fontSize: 14,
-                              color: lightColor.withOpacity(.9),
-                            ),
-                      )
+                              fontWeight: FontWeight.w400),
+                          labelStyle: TextStyle(
+                              color: const Color(0xFF424242),
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      TextFormField(
+                        controller: _name,
+                        // validator: (text) {
+                        //   if (text!.isEmpty) {
+                        //     return 'First Name can\'t be empty';
+                        //   }
+                        //   return null;
+                        // },
+                        cursorColor: AppTheme.nearlyBlack,
+                        decoration: InputDecoration(
+                          hintText: "Enter Your Name",
+                          label: Text('NAME'),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black)),
+                          hintStyle: TextStyle(
+                              color: AppTheme.darkerText,
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                          labelStyle: TextStyle(
+                              color: const Color(0xFF424242),
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      TextFormField(
+                        controller: _phone,
+                        // validator: (text) {
+                        //   if (text!.isEmpty) {
+                        //     return 'Last Name can\'t be empty';
+                        //   }
+                        //   return null;
+                        // },
+                        cursorColor: AppTheme.nearlyBlack,
+                        decoration: InputDecoration(
+                          hintText: "Enter Your Phone",
+                          label: Text('Phone No'),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black)),
+                          hintStyle: TextStyle(
+                              color: AppTheme.darkerText,
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                          labelStyle: TextStyle(
+                              color: const Color(0xFF424242),
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      TextField(
+                        controller: _Address,
+                        cursorColor: AppTheme.nearlyBlack,
+                        decoration: InputDecoration(
+                          hintText: "Enter Your Address",
+                          label: Text("ADDRESS"),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black)),
+                          hintStyle: TextStyle(
+                              color: AppTheme.darkerText,
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                          labelStyle: TextStyle(
+                              color: const Color(0xFF424242),
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      TextField(
+                        controller: _bussiness_licence,
+                        cursorColor: AppTheme.nearlyBlack,
+                        decoration: InputDecoration(
+                          hintText: "Enter Your Bussiness Licence",
+                          label: Text("BUSSINESS LICENCE"),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black)),
+                          hintStyle: TextStyle(
+                              color: AppTheme.darkerText,
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                          labelStyle: TextStyle(
+                              color: const Color(0xFF424242),
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      TextField(
+                        controller: _insurance_certificate,
+                        cursorColor: AppTheme.nearlyBlack,
+                        decoration: InputDecoration(
+                          hintText: "Enter Your Insurance Certificate",
+                          label: Text("INSURANCE CERTIFICATE"),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black)),
+                          hintStyle: TextStyle(
+                              color: AppTheme.darkerText,
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                          labelStyle: TextStyle(
+                              color: const Color(0xFF424242),
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      TextField(
+                        controller: _insuranceContactPerson,
+                        cursorColor: AppTheme.nearlyBlack,
+                        decoration: InputDecoration(
+                          hintText: "Enter Your Insurance Contact Person",
+                          label: Text("INSURANCE CONTACT PERSON"),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black)),
+                          hintStyle: TextStyle(
+                              color: AppTheme.darkerText,
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                          labelStyle: TextStyle(
+                              color: const Color(0xFF424242),
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      TextField(
+                        controller: _insuranceNumber,
+                        cursorColor: AppTheme.nearlyBlack,
+                        decoration: InputDecoration(
+                          hintText: "Enter Your Insurance Number",
+                          label: Text("INSURANCE NUMBER"),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black)),
+                          hintStyle: TextStyle(
+                              color: AppTheme.darkerText,
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                          labelStyle: TextStyle(
+                              color: const Color(0xFF424242),
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      TextField(
+                        controller: _project_portfolio,
+                        cursorColor: AppTheme.nearlyBlack,
+                        decoration: InputDecoration(
+                          hintText: "Enter Your Project Portfolio",
+                          label: Text("PROJECT PORTFOLIO"),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black)),
+                          hintStyle: TextStyle(
+                              color: AppTheme.darkerText,
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                          labelStyle: TextStyle(
+                              color: const Color(0xFF424242),
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      // TextField(
+                      //   controller: _reference,
+                      //   cursorColor: AppTheme.nearlyBlack,
+                      //   decoration: InputDecoration(
+                      //     hintText: "Enter Your Refrence",
+                      //     label: Text("REFRENCE"),
+                      //     isDense: true,
+                      //     focusedBorder: OutlineInputBorder(
+                      //         borderRadius:
+                      //             BorderRadius.all(Radius.circular(20)),
+                      //         borderSide: BorderSide(color: Colors.black)),
+                      //     hintStyle: TextStyle(
+                      //         color: AppTheme.darkerText,
+                      //         fontFamily: AppTheme.fontName,
+                      //         fontSize: 14,
+                      //         fontWeight: FontWeight.w400),
+                      //     labelStyle: TextStyle(
+                      //         color: const Color(0xFF424242),
+                      //         fontFamily: AppTheme.fontName,
+                      //         fontSize: 14),
+                      //     border: OutlineInputBorder(
+                      //       borderRadius:
+                      //           BorderRadius.all(Radius.circular(20)),
+                      //       borderSide: BorderSide(color: Colors.black),
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 15,
+                      // ),
+                      // TextField(
+                      //   controller: _website,
+                      //   cursorColor: AppTheme.nearlyBlack,
+                      //   decoration: InputDecoration(
+                      //     hintText: "Enter Your Website",
+                      //     label: Text("WEBSITE"),
+                      //     isDense: true,
+                      //     focusedBorder: OutlineInputBorder(
+                      //         borderRadius:
+                      //             BorderRadius.all(Radius.circular(20)),
+                      //         borderSide: BorderSide(color: Colors.black)),
+                      //     hintStyle: TextStyle(
+                      //         color: AppTheme.darkerText,
+                      //         fontFamily: AppTheme.fontName,
+                      //         fontSize: 14,
+                      //         fontWeight: FontWeight.w400),
+                      //     labelStyle: TextStyle(
+                      //         color: const Color(0xFF424242),
+                      //         fontFamily: AppTheme.fontName,
+                      //         fontSize: 14),
+                      //     border: OutlineInputBorder(
+                      //       borderRadius:
+                      //           BorderRadius.all(Radius.circular(20)),
+                      //       borderSide: BorderSide(color: Colors.black),
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 15,
+                      // ),
+                      // TextField(
+                      //   controller: _facebook,
+                      //   cursorColor: AppTheme.nearlyBlack,
+                      //   decoration: InputDecoration(
+                      //     hintText: "Enter Your facebook",
+                      //     label: Text("FACEBOOK"),
+                      //     isDense: true,
+                      //     focusedBorder: OutlineInputBorder(
+                      //         borderRadius:
+                      //             BorderRadius.all(Radius.circular(20)),
+                      //         borderSide: BorderSide(color: Colors.black)),
+                      //     hintStyle: TextStyle(
+                      //         color: AppTheme.darkerText,
+                      //         fontFamily: AppTheme.fontName,
+                      //         fontSize: 14,
+                      //         fontWeight: FontWeight.w400),
+                      //     labelStyle: TextStyle(
+                      //         color: const Color(0xFF424242),
+                      //         fontFamily: AppTheme.fontName,
+                      //         fontSize: 14),
+                      //     border: OutlineInputBorder(
+                      //       borderRadius:
+                      //           BorderRadius.all(Radius.circular(20)),
+                      //       borderSide: BorderSide(color: Colors.black),
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 15,
+                      // ),
+                      // TextField(
+                      //   controller: _twitter,
+                      //   cursorColor: AppTheme.nearlyBlack,
+                      //   decoration: InputDecoration(
+                      //     hintText: "Enter Your Twitter",
+                      //     label: Text("TWITTER"),
+                      //     isDense: true,
+                      //     focusedBorder: OutlineInputBorder(
+                      //         borderRadius:
+                      //             BorderRadius.all(Radius.circular(20)),
+                      //         borderSide: BorderSide(color: Colors.black)),
+                      //     hintStyle: TextStyle(
+                      //         color: AppTheme.darkerText,
+                      //         fontFamily: AppTheme.fontName,
+                      //         fontSize: 14,
+                      //         fontWeight: FontWeight.w400),
+                      //     labelStyle: TextStyle(
+                      //         color: const Color(0xFF424242),
+                      //         fontFamily: AppTheme.fontName,
+                      //         fontSize: 14),
+                      //     border: OutlineInputBorder(
+                      //       borderRadius:
+                      //           BorderRadius.all(Radius.circular(20)),
+                      //       borderSide: BorderSide(color: Colors.black),
+                      //     ),
+                      //   ),
+                      // ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      // SingleChildScrollView(
+                      //   scrollDirection: Axis.horizontal,
+                      //   physics: BouncingScrollPhysics(),
+                      //   child: Row(
+                      //     children: [
+                      //       Container(
+                      //         margin: EdgeInsets.only(left: 5, right: 5),
+                      //         decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.circular(15),
+                      //         ),
+                      //         height: 90,
+                      //         width: 90,
+                      //         child: ClipRRect(
+                      //           borderRadius: BorderRadius.circular(15),
+                      //           child: _profileNotifier
+                      //                       .professionalData.images1 ==
+                      //                   ""
+                      //               ? Center(
+                      //                   child: Image.network(
+                      //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                      //                     fit: BoxFit.fill,
+                      //                   ),
+                      //                 )
+                      //               : Image.network(
+                      //                   _profileNotifier
+                      //                       .professionalData.images1
+                      //                       .toString(),
+                      //                   fit: BoxFit.cover,
+                      //                 ),
+                      //         ),
+                      //       ),
+                      //       Container(
+                      //         margin: EdgeInsets.only(left: 5, right: 5),
+                      //         decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.circular(15),
+                      //         ),
+                      //         height: 90,
+                      //         width: 90,
+                      //         child: ClipRRect(
+                      //           borderRadius: BorderRadius.circular(15),
+                      //           child: _profileNotifier
+                      //                       .professionalData.images2 ==
+                      //                   ""
+                      //               ? Center(
+                      //                   child: Image.network(
+                      //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                      //                     fit: BoxFit.fill,
+                      //                   ),
+                      //                 )
+                      //               : Image.network(
+                      //                   _profileNotifier
+                      //                       .professionalData.images2
+                      //                       .toString(),
+                      //                   fit: BoxFit.cover,
+                      //                 ),
+                      //         ),
+                      //       ),
+                      //       Container(
+                      //         margin: EdgeInsets.only(left: 5, right: 5),
+                      //         decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.circular(15),
+                      //         ),
+                      //         height: 90,
+                      //         width: 90,
+                      //         child: ClipRRect(
+                      //           borderRadius: BorderRadius.circular(15),
+                      //           child: _profileNotifier
+                      //                       .professionalData.images3 ==
+                      //                   ""
+                      //               ? Center(
+                      //                   child: Image.network(
+                      //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                      //                     fit: BoxFit.fill,
+                      //                   ),
+                      //                 )
+                      //               : Image.network(
+                      //                   _profileNotifier
+                      //                       .professionalData.images3
+                      //                       .toString(),
+                      //                   fit: BoxFit.cover,
+                      //                 ),
+                      //         ),
+                      //       ),
+                      //       Container(
+                      //         margin: EdgeInsets.only(left: 5, right: 5),
+                      //         decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.circular(15),
+                      //         ),
+                      //         height: 90,
+                      //         width: 90,
+                      //         child: ClipRRect(
+                      //           borderRadius: BorderRadius.circular(15),
+                      //           child: _profileNotifier
+                      //                       .professionalData.images4 ==
+                      //                   ""
+                      //               ? Center(
+                      //                   child: Image.network(
+                      //                     'https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg',
+                      //                     fit: BoxFit.fill,
+                      //                   ),
+                      //                 )
+                      //               : Image.network(
+                      //                   _profileNotifier
+                      //                       .professionalData.images4
+                      //                       .toString(),
+                      //                   fit: BoxFit.cover,
+                      //                 ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
-      )),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              height: size.height * 0.08,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                  color: AppTheme.colorPrimary),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.arrow_back_ios,
+                          size: 14,
+                          color: AppTheme.white,
+                        ),
+                        Text(
+                          "Previous",
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                    fontSize: 14,
+                                    color: lightColor.withOpacity(.9),
+                                  ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        )),
+      ),
     );
   }
 }

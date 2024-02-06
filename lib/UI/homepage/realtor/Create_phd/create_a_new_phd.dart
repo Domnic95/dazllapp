@@ -42,7 +42,6 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
   late PhdProvider _phdProvider;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     loaddata();
@@ -161,11 +160,12 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
                           height: 10,
                         ),
                         Container(
-                          height: 200,
-                          width: 500,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage("assets/images/logo.jpg")))),
+                            height: 200,
+                            width: 500,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage("assets/images/logo.jpg")))),
                         Expanded(
                           child: ListView(
                             children: [
@@ -464,7 +464,7 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
                         Text(
                           "Previous",
                           style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     fontSize: 18,
                                     color: lightColor.withOpacity(.9),
                                   ),
@@ -482,7 +482,7 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
                         Text(
                           "Next",
                           style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     fontSize: 18,
                                     color: lightColor.withOpacity(.9),
                                   ),

@@ -222,7 +222,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                                             "${_roomsfeature.listOfRoom[index].name}",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1!
+                                                .bodyLarge!
                                                 .copyWith(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 16,
@@ -284,7 +284,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                     ),
                     Text(
                       "Previous",
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontSize: 18,
                             color: lightColor.withOpacity(.9),
                           ),
@@ -524,7 +524,7 @@ class _PhdState extends ConsumerState<Phd> with TickerProviderStateMixin {
                   children: [
                     Text(
                       "Finish",
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontSize: 18,
                             color: lightColor.withOpacity(.9),
                           ),

@@ -82,7 +82,7 @@ class _CustomerHomepageState extends ConsumerState<CustomerHomepage> {
                               Selections[index].name,
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!
+                                  .bodyLarge!
                                   .copyWith(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 20,

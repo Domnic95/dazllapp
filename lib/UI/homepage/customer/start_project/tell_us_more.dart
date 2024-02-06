@@ -116,7 +116,7 @@ class _TellusMoreState extends ConsumerState<TellusMore> {
                               "Tell Us More",
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!
+                                  .bodyLarge!
                                   .copyWith(
                                     fontSize: 16,
                                     color: lightColor.withOpacity(.9),
@@ -293,7 +293,7 @@ class _TellusMoreState extends ConsumerState<TellusMore> {
                                       "Previous",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText1!
+                                          .bodyLarge!
                                           .copyWith(
                                             fontSize: 18,
                                             color: lightColor.withOpacity(.9),
@@ -331,7 +331,7 @@ class _TellusMoreState extends ConsumerState<TellusMore> {
                                       "Finish & Save",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText1!
+                                          .bodyLarge!
                                           .copyWith(
                                             fontSize: 18,
                                             color: lightColor.withOpacity(.9),
