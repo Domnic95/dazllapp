@@ -1,5 +1,6 @@
 import 'package:dazllapp/UI/home/provider/service_provider.dart';
 import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
+import 'package:dazllapp/UI/homepage/customer/testing/project_provider.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/complitedPhdProvider.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/phdProvider.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';
@@ -13,7 +14,11 @@ final professionaltifier =
     ChangeNotifierProvider(((ref) => ProfessionalNotifier()));
 final realtorprovider = ChangeNotifierProvider(((ref) => RealtorNotifier()));
 final customerRoomsProvider = ChangeNotifierProvider(((ref) => RoomProvider()));
-final realtorRoomsProvider = ChangeNotifierProvider(((ref) => RealtorRoomProvider()));
+final realtorRoomsProvider =
+    ChangeNotifierProvider(((ref) => RealtorRoomProvider()));
 final phdProvider = ChangeNotifierProvider(((ref) => PhdProvider()));
-final complitedPhdProvider = ChangeNotifierProvider(((ref) => ComplitedPhdProvider()));
+final complitedPhdProvider =
+    ChangeNotifierProvider(((ref) => ComplitedPhdProvider()));
 final serviceProviders = ChangeNotifierProvider(((ref) => ServiceProviders()));
+final profileTestProviders =
+    ChangeNotifierProvider(((ref) => ProfileTestProvider()));

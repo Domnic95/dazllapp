@@ -3,12 +3,14 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dazllapp/UI/home/homepage.dart';
+import 'package:dazllapp/UI/homepage/dashBoard.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/api.dart';
 import 'package:dazllapp/config/global.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/config/providers/realtor_notifier.dart';
 import 'package:dazllapp/constant/spkeys.dart';
+import 'package:dazllapp/constant/strings.dart';
 import 'package:dazllapp/model/Customer/userModel.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -181,7 +183,21 @@ Future<String> login(index, String email, String password, BuildContext context,
             jsonEncode(realtorNotifier.realtorUser));
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => RealtorHomePage()),
+          MaterialPageRoute(builder: (context) {
+            // return RealtorHomePage();
+            return DashBoard(
+              goingNextPage: () {
+                Navigator.pushReplacement(context, MaterialPageRoute(
+                  builder: (context) {
+                    return RealtorHomePage();
+                  },
+                ));
+              },
+              title: agentTitle,
+              decs: agentDecs,
+              appbarTitle: 'Real State Professional',
+            );
+          }),
           (route) => false,
         );
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -195,7 +211,21 @@ Future<String> login(index, String email, String password, BuildContext context,
             SharedPrefsKeys.profetionalUser, jsonEncode(response.data));
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => ProfessionalsHomepage()),
+          MaterialPageRoute(builder: (context) {
+            // return ProfessionalsHomepage();
+            return DashBoard(
+              goingNextPage: () {
+                Navigator.pushReplacement(context, MaterialPageRoute(
+                  builder: (context) {
+                    return ProfessionalsHomepage();
+                  },
+                ));
+              },
+              title: professionalTitle,
+              decs: professionalDecs,
+              appbarTitle: 'Service Professional',
+            );
+          }),
           (route) => false,
         );
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -209,7 +239,21 @@ Future<String> login(index, String email, String password, BuildContext context,
             SharedPrefsKeys.customerUser, jsonEncode(customerUserData));
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => CustomerHomepage()),
+          MaterialPageRoute(builder: (context) {
+            // return CustomerHomepage();
+            return DashBoard(
+              title: homeOwnerTitle,
+              decs: homeOwnerDecs,
+              appbarTitle: 'HOMEOWNERS',
+              goingNextPage: () {
+                Navigator.pushReplacement(context, MaterialPageRoute(
+                  builder: (context) {
+                    return CustomerHomepage();
+                  },
+                ));
+              },
+            );
+          }),
           (route) => false,
         );
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -217,7 +261,7 @@ Future<String> login(index, String email, String password, BuildContext context,
       }
       loading = false;
     } else {
-      print('fail'+response.data.toString());
+      print('fail' + response.data.toString());
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(response.data['message'].toString()),
           backgroundColor: Colors.red));

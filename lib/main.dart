@@ -3,10 +3,12 @@
 import 'dart:async';
 
 import 'package:dazllapp/UI/home/homepage.dart';
+import 'package:dazllapp/UI/homepage/dashBoard.dart';
 import 'package:dazllapp/UI/homepage/professional/professionals_homepage.dart';
 import 'package:dazllapp/UI/homepage/realtor/realtor_homepage.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
+import 'package:dazllapp/constant/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -163,7 +165,19 @@ class _WelcomeState extends State<Welcome> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute<dynamic>(
-              builder: (BuildContext context) => RealtorHomePage(),
+              // builder: (BuildContext context) => RealtorHomePage(),
+              builder: (BuildContext context) => DashBoard(
+                goingNextPage: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(
+                    builder: (context) {
+                      return RealtorHomePage();
+                    },
+                  ));
+                },
+                title: agentTitle,
+                decs: agentDecs,
+                appbarTitle: 'Real State Professional',
+              ),
             ),
           );
         }
@@ -173,7 +187,19 @@ class _WelcomeState extends State<Welcome> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute<dynamic>(
-              builder: (BuildContext context) => ProfessionalsHomepage(),
+              // builder: (BuildContext context) => ProfessionalsHomepage(),
+              builder: (BuildContext context) => DashBoard(
+                goingNextPage: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(
+                    builder: (context) {
+                      return ProfessionalsHomepage();
+                    },
+                  ));
+                },
+                title: professionalTitle,
+                decs: professionalDecs,
+                appbarTitle: 'Service Professional',
+              ),
             ),
           );
         }
@@ -184,7 +210,19 @@ class _WelcomeState extends State<Welcome> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute<dynamic>(
-              builder: (BuildContext context) => CustomerHomepage(),
+              // builder: (BuildContext context) => CustomerHomepage(),
+              builder: (BuildContext context) => DashBoard(
+                title: homeOwnerTitle,
+                decs: homeOwnerDecs,
+                appbarTitle: 'HOMEOWNERS',
+                goingNextPage: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(
+                    builder: (context) {
+                      return CustomerHomepage();
+                    },
+                  ));
+                },
+              ),
             ),
           );
         }

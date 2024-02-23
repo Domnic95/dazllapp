@@ -379,23 +379,37 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                 GestureDetector(
                   onTap: () async {
                     Utils.loaderDialog(context, true);
-                    log("api Call" + _roomProvider.featureId.toString());
+                    log("api Call" +
+                        _roomProvider.featureId
+                            .toString()); // _roomProvider.featureId for Tab Index
                     for (int i = 0; i < _roomProvider.featureId.length; i++) {
                       _roomProvider.set(false, i);
                       if (_roomProvider.featureId[i].isNotEmpty) {
+                        // _roomProvider.featureId[i] == in one tab How many Items(check box)
                         for (int j = 0;
                             j < _roomProvider.featureId[i].length;
                             j++) {
-                          if (_roomProvider.featureId[i][j] != 0 &&
-                              _roomProvider
-                                  .DescrptionController[i][j].text.isNotEmpty &&
-                              _roomProvider.imgFile[i][j].isNotEmpty) {
-                            // for (var k = 0;
-                            //     k < _roomProvider.imgFile[i][j].length;
-                            //     k++) {
-                            //   await _roomProvider.getImage(context, i, j, k, ref);
-                            // }
-                            _roomProvider.set(true, i);
+                          if (_roomProvider.featureId[i][j] != 0) {
+                            if (_roomProvider.DescrptionController[i][j].text
+                                    .isNotEmpty &&
+                                _roomProvider.imgFile[i][j].isNotEmpty) {
+                              // for (var k = 0;
+                              //     k < _roomProvider.imgFile[i][j].length;
+                              //     k++) {
+                              //   await _roomProvider.getImage(context, i, j, k, ref);
+                              // }
+                              _roomProvider.set(true, i);
+                            } else if (_roomProvider
+                                    .DescrptionController[i][j].text.isEmpty ||
+                                _roomProvider.imgFile[i][j].isEmpty) {
+                              // for (var k = 0;
+                              //     k < _roomProvider.imgFile[i][j].length;
+                              //     k++) {
+                              //   await _roomProvider.getImage(context, i, j, k, ref);
+                              // }
+                              // _roomProvider.set(false, i);
+                              // break;
+                            }
                           }
                         }
                       }
@@ -449,7 +463,9 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                     // }
                     // log("api Call" + _roomProvider.isSet.toString());
                     // if (!_roomProvider.isSet.contains(false)) {
-                    log("data === = == ${_roomProvider.listData}");
+                    log(" SSS data === = == ${_roomProvider.listData.length}");
+                    // _roomProvider.tempclick
+                    //     ? {
                     for (int i = 0; i < _roomProvider.featureId.length; i++) {
                       if (_roomProvider.featureId[i].isNotEmpty) {
                         _roomProvider.removeempty();
@@ -461,9 +477,11 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                         }
                       }
                     }
+                    // }
+                    // : {};
 
-                    log('bcsdbfjkdfjk =======>>>> ${_roomProvider.listData}');
-                    // final projectId = 
+                    log(' SSS bcsdbfjkdfjk =======>>>> ${_roomProvider.listData.length}');
+                    // final projectId =
                     await ref
                         .read(customernotifier)
                         .createproject(_roomProvider.listData);
@@ -482,7 +500,28 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                         (route) => false);
                     _roomProvider.reset();
                     if (!_roomProvider.isSet.contains(false)) {
+                      // await ref
+                      //     .read(customernotifier)
+                      //     .createproject(_roomProvider.listData);
+                      // // await ref
+                      // //     .read(customernotifier)
+                      // //     .uploadimages(projectId, _roomProvider.file);
+                      // Utils.loaderDialog(context, false);
+                      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      //   content: Text('Project created sucessfully'),
+                      //   backgroundColor: teamColor,
+                      // ));
+
+                      // Navigator.pushAndRemoveUntil(
+                      //     context,
+                      //     MaterialPageRoute(builder: (context) => myproject()),
+                      //     (route) => false);
+
+                      // _roomProvider.tempclick = true;
+                      // _roomProvider.reset();
                     } else {
+                      // _roomProvider.tempclick = false;
+                      // _roomProvider.notifyListeners();
                       Utils.loaderDialog(context, false);
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text(
