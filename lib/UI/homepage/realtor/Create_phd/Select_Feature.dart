@@ -3,6 +3,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
+import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/phdProvider.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
@@ -29,7 +30,7 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
   void initState() {
     super.initState();
     // loaddata();
-    log("room id ==$roomid");
+    // log("room id ==$roomid");
     _phdProvider = ref.read(phdProvider);
     if (mounted) {
       setState(() {});
@@ -2659,10 +2660,12 @@ class CatagoryExample extends ConsumerStatefulWidget {
 }
 
 class _CatagoryExampleState extends ConsumerState<CatagoryExample> {
+  late RoomProvider roomProvider;
   loaddata() async {
     final _roomsfeature = ref.read(customernotifier);
+    roomProvider = ref.read(customerRoomsProvider);
 
-    await _roomsfeature.getRoomsFeature(roomid);
+    await _roomsfeature.getRoomsFeature(roomProvider.roomId);
     await _roomsfeature.getFeatureOptionIssues();
   }
 

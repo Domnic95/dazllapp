@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
+import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/phd.dart';
 import 'package:dazllapp/config/app_theme.dart';
@@ -20,6 +21,7 @@ class selectRoom extends ConsumerStatefulWidget {
 }
 
 class _selectRoomState extends ConsumerState<selectRoom> {
+  late RoomProvider roomProvider;
   void initState() {
     super.initState();
     loaddata();
@@ -27,6 +29,8 @@ class _selectRoomState extends ConsumerState<selectRoom> {
 
   loaddata() async {
     await ref.read(customernotifier).getRooms();
+    roomProvider = ref.read(customerRoomsProvider);
+
     setState(() {
       loading = false;
     });
@@ -72,7 +76,8 @@ class _selectRoomState extends ConsumerState<selectRoom> {
                                 currentindex = -1;
                               } else
                                 currentindex = index;
-                              roomid = _roomsNotifier.listOfRoom[index].id;
+                              roomProvider.roomId =
+                                  _roomsNotifier.listOfRoom[index].id;
                               log("shhfdhdf  ${_roomsNotifier.listOfRoom[index].id}");
                             });
                           },
@@ -183,7 +188,7 @@ class _selectRoomState extends ConsumerState<selectRoom> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => Phd(
-                              roomId: roomid ?? 0,
+                              roomId: roomProvider.roomId ?? 0,
                             ),
                           ),
                         );

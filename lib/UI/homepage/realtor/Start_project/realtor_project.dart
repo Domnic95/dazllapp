@@ -47,13 +47,18 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
               return false;
             },
             child: Scaffold(
-              body: _realtorprovider.listofrealtorproject.isEmpty
-                  ? Center(child: Text("No Project Found"))
-                  : Container(
-                      child: Column(
-                        children: [
-                          CommonHeader(title: "My Project", isback: false),
-                          Expanded(
+              body:
+                  // _realtorprovider.listofrealtorproject.isEmpty
+                  //     ? Center(child: Text("No Project Found"))
+                  //     :
+                  Container(
+                child: Column(
+                  children: [
+                    CommonHeader(title: "My Project", isback: false),
+                    _realtorprovider.listofrealtorproject.isEmpty
+                        ? Expanded(
+                            child: Center(child: Text("No Project Found")))
+                        : Expanded(
                             child: Padding(
                               padding: EdgeInsets.all(5),
                               child: ListView.builder(
@@ -295,8 +300,11 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                                                         height: 10,
                                                       ),
                                                       ListView.builder(
-                                                        padding:
-                                                            EdgeInsets.symmetric(horizontal: 10.0,vertical: 10.0),
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal:
+                                                                    10.0,
+                                                                vertical: 10.0),
                                                         physics:
                                                             NeverScrollableScrollPhysics(),
                                                         shrinkWrap: true,
@@ -476,64 +484,61 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                               ),
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              height: size.height * 0.09,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20),
-                                  ),
-                                  color: AppTheme.colorPrimary),
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 20.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                RealtorHomePage(),
-                                          ),
-                                          (route) => false,
-                                        );
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.arrow_back_ios,
-                                            size: 20,
-                                            color: AppTheme.white,
-                                          ),
-                                          Text(
-                                            "Previous",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .copyWith(
-                                                  fontSize: 18,
-                                                  color: lightColor
-                                                      .withOpacity(.9),
-                                                ),
-                                          )
-                                        ],
-                                      ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        height: size.height * 0.09,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                            color: AppTheme.colorPrimary),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => RealtorHomePage(),
                                     ),
+                                    (route) => false,
+                                  );
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.arrow_back_ios,
+                                      size: 20,
+                                      color: AppTheme.white,
+                                    ),
+                                    Text(
+                                      "Previous",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                            fontSize: 18,
+                                            color: lightColor.withOpacity(.9),
+                                          ),
+                                    )
                                   ],
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
+                  ],
+                ),
+              ),
             ),
           );
   }

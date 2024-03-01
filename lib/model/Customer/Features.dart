@@ -5,6 +5,8 @@
 
 import 'dart:convert';
 
+import 'package:dazllapp/UI/homepage/customer/model/selectedFeature_model.dart';
+
 Feature featureFromJson(String str) => Feature.fromJson(json.decode(str));
 
 String featureToJson(Feature data) => json.encode(data.toJson());
@@ -42,6 +44,7 @@ class RoomFeature {
   String name;
   DateTime? createdAt;
   DateTime? updatedAt;
+  late SelectedFeatureModel selectedFeatureForOneTabs;
 
   factory RoomFeature.fromJson(Map<String, dynamic> json) => RoomFeature(
         id: json["id"],

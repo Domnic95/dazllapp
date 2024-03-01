@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/customer/home/customer_homepage.dart';
+import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/needs_attention.dart';
 import 'package:dazllapp/config/app_theme.dart';
@@ -36,6 +37,7 @@ class _TellusMoreState extends ConsumerState<TellusMore> {
   bool loading = false;
   TextEditingController _cabinetController = TextEditingController();
   TextEditingController _inspectionController = TextEditingController();
+  late RoomProvider profileTestProvider;
 
   @override
   void initState() {
@@ -127,7 +129,8 @@ class _TellusMoreState extends ConsumerState<TellusMore> {
                         SizedBox(
                           height: 10,
                         ),
-                        Text("Room id = " + roomid.toString()),
+                        Text("Room id = " +
+                            profileTestProvider.selectedRoom!.id.toString()),
                         Expanded(
                           child: ListView.separated(
                             shrinkWrap: true,

@@ -77,7 +77,7 @@ class RealtorNotifier extends BaseNotifier {
       //     res.data['reports'][0]['project_id'].toString());
       notifyListeners();
     } catch (e) {
-      log('error is...' + e.toString());
+      log('error is... getComplitedPhd' + e.toString());
     }
   }
 

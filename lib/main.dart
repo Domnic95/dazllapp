@@ -293,7 +293,7 @@ class MyHomePage extends StatelessWidget {
     "instadaily"
   ];
 
-  List selected_tags = ["love", "me", "summer"];
+ final List selected_tags = ["love", "me", "summer"];
 
   @override
   Widget build(BuildContext context) {

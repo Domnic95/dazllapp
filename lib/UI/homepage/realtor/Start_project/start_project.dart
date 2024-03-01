@@ -1,5 +1,5 @@
 import 'package:dazllapp/UI/component/loadingWidget.dart';
-import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
+import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/rooms.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';
 import 'package:dazllapp/config/app_theme.dart';
@@ -22,6 +22,8 @@ class Start_project extends ConsumerStatefulWidget {
 }
 
 class _Start_projectState extends ConsumerState<Start_project> {
+  late RoomProvider roomProvider;
+
   bool isloading = true;
   void initState() {
     super.initState();
@@ -29,6 +31,7 @@ class _Start_projectState extends ConsumerState<Start_project> {
   }
 
   loaddata() async {
+    roomProvider = ref.read(customerRoomsProvider);
     isloading = true;
     RealtorRoomProvider _roomProvider = ref.read(realtorRoomsProvider);
     _roomProvider.reset();
@@ -120,7 +123,7 @@ class _Start_projectState extends ConsumerState<Start_project> {
                                     currentindex = -1;
                                   } else
                                     currentindex = index;
-                                  roomid = _roomsNotifier.listOfRoom[index].id;
+                                roomProvider.roomId = _roomsNotifier.listOfRoom[index].id;
                                 });
                               },
                               child: Card(
@@ -236,7 +239,7 @@ class _Start_projectState extends ConsumerState<Start_project> {
                               _roomProvider.reset();
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => RealtorRooms(
-                                        roomId: roomid ?? 0,
+                                        roomId: roomProvider.roomId ?? 0,
                                         // roomId: listRoomId ?? [0],
                                       )));
                               _roomsNotifier.listOfoption.clear();
