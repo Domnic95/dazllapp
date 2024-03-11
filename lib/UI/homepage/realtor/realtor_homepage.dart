@@ -79,7 +79,7 @@ class _RealtorHomePageState extends ConsumerState<RealtorHomePage> {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => SelectSavePhd(),
                     ));
-                  }else if (index == 5) {
+                  } else if (index == 5) {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => Realtor_project(),
                     ));

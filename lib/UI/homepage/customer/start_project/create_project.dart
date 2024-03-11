@@ -497,7 +497,7 @@ class _CreateProjectState extends ConsumerState<CreateProject> {
                                         "Next",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText1!
+                                            .bodyLarge!
                                             .copyWith(
                                               fontSize: 18,
                                               color: lightColor.withOpacity(.9),

@@ -116,7 +116,7 @@ class _Select_customerState extends ConsumerState<Select_customer> {
                     } else {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Start_project(
-                                customerid: customerid!,
+                                // customerid: customerid!,
                               )));
                     }
                   },

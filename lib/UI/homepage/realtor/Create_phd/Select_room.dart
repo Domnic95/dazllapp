@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
-import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/phd.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -42,7 +41,6 @@ class _selectRoomState extends ConsumerState<selectRoom> {
   @override
   Widget build(BuildContext context) {
     final _roomsNotifier = ref.read(customernotifier);
-    final _roomProvider = ref.read(realtorRoomsProvider);
     final size = MediaQuery.of(context).size;
     return Scaffold(
       // appBar: AppBar(
@@ -184,7 +182,6 @@ class _selectRoomState extends ConsumerState<selectRoom> {
                         currentindex == -1;
                         // ? SizedBox()
                         // :
-                        _roomProvider.reset();
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => Phd(
@@ -225,6 +222,5 @@ class _selectRoomState extends ConsumerState<selectRoom> {
         ),
       ),
     );
-    ;
   }
 }
