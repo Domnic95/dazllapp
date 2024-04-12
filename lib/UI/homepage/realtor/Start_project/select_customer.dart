@@ -106,8 +106,8 @@ class _Select_customerState extends ConsumerState<Select_customer> {
                   ),
                 ),
                 ElevatedButton(
-                  style:
-                      ElevatedButton.styleFrom(primary: AppTheme.colorPrimary),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: AppTheme.colorPrimary),
                   onPressed: () {
                     if (customer_provider.listofcustomers[0].name ==
                         "Select Customer") {
@@ -116,7 +116,7 @@ class _Select_customerState extends ConsumerState<Select_customer> {
                     } else {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Start_project(
-                                // customerid: customerid!,
+                              // customerid: customerid!,
                               )));
                     }
                   },

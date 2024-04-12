@@ -248,7 +248,6 @@
 
 // delete this above code after 20/4/2025
 
-
 import 'dart:developer';
 import 'dart:io';
 
@@ -264,8 +263,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-class RealtorRoomProvider  extends BaseNotifier {
-   Room? selectedRoom;
+class RealtorRoomProvider extends BaseNotifier {
+  Room? selectedRoom;
   List<Room> selectedAllRooms = [];
   List<List<RoomFeature>> allRoomFeature = [];
   bool isLoading = true;

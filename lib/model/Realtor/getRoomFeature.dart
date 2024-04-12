@@ -4,6 +4,9 @@
 
 import 'dart:convert';
 
+import 'package:dazllapp/model/Customer/Features.dart';
+import 'package:flutter/material.dart';
+
 GetRoomFeature getRoomFeatureFromJson(String str) =>
     GetRoomFeature.fromJson(json.decode(str));
 
@@ -11,23 +14,31 @@ String getRoomFeatureToJson(GetRoomFeature data) => json.encode(data.toJson());
 
 class GetRoomFeature {
   final bool? success;
-  final List<AddValueData>? data;
+  final List<RoomFeature>? data;
   final List<AddValueData>? addValueData;
   final List<Roomtype>? roomtype;
+  TextEditingController? singleTabController;
+  List<String>? images = [];
+  String? impressions = '';
+  int? roomId = -1;
 
   GetRoomFeature({
     this.success,
     this.data,
     this.addValueData,
     this.roomtype,
+    this.singleTabController,
+    this.images,
+    this.impressions,
+    this.roomId,
   });
 
   factory GetRoomFeature.fromJson(Map<String, dynamic> json) => GetRoomFeature(
         success: json["success"],
         data: json["data"] == null
             ? []
-            : List<AddValueData>.from(
-                json["data"]!.map((x) => AddValueData.fromJson(x))),
+            : List<RoomFeature>.from(
+                json["data"]!.map((x) => RoomFeature.fromJson(x))),
         addValueData: json["addValueData"] == null
             ? []
             : List<AddValueData>.from(
@@ -59,6 +70,7 @@ class AddValueData {
   final DateTime? updatedAt;
   final List<AddValueData>? featureOptions;
   final int? featureId;
+  bool? optionSelected = false;
 
   AddValueData({
     this.id,
@@ -67,6 +79,7 @@ class AddValueData {
     this.updatedAt,
     this.featureOptions,
     this.featureId,
+    this.optionSelected,
   });
 
   factory AddValueData.fromJson(Map<String, dynamic> json) => AddValueData(
@@ -104,6 +117,8 @@ class Roomtype {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final AddValueData? type;
+  int? selectedDropDown = -1;
+  String? selectedtype = '';
 
   Roomtype({
     this.id,
@@ -112,6 +127,8 @@ class Roomtype {
     this.createdAt,
     this.updatedAt,
     this.type,
+    this.selectedDropDown,
+    this.selectedtype,
   });
 
   factory Roomtype.fromJson(Map<String, dynamic> json) => Roomtype(

@@ -563,7 +563,7 @@ class RealtorRooms extends ConsumerStatefulWidget {
 class _RealtorRoomsState extends ConsumerState<RealtorRooms>
     with TickerProviderStateMixin {
   late TabController _tabController;
-    late RealtorRoomProvider realtorRoomProvider;
+  late RealtorRoomProvider realtorRoomProvider;
 
   late CustomerNotifier _roomsNotifier;
   List<Widget> _tabs = [];
@@ -645,9 +645,11 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                       onTap: (value) {
                         realtorRoomProvider.changeTabIndex(newTabIndex: value);
 
-                        realtorRoomProvider.selectedRoom = realtorRoomProvider
-                                .selectedAllRooms[
-                            realtorRoomProvider.selectedAllRooms.length - 1 - value];
+                        realtorRoomProvider.selectedRoom =
+                            realtorRoomProvider.selectedAllRooms[
+                                realtorRoomProvider.selectedAllRooms.length -
+                                    1 -
+                                    value];
                       },
                       tabAlignment: TabAlignment.start,
                       indicatorPadding: EdgeInsets.all(3),
@@ -715,8 +717,9 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                             realtorRoomProvider.changeTabIndex(
                                                 newTabIndex: 0);
 
-                                            realtorRoomProvider.changeLoadingState(
-                                                value: false);
+                                            realtorRoomProvider
+                                                .changeLoadingState(
+                                                    value: false);
 
                                             setState1(() {});
 

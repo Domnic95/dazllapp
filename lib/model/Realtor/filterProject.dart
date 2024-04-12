@@ -28,7 +28,8 @@ class FilterProject {
         email: json["email"],
         id: json["id"],
         location: json["location"],
-        filterProjectFinal: json["final"],
+        filterProjectFinal:
+            json["final"] != null ? int.parse(json["final"]) : null,
       );
 
   Map<String, dynamic> toJson() => {

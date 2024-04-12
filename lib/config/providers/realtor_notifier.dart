@@ -52,6 +52,7 @@ class RealtorNotifier extends BaseNotifier {
       notifyListeners();
       return filterProjectList;
     } catch (e) {
+      log('error filterProject is =--= ' + e.toString());
       return [];
     }
   }
@@ -64,7 +65,7 @@ class RealtorNotifier extends BaseNotifier {
       singleComplitedPhdReport = GetComplitedPhdRealtor.fromJson(res.data);
       notifyListeners();
     } catch (e) {
-      log('error is... zdxcf' + e.toString());
+      log('error is... getSingleComplitedPhd' + e.toString());
     }
   }
 
@@ -75,10 +76,10 @@ class RealtorNotifier extends BaseNotifier {
 
       // log('delte id is this --. ' +
       //     res.data['reports'][0]['project_id'].toString());
-      notifyListeners();
     } catch (e) {
       log('error is... getComplitedPhd' + e.toString());
     }
+    notifyListeners();
   }
 
   Future updateBidStatus({
@@ -268,7 +269,8 @@ class RealtorNotifier extends BaseNotifier {
       housedata = Housedata.fromJson(res.data);
     } else {
       Navigator.of(context!).pop();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: primaryColor,
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: primaryColor,
           content: Text("No Data Found for this house with this address")));
     }
     // log("lshjkbjk"+res.data.toString());

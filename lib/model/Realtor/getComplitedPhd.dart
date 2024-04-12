@@ -62,7 +62,7 @@ class Report {
         projectId: json["project_id"] ?? '0',
         phdPrice: json["phd_price"] ?? '0',
         prePrice: json["pre_price"] ?? '',
-        bidStatus: json["bid_status"],
+        bidStatus: json["bid_status"] ?? '',
         images: json["images"] == null
             ? []
             : List<Image>.from(json["images"]!.map((x) => Image.fromJson(x))),
@@ -284,7 +284,7 @@ class Image {
   factory Image.fromJson(Map<String, dynamic> json) => Image(
         id: json["id"],
         url: json["url"],
-        description: json["description"],
+        description: json["description"] ?? '',
         homeDiagnosticReportId: json["home_diagnostic_report_id"],
         createdAt: json["created_at"] == null
             ? null
@@ -418,7 +418,7 @@ class FeatureElement {
         imageDesc: json["imageDesc"],
         images: json["images"] == null
             ? []
-            : List<String>.from(json["images"]!.map((x) => x)),
+            : List<String>.from(json["images"]!.map((x) => x ?? '')),
       );
 
   Map<String, dynamic> toJson() => {
