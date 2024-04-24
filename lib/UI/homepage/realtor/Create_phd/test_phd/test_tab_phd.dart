@@ -90,8 +90,7 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     log('SSS data is-=- ' + testProvider.selectedAllRooms.length.toString());
-//     log('SSS data is-=- ' + testProvider.allRoomsData.length.toString());
+
 //     final size = MediaQuery.of(context).size;
 //     return Scaffold(
 //       body: Consumer(builder: (context, ref, child) {

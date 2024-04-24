@@ -600,11 +600,12 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
     _tabs.clear();
     for (var i = 0; i < realtorRoomProvider.selectedAllRooms.length; i++) {
       _tabs.insert(
-          0,
+          i,
           Tab(
             text: realtorRoomProvider.selectedAllRooms[i].name.toString(),
           ));
     }
+
 
     return _tabs;
   }
@@ -612,7 +613,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
   List<Widget> buildTabView() {
     _tabviews.clear();
     for (var i = 0; i < realtorRoomProvider.selectedAllRooms.length; i++) {
-      _tabviews.insert(0, Select_feature());
+      _tabviews.insert(i, Select_feature());
     }
     return _tabviews;
   }
@@ -711,18 +712,16 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                             realtorRoomProvider.addSeletedRoom(
                                                 addRoom: _roomsNotifier
                                                     .listOfRoom[index],
-                                                tabIndex: _tabs.length);
+                                                tabIndex: realtorRoomProvider.tabIndex);
 
                                             buildTabController();
                                             realtorRoomProvider.changeTabIndex(
-                                                newTabIndex: 0);
-
+                                                newTabIndex: 0);       
                                             realtorRoomProvider
                                                 .changeLoadingState(
                                                     value: false);
 
                                             setState1(() {});
-
                                             setState(() {});
                                             Navigator.pop(context);
                                           },

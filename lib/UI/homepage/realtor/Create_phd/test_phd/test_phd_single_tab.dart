@@ -704,7 +704,6 @@
 //       Utils.loaderDialog(context, true);
 //       // log("kdfgkgfk === ${testprovider.mainImgFile[testprovider.tabIndex]}");
 //       for (int i = 0; i < imgGallery!.length; i++) {
-//         log('SSS' + imgGallery!.length.toString());
 
 //         // testprovider.mainImgFile[testprovider.tabIndex]
 //         //     .add(File(imgGallery![i].path));
@@ -718,9 +717,7 @@
 //     }
 
 //     Utils.loaderDialog(context, false);
-//     log('SSS length is -=-=- ' +
-//         testprovider.allRoomsData[testprovider.tabIndex].images!.length
-//             .toString());
+//    
 //     setState(() {});
 //   }
 

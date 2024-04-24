@@ -131,7 +131,7 @@ List<Selection> Selections = [
   ),
   Selection(
     image: "assets/images/account.png",
-    name: "My account",
+    name: "Agents Profile",
   ),
   Selection(
     image: "assets/images/start.png",
@@ -139,7 +139,7 @@ List<Selection> Selections = [
   ),
   Selection(
     image: "assets/images/document.png",
-    name: "Saved phd",
+    name: "Saved phds",
   ),
   Selection(
     image: "assets/images/inspire.png",

@@ -122,7 +122,7 @@
 //   loadData(
 //       {required BuildContext context,
 //       required RealtorNotifier realtorProvider}) {
-//     log('SSS 1');
+
 
 //     allData = {};
 //     dataListItemIsEmpty = false;
@@ -203,7 +203,6 @@
 //                   itemModel.images[s];
 //             }
 //           } else {
-//             log('SSS its Break at ' + i.toString());
 //             dataListItemIsEmpty = true;
 //             allData = {};
 //             notifyListeners();
@@ -213,7 +212,7 @@
 //           checkBoxCheking.add(false);
 //         }
 //       }
-//       log('SSS 2');
+
 //       if (!checkBoxCheking.contains(true)) {
 //         dataListItemIsEmpty = true;
 //         allData = {};
@@ -221,7 +220,7 @@
 //         break;
 //       }
 //     }
-//     log('SSS 4');
+
 //   }
 
 //   Future createPhdReport(

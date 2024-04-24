@@ -626,7 +626,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
     _tabs.clear();
     for (var i = 0; i < roomProvider.selectedAllRooms.length; i++) {
       _tabs.insert(
-          0,
+          i,
           Tab(
             text: roomProvider.selectedAllRooms[i].name.toString(),
           ));
@@ -638,7 +638,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
   List<Widget> buildTabView() {
     _tabviews.clear();
     for (var i = 0; i < roomProvider.selectedAllRooms.length; i++) {
-      _tabviews.insert(0, NeedAttention());
+      _tabviews.insert(i, NeedAttention());
     }
     return _tabviews;
   }
@@ -750,7 +750,7 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                                             roomProvider.addSeletedRoom(
                                                 addRoom: _roomsNotifier
                                                     .listOfRoom[index],
-                                                tabIndex: _tabs.length);
+                                                tabIndex: roomProvider.tabIndex);
 
                                             buildTabController();
 

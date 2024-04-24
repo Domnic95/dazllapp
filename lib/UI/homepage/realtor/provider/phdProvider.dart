@@ -367,7 +367,7 @@ class PhdProvider extends BaseNotifier {
   loadData(
       {required BuildContext context,
       required RealtorNotifier realtorProvider}) {
-    log('SSS 1');
+   
 
     allData = {};
     dataListItemIsEmpty = false;
@@ -448,7 +448,7 @@ class PhdProvider extends BaseNotifier {
                   itemModel.images[s];
             }
           } else {
-            log('SSS its Break at ' + i.toString());
+         
             dataListItemIsEmpty = true;
             allData = {};
             notifyListeners();
@@ -458,7 +458,7 @@ class PhdProvider extends BaseNotifier {
           checkBoxCheking.add(false);
         }
       }
-      log('SSS 2');
+     
       if (!checkBoxCheking.contains(true)) {
         dataListItemIsEmpty = true;
         allData = {};
@@ -466,7 +466,7 @@ class PhdProvider extends BaseNotifier {
         break;
       }
     }
-    log('SSS 4');
+ 
   }
 
   Future createPhdReport({required BuildContext context}) async {
