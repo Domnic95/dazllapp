@@ -23,11 +23,13 @@ class RealtorNotifier extends BaseNotifier {
   List<List<Roomtype>> roomTypes = [];
   List<List<AddValueData>> addValueData = [];
   List<ProjectList> listofrealtorproject = [];
+  List<ProjectList> listofrealtorProjectLazyLoading = [];
   List<FilterProject> filterProjectList = [];
   GetComplitedPhdRealtor? singleComplitedPhdReport;
   GetComplitedPhdRealtor? complitedPhdReport;
   RealtorUser? realtorUser;
   Housedata? housedata;
+  int lezyLoadingValue = 5;
 
   Future<void> setRealtorUser(String user) async {
     log("realtor ====== $user");
@@ -216,6 +218,7 @@ class RealtorNotifier extends BaseNotifier {
       listofrealtorproject.sort(
         (a, b) => b.projectId!.compareTo(a.projectId!),
       );
+      await loadDataForLazyLoading(firstTimeLoading: true);
       notifyListeners();
     } catch (e) {
       log("error ===" + e.toString());
@@ -223,6 +226,29 @@ class RealtorNotifier extends BaseNotifier {
           content: Text('Something went to Wrong'),
           backgroundColor: Colors.red));
     }
+  }
+
+  loadDataForLazyLoading({required bool firstTimeLoading}) {
+    bool dataIsOver = true;
+    int forLoopValue = firstTimeLoading ? 0 : 5;
+
+    for (var i = firstTimeLoading ? 0 : lezyLoadingValue;
+        i < lezyLoadingValue + forLoopValue;
+        i++) {
+      if (listofrealtorproject.length >= i) {
+        print('SSS ADD at -= ' + i.toString());
+        listofrealtorProjectLazyLoading.add(listofrealtorproject[i]);
+      } else {
+        print('SSS Break');
+        dataIsOver = false;
+        break;
+      }
+    }
+    if (dataIsOver) {
+      lezyLoadingValue += 5;
+    }
+    print('SSS Length is =-=- ' + lezyLoadingValue.toString());
+    if (!firstTimeLoading) notifyListeners();
   }
 
   Future gethousedata({
