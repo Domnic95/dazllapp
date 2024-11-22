@@ -1,6 +1,7 @@
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/start_project.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:flutter/material.dart';
@@ -111,8 +112,9 @@ class _Select_customerState extends ConsumerState<Select_customer> {
                   onPressed: () {
                     if (customer_provider.listofcustomers[0].name ==
                         "Select Customer") {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Select customer')));
+                            toastShowError(context, 'Select customer');
+                      // ScaffoldMessenger.of(context).showSnackBar(
+                      //     SnackBar(content: Text('Select customer')));
                     } else {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Start_project(

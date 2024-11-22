@@ -1176,6 +1176,7 @@ import 'dart:io';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -1594,9 +1595,10 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
   Future<void> textphoto(int index) async {
     Utils.loaderDialog(context, true);
     if (imgGallery == null) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Add Photo'),
-      ));
+      toastShowError(context, 'Add Photo');
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text('Add Photo'),
+      // ));
     } else {
       String image =
           await roomProvider.getImage(context, File(imgGallery.path), ref);
@@ -1614,9 +1616,10 @@ class _NeedAttentionState extends ConsumerState<NeedAttention> {
     if (
         // _PhotoDescrptionController[index].text.isEmpty ||
         imgCamera == null) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Add description or Photo'),
-      ));
+           toastShowError(context, 'Add description or Photo');
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text('Add description or Photo'),
+      // ));
     } else {
       String image =
           await roomProvider.getImage(context, File(imgGallery.path), ref);

@@ -238,9 +238,11 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class selectRoom extends ConsumerStatefulWidget {
+  int slider_value;
   selectRoom({
     Key? key,
-  }) : super(key: key);
+    required this.slider_value,
+  }) : super(key: key,);
 
   @override
   ConsumerState<selectRoom> createState() => _selectRoomState();
@@ -390,6 +392,7 @@ class _selectRoomState extends ConsumerState<selectRoom> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => Phd(
+                                slider_value: widget.slider_value,
                                 room: _phdProvider.selectedRoom!,
                               ),
                             ),

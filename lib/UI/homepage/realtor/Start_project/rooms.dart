@@ -544,6 +544,7 @@ import 'package:dazllapp/UI/homepage/realtor/Start_project/realtor_project.dart'
 import 'package:dazllapp/UI/homepage/realtor/Start_project/select_feature.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -826,20 +827,22 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                           builder: (context) =>
                                               Realtor_project()),
                                       (route) => false);
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content:
-                                        Text('Project created sucessfully'),
-                                    backgroundColor: teamColor,
-                                  ));
+                                       toastShowSuccess(context, 'Project created sucessfully');
+                                  // ScaffoldMessenger.of(context)
+                                  //     .showSnackBar(SnackBar(
+                                  //   content:
+                                  //       Text('Project created sucessfully'),
+                                  //   backgroundColor: teamColor,
+                                  // ));
                                 } else {
                                   Utils.loaderDialog(context, false);
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Text(
-                                        'please Add Atleast one feature note and Add one Images!'),
-                                    backgroundColor: primaryColor,
-                                  ));
+                                      toastShowError(context, 'please Add Atleast one feature note and Add one Images!');
+                                  // ScaffoldMessenger.of(context)
+                                  //     .showSnackBar(SnackBar(
+                                  //   content: Text(
+                                  //       'please Add Atleast one feature note and Add one Images!'),
+                                  //   backgroundColor: primaryColor,
+                                  // ));
                                 }
                               },
                               child: Row(

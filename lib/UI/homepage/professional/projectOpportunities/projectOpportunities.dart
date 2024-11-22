@@ -3,6 +3,7 @@ import 'package:dazllapp/UI/component/customTextfield.dart';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/professional_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -25,7 +26,7 @@ class ProjectOpportunities extends ConsumerStatefulWidget {
 class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
   ProfessionalNotifier? _professionalNotifier;
   bool isLoading = true;
-  bool? isInterested;
+  bool? isInterested = false;
   TextEditingController _controller = TextEditingController();
   final PagingController<int, Final> pagingController =
       PagingController(firstPageKey: 1);
@@ -85,7 +86,10 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
   }
 
   void showDialogeForSendResponse(
-      {required int customerId, required int projectId}) {
+      {required int customerId,
+      required int projectId,
+      required String email,
+      required String homeOwnerName}) {
     showDialog(
       context: context,
       builder: (context) {
@@ -146,47 +150,64 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Message :",
+                      "  Message :",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: darkTextColor,
                       ),
                     ),
                   ),
-                  CustomTextField(
-                      minLine: 5, controller: _controller, label: ""),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: CustomTextField(
+                        minLine: 5, controller: _controller, label: ""),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   ElevatedButton(
                       onPressed: () {
                         if (_controller.text.isNotEmpty &&
                             isInterested != null) {
                           _professionalNotifier!.sendProjectOpportunities({
-                            'isInterested': isInterested ?? false ? 1 : 0,
-                            'project_id': projectId,
+                            "homeOwnerMail": email,
+                            "homeOwnerName": homeOwnerName,
+                            'isInterested': isInterested,
+                            'projectId': projectId,
                             'message': _controller.text,
-                            'interest_date':
-                                DateFormat("yyyy-MM-dd").format(DateTime.now()),
-                            'customer_id': customerId,
-                            'professional_id':
-                                SpHelpers.getString(SharedPrefsKeys.Prof_id)
+                            // 'interest_date':
+                            //     DateFormat("yyyy-MM-dd").format(DateTime.now()),
+                            // 'customer_id': customerId,
+                            // 'professional_id':
+                            //     SpHelpers.getString(SharedPrefsKeys.Prof_id)
                           }).then((value) {
                             if (value != null) {
                               Navigator.of(context).pop();
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(value['message'])));
+                              toastShowSuccess(context,'message send succefully');
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              //     SnackBar(
+                              //         content:
+                              //             Text('message send succefully')));
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content:
-                                          Text("Something went to wrong!")));
+                               toastShowError(context,"Something went to wrong!");
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              //     SnackBar(
+                              //         content:
+                              //             Text("Something went to wrong!")));
                             }
                           });
                         } else if (isInterested == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(
-                                  "Please select you are insterested or not")));
+                          toastShowError(context,"Please select you are interested or not");
+                          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          //     content: Text(
+                          //         "Please select you are interested or not")));
                         } else if (_controller.text.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Message is reqired")));
+                                   toastShowError(context,"Message is reqired");
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //     SnackBar(content: Text("Message is reqired")));
                         }
                       },
                       child: Row(
@@ -196,13 +217,13 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
                             Text("Send",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: lightColor)),
+                                    color: primaryColor)),
                             SizedBox(
                               width: 15,
                             ),
                             Icon(
                               Icons.send,
-                              color: lightColor,
+                              color: primaryColor,
                             )
                           ]))
                 ],
@@ -295,245 +316,320 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
                                     children: [
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Date ",
+                                                    style: TextStyle(
+                                                        height: 2,
+                                                        color:
+                                                            AppTheme.darkText),
+                                                  ),
+                                                  Text(
+                                                    "${f.format(item.createdAt!)}",
+                                                    style: TextStyle(
+                                                        color: AppTheme
+                                                            .colorPrimary),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Location ",
+                                                    style: TextStyle(
+                                                        height: 2,
+                                                        color:
+                                                            AppTheme.darkText),
+                                                  ),
+                                                  Container(
+                                                      width: 200,
+                                                      child: Text(
+                                                        "${item.customer!.house!.location}",
+                                                        style: TextStyle(
+                                                            color: AppTheme
+                                                                .colorPrimary),
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      )),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              // Icon(Icons.remove_red_eye,color: primaryColor,),
+                                              // SizedBox(width: 8,),
+                                              InkWell(
+                                                onTap: () {
+                                                  _professionalNotifier!
+                                                      .deleteProjectProfessional(
+                                                          item.projectId!,
+                                                          context);
+                                                },
+                                                child: Icon(
+                                                  Icons.delete,
+                                                  color: primaryColor,
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                       ListView.builder(
                                         shrinkWrap: true,
                                         physics: NeverScrollableScrollPhysics(),
                                         itemCount: item.roominfo!.length,
                                         itemBuilder: (context, subIndex) {
-                                          return ExpansionTile(
-                                            iconColor: primaryColor,
-                                            childrenPadding: EdgeInsets.only(
-                                                left: 15, bottom: 15),
-                                            expandedAlignment:
-                                                Alignment.topLeft,
-                                            title: Text(
-                                                item.roominfo![subIndex]
-                                                    .roomName!,
-                                                style: TextStyle(
-                                                    color:
-                                                        AppTheme.colorPrimary,
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w600)),
-                                            children: [
-                                              ListView.builder(
-                                                physics:
-                                                    NeverScrollableScrollPhysics(),
-                                                shrinkWrap: true,
-                                                itemCount: item
-                                                    .roominfo![subIndex]
-                                                    .feature!
-                                                    .length,
-                                                itemBuilder:
-                                                    (context, subIndex2) {
-                                                  return Column(
-                                                    children: [
-                                                      Card(
-                                                        child: Theme(
-                                                          data: Theme.of(context).copyWith(
-                                                              colorScheme: ColorScheme
-                                                                      .fromSwatch()
-                                                                  .copyWith(
-                                                                      secondary:
-                                                                          Colors
-                                                                              .black)),
-                                                          child: ExpansionTile(
-                                                            iconColor:
-                                                                primaryColor,
-                                                            childrenPadding:
-                                                                EdgeInsets.only(
-                                                                    left: 15,
-                                                                    bottom: 15),
-                                                            expandedAlignment:
-                                                                Alignment
-                                                                    .topLeft,
-                                                            title: Text(
-                                                                item
-                                                                    .roominfo![
-                                                                        subIndex]
-                                                                    .feature![
-                                                                        subIndex2]
-                                                                    .featureName!,
-                                                                style: TextStyle(
-                                                                    color: AppTheme
-                                                                        .colorPrimary,
-                                                                    fontSize:
-                                                                        14,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600)),
-                                                            children: [
-                                                              Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  item.roominfo![subIndex].feature![subIndex2].images ==
-                                                                              null ||
-                                                                          item.roominfo![subIndex].feature![subIndex2].images!.length ==
-                                                                              0
-                                                                      ? SizedBox()
-                                                                      : SizedBox(
-                                                                          height:
-                                                                              80,
-                                                                          child:
-                                                                              ListView.builder(
-                                                                            physics:
-                                                                                NeverScrollableScrollPhysics(),
-                                                                            shrinkWrap:
-                                                                                true,
-                                                                            scrollDirection:
-                                                                                Axis.horizontal,
-                                                                            itemCount:
-                                                                                item.roominfo![subIndex].feature![subIndex2].images!.length,
-                                                                            itemBuilder:
-                                                                                (context, imgindex) {
-                                                                              return InkWell(
-                                                                                onTap: () {
-                                                                                  Utils.imageInfoDialog(context: context, url: item.roominfo![subIndex].feature![subIndex2].images![imgindex], description: "");
-                                                                                },
-                                                                                child: Container(
-                                                                                  width: 80,
-                                                                                  height: 80,
-                                                                                  padding: const EdgeInsets.only(right: 3),
-                                                                                  child: ClipRRect(
-                                                                                      borderRadius: BorderRadius.circular(5),
-                                                                                      child: CachedNetworkImage(
-                                                                                        errorWidget: (context, url, error) => SizedBox(),
-                                                                                        imageUrl: item.roominfo![subIndex].feature![subIndex2].images![imgindex],
-                                                                                      )),
-                                                                                ),
-                                                                              );
-                                                                            },
-                                                                          ),
-                                                                        ),
-                                                                  propertyDetailIteams(
-                                                                      key:
-                                                                          "Feature Option ",
-                                                                      value: item
-                                                                          .roominfo![
-                                                                              subIndex]
-                                                                          .feature![
-                                                                              subIndex2]
-                                                                          .featureoption!),
-
-                                                                  SizedBox(
-                                                                    height: 5,
-                                                                  ),
-                                                                  // ListView.builder(
-                                                                  //   shrinkWrap: true,
-                                                                  //   itemCount: Detailsprovider
-                                                                  //       .listofrealtorproject[
-                                                                  //           widget.index]
-                                                                  //       .roominfo![index]
-                                                                  //       .feature![subindex]
-                                                                  //       .featureissue!
-                                                                  //       .length,
-                                                                  //   itemBuilder: (BuildContext context,
-                                                                  //       int subsubindex) {
-                                                                  //     return Column(
-                                                                  //       crossAxisAlignment:
-                                                                  //           CrossAxisAlignment.start,
-                                                                  //       children: [
-                                                                  //         Text("Feature Issue ${subsubindex + 1} : " +
-                                                                  //             Detailsprovider
-                                                                  //                 .listofrealtorproject[
-                                                                  //                     widget.index]
-                                                                  //                 .roominfo![index]
-                                                                  //                 .feature![subindex]
-                                                                  //                 .featureissue![
-                                                                  //                     subsubindex]
-                                                                  //                 .name),
-                                                                  //         SizedBox(
-                                                                  //           height: 5,
-                                                                  //         )
-                                                                  //       ],
-                                                                  //     );
-                                                                  //   },
-                                                                  // ),
-                                                                  propertyDetailIteams(
-                                                                      key:
-                                                                          "Feature Notes ",
-                                                                      value: item
-                                                                          .roominfo![
-                                                                              subIndex]
-                                                                          .feature![
-                                                                              subIndex2]
-                                                                          .inspectionNotes!),
-
-                                                                  SizedBox(
-                                                                    height: 5,
-                                                                  ),
-                                                                  Card(
-                                                                    // shape:
-                                                                    //     OutlineInputBorder(),
-                                                                    child:
-                                                                        Theme(
-                                                                      data: Theme.of(
-                                                                              context)
-                                                                          .copyWith(
-                                                                              colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black)),
-                                                                      child:
-                                                                          ExpansionTile(
-                                                                        tilePadding:
-                                                                            EdgeInsets.zero,
-                                                                        iconColor:
-                                                                            primaryColor,
-                                                                        title:
-                                                                            Text(
-                                                                          "Feautre Issues",
-                                                                          style:
-                                                                              TextStyle(color: primaryColor),
-                                                                        ),
-                                                                        children: [
-                                                                          Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.symmetric(horizontal: 8.0),
+                                          return Card(
+                                            child: ExpansionTile(
+                                              iconColor: primaryColor,
+                                              childrenPadding: EdgeInsets.only(
+                                                  left: 15, bottom: 15),
+                                              expandedAlignment:
+                                                  Alignment.topLeft,
+                                              title: Text(
+                                                  item.roominfo![subIndex]
+                                                      .roomName!,
+                                                  style: TextStyle(
+                                                      color:
+                                                          AppTheme.colorPrimary,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w600)),
+                                              children: [
+                                                ListView.builder(
+                                                  physics:
+                                                      NeverScrollableScrollPhysics(),
+                                                  shrinkWrap: true,
+                                                  itemCount: item
+                                                      .roominfo![subIndex]
+                                                      .feature!
+                                                      .length,
+                                                  itemBuilder:
+                                                      (context, subIndex2) {
+                                                    return Column(
+                                                      children: [
+                                                        if (item
+                                                                .roominfo![
+                                                                    subIndex]
+                                                                .feature![0]
+                                                                .featureName !=
+                                                            '')
+                                                          Theme(
+                                                            data: Theme.of(context).copyWith(
+                                                                colorScheme: ColorScheme
+                                                                        .fromSwatch()
+                                                                    .copyWith(
+                                                                        secondary:
+                                                                            Colors.black)),
+                                                            child:
+                                                                ExpansionTile(
+                                                              iconColor:
+                                                                  primaryColor,
+                                                              childrenPadding:
+                                                                  EdgeInsets.only(
+                                                                      left: 15,
+                                                                      right: 15,
+                                                                      bottom:
+                                                                          15),
+                                                              expandedAlignment:
+                                                                  Alignment
+                                                                      .topLeft,
+                                                              title: Text(
+                                                                  item
+                                                                      .roominfo![
+                                                                          subIndex]
+                                                                      .feature![
+                                                                          subIndex2]
+                                                                      .featureName!,
+                                                                  style: TextStyle(
+                                                                      color: AppTheme
+                                                                          .colorPrimary,
+                                                                      fontSize:
+                                                                          14,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600)),
+                                                              children: [
+                                                                Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .min,
+                                                                  children: [
+                                                                    item.roominfo![subIndex].feature![subIndex2].images ==
+                                                                                null ||
+                                                                            item.roominfo![subIndex].feature![subIndex2].images!.length ==
+                                                                                0
+                                                                        ? SizedBox()
+                                                                        : SizedBox(
+                                                                            height:
+                                                                                80,
                                                                             child:
                                                                                 ListView.builder(
                                                                               physics: NeverScrollableScrollPhysics(),
                                                                               shrinkWrap: true,
-                                                                              itemCount: item.roominfo![subIndex].feature![subIndex2].featureissue!.length,
-                                                                              itemBuilder: (context, option) => Text(
-                                                                                "${item.roominfo![subIndex].feature![subIndex2].featureissue![option].name}",
-                                                                                style: TextStyle(color: darkTextColor),
-                                                                              ),
+                                                                              scrollDirection: Axis.horizontal,
+                                                                              itemCount: item.roominfo![subIndex].feature![subIndex2].images!.length,
+                                                                              itemBuilder: (context, imgindex) {
+                                                                                return InkWell(
+                                                                                  onTap: () {
+                                                                                    Utils.imageInfoDialog(context: context, url: item.roominfo![subIndex].feature![subIndex2].images![imgindex], description: "");
+                                                                                  },
+                                                                                  child: Container(
+                                                                                    width: 80,
+                                                                                    height: 80,
+                                                                                    padding: EdgeInsets.only(right: 3),
+                                                                                    child: ClipRRect(
+                                                                                        borderRadius: BorderRadius.circular(5),
+                                                                                        child: CachedNetworkImage(
+                                                                                          errorWidget: (context, url, error) => SizedBox(),
+                                                                                          imageUrl: item.roominfo![subIndex].feature![subIndex2].images![imgindex],
+                                                                                        )),
+                                                                                  ),
+                                                                                );
+                                                                              },
                                                                             ),
-                                                                          )
-                                                                        ],
+                                                                          ),
+                                                                    propertyDetailIteams(
+                                                                        key:
+                                                                            "Feature Option ",
+                                                                        value: item
+                                                                            .roominfo![subIndex]
+                                                                            .feature![subIndex2]
+                                                                            .featureoption!),
+
+                                                                    SizedBox(
+                                                                      height: 5,
+                                                                    ),
+                                                                    // ListView.builder(
+                                                                    //   shrinkWrap: true,
+                                                                    //   itemCount: Detailsprovider
+                                                                    //       .listofrealtorproject[
+                                                                    //           widget.index]
+                                                                    //       .roominfo![index]
+                                                                    //       .feature![subindex]
+                                                                    //       .featureissue!
+                                                                    //       .length,
+                                                                    //   itemBuilder: (BuildContext context,
+                                                                    //       int subsubindex) {
+                                                                    //     return Column(
+                                                                    //       crossAxisAlignment:
+                                                                    //           CrossAxisAlignment.start,
+                                                                    //       children: [
+                                                                    //         Text("Feature Issue ${subsubindex + 1} : " +
+                                                                    //             Detailsprovider
+                                                                    //                 .listofrealtorproject[
+                                                                    //                     widget.index]
+                                                                    //                 .roominfo![index]
+                                                                    //                 .feature![subindex]
+                                                                    //                 .featureissue![
+                                                                    //                     subsubindex]
+                                                                    //                 .name),
+                                                                    //         SizedBox(
+                                                                    //           height: 5,
+                                                                    //         )
+                                                                    //       ],
+                                                                    //     );
+                                                                    //   },
+                                                                    // ),
+                                                                    propertyDetailIteams(
+                                                                        key:
+                                                                            "Feature Notes ",
+                                                                        value: item
+                                                                            .roominfo![subIndex]
+                                                                            .feature![subIndex2]
+                                                                            .inspectionNotes!),
+
+                                                                    SizedBox(
+                                                                      height: 5,
+                                                                    ),
+                                                                    Card(
+                                                                      // shape:
+                                                                      //     OutlineInputBorder(),
+                                                                      child:
+                                                                          Theme(
+                                                                        data: Theme.of(context).copyWith(
+                                                                            colorScheme:
+                                                                                ColorScheme.fromSwatch().copyWith(secondary: Colors.black)),
+                                                                        child:
+                                                                            ExpansionTile(
+                                                                          tilePadding:
+                                                                              EdgeInsets.zero,
+                                                                          iconColor:
+                                                                              primaryColor,
+                                                                          title:
+                                                                              Text(
+                                                                            "Feautre Issues",
+                                                                            style:
+                                                                                TextStyle(color: primaryColor),
+                                                                          ),
+                                                                          children: [
+                                                                            Padding(
+                                                                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                                              child: ListView.builder(
+                                                                                physics: NeverScrollableScrollPhysics(),
+                                                                                shrinkWrap: true,
+                                                                                itemCount: item.roominfo![subIndex].feature![subIndex2].featureissue!.length,
+                                                                                itemBuilder: (context, option) => Text(
+                                                                                  "${item.roominfo![subIndex].feature![subIndex2].featureissue![option].name}",
+                                                                                  style: TextStyle(color: darkTextColor),
+                                                                                ),
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
 
-                                                                  // propertyDetailIteams(key: "Inspection Notes : ", value: Detailsprovider
-                                                                  //           .listofrealtorproject[
-                                                                  //               widget.index]
-                                                                  //           .roominfo![index]
-                                                                  //           .feature![subindex]
-                                                                  //           .inspectionNotes!),
-                                                                  // Text(
-                                                                  //   "Issue text : " +
-                                                                  //       Detailsprovider
-                                                                  //           .listofrealtorproject[
-                                                                  //               widget.index]
-                                                                  //           .roominfo![index]
-                                                                  //           .feature![subindex]
-                                                                  //           .featureissue!,
-                                                                  // )
-                                                                ],
-                                                              )
-                                                            ],
+                                                                    // propertyDetailIteams(key: "Inspection Notes : ", value: Detailsprovider
+                                                                    //           .listofrealtorproject[
+                                                                    //               widget.index]
+                                                                    //           .roominfo![index]
+                                                                    //           .feature![subindex]
+                                                                    //           .inspectionNotes!),
+                                                                    // Text(
+                                                                    //   "Issue text : " +
+                                                                    //       Detailsprovider
+                                                                    //           .listofrealtorproject[
+                                                                    //               widget.index]
+                                                                    //           .roominfo![index]
+                                                                    //           .feature![subindex]
+                                                                    //           .featureissue!,
+                                                                    // )
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              ),
-                                            ],
+                                                      ],
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            ),
                                           );
                                         },
                                       ),
@@ -542,8 +638,17 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
                                             isInterested = null;
                                             _controller.text = '';
                                             showDialogeForSendResponse(
-                                                customerId: item.customer!.id!,
-                                                projectId: item.projectId!);
+                                              customerId: item.customer!.id!,
+                                              projectId: item.projectId!,
+                                              email:
+                                                  item.customer!.email!.isEmpty
+                                                      ? ''
+                                                      : item.customer!.email!,
+                                              homeOwnerName: item.customer!
+                                                      .firstName!.isEmpty
+                                                  ? ''
+                                                  : item.customer!.firstName!,
+                                            );
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
@@ -972,4 +1077,6 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
             ),
     );
   }
+
+  final f = new DateFormat('yyyy-MM-dd');
 }

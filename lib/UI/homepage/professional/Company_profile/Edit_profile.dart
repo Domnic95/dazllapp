@@ -1,12 +1,17 @@
 // ignore_for_file: camel_case_types, file_names, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_unnecessary_containers, non_constant_identifier_names
 
+import 'dart:io';
+
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
+import 'package:dazllapp/UI/homepage/customer/start_project/tell_us_more.dart';
 import 'package:dazllapp/UI/homepage/professional/Company_profile/company_profile.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Edit_profile extends ConsumerStatefulWidget {
   Edit_profile({Key? key}) : super(key: key);
@@ -26,7 +31,13 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
     await ref.read(professionaltifier).getProfessional();
   }
 
+  File? _image;
+  File? _image2;
+  final ImagePicker _picker = ImagePicker();
   final _yearsinbussiness = TextEditingController();
+  final email = TextEditingController();
+  final city = TextEditingController();
+  final state = TextEditingController();
   final _name = TextEditingController();
   final _phone = TextEditingController();
   final _Address = TextEditingController();
@@ -39,6 +50,98 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
   final _twitter = TextEditingController();
   final _insuranceContactPerson = TextEditingController();
   final _insuranceNumber = TextEditingController();
+
+  void _showPickerDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Select Image Source"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera),
+                title: const Text("Camera"),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _pickImage(ImageSource.camera);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text("Gallery"),
+                onTap: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                  _pickImage(ImageSource.gallery);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showPickerDialog2() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Select Image Source"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera),
+                title: const Text("Camera"),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _pickImage2(ImageSource.camera);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text("Gallery"),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _pickImage2(ImageSource.gallery);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // Function to pick an image
+  Future<void> _pickImage(ImageSource source) async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(source: source);
+      if (pickedFile != null) {
+        setState(() {
+          _image = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+    }
+  }
+
+  Future<void> _pickImage2(ImageSource source) async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(source: source);
+      if (pickedFile != null) {
+        setState(() {
+          _image2 = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final _profileNotifier = ref.read(professionaltifier);
@@ -49,6 +152,17 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
     _name.text = _profileNotifier.professionalData.name.toString() != 'null'
         ? _profileNotifier.professionalData.name.toString()
         : '';
+
+    email.text = _profileNotifier.professionalData.email.toString() != 'null'
+        ? _profileNotifier.professionalData.email.toString()
+        : '';
+    city.text = _profileNotifier.professionalData.city.toString() != 'null'
+        ? _profileNotifier.professionalData.city.toString()
+        : '';
+    state.text = _profileNotifier.professionalData.state.toString() != 'null'
+        ? _profileNotifier.professionalData.state.toString()
+        : '';
+
     _phone.text = _profileNotifier.professionalData.phone.toString() != 'null'
         ? _profileNotifier.professionalData.phone.toString()
         : '';
@@ -129,50 +243,89 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                                   borderRadius: BorderRadius.circular(18.0),
                                 ),
                               ),
-                              onPressed: () {
-                                Map<String, dynamic> data = {
-                                  "name": _name.text,
-                                  "phone": _phone.text,
-                                  "address": _Address.text,
-                                  "references": _reference.text,
-                                  // "website": "dazl",
-                                  // "twitter": null,
-                                  // "facebook": null,
+                              onPressed: () async {
+                                if (_phone.text.length != 10) {
+                                  toastShowError(context,
+                                      'please enter correct phone number');
+                                  //                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  // content: Text('please enter correct phone number'),
+                                  // backgroundColor: primaryColor));
+                                } else {
+                                  Map<String, dynamic> data = {
+                                    "name": _name.text,
+                                    "phone": _phone.text,
+                                    "address": _Address.text,
+                                    "references": _reference.text,
+                                    // "website": "dazl",
+                                    // "twitter": null,
+                                    // "facebook": null,
+                                    "company_city": city.text,
+                                    "state": state.text,
+                                    "email": email.text,
+                                    'insurance_certificate':
+                                        _insurance_certificate.text,
+                                    'insurance_contact_number':
+                                        _insuranceContactPerson.text,
+                                    // "description": "",
+                                    // "business_licence": "",
+                                    // "project_portfolio": [],
+                                    "years_in_business": _yearsinbussiness.text,
 
-                                  // "description": "",
-                                  // "business_licence": "",
-                                  // "project_portfolio": [],
-                                  // "years_in_business": 12,
-                                  // "insurance_certificate": "",
-                                };
-                                _profileNotifier
-                                    .updateProfessional(data)
-                                    .then((value) {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Text(value['message']),
-                                    backgroundColor: teamColor,
-                                  ));
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              CompanyProfile()));
-                                });
+                                    'images1': _image == null
+                                        ? (_profileNotifier
+                                                    .professionalData.images1 !=
+                                                null
+                                            ? _profileNotifier
+                                                .professionalData.images1
+                                            : '')
+                                        : await _profileNotifier
+                                            .uploadImage(_image!),
+                                    'images2': _image2 == null
+                                        ? (_profileNotifier
+                                                    .professionalData.images2 !=
+                                                null
+                                            ? _profileNotifier
+                                                .professionalData.images2
+                                            : '')
+                                        : await _profileNotifier
+                                            .uploadImage(_image2!),
+                                    // "insurance_certificate": "",
+                                  };
+                                  _profileNotifier
+                                      .updateProfessional(data)
+                                      .then((value) {
+                                    toastShowSuccess(context, '${value['message']}');
+                                    // ScaffoldMessenger.of(context)
+                                    //     .showSnackBar(SnackBar(
+                                    //   content: Text(value['message']),
+                                    //   backgroundColor: teamColor,
+                                    // ));
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CompanyProfile()));
+                                  });
 
-                                _yearsinbussiness.clear();
-                                _name.clear();
-                                _phone.clear();
-                                _Address.clear();
-                                _bussiness_licence.clear();
-                                _insurance_certificate.clear();
-                                _project_portfolio.clear();
-                                _reference.clear();
-                                _website.clear();
-                                _facebook.clear();
-                                _twitter.clear();
-                                _insuranceContactPerson.clear();
-                                _insuranceNumber.clear();
+                                  _yearsinbussiness.clear();
+                                  _name.clear();
+                                  _phone.clear();
+                                  _Address.clear();
+                                  _bussiness_licence.clear();
+                                  _insurance_certificate.clear();
+                                  _project_portfolio.clear();
+                                  _reference.clear();
+                                  _insuranceContactPerson.clear();
+                                  _website.clear();
+                                  _facebook.clear();
+                                  _twitter.clear();
+                                  city.clear();
+                                  email.clear();
+                                  state.clear();
+                                  _insuranceNumber.clear();
+                                  _image = null;
+                                  _image2 = null;
+                                }
                               },
                               child: Row(
                                 children: [
@@ -196,41 +349,6 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                       ),
                       SizedBox(
                         height: 10,
-                      ),
-                      TextFormField(
-                        controller: _yearsinbussiness,
-                        // validator: (text) {
-                        //   if (text!.isEmpty) {
-                        //     return 'Address can\'t be empty';
-                        //   }
-                        //   return null;
-                        // },
-                        cursorColor: AppTheme.nearlyBlack,
-                        decoration: InputDecoration(
-                          hintText: "Enter YEARS IN BUSSINESS",
-                          label: Text('YEARS IN BUSSINESS'),
-                          isDense: true,
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              borderSide: BorderSide(color: Colors.black)),
-                          hintStyle: TextStyle(
-                              color: AppTheme.darkerText,
-                              fontFamily: AppTheme.fontName,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                          labelStyle: TextStyle(
-                              color: const Color(0xFF424242),
-                              fontFamily: AppTheme.fontName,
-                              fontSize: 14),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(color: Colors.black),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
                       ),
                       TextFormField(
                         controller: _name,
@@ -268,17 +386,17 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                         height: 15,
                       ),
                       TextFormField(
-                        controller: _phone,
+                        controller: city,
                         // validator: (text) {
                         //   if (text!.isEmpty) {
-                        //     return 'Last Name can\'t be empty';
+                        //     return 'First Name can\'t be empty';
                         //   }
                         //   return null;
                         // },
                         cursorColor: AppTheme.nearlyBlack,
                         decoration: InputDecoration(
-                          hintText: "Enter Your Phone",
-                          label: Text('Phone No'),
+                          hintText: "Enter Your City",
+                          label: Text('CITY'),
                           isDense: true,
                           focusedBorder: OutlineInputBorder(
                               borderRadius:
@@ -302,6 +420,42 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                       SizedBox(
                         height: 15,
                       ),
+                      TextFormField(
+                        controller: state,
+                        // validator: (text) {
+                        //   if (text!.isEmpty) {
+                        //     return 'First Name can\'t be empty';
+                        //   }
+                        //   return null;
+                        // },
+                        cursorColor: AppTheme.nearlyBlack,
+                        decoration: InputDecoration(
+                          hintText: "Enter Your State",
+                          label: Text('STATE'),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black)),
+                          hintStyle: TextStyle(
+                              color: AppTheme.darkerText,
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                          labelStyle: TextStyle(
+                              color: const Color(0xFF424242),
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+
                       TextField(
                         controller: _Address,
                         cursorColor: AppTheme.nearlyBlack,
@@ -331,12 +485,18 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                       SizedBox(
                         height: 15,
                       ),
-                      TextField(
-                        controller: _bussiness_licence,
+                      TextFormField(
+                        controller: _yearsinbussiness,
+                        // validator: (text) {
+                        //   if (text!.isEmpty) {
+                        //     return 'Address can\'t be empty';
+                        //   }
+                        //   return null;
+                        // },
                         cursorColor: AppTheme.nearlyBlack,
                         decoration: InputDecoration(
-                          hintText: "Enter Your Bussiness Licence",
-                          label: Text("BUSSINESS LICENCE"),
+                          hintText: "Enter YEARS IN BUSSINESS",
+                          label: Text('YEARS IN BUSSINESS'),
                           isDense: true,
                           focusedBorder: OutlineInputBorder(
                               borderRadius:
@@ -360,12 +520,114 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                       SizedBox(
                         height: 15,
                       ),
+
+                      TextFormField(
+                        controller: _phone,
+                        // validator: (text) {
+                        //   if (text!.isEmpty) {
+                        //     return 'Last Name can\'t be empty';
+                        //   }
+                        //   return null;
+                        // },
+                        cursorColor: AppTheme.nearlyBlack,
+                        decoration: InputDecoration(
+                            hintText: "Enter Your Phone",
+                            label: Text('Phone No'),
+                            isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                borderSide: BorderSide(color: Colors.black)),
+                            hintStyle: TextStyle(
+                                color: AppTheme.darkerText,
+                                fontFamily: AppTheme.fontName,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
+                            labelStyle: TextStyle(
+                                color: const Color(0xFF424242),
+                                fontFamily: AppTheme.fontName,
+                                fontSize: 14),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                            counter: SizedBox()),
+                        maxLength: 10,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      TextFormField(
+                        controller: email,
+                        // validator: (text) {
+                        //   if (text!.isEmpty) {
+                        //     return 'First Name can\'t be empty';
+                        //   }
+                        //   return null;
+                        // },
+                        cursorColor: AppTheme.nearlyBlack,
+                        decoration: InputDecoration(
+                          hintText: "Enter Your Email",
+                          label: Text('EMAIL'),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.black)),
+                          hintStyle: TextStyle(
+                              color: AppTheme.darkerText,
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                          labelStyle: TextStyle(
+                              color: const Color(0xFF424242),
+                              fontFamily: AppTheme.fontName,
+                              fontSize: 14),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      // TextField(
+                      //   controller: _bussiness_licence,
+                      //   cursorColor: AppTheme.nearlyBlack,
+                      //   decoration: InputDecoration(
+                      //     hintText: "Enter Your Bussiness Licence",
+                      //     label: Text("BUSSINESS LICENCE"),
+                      //     isDense: true,
+                      //     focusedBorder: OutlineInputBorder(
+                      //         borderRadius:
+                      //             BorderRadius.all(Radius.circular(20)),
+                      //         borderSide: BorderSide(color: Colors.black)),
+                      //     hintStyle: TextStyle(
+                      //         color: AppTheme.darkerText,
+                      //         fontFamily: AppTheme.fontName,
+                      //         fontSize: 14,
+                      //         fontWeight: FontWeight.w400),
+                      //     labelStyle: TextStyle(
+                      //         color: const Color(0xFF424242),
+                      //         fontFamily: AppTheme.fontName,
+                      //         fontSize: 14),
+                      //     border: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.all(Radius.circular(20)),
+                      //       borderSide: BorderSide(color: Colors.black),
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 15,
+                      // ),
                       TextField(
                         controller: _insurance_certificate,
                         cursorColor: AppTheme.nearlyBlack,
                         decoration: InputDecoration(
-                          hintText: "Enter Your Insurance Certificate",
-                          label: Text("INSURANCE CERTIFICATE"),
+                          hintText: "Enter Your Company Name",
+                          label: Text("Company Name".toUpperCase()),
                           isDense: true,
                           focusedBorder: OutlineInputBorder(
                               borderRadius:
@@ -418,9 +680,7 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                       SizedBox(
                         height: 15,
                       ),
-                      SizedBox(
-                        height: 15,
-                      ),
+
                       TextField(
                         controller: _insuranceNumber,
                         cursorColor: AppTheme.nearlyBlack,
@@ -450,34 +710,158 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                       SizedBox(
                         height: 15,
                       ),
-                      TextField(
-                        controller: _project_portfolio,
-                        cursorColor: AppTheme.nearlyBlack,
-                        decoration: InputDecoration(
-                          hintText: "Enter Your Project Portfolio",
-                          label: Text("PROJECT PORTFOLIO"),
-                          isDense: true,
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              borderSide: BorderSide(color: Colors.black)),
-                          hintStyle: TextStyle(
-                              color: AppTheme.darkerText,
-                              fontFamily: AppTheme.fontName,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                          labelStyle: TextStyle(
-                              color: const Color(0xFF424242),
-                              fontFamily: AppTheme.fontName,
-                              fontSize: 14),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(color: Colors.black),
+                      // TextField(
+                      //   controller: _project_portfolio,
+                      //   cursorColor: AppTheme.nearlyBlack,
+                      //   decoration: InputDecoration(
+                      //     hintText: "Enter Your Project Portfolio",
+                      //     label: Text("PROJECT PORTFOLIO"),
+                      //     isDense: true,
+                      //     focusedBorder: OutlineInputBorder(
+                      //         borderRadius:
+                      //             BorderRadius.all(Radius.circular(20)),
+                      //         borderSide: BorderSide(color: Colors.black)),
+                      //     hintStyle: TextStyle(
+                      //         color: AppTheme.darkerText,
+                      //         fontFamily: AppTheme.fontName,
+                      //         fontSize: 14,
+                      //         fontWeight: FontWeight.w400),
+                      //     labelStyle: TextStyle(
+                      //         color: const Color(0xFF424242),
+                      //         fontFamily: AppTheme.fontName,
+                      //         fontSize: 14),
+                      //     border: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.all(Radius.circular(20)),
+                      //       borderSide: BorderSide(color: Colors.black),
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            children: [
+                              _image != null
+                                  ? Image.file(
+                                      _image!,
+                                      height: 100,
+                                      width: 100,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : _profileNotifier.professionalData.images1 !=
+                                          null
+                                      ? Container(
+                                          height: 100,
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      _profileNotifier
+                                                          .professionalData
+                                                          .images1
+                                                          .toString()),
+                                                  fit: BoxFit.cover),
+                                              border: Border.all(
+                                                  color: primaryColor)),
+                                        )
+                                      : Container(
+                                          height: 100,
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              border: Border.all(
+                                                  color: primaryColor)),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.upload,
+                                                color:
+                                                    blackColor.withOpacity(0.5),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Center(
+                                                  child: Text(
+                                                      "Profile".toUpperCase())),
+                                            ],
+                                          )),
+                              const SizedBox(height: 20),
+                              ElevatedButton(
+                                onPressed: _showPickerDialog,
+                                child: Text("Choose Image".toUpperCase()),
+                              ),
+                            ],
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
+                          Column(
+                            children: [
+                              _image2 != null
+                                  ? Image.file(
+                                      _image2!,
+                                      height: 100,
+                                      width: 100,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : _profileNotifier.professionalData.images2 !=
+                                          null
+                                      ? Container(
+                                          height: 100,
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      _profileNotifier
+                                                          .professionalData
+                                                          .images2
+                                                          .toString()),
+                                                  fit: BoxFit.cover),
+                                              border: Border.all(
+                                                  color: primaryColor)),
+                                        )
+                                      : Container(
+                                          height: 100,
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              border: Border.all(
+                                                  color: primaryColor)),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.upload,
+                                                color:
+                                                    blackColor.withOpacity(0.5),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Center(
+                                                  child: Text(
+                                                      "Profile".toUpperCase())),
+                                            ],
+                                          )),
+                              const SizedBox(height: 20),
+                              ElevatedButton(
+                                onPressed: _showPickerDialog2,
+                                child: Text("Choose Image".toUpperCase()),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                       // TextField(
                       //   controller: _reference,

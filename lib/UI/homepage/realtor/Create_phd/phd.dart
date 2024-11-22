@@ -546,6 +546,7 @@
 
 // delete this above code after 20/4/2025
 
+import 'dart:developer';
 
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
@@ -564,7 +565,9 @@ import '../provider/phdProvider.dart';
 
 class Phd extends ConsumerStatefulWidget {
   final Room room;
-  const Phd({Key? key, required this.room}) : super(key: key);
+  final int slider_value;
+  const Phd({Key? key, required this.room, required this.slider_value})
+      : super(key: key);
 
   @override
   ConsumerState<Phd> createState() => _TestTabPhdState();
@@ -583,6 +586,8 @@ class _TestTabPhdState extends ConsumerState<Phd>
   @override
   void initState() {
     super.initState();
+    log('====----->> ' + widget.slider_value.toString());
+     log('widget.roomId ${widget.room}');
     loaddata();
   }
 
@@ -591,6 +596,7 @@ class _TestTabPhdState extends ConsumerState<Phd>
     _roomsfeature = ref.read(customernotifier);
     _realtorProvider = ref.read(realtorprovider);
     _phdProvider = ref.read(phdProvider);
+    _realtorProvider.sliderValue = widget.slider_value;
     await _phdProvider.addSeletedRoom(
       addRoom: widget.room,
       tabIndex: _phdProvider.tabIndex,
@@ -628,6 +634,7 @@ class _TestTabPhdState extends ConsumerState<Phd>
     for (var i = 0; i < _phdProvider.selectedAllRooms.length; i++) {
       _tabviews.insert(i, SelectFeature());
     }
+ 
     return _tabviews;
   }
 
@@ -811,19 +818,23 @@ class _TestTabPhdState extends ConsumerState<Phd>
               ),
               GestureDetector(
                 onTap: () async {
+                  log("=-====---=-=-======--->>>>00 ");
                   Utils.loaderDialog(context, true);
+                  log("=-====---=-=-======--->>>>01 ");
                   await _phdProvider.loadData(
                       context: context, realtorProvider: _realtorProvider);
+                  log("=-====---=-=-======--->>>>11 ");
 
                   if (!_phdProvider.dataListItemIsEmpty) {
+                    log("=-====---=-=-======--->>>>22 ");
                     await _phdProvider.createPhdReport(context: context);
                   } else {
                     Utils.loaderDialog(context, false);
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                          'please Add Atleast one feature note and Add one Images!'),
-                      backgroundColor: primaryColor,
-                    ));
+                    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    //   content: Text(
+                    //       'please Add Atleast one feature note and Add one Images!'),
+                    //   backgroundColor: primaryColor,
+                    // ));
                     _scaffoldKey.currentState?.deactivate();
                   }
                 },

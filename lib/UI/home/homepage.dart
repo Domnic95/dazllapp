@@ -507,14 +507,15 @@ Changepassworddailog(BuildContext context, int currentindex, WidgetRef ref) {
                                   builder: (context) => LoginScreen(),
                                 ),
                                 (route) => false);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: Colors.green,
-                                content: Text(
-                                  res.data["message"],
-                                ),
-                              ),
-                            );
+                                 toastShowError(context, res.data["message"]);
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   SnackBar(
+                            //     backgroundColor: Colors.green,
+                            //     content: Text(
+                            //       res.data["message"],
+                            //     ),
+                            //   ),
+                            // );
                           } else {
                             // Navigator.of(context).pop();
                             ScaffoldMessenger.of(dailogcontext).showSnackBar(

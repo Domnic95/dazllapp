@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dazllapp/config/providers/base_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/model/Realtor/filterProject.dart';
@@ -19,6 +21,7 @@ class ComplitedPhdProvider extends BaseNotifier {
 
   Future loadComplitedPhd({required WidgetRef ref}) async {
     _loading = Loading.loding;
+
     await ref
         .read(realtorprovider)
         .getSingleComplitedPhd(id: _selectedCustomer!.id.toString());
@@ -33,6 +36,7 @@ class ComplitedPhdProvider extends BaseNotifier {
 
   selectCustomer(FilterProject cus) {
     _selectedCustomer = cus;
+    log('---aaaa>> ' + cus.id!.toString());
 
     notifyListeners();
   }

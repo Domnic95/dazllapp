@@ -300,6 +300,7 @@ import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/rooms.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -471,9 +472,11 @@ class _CreateProjectState extends ConsumerState<CreateProject> {
 
                               currentindex == -1 &&
                                       roomProvider.selectedRoom != null
-                                  ? ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content: Text('Please Select Room')))
+                                  ? 
+                                    toastShowError(context,'Please Select Room' )
+                                  // ScaffoldMessenger.of(context).showSnackBar(
+                                  //     SnackBar(
+                                  //         content: Text('Please Select Room')))
                                   : {
                                       currentindex = -1,
                                       if (mounted) setState(() {}),

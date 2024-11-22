@@ -1,8 +1,12 @@
+
+
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
+import 'package:dazllapp/UI/homepage/realtor/Create_phd/test_phd/Edit_phd.dart';
 import 'package:dazllapp/UI/homepage/realtor/complitedPhd/complitedPhd.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/complitedPhdProvider.dart';
 import 'package:dazllapp/UI/homepage/realtor/realtor_homepage.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/config/providers/realtor_notifier.dart';
@@ -111,7 +115,7 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    'Property :',
+                                                    'Property:',
                                                     style: TextStyle(
                                                       fontSize: 14,
                                                       color: Colors.black,
@@ -139,28 +143,78 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
                                                 ],
                                               ),
                                               horizontalTitleGap: 0,
-                                              trailing: GestureDetector(
-                                                onTap: () async {
-                                                  await _complitedPhdProvider!
-                                                      .selectCustomer(
-                                                          realtorProvider
-                                                                  .filterProjectList[
-                                                              index]);
-                                                  _complitedPhdProvider
-                                                      ?.loadComplitedPhd(
-                                                          ref: ref);
-
-                                                  _complitedPhdProvider?.loader(
-                                                      Loading.complited);
-                                                  deleteProjectDilouge(context);
-                                                },
-                                                child: Icon(
-                                                  Icons.delete,
-                                                  color: primaryColor,
-                                                  size: 20,
-                                                ),
+                                              trailing: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  SizedBox(width: 8),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      _complitedPhdProvider!
+                                                          .selectCustomer(
+                                                              realtorProvider
+                                                                      .filterProjectList[
+                                                                  index]);
+                                                      setState(() {});
+                                                      Navigator.of(context)
+                                                          .push(
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ComplitedPhd(
+                                                                  // customerid: customerid!,
+                                                                  ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Icon(
+                                                      Icons.visibility,
+                                                      color: teamColor,
+                                                      size: 20,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 8),
+                                                  GestureDetector(
+                                                    onTap: () async {
+                                                      await _complitedPhdProvider!
+                                                          .selectCustomer(
+                                                        realtorProvider
+                                                                .filterProjectList[
+                                                            index],
+                                                      );
+                                                      _complitedPhdProvider
+                                                          ?.loadComplitedPhd(
+                                                              ref: ref);
+                                                      _complitedPhdProvider
+                                                          ?.loader(Loading
+                                                              .complited);
+                                                      deleteProjectDilouge(
+                                                          context);
+                                                    },
+                                                    child: Icon(
+                                                      Icons.delete,
+                                                      color: primaryColor,
+                                                      size: 20,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 8),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      Navigator.of(context)
+                                                          .push(
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              EditPhd(),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Icon(
+                                                      Icons.edit,
+                                                      color: profcolor,
+                                                      size: 20,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
+                                            )
                                           ],
                                         ),
                                       ),
@@ -474,13 +528,15 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
                         .singleComplitedPhdReport!.reports!.first.projectId!,
                     context);
                 load();
+
                 Navigator.pop(context);
               } else {
                 Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('No Data, something went wrong!'),
-                  backgroundColor: primaryColor,
-                ));
+                  toastShowError(context,"No Data, something went wrong!");
+                // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                //   content: Text('No Data, something went wrong!'),
+                //   backgroundColor: primaryColor,
+                // ));
               }
             },
             child: Text(

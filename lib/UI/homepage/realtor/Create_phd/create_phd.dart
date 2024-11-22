@@ -660,6 +660,7 @@
 
 // delete this above code after 20/4/2025
 
+import 'package:dazllapp/config/apicall.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:map_autocomplete_field/map_autocomplete_field.dart';
@@ -732,59 +733,6 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                         Text(
                           'Seller\'s information',
                           style: TextStyle(fontSize: 14),
-                        ),
-                        SizedBox(
-                          height: 25,
-                        ),
-                        Text(
-                          'PROPERTY ADDRESS',
-                          style: TextStyle(fontSize: 14),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        MapAutoCompleteField(
-                          googleMapApiKey: googleMapApiKey,
-                          controller: _addressController,
-                          itemBuilder: (BuildContext context, suggestion) {
-                            return ListTile(
-                              title: Text(suggestion.description),
-                            );
-                          },
-                          onSuggestionSelected: (suggestion) {
-                            _addressController.text = suggestion.description;
-                          },
-                          validator: (text) {
-                            if (text!.isEmpty) {
-                              return "Address can't be empty";
-                            }
-                            return null;
-                          },
-                          inputDecoration: InputDecoration(
-                            hintText: "Enter Location*",
-                            label: Text('Property Address'),
-                            isDense: true,
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black)),
-                            hintStyle: TextStyle(
-                                color: AppTheme.darkerText,
-                                fontFamily: AppTheme.fontName,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),
-                            labelStyle: TextStyle(
-                                color: const Color(0xFF424242),
-                                fontFamily: AppTheme.fontName,
-                                fontSize: 14),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: primaryColor),
-                            ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: secondaryTextColor),
-                            ),
-                          ),
                         ),
                         SizedBox(
                           height: 15,
@@ -937,9 +885,64 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                                 fontSize: 14),
                           ),
                         ),
+                        // SizedBox(
+                        //   height: 25,
+                        // ),
+                        // Text(
+                        //   'Seller\'s ADDRESS'.toUpperCase(),
+                        //   style: TextStyle(fontSize: 14),
+                        // ),
                         SizedBox(
-                          height: 18,
+                          height: 15,
                         ),
+                        MapAutoCompleteField(
+                          googleMapApiKey: googleMapApiKey,
+                          controller: _addressController,
+                          itemBuilder: (BuildContext context, suggestion) {
+                            return ListTile(
+                              title: Text(suggestion.description),
+                            );
+                          },
+                          onSuggestionSelected: (suggestion) {
+                            _addressController.text = suggestion.description;
+                          },
+                          validator: (text) {
+                            if (text!.isEmpty) {
+                              return "Address can't be empty";
+                            }
+                            return null;
+                          },
+                          inputDecoration: InputDecoration(
+                            hintText: 'Seller\'s Address'.toUpperCase(),
+                            label: Text('Seller\'s Address'.toUpperCase()),
+                            isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
+                            hintStyle: TextStyle(
+                                color: AppTheme.darkerText,
+                                fontFamily: AppTheme.fontName,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
+                            labelStyle: TextStyle(
+                                color: const Color(0xFF424242),
+                                fontFamily: AppTheme.fontName,
+                                fontSize: 14),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: primaryColor),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: secondaryTextColor),
+                            ),
+                          ),
+                        ),
+                      
+                        SizedBox(
+                          height: 20,
+                        ),
+
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           child: RichText(
@@ -1010,17 +1013,19 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                         onTap: () {
                           if (_formkey.currentState!.validate()) {
                             if (_addressController.text.isEmpty) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text('Property address is required!'),
-                              ));
+                               toastShowError(context, 'Property address is required!');
+                              // ScaffoldMessenger.of(context)
+                              //     .showSnackBar(SnackBar(
+                              //   content: Text('Property address is required!'),
+                              // ));
                             } else if (!checkForEmailValid(
                                 _ClientEmailAddress.text)) {
                               isEmailValid = false;
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text('Email is not valid'),
-                              ));
+                                toastShowError(context, 'Email is not valid');
+                              // ScaffoldMessenger.of(context)
+                              //     .showSnackBar(SnackBar(
+                              //   content: Text('Email is not valid'),
+                              // ));
                               setState(() {});
                             } else {
                               _phdProvider.storePropertiesDetails(
@@ -1041,7 +1046,7 @@ class _CreatePhdState extends ConsumerState<CreatePhd> {
                                     streetName: _propertyname.text,
                                     streetNum: _propertynumber.text,
                                     streetType: _propertytype.text,
-                                  ),
+                                  ), 
                                 ),
                               );
                             }

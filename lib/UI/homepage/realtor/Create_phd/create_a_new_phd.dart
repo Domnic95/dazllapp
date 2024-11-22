@@ -507,9 +507,9 @@
 
 // delete this above code after 20/4/2025
 
-
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/Select_room.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/phdProvider.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../config/app_theme.dart';
@@ -586,337 +586,504 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
           Expanded(
               child: loading
                   ? LoadingWidget()
-                  : Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Center(
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          // Center(
+                          //     child: Text(
+                          //         "Adjust the value based on your knowledge"
+                          //         )),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Pre-Listing Home Dionostic",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Divider(
+                              color: Colors.black.withOpacity(0.3),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Client Name: ${widget.first_name}",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold)),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
                             child: Text(
-                                "Adjust the value based on your knowledge"
-                                )),
-                        SliderTheme(
-                          data: SliderTheme.of(context).copyWith(
-                            trackShape: RectangularSliderTrackShape(),
-                            trackHeight: 8.0,
+                                "Client Email: ${widget.ClientEmailAddress}",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold)),
+                          ),
+                          // SliderTheme(
+                          //   data: SliderTheme.of(context).copyWith(
+                          //     trackShape: RectangularSliderTrackShape(),
+                          //     trackHeight: 8.0,
 
-                            thumbShape:
-                                RoundSliderThumbShape(enabledThumbRadius: 9.0),
-                            overlayShape:
-                                RoundSliderOverlayShape(overlayRadius: 18.0),
-                            valueIndicatorShape: RoundSliderOverlayShape(),
-                            valueIndicatorTextStyle: TextStyle(
-                                color: AppTheme.white,
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.bold),
-                            rangeThumbShape: RoundRangeSliderThumbShape(),
-                            rangeValueIndicatorShape:
-                                PaddleRangeSliderValueIndicatorShape(),
+                          //     thumbShape:
+                          //         RoundSliderThumbShape(enabledThumbRadius: 9.0),
+                          //     overlayShape:
+                          //         RoundSliderOverlayShape(overlayRadius: 18.0),
+                          //     valueIndicatorShape: RoundSliderOverlayShape(),
+                          //     valueIndicatorTextStyle: TextStyle(
+                          //         color: AppTheme.white,
+                          //         fontSize: 14.0,
+                          //         fontWeight: FontWeight.bold),
+                          //     rangeThumbShape: RoundRangeSliderThumbShape(),
+                          //     rangeValueIndicatorShape:
+                          //         PaddleRangeSliderValueIndicatorShape(),
+                          //   ),
+                          //   child: RangeSlider(
+                          //     values: RangeValues(
+                          //         testRoomPhdsss.startRange.toDouble(),
+                          //         testRoomPhdsss.endRange.toDouble()),
+                          //     min: 450,
+                          //     max: 800,
+                          //     semanticFormatterCallback: (rangeValues) {
+                          //       return '${testRoomPhdsss.startRange.round()} - ${testRoomPhdsss.endRange.round()} dollars';
+                          //     },
+                          //     //added talk back feature for android
+                          //     divisions: 35,
+                          //     labels: RangeLabels(
+                          //         '\$ ${testRoomPhdsss.startRange}',
+                          //         '\$ ${testRoomPhdsss.endRange}'),
+                          //     activeColor: AppTheme.colorPrimary,
+                          //     inactiveColor: Color(0xffD7D8DD),
+                          //     onChanged: (RangeValues newRange) {
+                          //       testRoomPhdsss.setRange(
+                          //           int.parse(newRange.start.toStringAsFixed(0)),
+                          //           int.parse(newRange.end.toStringAsFixed(0)));
+                          //       setState(() {});
+                          //     },
+                          //   ),
+                          // ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //   children: [
+                          //     Text("450K"),
+                          //     Text("500K"),
+                          //     Text("550K"),
+                          //     Text("600K"),
+                          //     Text("650K"),
+                          //     Text("700K"),
+                          //     Text("750K"),
+                          //     Text("800K"),
+                          //   ],
+                          // ),
+                          SizedBox(
+                            height: 10,
                           ),
-                          child: RangeSlider(
-                            values: RangeValues(
-                                testRoomPhdsss.startRange.toDouble(),
-                                testRoomPhdsss.endRange.toDouble()),
-                            min: 450,
-                            max: 800,
-                            semanticFormatterCallback: (rangeValues) {
-                              return '${testRoomPhdsss.startRange.round()} - ${testRoomPhdsss.endRange.round()} dollars';
-                            },
-                            //added talk back feature for android
-                            divisions: 35,
-                            labels: RangeLabels(
-                                '\$ ${testRoomPhdsss.startRange}',
-                                '\$ ${testRoomPhdsss.endRange}'),
-                            activeColor: AppTheme.colorPrimary,
-                            inactiveColor: Color(0xffD7D8DD),
-                            onChanged: (RangeValues newRange) {
-                              testRoomPhdsss.setRange(
-                                  int.parse(newRange.start.toStringAsFixed(0)),
-                                  int.parse(newRange.end.toStringAsFixed(0)));
-                              setState(() {});
-                            },
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Incorporate both a low and high price range reflective of your expertise and understanding of the local real estate market. Your pre-listing home diagnostic should consider various factors such as comparable property prices, recent market trends, and any unique characteristics of the property.",
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text("450K"),
-                            Text("500K"),
-                            Text("550K"),
-                            Text("600K"),
-                            Text("650K"),
-                            Text("700K"),
-                            Text("750K"),
-                            Text("800K"),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                            height: 200,
-                            width: 500,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/logo.jpg")))),
-                        Expanded(
-                          child: ListView(
-                            children: [
-                              Card(
-                                margin: EdgeInsets.all(5),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: ExpansionTile(
-                                  iconColor: Colors.grey,
-                                  collapsedIconColor: Colors.grey,
-                                  childrenPadding:
-                                      EdgeInsets.only(left: 25, bottom: 15),
-                                  expandedAlignment: Alignment.topLeft,
-                                  title: Text(" Public Records",
-                                      style: TextStyle(
-                                          color: AppTheme.colorPrimary,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700)),
+                          SizedBox(
+                            height: 20,
+                          ),
+ Container(
+                              height: 150,
+                              width: 500,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/logo.jpg")))),
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                // TextField(
+                                //   controller: _lowValueController,
+                                //   decoration: InputDecoration(labelText: "Set Low Value"),
+                                //   keyboardType: TextInputType.number,
+                                // ),
+                                // TextField(
+                                //   controller: _highValueController,
+                                //   decoration: InputDecoration(labelText: "Set High Value"),
+                                //   keyboardType: TextInputType.number,
+                                // ),
+                                // SizedBox(height: 20),
+                                // ElevatedButton(
+                                //   onPressed: _updateSliderRange,
+                                //   child: Text("Update Range"),
+                                // ),
+                                SizedBox(height: 20),
+
+                                Container(
+                                  height: 30,
+                                  width: 50,
+                                  color: AppTheme.colorPrimary,
+                                  child: Center(child: Text("\$${_sliderValue.round()}",style: TextStyle(color: AppTheme.white),))),
+                                  SizedBox(height: 10,),
+                                Row(
                                   children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Bed: ",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              _housedata.housedata!.bedrooms
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "House Size: ",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              _housedata.housedata!.yearBuilt
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Lot Size: ",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              _housedata.housedata!.lotSize
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Property Type: ",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              _housedata
-                                                  .housedata!.structureType
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Date Updated: ",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              _housedata.housedata!.yearBuilt
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                      ],
-                                    )
+                                       Text("\$${_startValue.round()}"),
+                                    Expanded(
+                                      child: Slider(
+                                        value: _sliderValue,
+                                        min: _startValue,
+                                        max: _endValue,
+                                        inactiveColor: AppTheme.grey,
+
+                                        // divisions: (_endValue - _startValue).round(),
+                                        label: _sliderValue.round().toString(),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _sliderValue = value;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                       Text("\$${_endValue.round()}"),
                                   ],
                                 ),
-                              ),
-                              Card(
-                                margin: EdgeInsets.all(5),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: ExpansionTile(
-                                  iconColor: Colors.grey,
-                                  collapsedIconColor: Colors.grey,
-                                  childrenPadding:
-                                      EdgeInsets.only(left: 25, bottom: 15),
-                                  expandedAlignment: Alignment.topLeft,
-                                  title: Text("House Details",
-                                      style: TextStyle(
-                                          color: AppTheme.colorPrimary,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700)),
+                                SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    Row(
                                       children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Bathrooms: ",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
+                                        Text("Set Low Value: "),
+                                        Container(
+                                          width: 60,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.withOpacity(0.5),
+                                          ),
+                                          child: TextFormField(
+                                            
+                                            controller: _lowValueController,
+                                            decoration: InputDecoration(
+                                              isDense: true,
+                                              border: InputBorder.none,
+                                             contentPadding: EdgeInsets.fromLTRB(10, 00, 5, 5)
                                             ),
-                                            Text(
-                                              _housedata.housedata!.bathrooms
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Rooms: ",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              "",
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Stories: ",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              " 0",
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Year Built: ",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              _housedata.housedata!.yearBuilt
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Style: ",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              _housedata
-                                                  .housedata!.structureType
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
+                                            keyboardType:
+                                                TextInputType.number,
+                                            onChanged: (value) {
+                                              _updateSliderRange();
+                                            },
+                                          ),
                                         ),
                                       ],
-                                    )
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("Set High Value: "),
+                                        Container(
+                                          width: 60,
+                           
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.withOpacity(0.5),
+                                          ),
+                                          child: Center(
+                                            child: TextField(
+                                              controller: _highValueController,
+                                              decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                 isDense: true,
+                                                    contentPadding: EdgeInsets.fromLTRB(10, 00, 5, 5)
+                                              ),
+                                              
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              onChanged: (value) {
+                                                _updateSliderRange();
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ],
-                                ),
-                              ),
-                            ],
+                                )
+                              ],
+                            ),
                           ),
-                        )
-                      ],
+                         
+                          // Expanded(
+                          //   child: ListView(
+                          //     children: [
+                          //       Card(
+                          //         margin: EdgeInsets.all(5),
+                          //         shape: RoundedRectangleBorder(
+                          //             borderRadius: BorderRadius.circular(15)),
+                          //         child: ExpansionTile(
+                          //           iconColor: Colors.grey,
+                          //           collapsedIconColor: Colors.grey,
+                          //           childrenPadding:
+                          //               EdgeInsets.only(left: 25, bottom: 15),
+                          //           expandedAlignment: Alignment.topLeft,
+                          //           title: Text(" Public Records",
+                          //               style: TextStyle(
+                          //                   color: AppTheme.colorPrimary,
+                          //                   fontSize: 14,
+                          //                   fontWeight: FontWeight.w700)),
+                          //           children: [
+                          //             Column(
+                          //               crossAxisAlignment:
+                          //                   CrossAxisAlignment.start,
+                          //               children: [
+                          //                 Row(
+                          //                   children: [
+                          //                     Text(
+                          //                       "Bed: ",
+                          //                       style: TextStyle(
+                          //                           fontSize: 14,
+                          //                           fontWeight:
+                          //                               FontWeight.bold),
+                          //                     ),
+                          //                     Text(
+                          //                       _housedata.housedata!.bedrooms
+                          //                           .toString(),
+                          //                       style: TextStyle(
+                          //                         fontSize: 14,
+                          //                       ),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //                 SizedBox(
+                          //                   height: 5,
+                          //                 ),
+                          //                 Row(
+                          //                   children: [
+                          //                     Text(
+                          //                       "House Size: ",
+                          //                       style: TextStyle(
+                          //                           fontSize: 14,
+                          //                           fontWeight:
+                          //                               FontWeight.bold),
+                          //                     ),
+                          //                     Text(
+                          //                       _housedata.housedata!.yearBuilt
+                          //                           .toString(),
+                          //                       style: TextStyle(
+                          //                         fontSize: 14,
+                          //                       ),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //                 SizedBox(
+                          //                   height: 5,
+                          //                 ),
+                          //                 Row(
+                          //                   children: [
+                          //                     Text(
+                          //                       "Lot Size: ",
+                          //                       style: TextStyle(
+                          //                           fontSize: 14,
+                          //                           fontWeight:
+                          //                               FontWeight.bold),
+                          //                     ),
+                          //                     Text(
+                          //                       _housedata.housedata!.lotSize
+                          //                           .toString(),
+                          //                       style: TextStyle(
+                          //                         fontSize: 14,
+                          //                       ),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //                 SizedBox(
+                          //                   height: 5,
+                          //                 ),
+                          //                 Row(
+                          //                   children: [
+                          //                     Text(
+                          //                       "Property Type: ",
+                          //                       style: TextStyle(
+                          //                           fontSize: 14,
+                          //                           fontWeight:
+                          //                               FontWeight.bold),
+                          //                     ),
+                          //                     Text(
+                          //                       _housedata
+                          //                           .housedata!.structureType
+                          //                           .toString(),
+                          //                       style: TextStyle(
+                          //                         fontSize: 14,
+                          //                       ),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //                 SizedBox(
+                          //                   height: 5,
+                          //                 ),
+                          //                 Row(
+                          //                   children: [
+                          //                     Text(
+                          //                       "Date Updated: ",
+                          //                       style: TextStyle(
+                          //                           fontSize: 14,
+                          //                           fontWeight:
+                          //                               FontWeight.bold),
+                          //                     ),
+                          //                     Text(
+                          //                       _housedata.housedata!.yearBuilt
+                          //                           .toString(),
+                          //                       style: TextStyle(
+                          //                         fontSize: 14,
+                          //                       ),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //                 SizedBox(
+                          //                   height: 5,
+                          //                 ),
+                          //               ],
+                          //             )
+                          //           ],
+                          //         ),
+                          //       ),
+                          //       Card(
+                          //         margin: EdgeInsets.all(5),
+                          //         shape: RoundedRectangleBorder(
+                          //             borderRadius: BorderRadius.circular(15)),
+                          //         child: ExpansionTile(
+                          //           iconColor: Colors.grey,
+                          //           collapsedIconColor: Colors.grey,
+                          //           childrenPadding:
+                          //               EdgeInsets.only(left: 25, bottom: 15),
+                          //           expandedAlignment: Alignment.topLeft,
+                          //           title: Text("House Details",
+                          //               style: TextStyle(
+                          //                   color: AppTheme.colorPrimary,
+                          //                   fontSize: 14,
+                          //                   fontWeight: FontWeight.w700)),
+                          //           children: [
+                          //             Column(
+                          //               crossAxisAlignment:
+                          //                   CrossAxisAlignment.start,
+                          //               children: [
+                          //                 Row(
+                          //                   children: [
+                          //                     Text(
+                          //                       "Bathrooms: ",
+                          //                       style: TextStyle(
+                          //                           fontSize: 14,
+                          //                           fontWeight:
+                          //                               FontWeight.bold),
+                          //                     ),
+                          //                     Text(
+                          //                       _housedata.housedata!.bathrooms
+                          //                           .toString(),
+                          //                       style: TextStyle(
+                          //                         fontSize: 14,
+                          //                       ),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //                 SizedBox(
+                          //                   height: 5,
+                          //                 ),
+                          //                 Row(
+                          //                   children: [
+                          //                     Text(
+                          //                       "Rooms: ",
+                          //                       style: TextStyle(
+                          //                           fontSize: 14,
+                          //                           fontWeight:
+                          //                               FontWeight.bold),
+                          //                     ),
+                          //                     Text(
+                          //                       "",
+                          //                       style: TextStyle(
+                          //                         fontSize: 14,
+                          //                       ),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //                 SizedBox(
+                          //                   height: 5,
+                          //                 ),
+                          //                 Row(
+                          //                   children: [
+                          //                     Text(
+                          //                       "Stories: ",
+                          //                       style: TextStyle(
+                          //                           fontSize: 14,
+                          //                           fontWeight:
+                          //                               FontWeight.bold),
+                          //                     ),
+                          //                     Text(
+                          //                       " 0",
+                          //                       style: TextStyle(
+                          //                         fontSize: 14,
+                          //                       ),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //                 SizedBox(
+                          //                   height: 5,
+                          //                 ),
+                          //                 Row(
+                          //                   children: [
+                          //                     Text(
+                          //                       "Year Built: ",
+                          //                       style: TextStyle(
+                          //                           fontSize: 14,
+                          //                           fontWeight:
+                          //                               FontWeight.bold),
+                          //                     ),
+                          //                     Text(
+                          //                       _housedata.housedata!.yearBuilt
+                          //                           .toString(),
+                          //                       style: TextStyle(
+                          //                         fontSize: 14,
+                          //                       ),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //                 SizedBox(
+                          //                   height: 5,
+                          //                 ),
+                          //                 Row(
+                          //                   children: [
+                          //                     Text(
+                          //                       "Style: ",
+                          //                       style: TextStyle(
+                          //                           fontSize: 14,
+                          //                           fontWeight:
+                          //                               FontWeight.bold),
+                          //                     ),
+                          //                     Text(
+                          //                       _housedata
+                          //                           .housedata!.structureType
+                          //                           .toString(),
+                          //                       style: TextStyle(
+                          //                         fontSize: 14,
+                          //                       ),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //                 SizedBox(
+                          //                   height: 5,
+                          //                 ),
+                          //               ],
+                          //             )
+                          //           ],
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // )
+                       
+                        ],
+                      ),
                     )),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
@@ -957,8 +1124,14 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
                   ),
                   GestureDetector(
                     onTap: () {
+                      if(_highValueController.text.isEmpty && _lowValueController.text.isEmpty){
+                         _showSnackbar("please enter low & high value");
+                      }
+                 else   {  
+                  
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => selectRoom()));
+                          builder: (context) => selectRoom(slider_value: _sliderValue.round(),)));
+                          }
                     },
                     child: Row(
                       children: [
@@ -985,5 +1158,48 @@ class _CreateANewPhdState extends ConsumerState<CreateANewPhd> {
         ],
       ),
     );
+  }
+
+  double _startValue = 1.0;
+  double _endValue = 50.0;
+  double _sliderValue = 25.0;
+  final TextEditingController _lowValueController = TextEditingController();
+  final TextEditingController _highValueController = TextEditingController();
+
+  void _updateSliderRange() {
+    double? lowValue = double.tryParse(_lowValueController.text);
+    double? highValue = double.tryParse(_highValueController.text);
+
+   
+
+    if (lowValue! >= highValue!) {
+      _showSnackbar("Low value must be less than high value.");
+      return;
+    }
+
+    setState(() {
+      _startValue = lowValue;
+      _endValue = highValue;
+
+      // Adjust the slider value to stay within the new range
+      if (_sliderValue < _startValue) {
+        _sliderValue = _startValue;
+      } else if (_sliderValue > _endValue) {
+        _sliderValue = _endValue;
+      }
+    });
+  }
+
+  void _showSnackbar(String message) {
+     toastShowError(context, message);
+    // ScaffoldMessenger.of(context)
+    //     .showSnackBar(SnackBar(content: Text(message),backgroundColor: AppTheme.colorPrimary,));
+  }
+
+  @override
+  void dispose() {
+    _lowValueController.dispose();
+    _highValueController.dispose();
+    super.dispose();
   }
 }

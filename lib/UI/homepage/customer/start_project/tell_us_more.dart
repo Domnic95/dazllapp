@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/customer/home/customer_homepage.dart';
 import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
-import 'package:dazllapp/UI/homepage/customer/start_project/create_project.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/needs_attention.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -35,8 +34,7 @@ class _TellusMoreState extends ConsumerState<TellusMore> {
   List<Map<String, dynamic>> listData = [];
   List<File> _file = [];
   bool loading = false;
-  TextEditingController _cabinetController = TextEditingController();
-  TextEditingController _inspectionController = TextEditingController();
+
   late RoomProvider profileTestProvider;
 
   @override

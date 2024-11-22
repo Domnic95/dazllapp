@@ -8,10 +8,14 @@ const login_realtor = 'realtor/login';
 const get_realtor = 'realtor';
 const update_realtor = 'realtor/update';
 const update_customer_report = 'update-report/';
+const update_customer = 'update/';
 const complited_phd_realtor = 'home-diagnostic-reports/for-realtor';
 const single_complited_phd_realtor = 'home-diagnostic-reports/for-realtor/';
 const filter_project = 'filter_project';
-const send_project_opportunities = 'project-opportunities/637';
+// const send_project_opportunities = 'project-opportunities/637';
+const send_project_opportunities = 'sendtestnote';
+const deleteProject = 'professional/project/';
+const deleteCustomerProject = 'delete-report/';
 
 // const get_Prfetional = '';
 // const get_customer = '';

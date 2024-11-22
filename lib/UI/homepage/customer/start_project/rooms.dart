@@ -600,6 +600,8 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
   @override
   void initState() {
     super.initState();
+
+    log('widget.roomId ${widget.roomId}');
     loadData();
   }
 
@@ -750,7 +752,8 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                                             roomProvider.addSeletedRoom(
                                                 addRoom: _roomsNotifier
                                                     .listOfRoom[index],
-                                                tabIndex: roomProvider.tabIndex);
+                                                tabIndex:
+                                                    roomProvider.tabIndex);
 
                                             buildTabController();
 

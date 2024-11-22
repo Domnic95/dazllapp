@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dazllapp/config/api.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/providers/base_notifier.dart';
+import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dazllapp/model/Realtor/filterProject.dart';
@@ -16,6 +18,8 @@ import 'package:dazllapp/model/Realtor/realtor_project.dart';
 import 'package:dazllapp/model/Realtor/realtor_user.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RealtorNotifier extends BaseNotifier {
   List<Customer> listofcustomers = [];
@@ -30,6 +34,17 @@ class RealtorNotifier extends BaseNotifier {
   RealtorUser? realtorUser;
   Housedata? housedata;
   int lezyLoadingValue = 5;
+  int sliderValue = 0;
+  RealtorNotifier? realtorNotifier;
+  //  List<List<List<List<String>>>>?  images = [
+  //  ];
+  final imgPicker = ImagePicker();
+
+  Future<String> getImage1(
+      BuildContext context, File image, WidgetRef ref) async {
+    String img = await ref.read(realtorprovider).uploadImage(context, image);
+    return img;
+  }
 
   Future<void> setRealtorUser(String user) async {
     log("realtor ====== $user");
@@ -60,10 +75,11 @@ class RealtorNotifier extends BaseNotifier {
   }
 
   Future getSingleComplitedPhd({required String id}) async {
-    log("fhjdsjjsz === $id");
     try {
       Response res =
           await dioClient.getRequest(apiEnd: single_complited_phd_realtor + id);
+
+      log('${single_complited_phd_realtor + id}');
       singleComplitedPhdReport = GetComplitedPhdRealtor.fromJson(res.data);
       notifyListeners();
     } catch (e) {
@@ -74,6 +90,7 @@ class RealtorNotifier extends BaseNotifier {
   Future getComplitedPhd() async {
     try {
       Response res = await dioClient.getRequest(apiEnd: complited_phd_realtor);
+
       complitedPhdReport = GetComplitedPhdRealtor.fromJson(res.data);
 
       // log('delte id is this --. ' +
@@ -139,6 +156,15 @@ class RealtorNotifier extends BaseNotifier {
     return res.data['project_id'];
   }
 
+  Future<int> updateprojectrealtor(Map<String, dynamic> data) async {
+    Response res = await dioClient.rawwithFormData2(
+        apiEnd: create_project_realtor, Data: data);
+
+    log({res.statusCode}.toString());
+    log("data  " + data.toString());
+    return res.data['project_id'];
+  }
+
   Future<Response> createPhdReport(Map<String, dynamic> data) async {
     log('data is --> ' + data.toString());
     Response res = await dioClient.PostwithFormData(
@@ -147,24 +173,26 @@ class RealtorNotifier extends BaseNotifier {
     return res;
   }
 
-  Future<Response> deletePhdReport(int phdId, BuildContext context) async {
+  Future<Response> deletePhdReport(int projectId, BuildContext context) async {
     try {
       Response res = await dioClient.deletewithRowData(
-          apiEnd: delete_phd_realtor + '/${phdId}');
+          apiEnd: delete_phd_realtor + '/${projectId}');
       log("Response === ${res.statusCode}");
       if (res.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Delete Successfully'),
-          backgroundColor: primaryColor,
-        ));
+        toastShowSuccess(context, 'Delete Successfully');
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //   content: Text('Delete Successfully'),
+        //   backgroundColor: primaryColor,
+        // ));
       }
       return res;
     } catch (e) {
       Navigator.of(context).pop();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Something Went to wrong!'),
-        backgroundColor: primaryColor,
-      ));
+      toastShowError(context, 'Something Went to wrong!');
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text('Something Went to wrong!'),
+      //   backgroundColor: primaryColor,
+      // ));
 
       throw e;
     }
@@ -201,10 +229,11 @@ class RealtorNotifier extends BaseNotifier {
       // log("images" + files.toString());
       return response.data['image'].toString();
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Something Went to wrong!'),
-        backgroundColor: primaryColor,
-      ));
+      toastShowError(context, 'Something Went to wrong!');
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text('Something Went to wrong!'),
+      //   backgroundColor: primaryColor,
+      // ));
       throw e;
     }
   }
@@ -214,11 +243,14 @@ class RealtorNotifier extends BaseNotifier {
       Response res = await dioClient.getRequest(apiEnd: realtorcustomerproject);
       listofrealtorproject = List<ProjectList>.from(
           res.data['data'].map((x) => ProjectList.fromJson(x)));
-      log("response === " + res.toString());
+
+      // log("response === " + res.toString());
       listofrealtorproject.sort(
         (a, b) => b.projectId!.compareTo(a.projectId!),
       );
-      await loadDataForLazyLoading(firstTimeLoading: true);
+      log(">>>>>>>> ${listofrealtorproject.length}");
+      log(">>>>>>>> ${listofrealtorproject.first.projectId}");
+      // await loadDataForLazyLoading(firstTimeLoading: true);
       notifyListeners();
     } catch (e) {
       log("error ===" + e.toString());
@@ -295,15 +327,17 @@ class RealtorNotifier extends BaseNotifier {
       housedata = Housedata.fromJson(res.data);
     } else {
       Navigator.of(context!).pop();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: primaryColor,
-          content: Text("No Data Found for this house with this address")));
+      toastShowError(context, "No Data Found for this house with this address");
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     backgroundColor: primaryColor,
+      //     content: Text("No Data Found for this house with this address")));
     }
     // log("lshjkbjk"+res.data.toString());
     notifyListeners();
   }
 
   Future getRealtor({required int realtorId}) async {
+    log("message=-=-=-");
     Response res = await dioClient.getRequest(
         apiEnd: get_realtor, queryParameter: {"realtor_id": realtorId});
     realtorUser = RealtorUser.fromJson(res.data);
@@ -314,10 +348,11 @@ class RealtorNotifier extends BaseNotifier {
 
   Future updateRealtor(
       {required Map<String, dynamic> data, required int realtorId}) async {
+    log("message1");
     Response res =
         await dioClient.patchwithRowData(apiEnd: update_realtor, Data: data);
     if (res.statusCode == 200) {
-      log("res ===== == ${res.data}");
+      log("res ===== === ${res.data}");
       await getRealtor(realtorId: realtorId);
     }
     return res.data;

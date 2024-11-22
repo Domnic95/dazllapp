@@ -6,14 +6,17 @@ import 'package:dazllapp/UI/home/homepage.dart';
 import 'package:dazllapp/UI/homepage/dashBoard.dart';
 import 'package:dazllapp/UI/login/login_screen.dart';
 import 'package:dazllapp/config/api.dart';
+import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/global.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/config/providers/realtor_notifier.dart';
+import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dazllapp/constant/strings.dart';
 import 'package:dazllapp/model/Customer/userModel.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../UI/homepage/customer/home/customer_homepage.dart';
@@ -62,8 +65,26 @@ class DioClient {
   }) async {
     try {
       var data = FormData.fromMap(Data!);
-      log("fromdata ==== $data");
+      // log("fromdata ==== ${data.toString()}");
       final res = await _dio.post(apiEnd, data: data);
+      log(res.statusCode.toString());
+      // log("Res ${res}");
+      return res;
+    } on DioError catch (e) {
+      log("Error ${e}");
+      return e.response;
+    }
+  }
+
+  Future<dynamic> Post({
+    required String apiEnd,
+    Map<String, dynamic>? Data,
+  }) async {
+    try {
+      var data = FormData.fromMap(Data!);
+      // log("fromdata ==== ${data.toString()}");
+      final res = await _dio.post(apiEnd, data: data);
+      log(res.toString());
       return res;
     } on DioError catch (e) {
       return e.response;
@@ -96,6 +117,18 @@ class DioClient {
 
   Future<dynamic> rawwithFormData(
       {required String apiEnd, List<Map<String, dynamic>>? Data}) async {
+    // log(Data!.length.toString());
+    try {
+      final res = await _dio.post(apiEnd, data: Data);
+      return res;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<dynamic> rawwithFormData2(
+      {required String apiEnd, Map<String, dynamic>? Data}) async {
+    // log(Data!.length.toString());
     try {
       final res = await _dio.post(apiEnd, data: Data);
       return res;
@@ -126,7 +159,7 @@ Future<String> login(index, String email, String password, BuildContext context,
 
       default:
     }
-    log("dcfdbv ");
+    // log("dcfdbv ");
     FormData data = FormData.fromMap({
       "email": email,
       "password": password,
@@ -147,7 +180,7 @@ Future<String> login(index, String email, String password, BuildContext context,
             return status! < 500;
           }),
     );
-    print("fvdefiobn == " + response.statusCode.toString());
+    print("response.statusCode ${url} == " + response.statusCode.toString());
     if (response.statusCode == 200) {
       SpHelpers.setBool(SharedPrefsKeys.key_keep_me_logged_in, keepmelogin);
       SpHelpers.setInt(SharedPrefsKeys.key_current, index);
@@ -200,11 +233,12 @@ Future<String> login(index, String email, String password, BuildContext context,
           }),
           (route) => false,
         );
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text('Login Sucessfully'), backgroundColor: Colors.green));
+        toastShowSuccess(context, 'Login Sucessfully');
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //     content: Text('Login Sucessfully'), backgroundColor: Colors.green));
       } else if (index == 1) {
         SpHelpers.setInt(SharedPrefsKeys.currentindex, index);
-        log('bvsrhiofhieoi ${response.data}');
+        // log('bvsrhiofhieoi ${response.data}');
         SpHelpers.setPref(
             SharedPrefsKeys.Prof_id, response.data['data']['id'].toString());
         SpHelpers.setPref(
@@ -228,10 +262,11 @@ Future<String> login(index, String email, String password, BuildContext context,
           }),
           (route) => false,
         );
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Login Sucessfully'),
-          backgroundColor: Colors.green,
-        ));
+         toastShowSuccess(context, 'Login Sucessfully');
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //   content: Text('Login Sucessfully'),
+        //   backgroundColor: Colors.green,
+        // ));
       } else if (index == 2) {
         SpHelpers.setInt(SharedPrefsKeys.currentindex, index);
         customerUserData = CustomerUserModel.fromJson(response.data);
@@ -256,19 +291,21 @@ Future<String> login(index, String email, String password, BuildContext context,
           }),
           (route) => false,
         );
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text('Login Sucessfully'), backgroundColor: Colors.green));
+         toastShowSuccess(context, 'Login Sucessfully');
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //     content: Text('Login Sucessfully'), backgroundColor: Colors.green));
       }
       loading = false;
     } else {
-      print('fail' + response.data.toString());
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(response.data['message'].toString()),
-          backgroundColor: Colors.red));
+      // print('fail' + response.data.toString());
+       toastShowError(context, response.data['message'].toString());
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text(response.data['message'].toString()),
+      //     backgroundColor: Colors.red));
     }
   } catch (e) {
     loading = false;
-    log("ssab  == " + e.toString());
+    // log("ssab  == " + e.toString());
     // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     //     content: Text((e as DioException).response!.data.toString()),
     //     backgroundColor: Colors.red));
@@ -320,7 +357,7 @@ Future<void> signupRealtor(
       "membershipOption": membershipOption,
       "check_box": true
     });
-    log('------->>>>>>>>>>' + response.toString());
+    // log('------->>>>>>>>>>' + response.toString());
     if (response.statusCode == 200) {
       Navigator.push(
         context,
@@ -328,17 +365,19 @@ Future<void> signupRealtor(
           builder: (context) => LoginScreen(),
         ),
       );
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Registerd Sucessfully'),
-          backgroundColor: Colors.green));
+        toastShowSuccess(context, 'Registerd Sucessfully');
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text('Registerd Sucessfully'),
+      //     backgroundColor: Colors.green));
     } else {
       print('fail');
     }
   } catch (e) {
+     toastShowError(context, (e as DioError).response!.toString());
     print((e as DioError).response!.data.toString());
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text((e as DioError).response!.toString()),
-        backgroundColor: Colors.red));
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //     content: Text((e as DioError).response!.toString()),
+    //     backgroundColor: Colors.red));
   }
 }
 
@@ -434,17 +473,20 @@ Future<void> signupProfessional({
     if (response.statusCode == 201) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginScreen()));
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Registerd Sucessfully'),
-          backgroundColor: Colors.green));
+               toastShowSuccess(context, 'Registerd Sucessfully');
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text('Registerd Sucessfully'),
+      //     backgroundColor: Colors.green));
     } else {
       print('fail');
     }
   } catch (e) {
-    print("m fbdjiofb f" + e.toString());
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text((e as DioError).response!.data['message']),
-        backgroundColor: Colors.red));
+    // print("m fbdjiofb f" + e.toString());
+
+    toastShowError(context, (e as DioError).response!.data['message']);
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //     content: Text((e as DioError).response!.data['message']),
+    //     backgroundColor: Colors.red));
   }
 }
 
@@ -472,17 +514,19 @@ Future<void> signupCustomer(
     if (response.statusCode == 201) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginScreen()));
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Registerd Sucessfully'),
-          backgroundColor: Colors.green));
+               toastShowSuccess(context, 'Registerd Sucessfully');
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text('Registerd Sucessfully'),
+      //     backgroundColor: Colors.green));
     } else {
       print('fail');
     }
   } catch (e) {
     //print((e as DioError).response!.data.toString());
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text((e as DioError).response!.data['message']),
-        backgroundColor: Colors.red));
+    toastShowError(context, (e as DioError).response!.toString());
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //     content: Text((e as DioError).response!.data['message']),
+    //     backgroundColor: Colors.red));
   }
 }
 
@@ -507,4 +551,157 @@ Future<String> forgotpassword(email, String text) async {
     //     backgroundColor: Colors.red));
   }
   return "";
+}
+
+// Future toastShowError(String text)async{
+//     Fluttertoast.showToast(
+//                 msg: "${text}",
+
+//                 toastLength: Toast.LENGTH_SHORT,
+//                 gravity: ToastGravity.BOTTOM,
+//                 timeInSecForIosWeb: 1,
+//                 backgroundColor: primaryColor,
+//                 textColor: AppTheme.white,
+//                 fontSize: 16.0,
+//               );
+// }
+
+void toastShowError(
+  BuildContext context,
+  String text,
+) {
+  OverlayEntry overlayEntry = OverlayEntry(
+    builder: (context) => Positioned(
+      bottom: 100.0,
+      left: MediaQuery.of(context).size.width * 0.1,
+      width: MediaQuery.of(context).size.width * 0.8,
+      child: Material(
+        color: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: primaryColor,
+            borderRadius: BorderRadius.circular(8.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10.0,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                'assets/images/logo.jpg', // Path to your image
+                width: 40.0,
+                height: 40.0,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(width: 12.0),
+              Expanded(
+                child: Text(
+                  text,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+
+  Overlay.of(context).insert(overlayEntry);
+
+  // Remove the toast after a delay
+  Future.delayed(Duration(seconds: 2), () {
+    overlayEntry.remove();
+  });
+}
+
+void toastShowSuccess(
+  BuildContext context,
+  String text,
+) {
+  OverlayEntry overlayEntry = OverlayEntry(
+    builder: (context) => Positioned(
+      bottom: 100.0,
+      left: MediaQuery.of(context).size.width * 0.1,
+      width: MediaQuery.of(context).size.width * 0.8,
+      child: Material(
+        color: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: teamColor,
+            borderRadius: BorderRadius.circular(8.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10.0,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                'assets/images/logo.jpg', // Path to your image
+                width: 40.0,
+                height: 40.0,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(width: 12.0),
+              Expanded(
+                child: Text(
+                  text,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+
+  Overlay.of(context).insert(overlayEntry);
+
+  // Remove the toast after a delay
+  Future.delayed(Duration(seconds: 2), () {
+    overlayEntry.remove();
+  });
+}
+
+// Future toastShowSuccess(String text)async{
+//     Fluttertoast.showToast(
+//                 msg: "${text}",
+//                 toastLength: Toast.LENGTH_SHORT,
+//                 gravity: ToastGravity.BOTTOM,
+//                 timeInSecForIosWeb: 1,
+//                 backgroundColor: teamColor,
+//                 textColor: AppTheme.white,
+//                 fontSize: 16.0,
+//               );
+// }
+
+Future toastShowRendom(String text) async {
+  Fluttertoast.showToast(
+    msg: "${text}",
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 1,
+    backgroundColor: secondaryTextColor,
+    textColor: AppTheme.white,
+    fontSize: 16.0,
+  );
 }

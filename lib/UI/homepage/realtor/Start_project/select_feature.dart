@@ -1218,6 +1218,7 @@ import 'dart:io';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/constant/colors.dart';
@@ -1638,9 +1639,11 @@ class _Select_featureState extends ConsumerState<Select_feature> {
     if (
         // _PhotoDescrptionController[index].text.isEmpty ||
         imgGallery == null) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Add description or Photo'),
-      ));
+
+                     toastShowError(context, 'Add description or Photo');
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text('Add description or Photo'),
+      // ));
     } else {
       String image = await realtorRoomProvider.getImage(
           context, File(imgGallery.path), ref);
@@ -1656,9 +1659,10 @@ class _Select_featureState extends ConsumerState<Select_feature> {
   Future<void> photocamera(int index) async {
     Utils.loaderDialog(context, true);
     if (imgCamera == null) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Add description or Photo'),
-      ));
+      toastShowError(context, 'Add description or Photo');
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text('Add description or Photo'),
+      // ));
     } else {
       String image = await realtorRoomProvider.getImage(
           context, File(imgGallery.path), ref);

@@ -32,20 +32,16 @@ class Data {
   final List<Pro>? pro;
   final int? pages;
 
-  Data({
-    this.dataFinal,
-    this.pro,this.pages
-  });
+  Data({this.dataFinal, this.pro, this.pages});
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        dataFinal: json["final"] == null
-            ? []
-            : List<Final>.from(json["final"]!.map((x) => Final.fromJson(x))),
-        pro: json["pro"] == null
-            ? []
-            : List<Pro>.from(json["pro"]!.map((x) => Pro.fromJson(x))),
-            pages: json["pages"]==null?0:json["pages"]
-      );
+      dataFinal: json["final"] == null
+          ? []
+          : List<Final>.from(json["final"]!.map((x) => Final.fromJson(x))),
+      pro: json["pro"] == null
+          ? []
+          : List<Pro>.from(json["pro"]!.map((x) => Pro.fromJson(x))),
+      pages: json["pages"] == null ? 0 : json["pages"]);
 
   Map<String, dynamic> toJson() => {
         "final": dataFinal == null
@@ -53,12 +49,13 @@ class Data {
             : List<dynamic>.from(dataFinal!.map((x) => x.toJson())),
         "pro":
             pro == null ? [] : List<dynamic>.from(pro!.map((x) => x.toJson())),
-            "pages":pages
+        "pages": pages
       };
 }
 
 class Final {
   final int? projectId;
+  final DateTime? createdAt;
   final List<Roominfo>? roominfo;
   final List<Pro>? projectopportunities;
   final Customer? customer;
@@ -66,12 +63,16 @@ class Final {
   Final({
     this.projectId,
     this.roominfo,
+    this.createdAt,
     this.projectopportunities,
     this.customer,
   });
 
   factory Final.fromJson(Map<String, dynamic> json) => Final(
         projectId: json["project_id"],
+        createdAt:json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
         roominfo: json["roominfo"] == null
             ? []
             : List<Roominfo>.from(
@@ -87,6 +88,7 @@ class Final {
 
   Map<String, dynamic> toJson() => {
         "project_id": projectId,
+        "created_at": createdAt,
         "roominfo": roominfo == null
             ? []
             : List<dynamic>.from(roominfo!.map((x) => x.toJson())),
@@ -106,6 +108,7 @@ class Customer {
   final String? email;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final House? house;
 
   Customer({
     this.id,
@@ -116,6 +119,7 @@ class Customer {
     this.email,
     this.createdAt,
     this.updatedAt,
+          this.house,
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) => Customer(
@@ -131,6 +135,7 @@ class Customer {
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
+            house: House.fromJson(json["house"] == null ? {}: json["house"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -142,7 +147,117 @@ class Customer {
         "email": email,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
+        "house": house?.toJson(),
       };
+}
+
+
+class House {
+    int id;
+    String name;
+    int bathrooms;
+    int bedrooms;
+    String basement;
+    String yearBuilt;
+    String grossSize;
+    String spaces;
+    String parkingFeatures;
+    String propertyStories;
+    String structureType;
+    String lotSize;
+    String location;
+    String foundationType;
+    String taxAccessedValue;
+    String annualTaxAmount;
+    String saleDate;
+    String saleAmount;
+    String type;
+    int realtorId;
+    int customerId;
+    String createdAt;
+    String updatedAt;
+    String address;
+
+    House({
+        required this.id,
+        required this.name,
+        required this.bathrooms,
+        required this.bedrooms,
+        required this.basement,
+        required this.yearBuilt,
+        required this.grossSize,
+        required this.spaces,
+        required this.parkingFeatures,
+        required this.propertyStories,
+        required this.structureType,
+        required this.lotSize,
+        required this.location,
+        required this.foundationType,
+        required this.taxAccessedValue,
+        required this.annualTaxAmount,
+        required this.saleDate,
+        required this.saleAmount,
+        required this.type,
+        required this.realtorId,
+        required this.customerId,
+        required this.createdAt,
+        required this.updatedAt,
+        required this.address,
+    });
+
+    factory House.fromJson(Map<String, dynamic> json) => House(
+        id: json["id"]== null ? 0 : json["id"],
+        name: json["name"] == null? '': json["name"] ,
+        bathrooms: json["bathrooms"] == null? 0:json["bathrooms"],
+        bedrooms: json["bedrooms"] == null? 0:json["bedrooms"],
+        basement: json["basement"] == null? '':json["basement"],
+        yearBuilt: json["year_built"] == null? '':json["year_built"],
+        grossSize: json["gross_size"] == null? '':json["gross_size"],
+        spaces: json["spaces"] == null? '':json["spaces"],
+        parkingFeatures: json["parking_features"] == null? '':json["parking_features"],
+        propertyStories: json["property_stories"] == null? '':json["property_stories"],
+        structureType: json["structure_type"] == null? '':json["structure_type"],
+        lotSize: json["lot_size"] == null? '':json["lot_size"],
+        location: json["location"] == null? '':json["location"],
+        foundationType: json["foundation_type"] == null? '':json["foundation_type"],
+        taxAccessedValue: json["tax_accessed_value"] == null? '':json["tax_accessed_value"],
+        annualTaxAmount: json["annual_tax_amount"] == null? '':json["annual_tax_amount"],
+        saleDate: json["sale_date"] == null? '':json["sale_date"],
+        saleAmount: json["sale_amount"] == null? '':json["sale_amount"],
+        type: json["type"] == null? '':json["type"],
+        realtorId: json["realtor_id"] == null? 0:json["realtor_id"],
+        customerId: json["customer_id"] == null? 0:json["customer_id"],
+        createdAt: json["created_at"] == null? '':json["created_at"],
+        updatedAt: json["updated_at"] == null? '':json["updated_at"],
+        address: json["address"] == null? '':json["address"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "bathrooms": bathrooms,
+        "bedrooms": bedrooms,
+        "basement": basement,
+        "year_built": yearBuilt,
+        "gross_size": grossSize,
+        "spaces": spaces,
+        "parking_features": parkingFeatures,
+        "property_stories": propertyStories,
+        "structure_type": structureType,
+        "lot_size": lotSize,
+        "location": location,
+        "foundation_type": foundationType,
+        "tax_accessed_value": taxAccessedValue,
+        "annual_tax_amount": annualTaxAmount,
+        "sale_date": saleDate,
+        "sale_amount": saleAmount,
+        "type": type,
+        "realtor_id": realtorId,
+        "customer_id": customerId,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
+        "address": address,
+    };
 }
 
 class Pro {
@@ -254,7 +369,7 @@ class Feature {
             : List<Featureissue>.from(json["featureissue"] == ""
                 ? []
                 : json["featureissue"]!.map((x) => Featureissue.fromJson(x))),
-        inspectionNotes: json["inspectionNotes"],
+        inspectionNotes: json["inspectionNotes"] == null ? "": json["inspectionNotes"],
         status: json["status"],
         images: json["images"] == null
             ? []
@@ -267,7 +382,7 @@ class Feature {
         "featureissue": featureissue == null
             ? []
             : List<dynamic>.from(featureissue!.map((x) => x.toJson())),
-        "inspectionNotes": inspectionNotes,
+        "inspectionNotes": inspectionNotes ?? "",
         "status": status,
         "images":
             images == null ? [] : List<dynamic>.from(images!.map((x) => x)),

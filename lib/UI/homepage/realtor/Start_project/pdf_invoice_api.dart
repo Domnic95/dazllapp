@@ -126,7 +126,7 @@ pw.Widget buildCustomerItem(
                             // color: PdfColors.grey,
                           ),
                           child: pw.Image(
-                            PdfInvoiceApi.listImage[subIndex].image,
+                            PdfInvoiceApi.listImage[subIndex].image == ''?'https://dazlpro.com/images/smallCardimages/01-Inspired-Outdoor-Img.jpg':PdfInvoiceApi.listImage[subIndex].image,
                             fit: pw.BoxFit.fill,
                           ),
                         )

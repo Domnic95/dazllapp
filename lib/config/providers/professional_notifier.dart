@@ -2,8 +2,10 @@
 
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dazllapp/config/api.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/providers/base_notifier.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dazllapp/model/Professional/Services.dart';
@@ -11,6 +13,7 @@ import 'package:dazllapp/model/Professional/professional.dart';
 import 'package:dazllapp/model/Professional/profile.dart';
 import 'package:dazllapp/model/Professional/projectOppourtunites.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -19,6 +22,7 @@ class ProfessionalNotifier extends BaseNotifier {
   ProfileData profiles = ProfileData();
   ProfessionalData professionalData = ProfessionalData();
   ProjectOpportunities? projectOpportunities;
+
   List<Final> projectList = [];
   int _pageSize = 20;
   int get pageSize => _pageSize;
@@ -29,6 +33,7 @@ class ProfessionalNotifier extends BaseNotifier {
         queryParameter: {
           'professional_id': SpHelpers.getString(SharedPrefsKeys.Prof_id)
         });
+    // log("prof id = " + SpHelpers.getString(SharedPrefsKeys.Prof_id).toString());
     profiles = ProfileData.fromJson(res.data);
     SpHelpers.setString(SharedPrefsKeys.profetionalUser, jsonEncode(profiles));
     // log("Pro Id=" + SpHelpers.getString(SharedPrefsKeys.Prof_id).toString());
@@ -48,6 +53,20 @@ class ProfessionalNotifier extends BaseNotifier {
       //     content: Text("No Data Found for this house with this address")));
     }
     // log("lshjkbjk"+res.data.toString());
+    notifyListeners();
+  }
+
+  Future deleteProjectProfessional(int projectid, BuildContext context) async {
+    // log('${deleteProject + '${projectid}'}');
+    Response res = await dioClient.deletewithRowData(
+      apiEnd: '${deleteProject + '${projectid}'}',
+    );
+    log("${res.statusCode}");
+        toastShowSuccess(context,'Delete project sucessfully');
+    //  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //         content: Text('Delete project sucessfully'), backgroundColor: Colors.green));
+      Navigator.of(context).pop();
+   
     notifyListeners();
   }
 
@@ -74,7 +93,7 @@ class ProfessionalNotifier extends BaseNotifier {
         apiEnd: project_opportunities + "/1",
       );
       if (res.statusCode == 200) {
-        log("lshjkbjk   " + res.data.toString());
+        // log("lshjkbjk   " + res.data.toString());
 
         projectOpportunities = ProjectOpportunities.fromJson(res.data);
         _pageSize = projectOpportunities!.data!.pages!;
@@ -86,8 +105,8 @@ class ProfessionalNotifier extends BaseNotifier {
         // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         //     content: Text("No Data Found for this house with this address")));
       }
-      log("lshjkbjk   " + res.data.toString());
-      log("lshjkbjkcbdjks   " + projectList.toString());
+      // log("lshjkbjk   " + res.data.toString());
+      // log("lshjkbjkcbdjks   " + projectList.toString());
       notifyListeners();
     } catch (e) {
       log('error for getProjectOpportunities is ' + e.toString());
@@ -98,10 +117,11 @@ class ProfessionalNotifier extends BaseNotifier {
       int pageIndex) async {
     try {
       String api = project_opportunities + "/" + pageIndex.toString();
-      log("dkkdgkgdk===== $api");
+      // log("dkkdgkgdk===== $api");
       Response res = await dioClient.getRequest(
         apiEnd: api,
       );
+      // log("dkkdgkgdk=====${pageIndex} ${res.statusCode}");
       if (res.statusCode == 200) {
         if (pageIndex == 1) {
           projectOpportunities = ProjectOpportunities.fromJson(res.data);
@@ -109,46 +129,57 @@ class ProfessionalNotifier extends BaseNotifier {
         final profUser =
             await SpHelpers.getString(SharedPrefsKeys.profetionalUser) ?? "";
 
-        log('cjajcfjdgiku $profUser');
+        // log('cjajcfjdgiku $profUser');
         if (profUser.isNotEmpty) {
           profiles = await ProfileData.fromJson(jsonDecode(profUser));
-          log('cjajcfjdgiku ${profiles.servicetype.toString()}');
+          // log('cjajcfjdgiku1221212 ${profiles.servicetype.toString()}');
           projectList.clear();
           List<Final> projectDataList = List.from(res.data['data']['final'])
               .map((e) => Final.fromJson(e))
               .toList();
+          // log("=-=-=-=-SSSSSS ${projectDataList.length}");
           for (var i = 0; i < projectDataList.length; i++) {
             for (var j = 0; j < projectDataList[i].roominfo!.length; j++) {
+              // log("=-=-=-=-AAAAAA222 ${projectDataList[i].roominfo![j].feature!.length}");
               for (var k = 0;
                   k < projectDataList[i].roominfo![j].feature!.length;
                   k++) {
-                for (var l = 0;
-                    l <
-                        projectDataList[i]
-                            .roominfo![j]
-                            .feature![k]
-                            .featureissue!
-                            .length;
-                    l++) {
-                  if (profiles.servicetype!.any((element) =>
-                      element.serviceTypeId ==
-                      projectDataList[i]
-                          .roominfo![j]
-                          .feature![k]
-                          .featureissue![l]
-                          .serviceTypeId)) {
-                    int ind = projectList.indexWhere((element) =>
-                        element.projectId == projectDataList[i].projectId);
-                    if (ind == -1) {
-                      projectList.add(projectDataList[i]);
-                    }
-                  }
+                int ind = projectList.indexWhere((element) =>
+                    element.projectId == projectDataList[i].projectId);
+                if (ind == -1) {
+                  // log("projectDataList ${ind}");
+                  projectList.add(projectDataList[i]);
                 }
+                // for (var l = 0;
+                //     l <
+
+                //         projectDataList[i]
+                //             .roominfo![j]
+                //             .feature![k]
+                //             .featureissue!
+                //             .length;
+                //     l++) {
+
+                //   if (profiles.servicetype!.any((element) =>
+                //       element.serviceTypeId ==
+                //       projectDataList[i]
+                //           .roominfo![j]
+                //           .feature![k]
+                //           .featureissue![l]
+                //           .serviceTypeId)) {
+                //     int ind = projectList.indexWhere((element) =>
+                //         element.projectId == projectDataList[i].projectId);
+                //     if (ind == -1) {
+                //       log("projectDataList ${ind}");
+                //       projectList.add(projectDataList[i]);
+                //     }
+                //   }
+                // }
               }
             }
           }
         }
-        log('bskhbkhgsjgriorsjgi ${projectList.toString()}');
+        // log('bskhbkhgsjgriorsjgi ${projectList.toString()}');
         return projectList;
       } else {
         return projectList;
@@ -164,10 +195,13 @@ class ProfessionalNotifier extends BaseNotifier {
   }
 
   Future updateProfessional(Map<String, dynamic> data) async {
+    // log("dataaa ${data['images1'].toString()}");
+
     try {
-      Response res = await dioClient.patchwithRowData(
-          apiEnd: update_professional, Data: data);
+      Response res =
+          await dioClient.Post(apiEnd: update_professional, Data: data);
       if (res.statusCode == 200) {
+        log("res.statusCode ${res.data}");
         getprofile();
         return res.data;
       }
@@ -176,11 +210,31 @@ class ProfessionalNotifier extends BaseNotifier {
     }
   }
 
+  Future<String> uploadImage(
+    File files,
+  ) async {
+    try {
+      var formData = {
+        "image": MultipartFile.fromFileSync(files.path,
+            filename: files.path.split('/').last),
+      };
+      Response response =
+          await dioClient.PostwithFormData(apiEnd: getImage, Data: formData);
+      // log("images = " + response.data.toString());
+      // log("projectID" + projectId.toString());
+      // log("images" + files.toString());
+      return response.data['image'].toString();
+    } catch (e) {
+      throw e;
+    }
+  }
+
   Future sendProjectOpportunities(Map<String, dynamic> queryParameter) async {
-    Response res = await dioClient.patchwithRowData(
+    Response res = await dioClient.PostwithFormData(
       apiEnd: send_project_opportunities,
-      queryParameter: queryParameter,
+      Data: queryParameter,
     );
+
     if (res.statusCode == 200) {
       return res.data;
     } else {

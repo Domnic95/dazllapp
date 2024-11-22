@@ -2,8 +2,12 @@
 
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:dazllapp/config/api.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/providers/base_notifier.dart';
+import 'package:dazllapp/config/providers/providers.dart';
+import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dazllapp/model/Customer/FeatureOptionIssue.dart';
 import 'package:dazllapp/model/Customer/Featureissue.dart';
@@ -12,6 +16,10 @@ import 'package:dazllapp/model/Customer/project.dart';
 import 'package:dazllapp/model/Customer/Features.dart';
 import 'package:dazllapp/model/Customer/userModel.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CustomerNotifier extends BaseNotifier {
   List<Room> listOfRoom = [];
@@ -34,10 +42,42 @@ class CustomerNotifier extends BaseNotifier {
     // notifyListeners();
   }
 
+  final imgPicker = ImagePicker();
+  Future<String> uploadImage(
+    BuildContext context,
+    File files,
+  ) async {
+    try {
+      var formData = {
+        "image": MultipartFile.fromFileSync(files.path,
+            filename: files.path.split('/').last),
+      };
+      Response response =
+          await dioClient.PostwithFormData(apiEnd: getImage, Data: formData);
+      log("images = " + response.data.toString());
+      // log("projectID" + projectId.toString());
+      // log("images" + files.toString());
+      return response.data['image'].toString();
+    } catch (e) {
+      toastShowError(context, 'Something Went to wrong!');
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text('Something Went to wrong!'),
+      //   backgroundColor: primaryColor,
+      // ));
+      throw e;
+    }
+  }
+
   Future getRooms() async {
     final res = await dioClient.getRequest(apiEnd: rooms);
     listOfRoom = List<Room>.from(res.data['data'].map((x) => Room.fromJson(x)));
     notifyListeners();
+  }
+
+  Future<String> getImage1(
+      BuildContext context, File image, WidgetRef ref) async {
+    String img = await ref.read(customernotifier).uploadImage(context, image);
+    return img;
   }
 
   Future getRoomsFeature(roomid) async {
@@ -46,8 +86,8 @@ class CustomerNotifier extends BaseNotifier {
     );
     listOfFeature = List<RoomFeature>.from(
         res.data['data'].map((x) => RoomFeature.fromJson(x)));
-    log("listOfFeature == $listOfFeature");
-    log("listOfFeature == ${listOfFeature.length}");
+    // log("listOfFeature == $listOfFeature");
+    // log("listOfFeature == ${listOfFeature.length}");
     notifyListeners();
   }
 
@@ -73,6 +113,7 @@ class CustomerNotifier extends BaseNotifier {
   }
 
   Future updateUser({required Map<String, dynamic> data}) async {
+    log('message');
     Response res =
         await dioClient.patchwithRowData(apiEnd: update_realtor, Data: data);
     customerUserModel = CustomerUserModel.fromJson(res.data);
@@ -81,18 +122,27 @@ class CustomerNotifier extends BaseNotifier {
 
   Future updateReport(
       {required Map<String, dynamic> data, required int projectId}) async {
+    log("update api + ${update_customer_report + projectId.toString()}");
     Response res = await dioClient.patchwithRowData(
         apiEnd: update_customer_report + projectId.toString(), Data: data);
 
     return res.data;
   }
 
+  Future updateCustomer(
+      {required Map<String, dynamic> data, required int projectId}) async {
+    log("update api + ${update_customer + projectId.toString()}");
+    Response res = await dioClient.patchwithRowData(
+        apiEnd: update_customer_report + projectId.toString(), Data: data);
+
+    return res.data;
+  }
   Future<int> createproject(List<Map<String, dynamic>> data) async {
     Response res =
         await dioClient.rawwithFormData(apiEnd: create_projet, Data: data);
 
-    log("sjljlflzs === " + res.toString());
-    log("sjljlflzs ===data " + data.toString());
+    // log("sjljlflzs === " + res.toString());
+    // log("sjljlflzs ===data " + data.toString());
     return res.data['project_id'];
   }
 
@@ -106,9 +156,35 @@ class CustomerNotifier extends BaseNotifier {
     };
     final response =
         await dioClient.PostwithFormData(apiEnd: uploadimage, Data: data);
-    log("images = " + response.data.toString());
-    log("projectID" + projectId.toString());
-    log("images" + files.toString());
+    // log("images = " + response.data.toString());
+    // log("projectID" + projectId.toString());
+    // log("images" + files.toString());
+  }
+
+  Future<Response> deleteCustomerProjects(
+      int projectId, BuildContext context) async {
+    try {
+      Response res = await dioClient.deletewithRowData(
+          apiEnd: deleteCustomerProject + '${projectId}');
+      log("Response === ${res.statusCode}");
+      if (res.statusCode == 200) {
+        toastShowSuccess(context, 'Delete Successfully');
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //   content: Text('Delete Successfully'),
+        //   backgroundColor: primaryColor,
+        // ));
+      }
+      return res;
+    } catch (e) {
+      Navigator.of(context).pop();
+      toastShowError(context, 'Something Went to wrong!');
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text('Something Went to wrong!'),
+      //   backgroundColor: primaryColor,
+      // ));
+
+      throw e;
+    }
   }
 
   Future myproject() async {
@@ -120,7 +196,6 @@ class CustomerNotifier extends BaseNotifier {
       for (int b = 0; b < res.data['data'][a]['roominfo'].length; b++) {
         listofRoomsinfo
             .add(Roominfo.fromJson(res.data['data'][a]['roominfo'][b]));
-    
       }
     }
 
@@ -140,7 +215,7 @@ class CustomerNotifier extends BaseNotifier {
         }
       }
     }
-    log('--------------->>>>' + listofFeatureinfo.toString());
+    // log('--------------->>>>' + listofFeatureinfo.toString());
     notifyListeners();
   }
 }

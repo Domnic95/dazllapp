@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dazllapp/UI/component/customTextfield.dart';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/config/providers/realtor_notifier.dart';
@@ -42,7 +43,7 @@ class _MyProfileState extends ConsumerState<MyProfile> {
         isLoading2 = true;
         String realtorUser =
             await SpHelpers.getString(SharedPrefsKeys.realtorUser) ?? "";
-        log("szjdsajjdl === $realtorUser");
+
         if (realtorUser.isNotEmpty) {
           await realtorNotifier!.setRealtorUser(realtorUser);
           initializeRealtorTextField();
@@ -430,10 +431,10 @@ class _MyProfileState extends ConsumerState<MyProfile> {
                           .then((value) {
                         isReadOnly = true;
                         isLoading = false;
-
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            backgroundColor: Colors.green,
-                            content: Text('User Update Successfully')));
+                        toastShowSuccess(context, 'User Update Successfully');
+                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        //     backgroundColor: Colors.green,
+                        //     content: Text('User Update Successfully')));
                         loadData();
                       });
                     }
@@ -452,7 +453,7 @@ class _MyProfileState extends ConsumerState<MyProfile> {
                         .then((value) {
                       isReadOnly = true;
                       isLoading = false;
-
+    toastShowSuccess(context, 'User Update Successfully');
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           backgroundColor: Colors.green,
                           content: Text('User Update Successfully')));

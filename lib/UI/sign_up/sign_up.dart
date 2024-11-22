@@ -1405,30 +1405,38 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       onPressed: () async {
         if (serviceProvider.curruntindex == 0) {
           if (_fNameControllre.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter First Name')));
+                toastShowError(context, 'Enter First Name');
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter First Name')));
           } else if (_lNameControllre.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter Last Name')));
+               toastShowError(context, 'Enter Last Name');
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter Last Name')));
           } else if (_emailController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter Email')));
+               toastShowError(context, 'Enter Email');
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter Email')));
           } else if (_passwordController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter Password')));
+               toastShowError(context, 'Enter Password');
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter Password')));
           } else if (_passwordAgainController.text.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Enter Confirm Password')));
+               toastShowError(context, 'Enter Confirm Password');
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text('Enter Confirm Password')));
           } else if (_passwordController.text !=
               _passwordAgainController.text) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Confirm password is not Match')));
+                   toastShowError(context, 'Confirm password is not Match');
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text('Confirm password is not Match')));
           } else if (_realestateCompanyController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter Company name')));
+               toastShowError(context, 'Enter Company name');
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter Company name')));
           } else if (_addressController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter Affilation name')));
+               toastShowError(context, 'Enter Affilation name');
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter Affilation name')));
           }
           // else if (_addressController1.text.isEmpty) {
           //   ScaffoldMessenger.of(context).showSnackBar(
@@ -1442,14 +1450,17 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           //       .showSnackBar(SnackBar(content: Text('Enter state')));
           // }
           else if (_mobileNoControllre.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter mobile number')));
+             toastShowError(context, 'Enter mobile number');
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter mobile number')));
           } else if (paymentRealtor.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Select Membership Option")));
+             toastShowError(context, 'Select Membership Option');
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text("Select Membership Option")));
           } else if (daziTerms == false) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Select DAZL'S TEARMS AND CONDITIONS")));
+             toastShowError(context, 'Select DAZL\'S TEARMS AND CONDITIONS');
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text("Select DAZL'S TEARMS AND CONDITIONS")));
           } else {
             print('---------->>> ');
             signupRealtor(
@@ -1468,54 +1479,73 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           }
         } else if (serviceProvider.curruntindex == 1) {
           if (_PfNameControllre.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter First Name')));
+            toastShowError(context, 'Enter First Name');
+
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter First Name')));
           } else if (_PlNameControllre.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter Last Name')));
+             toastShowError(context, 'Enter Last Name');
+          
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter Last Name')));
           } else if (_PemailController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter Email')));
+               toastShowError(context, 'Enter Email');
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter Email')));
           } else if (_PpasswordController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter Password')));
+               toastShowError(context, 'Enter Password');
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter Password')));
           } else if (_PpasswordAgainController.text.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Enter Confirm Password')));
+               toastShowError(context, 'Enter Confirm Password');
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text('Enter Confirm Password')));
           } else if (_PpasswordController.text !=
               _PpasswordAgainController.text) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Confirm password is not Match')));
+                   toastShowError(context, 'Confirm password is not Match');
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text('Confirm password is not Match')));
           } else if (_PcompanynameController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter company name')));
+               toastShowError(context, 'Enter company name');
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter company name')));
           } else if (_PcompanyaddressController.text.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Enter company address ')));
+               toastShowError(context, 'Enter company address');
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text('Enter company address ')));
           } else if (_PcompanycityController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter company city')));
+               toastShowError(context, 'Enter company city');
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter company city')));
           } else if (_PzipcodeController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter zip code')));
+               toastShowError(context, 'Enter zip code');
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter zip code')));
           } else if (_PstateController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter state')));
+               toastShowError(context, 'Enter state');
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter state')));
           } else if (_PCmobileController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter company number')));
+               toastShowError(context, 'Enter company number');
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter company number')));
           } else if (_PyearinbusinessController.text.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("enter year in busioness")));
+               toastShowError(context, 'enter year in busioness');
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text("enter year in busioness")));
           } else if (ServiceId.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text("Atleast least one service you have to select")));
+
+               toastShowError(context, 'Atleast least one service you have to select');
+            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            //     content: Text("Atleast least one service you have to select")));
           } else if (paymentProfessional.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Select Membership Option")));
+               toastShowError(context, 'Select Membership Option');
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text("Select Membership Option")));
           } else if (daziTerms == false) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Select DAZL'S TEARMS AND CONDITIONS")));
+               toastShowError(context, 'Select DAZL\'S TEARMS AND CONDITIONS');
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text("Select DAZL'S TEARMS AND CONDITIONS")));
           } else {
             signupProfessional(
               index: serviceProvider.curruntindex,
@@ -1551,33 +1581,51 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           }
         } else {
           if (_CfNameControllre.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter first name')));
+              toastShowError(context, 'Enter first name');
+              
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter first name')));
           } else if (_ClNameControllre.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter second name')));
+              toastShowError(context, 'Enter second name');
+
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter second name')));
           } else if (_CmobileNoControllre.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter mobil number')));
+              toastShowError(context, 'Enter mobil number');
+
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter mobil number')));
           } else if (_CemailController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter email address')));
+              toastShowError(context, 'Enter email address');
+
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter email address')));
           } else if (_CzipController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter zip code')));
+              toastShowError(context, 'Enter zip code');
+
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter zip code')));
           } else if (_CpasswordController.text.isEmpty) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Enter password')));
+              toastShowError(context, 'nter password');
+
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Enter password')));
           } else if (_CpasswordAgainController.text.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Enter confirm passoerd')));
+              toastShowError(context, 'Enter confirm passoerd');
+
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text('Enter confirm passoerd')));
           } else if (_CpasswordController.text !=
               _CpasswordAgainController.text) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Confirm password is not Match')));
+                  toastShowError(context, 'Confirm password is not Match');
+
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text('Confirm password is not Match')));
           } else if (daziTerms == false) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Select DAZL'S TEARMS AND CONDITIONS")));
+              toastShowError(context, 'Select DAZL\'S TEARMS AND CONDITIONS');
+
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text("Select DAZL'S TEARMS AND CONDITIONS")));
           } else {
             signupCustomer(
               serviceProvider.curruntindex,
@@ -1674,9 +1722,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     imgCamera = await imgPicker.pickImage(source: ImageSource.camera);
     setState(() {
       if (imgCamera == null) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Add Photo'),
-        ));
+         toastShowError(context, 'Add Photo');
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //   content: Text('Add Photo'),
+        // ));
       } else {
         imgFile[index] = (File(imgCamera.path));
         imgCamera = null;

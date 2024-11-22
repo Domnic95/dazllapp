@@ -105,28 +105,28 @@ class _CompanyProfileState extends ConsumerState<CompanyProfile> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'YEARS IN BUSINESS : ',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: blackColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      _profileNotifier.professionalData.yearsInBusiness == null
-                          ? Text(
-                              'Add your Years in Bussiness',
-                              style: TextStyle(fontSize: 12, color: blackColor),
-                            )
-                          : Text(
-                              _profileNotifier.professionalData.yearsInBusiness
-                                  .toString(),
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: blackColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                      // Text(
+                      //   'YEARS IN BUSINESS : ',
+                      //   style: TextStyle(
+                      //     fontSize: 12,
+                      //     color: blackColor,
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      // ),
+                      // _profileNotifier.professionalData.yearsInBusiness == null
+                      //     ? Text(
+                      //         'Add your Years in Bussiness',
+                      //         style: TextStyle(fontSize: 12, color: blackColor),
+                      //       )
+                      //     : Text(
+                      //         _profileNotifier.professionalData.yearsInBusiness
+                      //             .toString(),
+                      //         style: TextStyle(
+                      //           fontSize: 12,
+                      //           color: blackColor,
+                      //           fontWeight: FontWeight.bold,
+                      //         ),
+                      //       ),
                     ],
                   ),
                 ),
@@ -410,7 +410,7 @@ class _CompanyProfileState extends ConsumerState<CompanyProfile> {
                                   ListTile(
                                     leading: Icon(Icons.assignment),
                                     title: Text(
-                                      'Insurance Certificate : ',
+                                      'Company Name : ',
                                       style: TextStyle(
                                         fontSize: 14,
                                       ),
@@ -419,7 +419,7 @@ class _CompanyProfileState extends ConsumerState<CompanyProfile> {
                                                 .insuranceCertificate ==
                                             ''
                                         ? Text(
-                                            'Add your Insurance Certificate',
+                                            'Add your Company Name',
                                             style: TextStyle(
                                               fontSize: 13,
                                             ),
@@ -506,6 +506,43 @@ class _CompanyProfileState extends ConsumerState<CompanyProfile> {
                                                 fontWeight: FontWeight.bold),
                                           ),
                                   ),
+                                 
+                              
+                               Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 12, right: 12),
+                                    child: Divider(
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  ListTile(
+                                    leading: Icon(Icons.business_outlined),
+                                    title: Text(
+                                      'Years In Business : ',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    subtitle: _profileNotifier.professionalData
+                                                    .yearsInBusiness ==
+                                                null 
+                                        ? Text(
+                                            'Years In Business',
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                            ),
+                                          )
+                                        : Text(
+                                            _profileNotifier.professionalData
+                                                .yearsInBusiness
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                color: blackColor,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                  ),
+                              
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 12, right: 12),
@@ -748,7 +785,7 @@ class _CompanyProfileState extends ConsumerState<CompanyProfile> {
                                                 child: CachedNetworkImage(
                                                 imageUrl: _profileNotifier
                                                     .professionalData.images1
-                                                    .toString(),
+                                                    .toString(),fit: BoxFit.cover,
                                                 errorWidget:
                                                     (context, url, error) =>
                                                         SizedBox(),
@@ -761,6 +798,7 @@ class _CompanyProfileState extends ConsumerState<CompanyProfile> {
                                     ),
                                     height: 90,
                                     width: 90,
+                                    
                                     child: ClipRRect(
                                         borderRadius: BorderRadius.circular(15),
                                         child: _profileNotifier
@@ -771,7 +809,7 @@ class _CompanyProfileState extends ConsumerState<CompanyProfile> {
                                                 child: CachedNetworkImage(
                                                 imageUrl: _profileNotifier
                                                     .professionalData.images2
-                                                    .toString(),
+                                                    .toString(),fit: BoxFit.cover,
                                                 errorWidget:
                                                     (context, url, error) =>
                                                         SizedBox(),

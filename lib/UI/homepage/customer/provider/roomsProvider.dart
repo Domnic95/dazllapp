@@ -221,6 +221,7 @@
 //   }
 // }
 
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -244,6 +245,7 @@ class RoomProvider extends BaseNotifier {
   final imgPicker = ImagePicker();
   bool dataListItemIsEmpty = false;
   List<Map<String, dynamic>> allData = [];
+    Map<String, dynamic> allData2 = {};
   int tabIndex = 0;
   int roomId = -1;
 
@@ -330,6 +332,7 @@ class RoomProvider extends BaseNotifier {
           checkBoxCheking.add(true);
           if (itemModel.descrptionController.text.isNotEmpty &&
               itemModel.images.isNotEmpty) {
+                 roomId = allRoomFeature[i][j].selectedFeatureForOneTabs.roomId;
             allData.add({
               "featureOption": "",
               "featureOptionIssues": [],
@@ -341,7 +344,7 @@ class RoomProvider extends BaseNotifier {
               //         ? DescrptionController[i][j].text.toString()
               //         : "test",
               "issuetext": "test",
-              "roomId": allRoomFeature[i][j].selectedFeatureForOneTabs.roomId,
+              // "roomId": allRoomFeature[i][j].selectedFeatureForOneTabs.roomId,
               "images": allRoomFeature[i][j].selectedFeatureForOneTabs.images,
               "imageDesc": [],
               if (allRoomFeature[i][j]
@@ -355,12 +358,27 @@ class RoomProvider extends BaseNotifier {
                     .text
                     .toString()
             });
+            log("AAA allData ${allData.toString()}");
           } else {
             dataListItemIsEmpty = true;
             allData = [];
             notifyListeners();
             break;
           }
+
+
+           allData2 = {
+            // "realtor_id": SpHelpers.getString(SharedPrefsKeys.Realtor_id),
+            "data":[
+            {
+              "roomId": roomId,
+            "features": allData,
+            }
+
+            ],
+            "name": "",
+            "projectID": null
+          };
         } else {
           checkBoxCheking.add(false);
         }
@@ -385,11 +403,13 @@ class RoomProvider extends BaseNotifier {
   }
 
   Future<int> createproject() async {
-    Response res =
-        await dioClient.rawwithFormData(apiEnd: create_projet, Data: allData);
+    log("=-=->> data ${json.encode(allData2.toString())}");
 
-    log("sjljlflzs === " + res.toString());
-    log("sjljlflzs === data " + allData.toString());
+    Response res =
+        await dioClient.rawwithFormData2(apiEnd: create_projet, Data: allData2);
+
+    log("sjljlflzs === " + {res.statusCode}.toString());
+    log("sjljlflzs === data " + res.toString());
     if (res.statusCode == 200) {
       restartProject();
     }

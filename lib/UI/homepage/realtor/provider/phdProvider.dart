@@ -279,13 +279,17 @@ class PhdProvider extends BaseNotifier {
   int tabIndex = 0;
   int roomId = -1;
   int startRange = 450;
-
+  bool selectedOptionValue = false;
+  String selectedPrice = '';
+  String customPrice = '';
+  TextEditingController ohterPrice = TextEditingController();
   int endRange = 800;
 
   setRoomFeatureData({required int roomId, required int tabIndex}) async {
     final res = await dioClient.getRequest(
       apiEnd: roomsfeature + roomId.toString(),
     );
+    log("=-=--=-==->>. ${roomsfeature + roomId.toString()}");
     GetRoomFeature resData = GetRoomFeature.fromJson(res.data);
     // List<RoomFeature> newRoomFeature = List<RoomFeature>.from(
     //     res.data["data"].map((x) => RoomFeature.fromJson(x)));
@@ -308,6 +312,7 @@ class PhdProvider extends BaseNotifier {
   }
 
   addSeletedRoom({required Room addRoom, required int tabIndex}) async {
+    log("------ ${tabIndex}");
     addNewDataLoading = true;
     changeLoadingState(value: true);
     selectedAllRooms.insert(0, addRoom);
@@ -361,14 +366,14 @@ class PhdProvider extends BaseNotifier {
 
   changeTabIndex({required int newTabIndex}) {
     tabIndex = newTabIndex;
+
+    log("tabIndex =-=- ${tabIndex}");
     notifyListeners();
   }
 
   loadData(
       {required BuildContext context,
       required RealtorNotifier realtorProvider}) {
-   
-
     allData = {};
     dataListItemIsEmpty = false;
     allData = {
@@ -401,6 +406,10 @@ class PhdProvider extends BaseNotifier {
       "mid_price": '500',
       "true": 'true',
       "final": 1,
+      "slider_value": realtorProvider.sliderValue,
+      "selectedOptionValue": selectedOptionValue,
+      "selectedPrice":selectedPrice == 'Other' ? 0 :  int.parse(selectedPrice),
+      "customPrice":ohterPrice.text.isEmpty ? 0 : int.parse( ohterPrice.text),
     };
 
     for (var i = 0; i < allRoomsData.length; i++) {
@@ -448,38 +457,44 @@ class PhdProvider extends BaseNotifier {
                   itemModel.images[s];
             }
           } else {
-         
+            log("vsvssvs ===> 1");
             dataListItemIsEmpty = true;
             allData = {};
             notifyListeners();
             break;
           }
         } else {
+          log("vsvssvs ===> 1 efefe");
           checkBoxCheking.add(false);
         }
       }
-     
+      log("cscfsacfsaf ===> 1 efefe" + checkBoxCheking.toString());
       if (!checkBoxCheking.contains(true)) {
         dataListItemIsEmpty = true;
+        log("vsvssvs ===> 2 ");
         allData = {};
         notifyListeners();
         break;
       }
     }
- 
   }
 
   Future createPhdReport({required BuildContext context}) async {
     Response response = await dioClient.PostwithFormData(
         apiEnd: create_phd_realtor, Data: allData);
+
     Utils.loaderDialog(context, false);
 
+    log("response.statusCode =-=->>  ${response.statusCode}");
+    log("allData =-=->>  ${allData}");
+    log("res =-=->>  ${response}");
+
     if (response.statusCode == 200) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('PHD created sucessfully'),
-        backgroundColor: teamColor,
-      ));
-      allRoomsData.clear();
+      log("=-====---=-=-======--->>>>44  ");
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text('PHD created sucessfully'),
+      //   backgroundColor: teamColor,
+      // ));
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -488,6 +503,8 @@ class PhdProvider extends BaseNotifier {
           (route) => false).then((value) {
         restartProject();
       });
+      allRoomsData.clear();
+      log("=-====---=-=-======--->>>>33  ");
     }
   }
 

@@ -4,6 +4,7 @@ import 'package:dazllapp/UI/component/customTextfield.dart';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -599,9 +600,10 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
                                                                           projectId:
                                                                               projectprovider!.listofproject[widget.index].projectId!).then(
                                                                           (value) {
-                                                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                            content:
-                                                                                Text("${value["message"]}")));
+                                                                               toastShowSuccess(context, value["message"]);
+                                                                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                        //     content:
+                                                                        //         Text("${value["message"]}")));
                                                                       });
                                                                       await ref
                                                                           .read(

@@ -443,11 +443,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return InkWell(
       onTap: () async {
         if (_emailController.text.isEmpty) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Enter email')));
+           toastShowError(context, 'Enter email');
+          // ScaffoldMessenger.of(context)
+          //     .showSnackBar(SnackBar(content: Text('Enter email')));
         } else if (_passwordController.text.isEmpty) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Enter password')));
+           toastShowError(context, 'Enter password');
+          // ScaffoldMessenger.of(context)
+          //     .showSnackBar(SnackBar(content: Text('Enter password')));
         } else {
           loading = true;
           setState(() {});
