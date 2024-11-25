@@ -13,6 +13,7 @@ import 'package:dazllapp/config/providers/realtor_notifier.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dazllapp/constant/strings.dart';
+import 'package:dazllapp/model/Customer/customerProfileModel.dart';
 import 'package:dazllapp/model/Customer/userModel.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ bool islogin = false;
 bool loading = false;
 int? realtorid;
 CustomerUserModel? customerUserData;
+CustomerProfile? customerProfile;
 // RealtorUser? realtorUserData;
 
 class CustomInterCeptor extends Interceptor {
@@ -270,8 +272,11 @@ Future<String> login(index, String email, String password, BuildContext context,
       } else if (index == 2) {
         SpHelpers.setInt(SharedPrefsKeys.currentindex, index);
         customerUserData = CustomerUserModel.fromJson(response.data);
+        // customerProfile = CustomerProfile.fromJson(response.data);
         SpHelpers.setString(
             SharedPrefsKeys.customerUser, jsonEncode(customerUserData));
+        // SpHelpers.setString(
+        //     SharedPrefsKeys.customerUser, jsonEncode(customerProfile));
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) {

@@ -316,51 +316,102 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
                                     children: [
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                      Column(
                                         children: [
                                           Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                              Column(crossAxisAlignment: CrossAxisAlignment.start,
+
                                                 children: [
-                                                  Text(
-                                                    "Date ",
-                                                    style: TextStyle(
-                                                        height: 2,
-                                                        color:
-                                                            AppTheme.darkText),
+                                                  if(item.createdAt != null)
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
+                                                        
+                                                    children: [
+                                                        Container(
+                                                      width: 150,
+                                                      
+                                                        child: Text(
+                                                          "Date: ",
+                                                          style: TextStyle(
+                                                              height: 2,
+                                                              color:
+                                                                  AppTheme.darkText),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "${f.format(item.createdAt!)}",
+                                                        style: TextStyle(
+                                                            color: AppTheme
+                                                                .colorPrimary),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Text(
-                                                    "${f.format(item.createdAt!)}",
-                                                    style: TextStyle(
-                                                        color: AppTheme
-                                                            .colorPrimary),
+                                                   if(item.createdAt != null)
+                                                  SizedBox(
+                                                    height: 5,
                                                   ),
-                                                ],
-                                              ),
+                                                  if(item.customer!.house!.location.isNotEmpty  )
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                       Container(
+                                                      width: 150,
+                                                      
+                                                        child: Text(
+                                                          "Location: ",
+                                                          style: TextStyle(
+                                                              height: 2,
+                                                              color:
+                                                                  AppTheme.darkText),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                          width: 200,
+                                                          child: Text(
+                                                            "${item.customer!.house!.location}",
+                                                            style: TextStyle(
+                                                                color: AppTheme
+                                                                    .colorPrimary),
+                                                            maxLines: 2,
+                                                            overflow: TextOverflow
+                                                                .ellipsis,
+                                                          )),
+                                                    ],
+                                                  ),
+                                               
+                                              if(item.customer!.house!.location.isNotEmpty )
                                               SizedBox(
-                                                width: 30,
-                                              ),
-                                              Column(
+                                                    height: 5,
+                                                  ),
+                                              if(item.customer!.firstName!.isNotEmpty || item.customer!.lastName!.isNotEmpty )
+                                              Row(
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text(
-                                                    "Location ",
-                                                    style: TextStyle(
-                                                        height: 2,
-                                                        color:
-                                                            AppTheme.darkText),
+                                                   Container(
+                                                      width: 150,
+                                                      
+                                                    child: Text(
+                                                      "Homeowners Name: ",
+                                                      style: TextStyle(
+                                                          height: 2,
+                                                          color:
+                                                              AppTheme.darkText),
+                                                    ),
                                                   ),
                                                   Container(
-                                                      width: 200,
+                                                      width: 150,
+                                                      
                                                       child: Text(
-                                                        "${item.customer!.house!.location}",
+                                                        "${item.customer!.firstName} ${item.customer!.lastName}",
                                                         style: TextStyle(
                                                             color: AppTheme
                                                                 .colorPrimary),
@@ -370,12 +421,42 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
                                                       )),
                                                 ],
                                               ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              // Icon(Icons.remove_red_eye,color: primaryColor,),
-                                              // SizedBox(width: 8,),
+                                              if(item.customer!.firstName!.isNotEmpty || item.customer!.lastName!.isNotEmpty )
+                                              SizedBox(height: 5,),
+                                              if(item.customer!.email!.isNotEmpty)
+                                               Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                    Container(
+                                                      width: 150,
+                                                      
+                                                    child: Text(
+                                                      "Email Address: ",
+                                                      style: TextStyle(
+                                                          height: 2,
+                                                          color:
+                                                              AppTheme.darkText),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                      width: 150,
+                                                      child: Text(
+                                                        "${item.customer!.email}",
+                                                        style: TextStyle(
+                                                            color: AppTheme
+                                                                .colorPrimary),
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      )),
+                                                ],
+                                              ),
+                                              if(item.customer!.email!.isNotEmpty)
+                                              SizedBox(height: 5,),
+                                                  
+                                                ],
+                                              ),
                                               InkWell(
                                                 onTap: () {
                                                   _professionalNotifier!
@@ -389,11 +470,12 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
                                                 ),
                                               )
                                             ],
-                                          )
+                                          ),
+                                      
                                         ],
                                       ),
                                       SizedBox(
-                                        height: 10,
+                                        height: 5,
                                       ),
                                       ListView.builder(
                                         shrinkWrap: true,

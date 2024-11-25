@@ -149,6 +149,7 @@ class Roominfo {
 class Feature {
   final String? featureName;
   final String? featureoption;
+  final int? featureId;
   final dynamic featureissue;
   final String? inspectionNotes;
   final String? status;
@@ -157,6 +158,7 @@ class Feature {
   Feature({
     this.featureName,
     this.featureoption,
+    this.featureId,
     this.featureissue,
     this.inspectionNotes,
     this.status,
@@ -166,6 +168,7 @@ class Feature {
   factory Feature.fromJson(Map<String, dynamic> json) => Feature(
         featureName: json["feature_name"],
         featureoption: json["featureoption"],
+        featureId: json["feature_id"],
         featureissue: json["featureissue"],
         inspectionNotes: json["inspectionNotes"],
         status: json["status"],
@@ -177,6 +180,7 @@ class Feature {
   Map<String, dynamic> toJson() => {
         "feature_name": featureName,
         "featureoption": featureoption,
+        "feature_id": featureId,
         "featureissue": featureissue,
         "inspectionNotes": inspectionNotes,
         "status": status,

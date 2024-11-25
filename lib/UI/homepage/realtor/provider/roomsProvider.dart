@@ -313,7 +313,7 @@ class RealtorRoomProvider extends BaseNotifier {
 
   changeCheckBox(
       {required tabIndex,
-      required selectedFeatureIndex,  
+      required selectedFeatureIndex,
       required bool value,
       required int setFeatureId}) {
     allRoomFeature[tabIndex][selectedFeatureIndex]
@@ -349,7 +349,8 @@ class RealtorRoomProvider extends BaseNotifier {
   }
 
   demo() {}
-  loadData() {
+  loadData(String? projectId) {
+    log("projectIDDD ${projectId}");
     dataListItemIsEmpty = false;
 
     int roomId;
@@ -364,7 +365,8 @@ class RealtorRoomProvider extends BaseNotifier {
           if (itemModel.descrptionController.text.isNotEmpty &&
               itemModel.images.isNotEmpty) {
             roomId = allRoomFeature[i][j].selectedFeatureForOneTabs.roomId;
-            allData.add({
+            if (projectId == null) {
+              allData.add({
                 "realtor_id": SpHelpers.getString(SharedPrefsKeys.Realtor_id),
                 "featureOption": "",
                 "featureOptionIssues": [],
@@ -390,27 +392,74 @@ class RealtorRoomProvider extends BaseNotifier {
                       .text
                       .toString()
 
-              // "roomId": allRoomFeature[i][j].selectedFeatureForOneTabs.roomId,
-              // // "realtor_id": SpHelpers.getString(SharedPrefsKeys.Realtor_id),
-              // "features": [
-              //   {
-              //     "features":
-              //         allRoomFeature[i][j].selectedFeatureForOneTabs.featureId,
-              //     "inspectionNotes": allRoomFeature[i][j]
-              //         .selectedFeatureForOneTabs
-              //         .descrptionController
-              //         .text
-              //         .toString(),
-              //     "images": [
-              //       allRoomFeature[i][j].selectedFeatureForOneTabs.images
-              //     ],
-              //     "issuetext": "test",
-              //     "imageDesc": []
-              //   },
-              // ]
-            });
+                // "roomId": allRoomFeature[i][j].selectedFeatureForOneTabs.roomId,
+                // // "realtor_id": SpHelpers.getString(SharedPrefsKeys.Realtor_id),
+                // "features": [
+                //   {
+                //     "features":
+                //         allRoomFeature[i][j].selectedFeatureForOneTabs.featureId,
+                //     "inspectionNotes": allRoomFeature[i][j]
+                //         .selectedFeatureForOneTabs
+                //         .descrptionController
+                //         .text
+                //         .toString(),
+                //     "images": [
+                //       allRoomFeature[i][j].selectedFeatureForOneTabs.images
+                //     ],
+                //     "issuetext": "test",
+                //     "imageDesc": []
+                //   },
+                // ]
+              });
+            } else {
+              allData.add({
+                // "realtor_id": SpHelpers.getString(SharedPrefsKeys.Realtor_id),
+                // "featureOption": "",
+                // "featureOptionIssues": [],
 
-          
+                "features":
+                    allRoomFeature[i][j].selectedFeatureForOneTabs.featureId,
+                "images": allRoomFeature[i][j].selectedFeatureForOneTabs.images,
+                if (allRoomFeature[i][j]
+                    .selectedFeatureForOneTabs
+                    .descrptionController
+                    .text
+                    .isNotEmpty)
+                  "inspectionNotes": allRoomFeature[i][j]
+                      .selectedFeatureForOneTabs
+                      .descrptionController
+                      .text
+                      .toString(),
+                "roomId": allRoomFeature[i][j].selectedFeatureForOneTabs.roomId,
+
+                // "inspectionNotes":
+                //     //"test",
+                //     DescrptionController[i][j].text.toString() != ''
+                //         ? DescrptionController[i][j].text.toString()
+                //         : "test",
+                // "issuetext": "test",
+                // "roomId": allRoomFeature[i][j].selectedFeatureForOneTabs.roomId,
+
+                // "roomId": allRoomFeature[i][j].selectedFeatureForOneTabs.roomId,
+                // // "realtor_id": SpHelpers.getString(SharedPrefsKeys.Realtor_id),
+                // "features": [
+                //   {
+                //     "features":
+                //         allRoomFeature[i][j].selectedFeatureForOneTabs.featureId,
+                //     "inspectionNotes": allRoomFeature[i][j]
+                //         .selectedFeatureForOneTabs
+                //         .descrptionController
+                //         .text
+                //         .toString(),
+                //     "images": [
+                //       allRoomFeature[i][j].selectedFeatureForOneTabs.images
+                //     ],
+                //     "issuetext": "test",
+                //     "imageDesc": []
+                //   },
+                // ]
+              });
+            }
           } else {
             dataListItemIsEmpty = true;
             allData = [];
@@ -420,15 +469,9 @@ class RealtorRoomProvider extends BaseNotifier {
 
           allData2 = {
             // "realtor_id": SpHelpers.getString(SharedPrefsKeys.Realtor_id),
-            "data":[
-            {
-              "roomId": roomId,
-            "features": allData,
-            }
-
-            ],
+            "data": allData,
             "name": "",
-            "projectID": null
+            "projectID": projectId
           };
         } else {
           checkBoxCheking.add(false);
@@ -465,5 +508,35 @@ class RealtorRoomProvider extends BaseNotifier {
       restartProject();
     }
     return res.data['project_id'];
+  }
+
+  Future<int> updateProject() async {
+    log("=-=->> data ${json.encode(allData2['projectID'].toString())}");
+    // log("=-=->> data ===>>  ${json.encode(allData2.toString())}");
+
+    Response res = await dioClient.rawwithFormData2(
+        apiEnd: updateRealtor2, Data: allData2);
+
+    log("statusCode === " + {res.statusCode}.toString());
+    // log("sjljlflzs === data " + res.toString());
+    if (res.statusCode == 200) {
+      restartProject();
+    }
+    return int.parse(res.data['project_id'].toString());
+  }
+
+    Future<int> updateProjectCustomer() async {
+    log("=-=->> data ${json.encode(allData2['projectID'].toString())}");
+    // log("=-=->> data ===>>  ${json.encode(allData2.toString())}");
+
+    Response res = await dioClient.rawwithFormData2(
+        apiEnd: updateProjetCustomer, Data: allData2);
+
+    log("statusCode === " + {res.statusCode}.toString());
+    // log("sjljlflzs === data " + res.toString());
+    if (res.statusCode == 200) {
+      restartProject();
+    }
+    return int.parse(res.data['project_id'].toString());
   }
 }

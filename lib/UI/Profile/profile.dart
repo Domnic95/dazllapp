@@ -8,6 +8,7 @@ import 'package:dazllapp/config/providers/providers.dart';
 import 'package:dazllapp/config/providers/realtor_notifier.dart';
 import 'package:dazllapp/constant/colors.dart';
 import 'package:dazllapp/constant/spkeys.dart';
+import 'package:dazllapp/model/Customer/customerProfileModel.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -21,6 +22,7 @@ class MyProfile extends ConsumerStatefulWidget {
 class _MyProfileState extends ConsumerState<MyProfile> {
   RealtorNotifier? realtorNotifier;
   CustomerNotifier? customerNotifier;
+  CustomerProfile? customerProfile;
   int realtorId = -1;
   bool isLoading = false;
   bool isLoading2 = false;
@@ -68,7 +70,7 @@ class _MyProfileState extends ConsumerState<MyProfile> {
       case 1:
         break;
       case 2:
-        customerNotifier = ref.read(customernotifier);
+        customerNotifier = ref.watch(customernotifier);
         await customerNotifier!.setCustomerModel();
         initializeCusTexfield();
         break;
@@ -78,14 +80,24 @@ class _MyProfileState extends ConsumerState<MyProfile> {
   void initializeCusTexfield() {
     isLoading2 = true;
     isReadOnly = true;
+    log("=-==><><><> ${customerNotifier!.customerProfile!.customer!.firstName}");
+    log("=-==><><><> ${customerNotifier!.customerProfile!.customer!.phoneNumber}");
+    // _nameController = TextEditingController(
+    //     text: customerNotifier!.customerUserModel!.data!.firstName!);
     _nameController = TextEditingController(
-        text: customerNotifier!.customerUserModel!.data!.firstName!);
+        text: customerNotifier!.customerProfile!.customer!.firstName);
+    // _lastNameController = TextEditingController(
+    //     text: customerNotifier!.customerUserModel!.data!.lastName!);
     _lastNameController = TextEditingController(
-        text: customerNotifier!.customerUserModel!.data!.lastName!);
+        text: customerNotifier!.customerProfile!.customer!.lastName);
+    // _emailController = TextEditingController(
+    //     text: customerNotifier!.customerUserModel!.data!.email!);
     _emailController = TextEditingController(
-        text: customerNotifier!.customerUserModel!.data!.email!);
+        text: customerNotifier!.customerProfile!.customer!.email);
+    // _phoneController = TextEditingController(
+    //     text: customerNotifier!.customerUserModel!.data!.phoneNumber!);
     _phoneController = TextEditingController(
-        text: customerNotifier!.customerUserModel!.data!.phoneNumber!);
+        text: customerNotifier!.customerProfile!.customer!.phoneNumber);
     isLoading2 = false;
     if (mounted) {
       setState(() {});
@@ -94,7 +106,7 @@ class _MyProfileState extends ConsumerState<MyProfile> {
 
   void initializeRealtorTextField() {
     realtorNotifier = ref.watch(realtorprovider);
-    log("message  == ${realtorNotifier!.realtorUser!.firstName!}");
+    // log("message  == ${realtorNotifier!.realtorUser!.firstName!}");
     isReadOnly = true;
     _nameController =
         TextEditingController(text: realtorNotifier!.realtorUser!.firstName!);
@@ -448,16 +460,22 @@ class _MyProfileState extends ConsumerState<MyProfile> {
                     };
                     isLoading = true;
                     setState(() {});
+                    // log("id=-->> ${customerNotifier!.customerUserModel!.data!.id!}");
                     await customerNotifier!
-                        .updateUser(data: data)
+                        .updateCustomerUser(
+                            data: data,
+                            customerId:
+                                customerNotifier!.customerUserModel!.data!.id!)
                         .then((value) {
                       isReadOnly = true;
                       isLoading = false;
-    toastShowSuccess(context, 'User Update Successfully');
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          backgroundColor: Colors.green,
-                          content: Text('User Update Successfully')));
-                      initializeRealtorTextField();
+                      toastShowSuccess(context, 'User Update Successfully');
+                      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      //     backgroundColor: Colors.green,
+                      //     content: Text('User Update Successfully')));
+                      // initializeRealtorTextField();
+                      
+                      initializeCusTexfield();
                       log("message == ${isReadOnly}");
                     });
                   }

@@ -12,6 +12,7 @@ import 'package:dazllapp/constant/spkeys.dart';
 import 'package:dazllapp/model/Customer/FeatureOptionIssue.dart';
 import 'package:dazllapp/model/Customer/Featureissue.dart';
 import 'package:dazllapp/model/Customer/Rooms.dart';
+import 'package:dazllapp/model/Customer/customerProfileModel.dart';
 import 'package:dazllapp/model/Customer/project.dart';
 import 'package:dazllapp/model/Customer/Features.dart';
 import 'package:dazllapp/model/Customer/userModel.dart';
@@ -31,15 +32,33 @@ class CustomerNotifier extends BaseNotifier {
   List<Roominfo> listofRoomsinfo = [];
   List<Featureinfo> listofFeatureinfo = [];
   CustomerUserModel? customerUserModel;
+  CustomerProfile? customerProfile;
 
   // List<Image> listofimages = [];
   Future<void> setCustomerModel() async {
     String data = await SpHelpers.getString(SharedPrefsKeys.customerUser) ?? "";
+    log("data ${data}");
     if (data.isNotEmpty) {
-      customerUserModel = CustomerUserModel.fromJson(jsonDecode(data));
+      // customerUserModel = CustomerUserModel.fromJson(jsonDecode(data));
+
+      getCustomerProfile();
+
+      // customerProfile = CustomerProfile.fromJson(jsonDecode(data));
+      // log('=-=-=-=-=>> ' +customerProfile!.customer!.firstName.toString());
     }
 
     // notifyListeners();
+  }
+
+  Future getCustomerProfile() async {
+    Response res = await dioClient.getRequest(
+      apiEnd: customerUserProfile,
+    );
+    customerProfile = CustomerProfile.fromJson(res.data);
+    await SpHelpers.setString(
+        SharedPrefsKeys.realtorUser, jsonEncode(customerProfile));
+    log("message=-=-=- ${res.data}");
+    return res.data;
   }
 
   final imgPicker = ImagePicker();
@@ -120,6 +139,17 @@ class CustomerNotifier extends BaseNotifier {
     return res.data;
   }
 
+  Future updateCustomerUser(
+      {required Map<String, dynamic> data, required int customerId}) async {
+    log('message ${data}');
+    Response res = await dioClient.PostwithFormData(
+        apiEnd: update_customer + customerId.toString(), Data: data);
+    log("=-=-=-=->> ${res.data}");
+   await getCustomerProfile();
+    // customerProfile = CustomerProfile.fromJson(res.data);
+    return res.data;
+  }
+
   Future updateReport(
       {required Map<String, dynamic> data, required int projectId}) async {
     log("update api + ${update_customer_report + projectId.toString()}");
@@ -130,13 +160,14 @@ class CustomerNotifier extends BaseNotifier {
   }
 
   Future updateCustomer(
-      {required Map<String, dynamic> data, required int projectId}) async {
-    log("update api + ${update_customer + projectId.toString()}");
+      {required Map<String, dynamic> data, required int customerId}) async {
+    log("update api + ${update_customer + customer.toString()}");
     Response res = await dioClient.patchwithRowData(
-        apiEnd: update_customer_report + projectId.toString(), Data: data);
+        apiEnd: update_customer_report + customer.toString(), Data: data);
 
     return res.data;
   }
+
   Future<int> createproject(List<Map<String, dynamic>> data) async {
     Response res =
         await dioClient.rawwithFormData(apiEnd: create_projet, Data: data);

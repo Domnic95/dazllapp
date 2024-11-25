@@ -540,6 +540,7 @@
 import 'dart:developer';
 
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
+import 'package:dazllapp/UI/homepage/customer/home/customer_homepage.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/realtor_project.dart';
 import 'package:dazllapp/UI/homepage/realtor/Start_project/select_feature.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/roomsProvider.dart';
@@ -555,7 +556,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class RealtorRooms extends ConsumerStatefulWidget {
   final Room passedRoom;
-  const RealtorRooms({Key? key, required this.passedRoom});
+  final String? projectid;
+  final bool? customer;
+  const RealtorRooms({Key? key, required this.passedRoom, this.projectid, this.customer});
 
   @override
   ConsumerState<RealtorRooms> createState() => _RealtorRoomsState();
@@ -572,6 +575,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
   @override
   void initState() {
     super.initState();
+    log("=-=-=-===----->> ${widget.projectid}");
     loadData();
   }
 
@@ -607,7 +611,6 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
           ));
     }
 
-
     return _tabs;
   }
 
@@ -640,7 +643,7 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
               )
             : Column(
                 children: [
-                  CommonHeader(title: "Create a project", isback: false),
+                  CommonHeader(title: widget.projectid != null ?'Project creation': "Create a project", isback: false),
                   TabBar(
                       unselectedLabelStyle: TextStyle(color: blackColor),
                       unselectedLabelColor: blackColor,
@@ -713,11 +716,12 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                             realtorRoomProvider.addSeletedRoom(
                                                 addRoom: _roomsNotifier
                                                     .listOfRoom[index],
-                                                tabIndex: realtorRoomProvider.tabIndex);
+                                                tabIndex: realtorRoomProvider
+                                                    .tabIndex);
 
                                             buildTabController();
                                             realtorRoomProvider.changeTabIndex(
-                                                newTabIndex: 0);       
+                                                newTabIndex: 0);
                                             realtorRoomProvider
                                                 .changeLoadingState(
                                                     value: false);
@@ -817,8 +821,34 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                           ? GestureDetector(
                               onTap: () async {
                                 Utils.loaderDialog(context, true);
-                                await realtorRoomProvider.loadData();
-                                if (!realtorRoomProvider.dataListItemIsEmpty) {
+                                await realtorRoomProvider.loadData(widget.projectid != null? widget.projectid : null );
+
+                                if(widget.customer == true && widget.projectid != null){
+                                    Utils.loaderDialog(context, false);
+                                  await realtorRoomProvider.updateProjectCustomer();
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              CustomerHomepage()),
+                                      (route) => false);
+                                  toastShowSuccess(
+                                      context, 'Project Update sucessfully');
+                                }
+
+                               else if(widget.projectid != null){
+                                    Utils.loaderDialog(context, false);
+                                  await realtorRoomProvider.updateProject();
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Realtor_project()),
+                                      (route) => false);
+                                  toastShowSuccess(
+                                      context, 'Project Update sucessfully');
+                                }
+                               else if (!realtorRoomProvider.dataListItemIsEmpty && widget.projectid == null) {
                                   Utils.loaderDialog(context, false);
                                   await realtorRoomProvider.createproject();
                                   Navigator.pushAndRemoveUntil(
@@ -827,7 +857,8 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                           builder: (context) =>
                                               Realtor_project()),
                                       (route) => false);
-                                       toastShowSuccess(context, 'Project created sucessfully');
+                                  toastShowSuccess(
+                                      context, 'Project created sucessfully');
                                   // ScaffoldMessenger.of(context)
                                   //     .showSnackBar(SnackBar(
                                   //   content:
@@ -836,7 +867,8 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                   // ));
                                 } else {
                                   Utils.loaderDialog(context, false);
-                                      toastShowError(context, 'please Add Atleast one feature note and Add one Images!');
+                                  toastShowError(context,
+                                      'please Add Atleast one feature note and Add one Images!');
                                   // ScaffoldMessenger.of(context)
                                   //     .showSnackBar(SnackBar(
                                   //   content: Text(

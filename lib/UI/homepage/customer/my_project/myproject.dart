@@ -6,6 +6,7 @@ import 'package:dazllapp/UI/component/customTextfield.dart';
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
 import 'package:dazllapp/UI/homepage/customer/home/customer_homepage.dart';
+import 'package:dazllapp/UI/homepage/realtor/Start_project/start_project.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
 import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
@@ -198,678 +199,784 @@ class _myprojectState extends ConsumerState<myproject> {
                                             .roominfo!
                                             .isEmpty
                                         ? SizedBox()
-                                        : GestureDetector(
-                                            onTap: () {
-                                              FocusScope.of(context).unfocus();
-                                              // projectprovider
-                                              //         .listofproject[widgetIndex]
-                                              //         .roominfo!
-                                              //         .isEmpty
-                                              //     ? null
-                                              //     : Navigator.of(context).push(
-                                              //         MaterialPageRoute(
-                                              //           builder: (context) =>
-                                              //               Project_Details(
-                                              //             index: widgetIndex,
-                                              //           ),
-                                              //         ),
-                                              //       );
-                                            },
-                                            child: Container(
-                                              // height: 80,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    bottom: 10.0),
-                                                child: Card(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0)),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      Container(
-                                                        decoration: BoxDecoration(
-                                                            color: AppTheme
-                                                                .colorPrimary,
-                                                            borderRadius:
-                                                                BorderRadius.vertical(
-                                                                    top: Radius
-                                                                        .circular(
-                                                                            10))),
-                                                        child: ListTile(
-                                                          contentPadding:
-                                                              EdgeInsets
-                                                                  .symmetric(
-                                                                      vertical:
-                                                                          8,
-                                                                      horizontal:
-                                                                          8),
-                                                          title: Row(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              // Padding(
-                                                              //   padding:
-                                                              //       const EdgeInsets
-                                                              //               .only(
-                                                              //           right: 8),
-                                                              //   child: ClipRRect(
-                                                              //     borderRadius:
-                                                              //         BorderRadius
-                                                              //             .circular(
-                                                              //                 10),
-                                                              //     child:
-                                                              //         CachedNetworkImage(
-                                                              //       height: 50,
-                                                              //       width: 50,
-                                                              //       imageUrl: projectprovider
-                                                              //               .listofproject[
-                                                              //                   index]
-                                                              //               .roominfo!
-                                                              //               .isEmpty
-                                                              //           ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
-                                                              //           : projectprovider
-                                                              //                   .listofproject[
-                                                              //                       index]
-                                                              //                   .roominfo!
-                                                              //                   .first
-                                                              //                   .feature!
-                                                              //                   .isEmpty
-                                                              //               ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
-                                                              //               : projectprovider
-                                                              //                       .listofproject[
-                                                              //                           index]
-                                                              //                       .roominfo!
-                                                              //                       .first
-                                                              //                       .feature!
-                                                              //                       .first
-                                                              //                       .images!
-                                                              //                       .isEmpty
-                                                              //                   ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
-                                                              //                   : projectprovider
-                                                              //                       .listofproject[index]
-                                                              //                       .roominfo!
-                                                              //                       .first
-                                                              //                       .feature!
-                                                              //                       .first
-                                                              //                       .images!
-                                                              //                       .first
-                                                              //                       .toString(),
-                                                              //       // placeholder: (context,
-                                                              //       //         url) =>
-                                                              //       //     CircularProgressIndicator(),
-                                                              //       errorWidget: (context,
-                                                              //               url,
-                                                              //               error) =>
-                                                              //           Image.network(
-                                                              //               "https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75"),
-                                                              //     ),
-                                                              //     // Image(
-                                                              //     //     height: 50,
-                                                              //     //     width: 50,
-                                                              //     //     image:
-                                                              //     //      NetworkImage(
-                                                              //     //       ),
-                                                              //     //     fit: BoxFit
-                                                              //     //         .fitWidth),
-                                                              //   ),
-                                                              // ),
-                                                              Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
+                                        : Column(
+                                          children: [
+                                              SizedBox(
+                                              height: 20,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Container(
+                                                  // width: 300,
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 5),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color: primaryColor,
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5),
+                                                    child: InkWell(
+                                                      onTap: () async {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                Start_project(projectid:  projectprovider!
+                                                                .listofproject[
+                                                                    widgetIndex]
+                                                                .projectId!.toString(),customer: true),
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Text(
+                                                              " Add Another Room ",
+                                                              style: TextStyle(
+                                                                  color: AppTheme
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      14)),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  // width: 300,
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 5),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color: primaryColor,
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5),
+                                                    child: InkWell(
+                                                      onTap: () async {
+                                                        setState(() {});
+                                                      
+
+                                                        setState(() {});
+                                                      },
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Text(
+                                                              " Delete Project ",
+                                                              style: TextStyle(
+                                                                  color: AppTheme
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      14)),
+                                                          Icon(
+                                                            Icons.delete,
+                                                            color:
+                                                                AppTheme.white,
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                           
+                                            GestureDetector(
+                                                onTap: () {
+                                                  FocusScope.of(context).unfocus();
+                                                  // projectprovider
+                                                  //         .listofproject[widgetIndex]
+                                                  //         .roominfo!
+                                                  //         .isEmpty
+                                                  //     ? null
+                                                  //     : Navigator.of(context).push(
+                                                  //         MaterialPageRoute(
+                                                  //           builder: (context) =>
+                                                  //               Project_Details(
+                                                  //             index: widgetIndex,
+                                                  //           ),
+                                                  //         ),
+                                                  //       );
+                                                },
+                                                child: Container(
+                                                  // height: 80,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        bottom: 10.0),
+                                                    child: Card(
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  12.0)),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment.start,
+                                                        children: [
+                                                          Container(
+                                                            decoration: BoxDecoration(
+                                                                color: AppTheme
+                                                                    .colorPrimary,
+                                                                borderRadius:
+                                                                    BorderRadius.vertical(
+                                                                        top: Radius
+                                                                            .circular(
+                                                                                10))),
+                                                            child: ListTile(
+                                                              contentPadding:
+                                                                  EdgeInsets
+                                                                      .symmetric(
+                                                                          vertical:
+                                                                              8,
+                                                                          horizontal:
+                                                                              8),
+                                                              title: Row(
                                                                 crossAxisAlignment:
                                                                     CrossAxisAlignment
                                                                         .start,
                                                                 children: [
-                                                                  Text(
-                                                                      'Project No : ' +
-                                                                          projectprovider!
-                                                                              .listofproject[
-                                                                                  widgetIndex]
-                                                                              .projectId
-                                                                              .toString(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            14,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                      )),
-                                                                  SizedBox(
-                                                                      height:
-                                                                          5),
-                                                                  projectprovider!
-                                                                          .listofproject[
-                                                                              widgetIndex]
-                                                                          .roominfo!
-                                                                          .isEmpty
-                                                                      ? Text(
-                                                                          "No Data",
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontSize:
-                                                                                14,
-                                                                            color:
-                                                                                Colors.grey,
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                          ))
-                                                                      : Text(
-                                                                          'Room Name : ' +
-                                                                              projectprovider!.listofproject[widgetIndex].roominfo!.first.roomName
+                                                                  // Padding(
+                                                                  //   padding:
+                                                                  //       const EdgeInsets
+                                                                  //               .only(
+                                                                  //           right: 8),
+                                                                  //   child: ClipRRect(
+                                                                  //     borderRadius:
+                                                                  //         BorderRadius
+                                                                  //             .circular(
+                                                                  //                 10),
+                                                                  //     child:
+                                                                  //         CachedNetworkImage(
+                                                                  //       height: 50,
+                                                                  //       width: 50,
+                                                                  //       imageUrl: projectprovider
+                                                                  //               .listofproject[
+                                                                  //                   index]
+                                                                  //               .roominfo!
+                                                                  //               .isEmpty
+                                                                  //           ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
+                                                                  //           : projectprovider
+                                                                  //                   .listofproject[
+                                                                  //                       index]
+                                                                  //                   .roominfo!
+                                                                  //                   .first
+                                                                  //                   .feature!
+                                                                  //                   .isEmpty
+                                                                  //               ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
+                                                                  //               : projectprovider
+                                                                  //                       .listofproject[
+                                                                  //                           index]
+                                                                  //                       .roominfo!
+                                                                  //                       .first
+                                                                  //                       .feature!
+                                                                  //                       .first
+                                                                  //                       .images!
+                                                                  //                       .isEmpty
+                                                                  //                   ? 'https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75'
+                                                                  //                   : projectprovider
+                                                                  //                       .listofproject[index]
+                                                                  //                       .roominfo!
+                                                                  //                       .first
+                                                                  //                       .feature!
+                                                                  //                       .first
+                                                                  //                       .images!
+                                                                  //                       .first
+                                                                  //                       .toString(),
+                                                                  //       // placeholder: (context,
+                                                                  //       //         url) =>
+                                                                  //       //     CircularProgressIndicator(),
+                                                                  //       errorWidget: (context,
+                                                                  //               url,
+                                                                  //               error) =>
+                                                                  //           Image.network(
+                                                                  //               "https://dazlpro.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fcomponents%2FFooter%2Ffooter.7057d59c9809dba527ddc726526c7eb0.png&w=96&q=75"),
+                                                                  //     ),
+                                                                  //     // Image(
+                                                                  //     //     height: 50,
+                                                                  //     //     width: 50,
+                                                                  //     //     image:
+                                                                  //     //      NetworkImage(
+                                                                  //     //       ),
+                                                                  //     //     fit: BoxFit
+                                                                  //     //         .fitWidth),
+                                                                  //   ),
+                                                                  // ),
+                                                                  Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Text(
+                                                                          'Project No : ' +
+                                                                              projectprovider!
+                                                                                  .listofproject[
+                                                                                      widgetIndex]
+                                                                                  .projectId
                                                                                   .toString(),
                                                                           style:
                                                                               TextStyle(
+                                                                            color: Colors
+                                                                                .white,
                                                                             fontSize:
                                                                                 14,
-                                                                            color:
-                                                                                Colors.white,
                                                                             fontWeight:
                                                                                 FontWeight.bold,
-                                                                          ))
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Column(
-                                                          children: [
-                                                            SizedBox(height: 5),
-                                                            SizedBox(
-                                                              width: size.width,
-                                                              child: Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  SizedBox(
-                                                                      height:
-                                                                          10),
-                                                                  Container(
-                                                                    padding:
-                                                                        EdgeInsets.all(
-                                                                            8.0),
-                                                                    // width: size.width,
-                                                                    decoration: BoxDecoration(
-                                                                        // color:
-                                                                        //     primaryColor,
-                                                                        borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
-                                                                    child: Text(
-                                                                        "Customer Details :-",
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                blackColor,
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            fontSize: 18)),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .symmetric(
-                                                                        vertical:
-                                                                            2.0,
-                                                                        horizontal:
-                                                                            8.0),
-                                                                    child:
-                                                                        Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        propertyDetailIteams(
-                                                                            key:
-                                                                                "Homeowners Name",
-                                                                            value:
-                                                                                "${projectprovider!.customerUserModel!.data!.firstName ?? ''} ${projectprovider!.customerUserModel!.data!.lastName ?? ''}"),
-                                                                        propertyDetailIteams(
-                                                                            key:
-                                                                                "Email Address",
-                                                                            value:
-                                                                                "${projectprovider!.customerUserModel!.data!.email ?? ""}"),
-                                                                        propertyDetailIteams(
-                                                                            key:
-                                                                                "Phone Number",
-                                                                            value:
-                                                                                "${projectprovider!.customerUserModel!.data!.phoneNumber ?? "Unknown"}"),
-                                                                        propertyDetailIteams(
-                                                                            key:
-                                                                                "Zip Code",
-                                                                            value:
-                                                                                "${projectprovider!.customerUserModel!.data!.zipCode ?? "Unknown"}"),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              height: 15,
-                                                            ),
-                                                            Text(
-                                                              "Features",
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: AppTheme
-                                                                    .colorPrimary,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              height: 15,
-                                                            ),
-                                                            ListView.builder(
-                                                              shrinkWrap: true,
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .zero,
-                                                              physics:
-                                                                  NeverScrollableScrollPhysics(),
-                                                              itemCount: projectprovider!
-                                                                  .listofproject[
-                                                                      widgetIndex]
-                                                                  .roominfo!
-                                                                  .length,
-                                                              itemBuilder:
-                                                                  (context,
-                                                                      index) {
-                                                                return Padding(
-                                                                  padding: const EdgeInsets
-                                                                      .only(
-                                                                      bottom:
-                                                                          12.0),
-                                                                  child:
-                                                                      Container(
-                                                                    child:
-                                                                        Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        Text(
-                                                                          " ${projectprovider!.listofproject[widgetIndex].roominfo![index].roomName}",
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontSize:
-                                                                                16,
-                                                                            color:
-                                                                                AppTheme.colorPrimary,
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                          ),
-                                                                        ),
-                                                                        SizedBox(
+                                                                          )),
+                                                                      SizedBox(
                                                                           height:
-                                                                              5,
+                                                                              5),
+                                                                      projectprovider!
+                                                                              .listofproject[
+                                                                                  widgetIndex]
+                                                                              .roominfo!
+                                                                              .isEmpty
+                                                                          ? Text(
+                                                                              "No Data",
+                                                                              style:
+                                                                                  TextStyle(
+                                                                                fontSize:
+                                                                                    14,
+                                                                                color:
+                                                                                    Colors.grey,
+                                                                                fontWeight:
+                                                                                    FontWeight.bold,
+                                                                              ))
+                                                                          : Text(
+                                                                              'Room Name : ' +
+                                                                                  projectprovider!.listofproject[widgetIndex].roominfo!.first.roomName
+                                                                                      .toString(),
+                                                                              style:
+                                                                                  TextStyle(
+                                                                                fontSize:
+                                                                                    14,
+                                                                                color:
+                                                                                    Colors.white,
+                                                                                fontWeight:
+                                                                                    FontWeight.bold,
+                                                                              ))
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Column(
+                                                              children: [
+                                                                
+                                                                SizedBox(height: 5),
+                                            
+                                                                SizedBox(
+                                                                  width: size.width,
+                                                                  child: Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      SizedBox(
+                                                                          height:
+                                                                              10),
+                                                                      Container(
+                                                                        padding:
+                                                                            EdgeInsets.all(
+                                                                                8.0),
+                                                                        // width: size.width,
+                                                                        decoration: BoxDecoration(
+                                                                            // color:
+                                                                            //     primaryColor,
+                                                                            borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+                                                                        child: Text(
+                                                                            "Customer Details :-",
+                                                                            style: TextStyle(
+                                                                                color:
+                                                                                    blackColor,
+                                                                                fontWeight:
+                                                                                    FontWeight.bold,
+                                                                                fontSize: 18)),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .symmetric(
+                                                                            vertical:
+                                                                                2.0,
+                                                                            horizontal:
+                                                                                8.0),
+                                                                        child:
+                                                                            Column(
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment
+                                                                                  .start,
+                                                                          children: [
+                                                                            propertyDetailIteams(
+                                                                                key:
+                                                                                    "Homeowners Name",
+                                                                                value:
+                                                                                    "${projectprovider!.customerProfile!.customer!.firstName ?? ''} ${projectprovider!.customerProfile!.customer!.lastName ?? ''}"),
+                                                                            propertyDetailIteams(
+                                                                                key:
+                                                                                    "Email Address",
+                                                                                value:
+                                                                                    "${projectprovider!.customerProfile!.customer!.email ?? ""}"),
+                                                                            propertyDetailIteams(
+                                                                                key:
+                                                                                    "Phone Number",
+                                                                                value:
+                                                                                    "${projectprovider!.customerProfile!.customer!.phoneNumber ?? "Unknown"}"),
+                                                                            propertyDetailIteams(
+                                                                                key:
+                                                                                    "Zip Code",
+                                                                                value:
+                                                                                    "${projectprovider!.customerProfile!.customer!.zipCode ?? "Unknown"}"),
+                                                                          ],
                                                                         ),
-                                                                        ListView
-                                                                            .builder(
-                                                                          shrinkWrap:
-                                                                              true,
-                                                                          padding:
-                                                                              EdgeInsets.zero,
-                                                                          physics:
-                                                                              NeverScrollableScrollPhysics(),
-                                                                          itemCount: projectprovider!
-                                                                              .listofproject[widgetIndex]
-                                                                              .roominfo![index]
-                                                                              .feature!
-                                                                              .length,
-                                                                          itemBuilder:
-                                                                              (context, subindex) {
-                                                                            return Card(
-                                                                              child: Theme(
-                                                                                data: Theme.of(context).copyWith(colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black)),
-                                                                                child: ExpansionTile(
-                                                                                  iconColor: primaryColor,
-                                                                                  childrenPadding: EdgeInsets.only(left: 15, bottom: 15),
-                                                                                  expandedAlignment: Alignment.topLeft,
-                                                                                  title: Text(projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureName!, style: TextStyle(color: AppTheme.colorPrimary, fontSize: 14, fontWeight: FontWeight.w600)),
-                                                                                  children: [
-                                                                                    Column(
-                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 15,
+                                                                ),
+                                                                Text(
+                                                                  "Features",
+                                                                  style: TextStyle(
+                                                                    fontSize: 16,
+                                                                    color: AppTheme
+                                                                        .colorPrimary,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 15,
+                                                                ),
+                                                                ListView.builder(
+                                                                  shrinkWrap: true,
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .zero,
+                                                                  physics:
+                                                                      NeverScrollableScrollPhysics(),
+                                                                  itemCount: projectprovider!
+                                                                      .listofproject[
+                                                                          widgetIndex]
+                                                                      .roominfo!
+                                                                      .length,
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                          index) {
+                                                                    return Padding(
+                                                                      padding: const EdgeInsets
+                                                                          .only(
+                                                                          bottom:
+                                                                              12.0),
+                                                                      child:
+                                                                          Container(
+                                                                        child:
+                                                                            Column(
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment
+                                                                                  .start,
+                                                                          children: [
+                                                                            Text(
+                                                                              " ${projectprovider!.listofproject[widgetIndex].roominfo![index].roomName}",
+                                                                              style:
+                                                                                  TextStyle(
+                                                                                fontSize:
+                                                                                    16,
+                                                                                color:
+                                                                                    AppTheme.colorPrimary,
+                                                                                fontWeight:
+                                                                                    FontWeight.bold,
+                                                                              ),
+                                                                            ),
+                                                                            SizedBox(
+                                                                              height:
+                                                                                  5,
+                                                                            ),
+                                                                            ListView
+                                                                                .builder(
+                                                                              shrinkWrap:
+                                                                                  true,
+                                                                              padding:
+                                                                                  EdgeInsets.zero,
+                                                                              physics:
+                                                                                  NeverScrollableScrollPhysics(),
+                                                                              itemCount: projectprovider!
+                                                                                  .listofproject[widgetIndex]
+                                                                                  .roominfo![index]
+                                                                                  .feature!
+                                                                                  .length,
+                                                                              itemBuilder:
+                                                                                  (context, subindex) {
+                                                                                return Card(
+                                                                                  child: Theme(
+                                                                                    data: Theme.of(context).copyWith(colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black)),
+                                                                                    child: ExpansionTile(
+                                                                                      iconColor: primaryColor,
+                                                                                      childrenPadding: EdgeInsets.only(left: 15, bottom: 15),
+                                                                                      expandedAlignment: Alignment.topLeft,
+                                                                                      title: Text(projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureName!, style: TextStyle(color: AppTheme.colorPrimary, fontSize: 14, fontWeight: FontWeight.w600)),
                                                                                       children: [
-                                                                                        if (!isEdit[widgetIndex][index][subindex])
-                                                                                          projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images!.length == 0
-                                                                                              ? SizedBox()
-                                                                                              : SizedBox(
-                                                                                                  height: 80,
-                                                                                                  child: ListView.builder(
-                                                                                                    shrinkWrap: true,
-                                                                                                    scrollDirection: Axis.horizontal,
-                                                                                                    itemCount: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images!.length,
-                                                                                                    itemBuilder: (context, imgindex) {
-                                                                                                      return InkWell(
-                                                                                                        onTap: () {
-                                                                                                          Utils.imageInfoDialog(context: context, url: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images![imgindex], description: "");
-                                                                                                        },
-                                                                                                        child: Container(
-                                                                                                          width: 80,
-                                                                                                          height: 80,
-                                                                                                          padding: const EdgeInsets.only(right: 3),
-                                                                                                          child: ClipRRect(
-                                                                                                            borderRadius: BorderRadius.circular(5),
-                                                                                                            child: CachedNetworkImage(errorWidget: (context, url, error) => Image.asset("assets/images/noimage.png"), imageUrl: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images![imgindex]),
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      );
-                                                                                                    },
-                                                                                                  ),
-                                                                                                ),
-                                                                                        if (isEdit[widgetIndex][index][subindex])
-                                                                                          projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images == File('').toString()
-                                                                                              ? SizedBox()
-                                                                                              : GridView.builder(
-                                                                                                  padding: EdgeInsets.zero,
-                                                                                                  physics: NeverScrollableScrollPhysics(),
-                                                                                                  shrinkWrap: true,
-                                                                                                  itemCount: (images[widgetIndex][index][subindex].length) + 1, // Include "Add Photo" button
-                                                                                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                                                                    crossAxisCount: 4,
-                                                                                                    crossAxisSpacing: 4.0,
-                                                                                                    mainAxisSpacing: 4.0,
-                                                                                                  ),
-                                                                                                  itemBuilder: (context, subIndex) {
-                                                                                                    if (subIndex == 0) {
-                                                                                                      // Add photo button
-                                                                                                      return Container(
-                                                                                                        decoration: BoxDecoration(
-                                                                                                          border: Border.all(color: Colors.black),
-                                                                                                          borderRadius: BorderRadius.circular(10),
-                                                                                                        ),
-                                                                                                        child: IconButton(
-                                                                                                          onPressed: () {
-                                                                                                            showOptionsDialog(context, widgetIndex, index, subindex, subIndex);
-                                                                                                          },
-                                                                                                          icon: Icon(Icons.add_a_photo),
-                                                                                                        ),
-                                                                                                      );
-                                                                                                    }
-
-                                                                                                    // Display existing images
-                                                                                                    String image = images[widgetIndex][index][subindex][subIndex - 1];
-                                                                                                    if (image.isEmpty) {
-                                                                                                      return SizedBox();
-                                                                                                    }
-
-                                                                                                    return Container(
-                                                                                                      height: 100,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        border: Border.all(color: Colors.black),
-                                                                                                        borderRadius: BorderRadius.circular(10),
-                                                                                                      ),
-                                                                                                      child: Stack(
-                                                                                                        alignment: Alignment.center,
-                                                                                                        children: [
-                                                                                                          ClipRRect(
-                                                                                                            borderRadius: BorderRadius.circular(10),
-                                                                                                            child: CachedNetworkImage(
-                                                                                                              imageUrl: image,
-                                                                                                              height: 100,
-                                                                                                              placeholder: (context, url) => CircularProgressIndicator(),
-                                                                                                              errorWidget: (context, url, error) => Image.asset("assets/images/noimage.png"),
-                                                                                                              fit: BoxFit.cover,
+                                                                                        Column(
+                                                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                          children: [
+                                                                                            if (!isEdit[widgetIndex][index][subindex])
+                                                                                              projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images!.length == 0
+                                                                                                  ? SizedBox()
+                                                                                                  : SizedBox(
+                                                                                                      height: 80,
+                                                                                                      child: ListView.builder(
+                                                                                                        shrinkWrap: true,
+                                                                                                        scrollDirection: Axis.horizontal,
+                                                                                                        itemCount: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images!.length,
+                                                                                                        itemBuilder: (context, imgindex) {
+                                                                                                          return InkWell(
+                                                                                                            onTap: () {
+                                                                                                              Utils.imageInfoDialog(context: context, url: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images![imgindex], description: "");
+                                                                                                            },
+                                                                                                            child: Container(
+                                                                                                              width: 80,
+                                                                                                              height: 80,
+                                                                                                              padding: const EdgeInsets.only(right: 3),
+                                                                                                              child: ClipRRect(
+                                                                                                                borderRadius: BorderRadius.circular(5),
+                                                                                                                child: CachedNetworkImage(errorWidget: (context, url, error) => Image.asset("assets/images/noimage.png"), imageUrl: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images![imgindex]),
+                                                                                                              ),
                                                                                                             ),
-                                                                                                          ),
-                                                                                                          Positioned(
-                                                                                                            top: -10,
-                                                                                                            right: -5,
+                                                                                                          );
+                                                                                                        },
+                                                                                                      ),
+                                                                                                    ),
+                                                                                            if (isEdit[widgetIndex][index][subindex])
+                                                                                              projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images == File('').toString()
+                                                                                                  ? SizedBox()
+                                                                                                  : GridView.builder(
+                                                                                                      padding: EdgeInsets.zero,
+                                                                                                      physics: NeverScrollableScrollPhysics(),
+                                                                                                      shrinkWrap: true,
+                                                                                                      itemCount: (images[widgetIndex][index][subindex].length) + 1, // Include "Add Photo" button
+                                                                                                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                                                                        crossAxisCount: 4,
+                                                                                                        crossAxisSpacing: 4.0,
+                                                                                                        mainAxisSpacing: 4.0,
+                                                                                                      ),
+                                                                                                      itemBuilder: (context, subIndex) {
+                                                                                                        if (subIndex == 0) {
+                                                                                                          // Add photo button
+                                                                                                          return Container(
+                                                                                                            decoration: BoxDecoration(
+                                                                                                              border: Border.all(color: Colors.black),
+                                                                                                              borderRadius: BorderRadius.circular(10),
+                                                                                                            ),
                                                                                                             child: IconButton(
                                                                                                               onPressed: () {
-                                                                                                                setState(() {
-                                                                                                                  images[widgetIndex][index][subindex].removeAt(subIndex - 1);
-                                                                                                                });
+                                                                                                                showOptionsDialog(context, widgetIndex, index, subindex, subIndex);
                                                                                                               },
-                                                                                                              icon: Icon(
-                                                                                                                Icons.cancel,
-                                                                                                                size: 25,
-                                                                                                                color: AppTheme.white,
-                                                                                                              ),
+                                                                                                              icon: Icon(Icons.add_a_photo),
                                                                                                             ),
+                                                                                                          );
+                                                                                                        }
+                                            
+                                                                                                        // Display existing images
+                                                                                                        String image = images[widgetIndex][index][subindex][subIndex - 1];
+                                                                                                        if (image.isEmpty) {
+                                                                                                          return SizedBox();
+                                                                                                        }
+                                            
+                                                                                                        return Container(
+                                                                                                          height: 100,
+                                                                                                          decoration: BoxDecoration(
+                                                                                                            border: Border.all(color: Colors.black),
+                                                                                                            borderRadius: BorderRadius.circular(10),
                                                                                                           ),
-                                                                                                        ],
-                                                                                                      ),
-                                                                                                    );
-                                                                                                  },
-                                                                                                ),
-
-                                                                                        // projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images == null || projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images!.isEmpty
-                                                                                        //     ? SizedBox()
-                                                                                        //     : SizedBox(
-                                                                                        //         height: isEdit[widgetIndex][index][subindex] ? 110 : 90,
-                                                                                        //         child: ListView.builder(
-                                                                                        //           shrinkWrap: true,
-                                                                                        //           scrollDirection: Axis.horizontal,
-                                                                                        //           itemCount: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images!.length,
-                                                                                        //           itemBuilder: (context, expansionTileIndex) {
-                                                                                        //             return Column(
-                                                                                        //               children: [
-                                                                                        //                 InkWell(
-                                                                                        //                   onTap: () {
-                                                                                        //                     Utils.imageInfoDialog(context: context, url: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images![expansionTileIndex], description: "");
-                                                                                        //                   },
-                                                                                        //                   child: Container(
-                                                                                        //                     width: 80,
-                                                                                        //                     height: 80,
-                                                                                        //                     padding: const EdgeInsets.only(right: 5),
-                                                                                        //                     child: ClipRRect(
-                                                                                        //                       borderRadius: BorderRadius.circular(5),
-                                                                                        //                       child: Image.network(
-                                                                                        //                         projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images![expansionTileIndex],
-                                                                                        //                         fit: BoxFit.fill,
-                                                                                        //                       ),
-                                                                                        //                     ),
-                                                                                        //                   ),
-                                                                                        //                 ),
-                                                                                        //                 SizedBox(
-                                                                                        //                   height: 5,
-                                                                                        //                 ),
-
-                                                                                        //               ],
-                                                                                        //             );
-                                                                                        //           },
-                                                                                        //         ),
-                                                                                        //       ),
-
-                                                                                        projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureoption == null || projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureoption!.isEmpty
-                                                                                            ? SizedBox()
-                                                                                            : projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureoption != null
-                                                                                                ? propertyDetailIteams(key: "Feature Option", value: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureoption!)
-                                                                                                : SizedBox(),
-                                                                                        SizedBox(
-                                                                                          height: 5,
-                                                                                        ),
-                                                                                        isEdit[widgetIndex][index][subindex]
-                                                                                            ? Column(
-                                                                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                                children: [
-                                                                                                  Text("Comments :"),
-                                                                                                  SizedBox(height: 8),
-                                                                                                  CustomTextField(controller: _editCommetController[widgetIndex][index][subindex], label: "Enter inspection notes"),
-                                                                                                ],
-                                                                                              )
-                                                                                            : projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].inspectionNotes != null
-                                                                                                ? propertyDetailIteams(key: "Comments", value: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].inspectionNotes!)
-                                                                                                : SizedBox(),
-                                                                                        SizedBox(
-                                                                                          height: 5,
-                                                                                        ),
-                                                                                        Row(
-                                                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                                                          children: [
-                                                                                            Center(
-                                                                                              child: ElevatedButton(
-                                                                                                  style: ButtonStyle(backgroundColor: isEdit[widgetIndex][index][subindex] ? MaterialStateProperty.all(saveColor) : MaterialStateProperty.all(editColor)),
-                                                                                                  onPressed: () async {
-                                                                                                    for (int i = 0; i < projectprovider!.listofproject[widgetIndex].roominfo![index].feature!.length; i++) {
-                                                                                                      if (i != subindex) {
-                                                                                                        isEdit[widgetIndex][index][i] = false;
-                                                                                                      }
-                                                                                                    }
-                                                                                                    log("====fff    " + (widgetIndex).toString());
-                                                                                                    isEdit[widgetIndex][index][subindex] = !isEdit[widgetIndex][index][subindex];
-                                                                                                    if (!isEdit[widgetIndex][index][subindex]) {
-                                                                                                      isEdit[widgetIndex][index][subindex] = !isEdit[widgetIndex][index][subindex];
-                                                                                                      isBtnLoading[widgetIndex][index][subindex] = true;
-                                                                                                      setState(() {});
-                                                                                                      // log("djxfjdlgjlfdj    " + isEdit[widgetIndex].toString());
-                                                                                                      // await projectprovider!.updateReport(data: {
-                                                                                                      //   "inspectionNotes": _editCommetController[widgetIndex][index][subindex].text,
-                                                                                                      //   "feature_id": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureId,
-                                                                                                      //   "images": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images ?? <String>[]
-                                                                                                      // }, projectId: projectprovider!.listofproject[widgetIndex].projectId!).then((value) {
-                                                                                                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.green, content: Text("${value["message"]}")));
-                                                                                                      // });
-                                                                                                      // await ref.read(customernotifier).myproject();
-                                                                                                      // loadData(widgetIndex);
-                                                                                                      log("==-=-=-=->> ${projectprovider!.listofproject[widgetIndex].projectId!}");
-                                                                                                      await projectprovider!.updateReport(data: {
-                                                                                                        'data': [
-                                                                                                          {
-                                                                                                            "inspectionNotes": _editCommetController[widgetIndex][index][subindex].text,
-                                                                                                            // "feature_id": projectprovider!.listofrealtorproject[widgetIndex].roominfo![index].feature![subindex].,
-                                                                                                            "images": images[widgetIndex][index][subindex].isEmpty ? [] : images[widgetIndex][index][subindex],
-                                                                                                            "roomId": projectprovider!.listofproject[widgetIndex].roominfo![index].roomId
-                                                                                                          }
-                                                                                                        ],
-                                                                                                        "name": "",
-                                                                                                        'projectId': projectprovider!.listofproject[widgetIndex].projectId!
-                                                                                                      }, projectId: projectprovider!.listofproject[widgetIndex].projectId!).then((value) {
-                                                                                                        toastShowSuccess(context, value["message"]);
-                                                                                                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.green, content: Text("${value["message"]}")));
-                                                                                                      });
-
-                                                                                                      log("djxfjdlgjlfdj    " + isEdit[widgetIndex].toString());
-
-                                                                                                      isBtnLoading[widgetIndex][index][subindex] = false;
-                                                                                                      isEdit[widgetIndex][index][subindex] = false;
-                                                                                                    }
-
-                                                                                                    setState(() {});
-                                                                                                  },
-                                                                                                  child: isBtnLoading[widgetIndex][index][subindex]
-                                                                                                      ? SizedBox(
-                                                                                                          height: 25,
-                                                                                                          width: 25,
-                                                                                                          child: CircularProgressIndicator(
-                                                                                                            color: lightColor,
-                                                                                                          ))
-                                                                                                      : Row(
-                                                                                                          children: [
-                                                                                                            Icon(
-                                                                                                              isEdit[widgetIndex][index][subindex] ? Icons.save : Icons.edit,
-                                                                                                              color: lightColor,
-                                                                                                              size: 18,
-                                                                                                            ),
-                                                                                                            SizedBox(
-                                                                                                              width: 8,
-                                                                                                            ),
-                                                                                                            Text(
-                                                                                                              isEdit[widgetIndex][index][subindex] ? "Save" : "Edit",
-                                                                                                              style: TextStyle(
-                                                                                                                color: lightColor,
-                                                                                                                fontWeight: FontWeight.w700,
+                                                                                                          child: Stack(
+                                                                                                            alignment: Alignment.center,
+                                                                                                            children: [
+                                                                                                              ClipRRect(
+                                                                                                                borderRadius: BorderRadius.circular(10),
+                                                                                                                child: CachedNetworkImage(
+                                                                                                                  imageUrl: image,
+                                                                                                                  height: 100,
+                                                                                                                  placeholder: (context, url) => CircularProgressIndicator(),
+                                                                                                                  errorWidget: (context, url, error) => Image.asset("assets/images/noimage.png"),
+                                                                                                                  fit: BoxFit.cover,
+                                                                                                                ),
                                                                                                               ),
-                                                                                                            ),
-                                                                                                          ],
-                                                                                                        )),
-                                                                                            ),
+                                                                                                              Positioned(
+                                                                                                                top: -10,
+                                                                                                                right: -5,
+                                                                                                                child: IconButton(
+                                                                                                                  onPressed: () {
+                                                                                                                    setState(() {
+                                                                                                                      images[widgetIndex][index][subindex].removeAt(subIndex - 1);
+                                                                                                                    });
+                                                                                                                  },
+                                                                                                                  icon: Icon(
+                                                                                                                    Icons.cancel,
+                                                                                                                    size: 25,
+                                                                                                                    color: AppTheme.white,
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                            ],
+                                                                                                          ),
+                                                                                                        );
+                                                                                                      },
+                                                                                                    ),
+                                            
+                                                                                            // projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images == null || projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images!.isEmpty
+                                                                                            //     ? SizedBox()
+                                                                                            //     : SizedBox(
+                                                                                            //         height: isEdit[widgetIndex][index][subindex] ? 110 : 90,
+                                                                                            //         child: ListView.builder(
+                                                                                            //           shrinkWrap: true,
+                                                                                            //           scrollDirection: Axis.horizontal,
+                                                                                            //           itemCount: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images!.length,
+                                                                                            //           itemBuilder: (context, expansionTileIndex) {
+                                                                                            //             return Column(
+                                                                                            //               children: [
+                                                                                            //                 InkWell(
+                                                                                            //                   onTap: () {
+                                                                                            //                     Utils.imageInfoDialog(context: context, url: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images![expansionTileIndex], description: "");
+                                                                                            //                   },
+                                                                                            //                   child: Container(
+                                                                                            //                     width: 80,
+                                                                                            //                     height: 80,
+                                                                                            //                     padding: const EdgeInsets.only(right: 5),
+                                                                                            //                     child: ClipRRect(
+                                                                                            //                       borderRadius: BorderRadius.circular(5),
+                                                                                            //                       child: Image.network(
+                                                                                            //                         projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images![expansionTileIndex],
+                                                                                            //                         fit: BoxFit.fill,
+                                                                                            //                       ),
+                                                                                            //                     ),
+                                                                                            //                   ),
+                                                                                            //                 ),
+                                                                                            //                 SizedBox(
+                                                                                            //                   height: 5,
+                                                                                            //                 ),
+                                            
+                                                                                            //               ],
+                                                                                            //             );
+                                                                                            //           },
+                                                                                            //         ),
+                                                                                            //       ),
+                                            
+                                                                                            projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureoption == null || projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureoption!.isEmpty
+                                                                                                ? SizedBox()
+                                                                                                : projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureoption != null
+                                                                                                    ? propertyDetailIteams(key: "Feature Option", value: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureoption!)
+                                                                                                    : SizedBox(),
                                                                                             SizedBox(
-                                                                                              width: 15,
+                                                                                              height: 5,
                                                                                             ),
-                                                                                            Center(
-                                                                                              child: ElevatedButton(
-                                                                                                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.orange)),
-                                                                                                  onPressed: () async {
-                                                                                                    isDeleteBtnLoading[widgetIndex][index][subindex] = true;
-                                                                                                    setState(() {});
-                                                                                                    // var data = {
-                                                                                                    //   "inspectionNotes": "",
-                                                                                                    //   "feature_id": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureId,
-                                                                                                    //   "images": <String>[]
-                                                                                                    // };
-                                                                                                    // log("gsdjjsdfjhf === $data");
-                                                                                                    // await projectprovider!.updateReport(data: {
-                                                                                                    //   "inspectionNotes": "",
-                                                                                                    //   "feature_id": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureId,
-                                                                                                    //   "images": <String>[]
-                                                                                                    // }, projectId: projectprovider!.listofproject[widgetIndex].projectId!).then((value) {
-                                                                                                    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: primaryColor, content: Text("${value["message"]}")));
-                                                                                                    // });
-                                                                                                    // await ref.read(customernotifier).myproject();
-                                                                                                    // loadData(widgetIndex);
-
-                                                                                                    await projectprovider!.deleteCustomerProjects(projectprovider!.listofproject[widgetIndex].projectId!, context);
-                                                                                                    await load();
-                                                                                                    isEdit[widgetIndex][index][subindex] = false;
-
-                                                                                                    isDeleteBtnLoading[widgetIndex][index][subindex] = false;
-                                                                                                    setState(() {});
-                                                                                                  },
-                                                                                                  child: isDeleteBtnLoading[widgetIndex][index][subindex]
-                                                                                                      ? SizedBox(
-                                                                                                          height: 25,
-                                                                                                          width: 25,
-                                                                                                          child: CircularProgressIndicator(
-                                                                                                            color: lightColor,
-                                                                                                          ))
-                                                                                                      : Row(
-                                                                                                          children: [
-                                                                                                            Icon(
-                                                                                                              Icons.delete,
-                                                                                                              color: lightColor,
-                                                                                                              size: 18,
-                                                                                                            ),
-                                                                                                            SizedBox(
-                                                                                                              width: 8,
-                                                                                                            ),
-                                                                                                            Text(
-                                                                                                              "Delete",
-                                                                                                              style: TextStyle(
+                                                                                            isEdit[widgetIndex][index][subindex]
+                                                                                                ? Column(
+                                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                    children: [
+                                                                                                      Text("Comments :"),
+                                                                                                      SizedBox(height: 8),
+                                                                                                      CustomTextField(controller: _editCommetController[widgetIndex][index][subindex], label: "Enter inspection notes"),
+                                                                                                    ],
+                                                                                                  )
+                                                                                                : projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].inspectionNotes != null
+                                                                                                    ? propertyDetailIteams(key: "Comments", value: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].inspectionNotes!)
+                                                                                                    : SizedBox(),
+                                                                                            SizedBox(
+                                                                                              height: 5,
+                                                                                            ),
+                                                                                            Row(
+                                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                                              children: [
+                                                                                                Center(
+                                                                                                  child: ElevatedButton(
+                                                                                                      style: ButtonStyle(backgroundColor: isEdit[widgetIndex][index][subindex] ? MaterialStateProperty.all(saveColor) : MaterialStateProperty.all(editColor)),
+                                                                                                      onPressed: () async {
+                                                                                                        for (int i = 0; i < projectprovider!.listofproject[widgetIndex].roominfo![index].feature!.length; i++) {
+                                                                                                          if (i != subindex) {
+                                                                                                            isEdit[widgetIndex][index][i] = false;
+                                                                                                          }
+                                                                                                        }
+                                                                                                        log("====fff    " + (widgetIndex).toString());
+                                                                                                        isEdit[widgetIndex][index][subindex] = !isEdit[widgetIndex][index][subindex];
+                                                                                                        if (!isEdit[widgetIndex][index][subindex]) {
+                                                                                                          isEdit[widgetIndex][index][subindex] = !isEdit[widgetIndex][index][subindex];
+                                                                                                          isBtnLoading[widgetIndex][index][subindex] = true;
+                                                                                                          setState(() {});
+                                                                                                          // log("djxfjdlgjlfdj    " + isEdit[widgetIndex].toString());
+                                                                                                          // await projectprovider!.updateReport(data: {
+                                                                                                          //   "inspectionNotes": _editCommetController[widgetIndex][index][subindex].text,
+                                                                                                          //   "feature_id": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureId,
+                                                                                                          //   "images": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images ?? <String>[]
+                                                                                                          // }, projectId: projectprovider!.listofproject[widgetIndex].projectId!).then((value) {
+                                                                                                          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.green, content: Text("${value["message"]}")));
+                                                                                                          // });
+                                                                                                          // await ref.read(customernotifier).myproject();
+                                                                                                          // loadData(widgetIndex);
+                                                                                                          log("==-=-=-=->> ${projectprovider!.listofproject[widgetIndex].projectId!}");
+                                                                                                          await projectprovider!.updateReport(data: {
+                                                                                                            'data': [
+                                                                                                              {
+                                                                                                                "inspectionNotes": _editCommetController[widgetIndex][index][subindex].text,
+                                                                                                                // "feature_id": projectprovider!.listofrealtorproject[widgetIndex].roominfo![index].feature![subindex].,
+                                                                                                                "images": images[widgetIndex][index][subindex].isEmpty ? [] : images[widgetIndex][index][subindex],
+                                                                                                                "roomId": projectprovider!.listofproject[widgetIndex].roominfo![index].roomId
+                                                                                                              }
+                                                                                                            ],
+                                                                                                            "name": "",
+                                                                                                            'projectID': projectprovider!.listofproject[widgetIndex].projectId!
+                                                                                                          }, projectId: projectprovider!.listofproject[widgetIndex].projectId!).then((value) {
+                                                                                                            toastShowSuccess(context, value["message"]);
+                                                                                                            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.green, content: Text("${value["message"]}")));
+                                                                                                          });
+                                            
+                                                                                                          log("djxfjdlgjlfdj    " + isEdit[widgetIndex].toString());
+                                            
+                                                                                                          isBtnLoading[widgetIndex][index][subindex] = false;
+                                                                                                          isEdit[widgetIndex][index][subindex] = false;
+                                                                                                        }
+                                            
+                                                                                                        setState(() {});
+                                                                                                      },
+                                                                                                      child: isBtnLoading[widgetIndex][index][subindex]
+                                                                                                          ? SizedBox(
+                                                                                                              height: 25,
+                                                                                                              width: 25,
+                                                                                                              child: CircularProgressIndicator(
                                                                                                                 color: lightColor,
-                                                                                                                fontWeight: FontWeight.w700,
-                                                                                                              ),
-                                                                                                            ),
-                                                                                                          ],
-                                                                                                        )),
+                                                                                                              ))
+                                                                                                          : Row(
+                                                                                                              children: [
+                                                                                                                Icon(
+                                                                                                                  isEdit[widgetIndex][index][subindex] ? Icons.save : Icons.edit,
+                                                                                                                  color: lightColor,
+                                                                                                                  size: 18,
+                                                                                                                ),
+                                                                                                                SizedBox(
+                                                                                                                  width: 8,
+                                                                                                                ),
+                                                                                                                Text(
+                                                                                                                  isEdit[widgetIndex][index][subindex] ? "Save" : "Edit",
+                                                                                                                  style: TextStyle(
+                                                                                                                    color: lightColor,
+                                                                                                                    fontWeight: FontWeight.w700,
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                              ],
+                                                                                                            )),
+                                                                                                ),
+                                                                                                SizedBox(
+                                                                                                  width: 15,
+                                                                                                ),
+                                                                                                Center(
+                                                                                                  child: ElevatedButton(
+                                                                                                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.orange)),
+                                                                                                      onPressed: () async {
+                                                                                                        isDeleteBtnLoading[widgetIndex][index][subindex] = true;
+                                                                                                        setState(() {});
+                                                                                                        // var data = {
+                                                                                                        //   "inspectionNotes": "",
+                                                                                                        //   "feature_id": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureId,
+                                                                                                        //   "images": <String>[]
+                                                                                                        // };
+                                                                                                        // log("gsdjjsdfjhf === $data");
+                                                                                                        // await projectprovider!.updateReport(data: {
+                                                                                                        //   "inspectionNotes": "",
+                                                                                                        //   "feature_id": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureId,
+                                                                                                        //   "images": <String>[]
+                                                                                                        // }, projectId: projectprovider!.listofproject[widgetIndex].projectId!).then((value) {
+                                                                                                        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: primaryColor, content: Text("${value["message"]}")));
+                                                                                                        // });
+                                                                                                        // await ref.read(customernotifier).myproject();
+                                                                                                        // loadData(widgetIndex);
+                                            
+                                                                                                        await projectprovider!.deleteCustomerProjects(projectprovider!.listofproject[widgetIndex].projectId!, context);
+                                                                                                        await load();
+                                                                                                        isEdit[widgetIndex][index][subindex] = false;
+                                            
+                                                                                                        isDeleteBtnLoading[widgetIndex][index][subindex] = false;
+                                                                                                        setState(() {});
+                                                                                                      },
+                                                                                                      child: isDeleteBtnLoading[widgetIndex][index][subindex]
+                                                                                                          ? SizedBox(
+                                                                                                              height: 25,
+                                                                                                              width: 25,
+                                                                                                              child: CircularProgressIndicator(
+                                                                                                                color: lightColor,
+                                                                                                              ))
+                                                                                                          : Row(
+                                                                                                              children: [
+                                                                                                                Icon(
+                                                                                                                  Icons.delete,
+                                                                                                                  color: lightColor,
+                                                                                                                  size: 18,
+                                                                                                                ),
+                                                                                                                SizedBox(
+                                                                                                                  width: 8,
+                                                                                                                ),
+                                                                                                                Text(
+                                                                                                                  "Delete",
+                                                                                                                  style: TextStyle(
+                                                                                                                    color: lightColor,
+                                                                                                                    fontWeight: FontWeight.w700,
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                              ],
+                                                                                                            )),
+                                                                                                )
+                                                                                              ],
                                                                                             )
                                                                                           ],
                                                                                         )
                                                                                       ],
-                                                                                    )
-                                                                                  ],
-                                                                                ),
-                                                                              ),
-                                                                            );
-                                                                          },
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              },
-                                                            )
-                                                          ],
-                                                        ),
-                                                      )
-                                                    ],
+                                                                                    ),
+                                                                                  ),
+                                                                                );
+                                                                              },
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                )
+                                                              ],
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          );
+                                          ],
+                                        );
                                   },
                                 ),
                               ),

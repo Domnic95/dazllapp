@@ -157,12 +157,14 @@ class RealtorNotifier extends BaseNotifier {
   }
 
   Future<int> updateprojectrealtor(Map<String, dynamic> data) async {
+       log("data  " + data['projectID'].toString());
     Response res = await dioClient.rawwithFormData2(
-        apiEnd: create_project_realtor, Data: data);
+        apiEnd: updateRealtor2, Data: data);
 
     log({res.statusCode}.toString());
     log("data  " + data.toString());
-    return res.data['project_id'];
+    log("res.data['project_id']  " + res.data.toString());
+    return int.parse(res.data['project_id'].toString());
   }
 
   Future<Response> createPhdReport(Map<String, dynamic> data) async {
@@ -348,7 +350,7 @@ class RealtorNotifier extends BaseNotifier {
 
   Future updateRealtor(
       {required Map<String, dynamic> data, required int realtorId}) async {
-    log("message1");
+    log("message1  ${realtorId}");
     Response res =
         await dioClient.patchwithRowData(apiEnd: update_realtor, Data: data);
     if (res.statusCode == 200) {

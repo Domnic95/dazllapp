@@ -294,7 +294,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Start_project extends ConsumerStatefulWidget {
-  const Start_project({Key? key});
+  final String? projectid;
+  final bool? customer;
+  const Start_project( {Key? key,this.projectid , this.customer});
 
   @override
   ConsumerState<Start_project> createState() => _Start_projectState();
@@ -474,24 +476,29 @@ class _Start_projectState extends ConsumerState<Start_project> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              realtorRoomProvider.changeTabIndex(newTabIndex: 0);
+                              realtorRoomProvider.changeTabIndex(
+                                  newTabIndex: 0);
 
                               currentindex == -1 &&
                                       realtorRoomProvider.selectedRoom != null
-                                  ?
-                                  toastShowError(context, 'Please Select Room'):
+                                  ? toastShowError(
+                                      context, 'Please Select Room')
+                                  :
                                   //  ScaffoldMessenger.of(context).showSnackBar(
                                   //     SnackBar(
                                   //         content: Text('Please Select Room')))
                                   // :
-                                   {
+                                  {
                                       currentindex = -1,
                                       if (mounted) setState(() {}),
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                              builder: (context) => RealtorRooms(
-                                                    passedRoom: realtorRoomProvider
-                                                        .selectedRoom!,
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  RealtorRooms(
+                                                    passedRoom:
+                                                        realtorRoomProvider
+                                                            .selectedRoom!,
+                                                            projectid: widget.projectid,customer: widget.customer,
                                                   ))),
                                     };
 
