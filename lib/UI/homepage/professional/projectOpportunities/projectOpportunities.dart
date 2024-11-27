@@ -186,13 +186,15 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
                           }).then((value) {
                             if (value != null) {
                               Navigator.of(context).pop();
-                              toastShowSuccess(context,'message send succefully');
+                              toastShowSuccess(
+                                  context, 'message send succefully');
                               // ScaffoldMessenger.of(context).showSnackBar(
                               //     SnackBar(
                               //         content:
                               //             Text('message send succefully')));
                             } else {
-                               toastShowError(context,"Something went to wrong!");
+                              toastShowError(
+                                  context, "Something went to wrong!");
                               // ScaffoldMessenger.of(context).showSnackBar(
                               //     SnackBar(
                               //         content:
@@ -200,12 +202,13 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
                             }
                           });
                         } else if (isInterested == null) {
-                          toastShowError(context,"Please select you are interested or not");
+                          toastShowError(context,
+                              "Please select you are interested or not");
                           // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           //     content: Text(
                           //         "Please select you are interested or not")));
                         } else if (_controller.text.isEmpty) {
-                                   toastShowError(context,"Message is reqired");
+                          toastShowError(context, "Message is reqired");
                           // ScaffoldMessenger.of(context).showSnackBar(
                           //     SnackBar(content: Text("Message is reqired")));
                         }
@@ -324,145 +327,161 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Column(crossAxisAlignment: CrossAxisAlignment.start,
-
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  if(item.createdAt != null)
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.center,
-                                                        
-                                                    children: [
+                                                  if (item.createdAt != null)
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
                                                         Container(
-                                                      width: 150,
-                                                      
-                                                        child: Text(
-                                                          "Date: ",
-                                                          style: TextStyle(
-                                                              height: 2,
-                                                              color:
-                                                                  AppTheme.darkText),
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        "${f.format(item.createdAt!)}",
-                                                        style: TextStyle(
-                                                            color: AppTheme
-                                                                .colorPrimary),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                   if(item.createdAt != null)
-                                                  SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  if(item.customer!.house!.location.isNotEmpty  )
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
-                                                    children: [
-                                                       Container(
-                                                      width: 150,
-                                                      
-                                                        child: Text(
-                                                          "Location: ",
-                                                          style: TextStyle(
-                                                              height: 2,
-                                                              color:
-                                                                  AppTheme.darkText),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                          width: 200,
+                                                          width: 150,
                                                           child: Text(
-                                                            "${item.customer!.house!.location}",
+                                                            "Created At: ",
                                                             style: TextStyle(
+                                                                height: 2,
                                                                 color: AppTheme
-                                                                    .colorPrimary),
-                                                            maxLines: 2,
-                                                            overflow: TextOverflow
-                                                                .ellipsis,
-                                                          )),
-                                                    ],
-                                                  ),
-                                               
-                                              if(item.customer!.house!.location.isNotEmpty )
-                                              SizedBox(
-                                                    height: 5,
-                                                  ),
-                                              if(item.customer!.firstName!.isNotEmpty || item.customer!.lastName!.isNotEmpty )
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                   Container(
-                                                      width: 150,
-                                                      
-                                                    child: Text(
-                                                      "Homeowners Name: ",
-                                                      style: TextStyle(
-                                                          height: 2,
-                                                          color:
-                                                              AppTheme.darkText),
+                                                                    .darkText),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          "${f.format(item.createdAt!)}",
+                                                          style: TextStyle(
+                                                              color: AppTheme
+                                                                  .colorPrimary),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                  Container(
-                                                      width: 150,
-                                                      
-                                                      child: Text(
-                                                        "${item.customer!.firstName} ${item.customer!.lastName}",
-                                                        style: TextStyle(
-                                                            color: AppTheme
-                                                                .colorPrimary),
-                                                        maxLines: 2,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      )),
-                                                ],
-                                              ),
-                                              if(item.customer!.firstName!.isNotEmpty || item.customer!.lastName!.isNotEmpty )
-                                              SizedBox(height: 5,),
-                                              if(item.customer!.email!.isNotEmpty)
-                                               Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                    Container(
-                                                      width: 150,
-                                                      
-                                                    child: Text(
-                                                      "Email Address: ",
-                                                      style: TextStyle(
-                                                          height: 2,
-                                                          color:
-                                                              AppTheme.darkText),
+                                                  if (item.createdAt != null)
+                                                    SizedBox(
+                                                      height: 5,
                                                     ),
-                                                  ),
-                                                  Container(
-                                                      width: 150,
-                                                      child: Text(
-                                                        "${item.customer!.email}",
-                                                        style: TextStyle(
-                                                            color: AppTheme
-                                                                .colorPrimary),
-                                                        maxLines: 2,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      )),
-                                                ],
-                                              ),
-                                              if(item.customer!.email!.isNotEmpty)
-                                              SizedBox(height: 5,),
-                                                  
+                                                  if (item.customer!.house!
+                                                      .location.isNotEmpty)
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Container(
+                                                          width: 150,
+                                                          child: Text(
+                                                            "Location: ",
+                                                            style: TextStyle(
+                                                                height: 2,
+                                                                color: AppTheme
+                                                                    .darkText),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                            width: 200,
+                                                            child: Text(
+                                                              "${item.customer!.house!.location}",
+                                                              style: TextStyle(
+                                                                  color: AppTheme
+                                                                      .colorPrimary),
+                                                              maxLines: 2,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            )),
+                                                      ],
+                                                    ),
+                                                  if (item.customer!.house!
+                                                      .location.isNotEmpty)
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                  if (item.customer!.firstName!
+                                                          .isNotEmpty ||
+                                                      item.customer!.lastName!
+                                                          .isNotEmpty)
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Container(
+                                                          width: 150,
+                                                          child: Text(
+                                                            "Homeowners Name: ",
+                                                            style: TextStyle(
+                                                                height: 2,
+                                                                color: AppTheme
+                                                                    .darkText),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                            width: 150,
+                                                            child: Text(
+                                                              "${item.customer!.firstName} ${item.customer!.lastName}",
+                                                              style: TextStyle(
+                                                                  color: AppTheme
+                                                                      .colorPrimary),
+                                                              maxLines: 2,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            )),
+                                                      ],
+                                                    ),
+                                                  if (item.customer!.firstName!
+                                                          .isNotEmpty ||
+                                                      item.customer!.lastName!
+                                                          .isNotEmpty)
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                  if (item.customer!.email!
+                                                      .isNotEmpty)
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Container(
+                                                          width: 150,
+                                                          child: Text(
+                                                            "Email Address: ",
+                                                            style: TextStyle(
+                                                                height: 2,
+                                                                color: AppTheme
+                                                                    .darkText),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                            width: 150,
+                                                            child: Text(
+                                                              "${item.customer!.email}",
+                                                              style: TextStyle(
+                                                                  color: AppTheme
+                                                                      .colorPrimary),
+                                                              maxLines: 2,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            )),
+                                                      ],
+                                                    ),
+                                                  if (item.customer!.email!
+                                                      .isNotEmpty)
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
                                                 ],
                                               ),
                                               InkWell(
-                                                onTap: () {
-                                                  _professionalNotifier!
-                                                      .deleteProjectProfessional(
-                                                          item.projectId!,
-                                                          context);
+                                                onTap: () async{
+                                               await   deleteProjectDilouge(context,item.projectId!);
+                                             
+                                                Navigator.pop(context);
+                                             
                                                 },
                                                 child: Icon(
                                                   Icons.delete,
@@ -471,7 +490,6 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
                                               )
                                             ],
                                           ),
-                                      
                                         ],
                                       ),
                                       SizedBox(
@@ -1161,4 +1179,67 @@ class _ProjectOpportunitiesState extends ConsumerState<ProjectOpportunities> {
   }
 
   final f = new DateFormat('yyyy-MM-dd');
+
+  deleteProjectDilouge(BuildContext context, int projectId) {
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Delete Projesct',
+              style: TextStyle(
+                color: primaryColor,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Are you sure you want to \ndelete this project ?',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
+        actionsPadding: EdgeInsets.all(8),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
+            child: Text(
+              'No',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
+            onPressed: () async {
+              _professionalNotifier!
+                  .deleteProjectProfessional(projectId,);
+                    toastShowSuccess(context,'Delete project sucessfully');
+
+              setState(() {});
+              Navigator.pop(context);
+            },
+            child: Text(
+              'Yes',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

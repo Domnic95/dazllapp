@@ -3085,8 +3085,8 @@ class _SelectFeatureState extends ConsumerState<SelectFeature> {
                                 },
                               ),
                             ),
-                      if (_phdProvider.tabIndex ==
-                          _phdProvider.selectedAllRooms.length - 1)
+                      if (_phdProvider.selectedAllRooms[_phdProvider.tabIndex].name == 'Basement/Lower Level'
+                          )
                         Column(
                           children: [
                             Container(

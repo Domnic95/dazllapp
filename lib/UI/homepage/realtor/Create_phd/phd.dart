@@ -566,7 +566,15 @@ import '../provider/phdProvider.dart';
 class Phd extends ConsumerStatefulWidget {
   final Room room;
   final int slider_value;
-  const Phd({Key? key, required this.room, required this.slider_value})
+  final int projectId;
+  final bool update;
+
+  const Phd(
+      {Key? key,
+      required this.room,
+      required this.slider_value,
+      required this.projectId,
+      required this.update})
       : super(key: key);
 
   @override
@@ -587,7 +595,7 @@ class _TestTabPhdState extends ConsumerState<Phd>
   void initState() {
     super.initState();
     log('====----->> ' + widget.slider_value.toString());
-     log('widget.roomId ${widget.room}');
+    log('widget.roomId ${widget.projectId}');
     loaddata();
   }
 
@@ -597,6 +605,7 @@ class _TestTabPhdState extends ConsumerState<Phd>
     _realtorProvider = ref.read(realtorprovider);
     _phdProvider = ref.read(phdProvider);
     _realtorProvider.sliderValue = widget.slider_value;
+
     await _phdProvider.addSeletedRoom(
       addRoom: widget.room,
       tabIndex: _phdProvider.tabIndex,
@@ -634,8 +643,15 @@ class _TestTabPhdState extends ConsumerState<Phd>
     for (var i = 0; i < _phdProvider.selectedAllRooms.length; i++) {
       _tabviews.insert(i, SelectFeature());
     }
- 
+
     return _tabviews;
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    // _phdProvider.allRoomsData.clear();
+    super.dispose();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -650,7 +666,11 @@ class _TestTabPhdState extends ConsumerState<Phd>
             ? LoadingWidget()
             : Column(
                 children: [
-                  CommonHeader(title: 'Create a Phd', isback: false),
+                  CommonHeader(
+                      title: widget.update == true
+                          ? 'Update a Phd'
+                          : 'Create a Phd',
+                      isback: false),
                   TabBar(
                     unselectedLabelStyle: TextStyle(color: blackColor),
                     unselectedLabelColor: blackColor,
@@ -796,6 +816,7 @@ class _TestTabPhdState extends ConsumerState<Phd>
               GestureDetector(
                 onTap: () {
                   _phdProvider.selectedAllRooms.clear();
+                  // _phdProvider.allRoomsData.clear();
                   Navigator.of(context).pop();
                   _realtorProvider.reset();
                 },
@@ -821,13 +842,29 @@ class _TestTabPhdState extends ConsumerState<Phd>
                   log("=-====---=-=-======--->>>>00 ");
                   Utils.loaderDialog(context, true);
                   log("=-====---=-=-======--->>>>01 ");
-                  await _phdProvider.loadData(
-                      context: context, realtorProvider: _realtorProvider);
-                  log("=-====---=-=-======--->>>>11 ");
+                  if (widget.update == true) {
+ await _phdProvider.updateData(
+                      context: context,
+                      realtorProvider: _realtorProvider,
+                      phdId: widget.projectId);
+                  }
+                  else{
+ await _phdProvider.loadData(
+                  context: context, realtorProvider: _realtorProvider);
+                  }
+
+                 
+                            
+                  log("=-====---=-=-======--->>>>11 ${_phdProvider.updteAllData.toString()}");
 
                   if (!_phdProvider.dataListItemIsEmpty) {
                     log("=-====---=-=-======--->>>>22 ");
-                    await _phdProvider.createPhdReport(context: context);
+                    if (widget.update == true) {
+                      await _phdProvider.updatePhdReport(
+                          context: context, projectId: widget.projectId);
+                    } else {
+                      await _phdProvider.createPhdReport(context: context);
+                    }
                   } else {
                     Utils.loaderDialog(context, false);
                     // ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -1,10 +1,12 @@
-
+import 'dart:developer';
 
 import 'package:dazllapp/UI/component/loadingWidget.dart';
 import 'package:dazllapp/UI/home/component/CommonHeader.dart';
+import 'package:dazllapp/UI/homepage/realtor/Create_phd/Select_room.dart';
 import 'package:dazllapp/UI/homepage/realtor/Create_phd/test_phd/Edit_phd.dart';
 import 'package:dazllapp/UI/homepage/realtor/complitedPhd/complitedPhd.dart';
 import 'package:dazllapp/UI/homepage/realtor/provider/complitedPhdProvider.dart';
+import 'package:dazllapp/UI/homepage/realtor/provider/phdProvider.dart';
 import 'package:dazllapp/UI/homepage/realtor/realtor_homepage.dart';
 import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
@@ -34,12 +36,40 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
     super.initState();
     _complitedPhdProvider = ref.read(complitedPhdProvider);
     _realtorProvider = ref.read(realtorprovider);
+
     load();
+  }
+
+  late PhdProvider _phdProvider;
+  loaddata(
+    String address,
+    String pincode,
+    String first_name,
+    String Last_name,
+    String streetNum,
+    String streetName,
+    String streetType,
+  ) async {
+    _phdProvider = ref.read(phdProvider);
+    final _housedata = ref.read(realtorprovider);
+    await _housedata.gethousedata(
+        address: address,
+        pincode: pincode,
+        first_name: first_name,
+        Last_name: Last_name,
+        streetNum: streetNum,
+        streetName: streetName,
+        streetType: streetType,
+        context: context);
+    setState(() {
+      loading = false;
+    });
   }
 
   load() async {
     await _complitedPhdProvider!.loadCustomer(ref: ref);
     await _realtorProvider.getComplitedPhd();
+
     _complitedPhdProvider!.loader(Loading.complited);
   }
 
@@ -197,12 +227,47 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
                                                   ),
                                                   SizedBox(width: 8),
                                                   GestureDetector(
-                                                    onTap: () {
+                                                    onTap: () async {
+                                                      // log(_realtorProvider.singleComplitedPhdReport!.reports!.length.toString());
+                                                      await loaddata(
+                                                          _realtorProvider
+                                                                  .singleComplitedPhdReport
+                                                                  ?.reports!
+                                                                  .first
+                                                                  .house!
+                                                                  .address ??
+                                                              '',
+                                                          '',
+                                                          _realtorProvider
+                                                                  .singleComplitedPhdReport
+                                                                  ?.reports!
+                                                                  .first
+                                                                  .customer!
+                                                                  .firstName ??
+                                                              '',
+                                                          _realtorProvider
+                                                                  .singleComplitedPhdReport!
+                                                                  .reports!
+                                                                  .first
+                                                                  .customer!
+                                                                  .lastName ??
+                                                              '',
+                                                          '',
+                                                          '',
+                                                          '');
                                                       Navigator.of(context)
                                                           .push(
                                                         MaterialPageRoute(
                                                           builder: (context) =>
-                                                              EditPhd(),
+                                                              selectRoom(
+                                                            slider_value: 10,
+                                                            update: true,
+                                                            projectid:
+                                                                realtorProvider
+                                                                    .filterProjectList[
+                                                                        index]
+                                                                    .id!,
+                                                          ),
                                                         ),
                                                       );
                                                     },
@@ -532,7 +597,7 @@ class _SelectCustomerState extends ConsumerState<SelectCustomer> {
                 Navigator.pop(context);
               } else {
                 Navigator.of(context).pop();
-                  toastShowError(context,"No Data, something went wrong!");
+                toastShowError(context, "No Data, something went wrong!");
                 // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 //   content: Text('No Data, something went wrong!'),
                 //   backgroundColor: primaryColor,

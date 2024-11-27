@@ -10,7 +10,7 @@ GetComplitedPhdRealtor getComplitedPhdRealtorFromJson(String str) =>
 String getComplitedPhdRealtorToJson(GetComplitedPhdRealtor data) =>
     json.encode(data.toJson());
 
-class GetComplitedPhdRealtor {
+class   GetComplitedPhdRealtor {
   final List<Report>? reports;
 
   GetComplitedPhdRealtor({

@@ -761,107 +761,126 @@ class _CompanyProfileState extends ConsumerState<CompanyProfile> {
                               ),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 15,
+                            ),
+                             Text(
+                                  ' IMAGES : ',
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                                   SizedBox(
+                              height: 5,
                             ),
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               physics: BouncingScrollPhysics(),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(left: 5, right: 5),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    height: 90,
-                                    width: 90,
-                                    child: ClipRRect(
+                              child: Card(
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(left: 5, right: 5, top: 10,bottom: 10),
+                                      decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(15),
-                                        child: _profileNotifier
-                                                    .professionalData.images1 ==
-                                                ""
-                                            ? Center(child: SizedBox())
-                                            : Center(
-                                                child: CachedNetworkImage(
-                                                imageUrl: _profileNotifier
-                                                    .professionalData.images1
-                                                    .toString(),fit: BoxFit.cover,
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        SizedBox(),
-                                              ))),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 5, right: 5),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      height: 90,
+                                      width: 90,
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(15),
+                                          child: _profileNotifier
+                                                      .professionalData.images1 ==
+                                                  ""
+                                              ? Center(child: SizedBox())
+                                              : Center(
+                                                  child: CachedNetworkImage(
+                                                     height: 90,
+                                      width: 90,
+                                                  imageUrl: _profileNotifier
+                                                      .professionalData.images1
+                                                      .toString(),fit: BoxFit.cover,
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          SizedBox(),
+                                                ))),
                                     ),
-                                    height: 90,
-                                    width: 90,
-                                    
-                                    child: ClipRRect(
+                                    Container(
+                                      margin: EdgeInsets.only(left: 5, right: 5),
+                                      decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(15),
-                                        child: _profileNotifier
-                                                    .professionalData.images2 ==
-                                                ""
-                                            ? Center(child: SizedBox())
-                                            : Center(
-                                                child: CachedNetworkImage(
-                                                imageUrl: _profileNotifier
-                                                    .professionalData.images2
-                                                    .toString(),fit: BoxFit.cover,
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        SizedBox(),
-                                              ))),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 5, right: 5),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      height: 90,
+                                      width: 90,
+                                      
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(15),
+                                          child: _profileNotifier
+                                                      .professionalData.images2 ==
+                                                  ""
+                                              ? Center(child: SizedBox())
+                                              : Center(
+                                                  child: CachedNetworkImage(
+                                                     height: 90,
+                                      width: 90,
+                                                  imageUrl: _profileNotifier
+                                                      .professionalData.images2
+                                                      .toString(),fit: BoxFit.cover,
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          SizedBox(),
+                                                ))),
                                     ),
-                                    height: 90,
-                                    width: 90,
-                                    child: ClipRRect(
+                                    Container(
+                                      margin: EdgeInsets.only(left: 5, right: 5),
+                                      decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(15),
-                                        child: _profileNotifier
-                                                    .professionalData.images3 ==
-                                                ""
-                                            ? Center(child: SizedBox())
-                                            : Center(
-                                                child: CachedNetworkImage(
-                                                imageUrl: _profileNotifier
-                                                    .professionalData.images3
-                                                    .toString(),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        SizedBox(),
-                                              ))),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 5, right: 5),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      height: 90,
+                                      width: 90,
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(15),
+                                          child: _profileNotifier
+                                                      .professionalData.images3 ==
+                                                  ""
+                                              ? Center(child: SizedBox())
+                                              : Center(
+                                                  child: CachedNetworkImage(
+                                                     height: 90,
+                                      width: 90,
+                                                  imageUrl: _profileNotifier
+                                                      .professionalData.images3
+                                                      .toString(),
+                                                       fit: BoxFit.cover,
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          SizedBox(),
+                                                ))),
                                     ),
-                                    height: 90,
-                                    width: 90,
-                                    child: ClipRRect(
+                                    Container(
+                                      margin: EdgeInsets.only(left: 5, right: 5),
+                                      decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(15),
-                                        child: _profileNotifier
-                                                    .professionalData.images4 ==
-                                                ""
-                                            ? Center(child: SizedBox())
-                                            : Center(
-                                                child: CachedNetworkImage(
-                                                imageUrl: _profileNotifier
-                                                    .professionalData.images4
-                                                    .toString(),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        SizedBox(),
-                                              ))),
-                                  ),
-                                ],
+                                      ),
+                                      height: 90,
+                                      width: 90,
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(15),
+                                          child: _profileNotifier
+                                                      .professionalData.images4 ==
+                                                  ""
+                                              ? Center(child: SizedBox())
+                                              : Center(
+                                                  child: CachedNetworkImage(
+                                                     height: 90,
+                                      width: 90,
+                                                  imageUrl: _profileNotifier
+                                                      .professionalData.images4
+                                                      .toString(),
+                                                      fit: BoxFit.cover,
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          SizedBox(),
+                                                ))),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             SizedBox(

@@ -35,7 +35,7 @@ class Housedata {
   String? saleDate;
 
   factory Housedata.fromJson(Map<String, dynamic> json) => Housedata(
-      type: json["type"] == null ? null : json["type"],
+      type: json["type"] == null ? '' : json["type"],
       yearBuilt: json["year_built"] == null ? null : json["year_built"],
       bedrooms: json["bedrooms"] == null ? null : json["bedrooms"],
       bathrooms: json["bathrooms"] == null ? null : json["bathrooms"],

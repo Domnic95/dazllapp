@@ -20,10 +20,13 @@ class ImageModel {
 
 class PdfInvoiceApi {
   static List<ImageModel> listImage = [];
+  static List<ImageModel> imagesListRoom = [];
 
-  static Future<File> generate(FeatureElement? item, String price) async {
+  static Future<File> generate(FeatureElement? item, String price,
+      Roominfo? roominfo, List<Image> images, List<Roomtypedatum> list , Size size,int select) async {
     final pdf = pw.Document();
     listImage.clear();
+    imagesListRoom.clear();
 
     log('vsdkbjkvsk ------- ');
     final imageByteData = await rootBundle.load('assets/images/logo.jpg');
@@ -36,12 +39,22 @@ class PdfInvoiceApi {
           id: item.featureId!,
           image: await networkImage(item.images![i].toString())));
     }
+    for (int i = 0; i < images.length; i++) {
+      imagesListRoom.add(ImageModel(
+          id: images[i].id!,
+          image: await networkImage(images[i].url.toString())));
+    }
     pdf.addPage(
       pw.MultiPage(
         header: (context) => buildHeader(logoImage: image),
         build: (context) => [
           pw.SizedBox(height: 0.5 * PdfPageFormat.cm),
-          buildCustomerItem(feature: item, price: price),
+          buildCustomerItem(
+              feature: item,
+              price: price,
+              roominfo: roominfo,
+              imagess: images,
+              list: list , size: size,select: select),
         ],
         footer: (context) => buildFooter(),
       ),
@@ -80,6 +93,7 @@ pw.Widget buildSupplierAddress(String supplier) => pw.Column(
           style: pw.TextStyle(
             fontWeight: pw.FontWeight.bold,
             fontSize: 18,
+            color: PdfColors.red
           ),
           textAlign: pw.TextAlign.center,
         ),
@@ -87,28 +101,88 @@ pw.Widget buildSupplierAddress(String supplier) => pw.Column(
     );
 
 pw.Widget buildCustomerItem(
-    {required FeatureElement? feature, required price}) {
+    {required FeatureElement? feature,
+    required price,
+    required Roominfo? roominfo,
+    required List<Image> imagess,
+    required List<Roomtypedatum> list,required Size size ,required int select}) {
   return pw.Column(
     mainAxisAlignment: pw.MainAxisAlignment.center,
     children: [
-      // pw.RichText(
-      //   text: pw.TextSpan(
-      //     text: 'Inventory Number : ',
-      //     style: pw.TextStyle(
-      //       fontWeight: pw.FontWeight.normal,
-      //       fontSize: 16.0,
-      //     ),
-      //     children: [
-      //       pw.TextSpan(
-      //         text: feature!.imageDesc,
-      //         style: pw.TextStyle(
-      //           fontWeight: pw.FontWeight.bold,
-      //           fontSize: 16.0,
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
+      pw.Text('Room/Area Details ',
+          style: pw.TextStyle(
+            fontWeight: pw.FontWeight.bold,
+            color: PdfColors.red,
+            fontSize: 22.0,
+          )),
+      pw.SizedBox(height: 20),
+      pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
+        pw.Text('${roominfo!.roomName ?? ''}',
+            style: pw.TextStyle(
+              fontWeight: pw.FontWeight.bold,
+              fontSize: 16.0,
+            )),
+        pw.SizedBox(width: 20),
+        pw.Text('${roominfo.status ?? ""}',
+            style: pw.TextStyle(
+              fontWeight: pw.FontWeight.bold,
+              fontSize: 16.0,
+            )),
+      ]),
+      pw.SizedBox(height: 10),
+      pw.Align(
+        alignment: pw.Alignment.centerLeft,
+        child: pw.Wrap(
+            crossAxisAlignment: pw.WrapCrossAlignment.start,
+            alignment: pw.WrapAlignment.start,
+            children: List.generate(PdfInvoiceApi.imagesListRoom.length,
+                (imagesIndex) {
+              return pw.Container(
+                height: 2.5 * PdfPageFormat.cm,
+                width: 2.8 * PdfPageFormat.cm,
+                margin: pw.EdgeInsets.all(10),
+                decoration: pw.BoxDecoration(
+                  border: pw.Border.all(),
+                  // color: PdfColors.grey,
+                ),
+                child: pw.Image(
+                  PdfInvoiceApi.imagesListRoom[imagesIndex].image == ''
+                      ? 'https://dazlpro.com/images/smallCardimages/01-Inspired-Outdoor-Img.jpg'
+                      : PdfInvoiceApi.imagesListRoom[imagesIndex].image,
+                  fit: pw.BoxFit.fill,
+                ),
+              );
+            })),
+      ),
+      pw.SizedBox(height: 10),
+      pw.Column(
+          children: List.generate(list.length, (index) {
+        return pw.Padding(
+            padding: pw.EdgeInsets.symmetric(horizontal: 10),
+            child: pw.Row(children: [
+              pw.Text("${list[index].feature!.name} : ",
+                  style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.bold,
+                    fontSize: 16.0,
+                  )),
+              pw.Text("${list[index].featureOptions!.name}", style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.normal,
+                    fontSize: 16.0,
+                  )),
+            ]));
+      })),
+         pw.SizedBox(height: 30),
+        pw.Text('Buyer Road Blocks or Recommendations ',
+        
+          style: pw.TextStyle(
+            fontWeight: pw.FontWeight.bold,
+            color: PdfColors.red,
+            
+            fontSize: 18.0,
+          )),
+     pw.SizedBox(height: 10),
+     pw.Divider(),
+          pw.SizedBox(height: 10),
       pw.ListView.builder(
         itemCount: PdfInvoiceApi.listImage.length,
         itemBuilder: (context, subIndex) {
@@ -126,7 +200,9 @@ pw.Widget buildCustomerItem(
                             // color: PdfColors.grey,
                           ),
                           child: pw.Image(
-                            PdfInvoiceApi.listImage[subIndex].image == ''?'https://dazlpro.com/images/smallCardimages/01-Inspired-Outdoor-Img.jpg':PdfInvoiceApi.listImage[subIndex].image,
+                            PdfInvoiceApi.listImage[subIndex].image == ''
+                                ? 'https://dazlpro.com/images/smallCardimages/01-Inspired-Outdoor-Img.jpg'
+                                : PdfInvoiceApi.listImage[subIndex].image,
                             fit: pw.BoxFit.fill,
                           ),
                         )
@@ -203,6 +279,111 @@ pw.Widget buildCustomerItem(
               // PdfInvoiceApi.listImage[subIndex].id == feature
               //     ? pw.SizedBox(height: 0.5 * PdfPageFormat.cm)
               //     : pw.SizedBox(),
+  pw.SizedBox(height: 20),
+    pw.SizedBox(height: 20),
+
+          // Checkbox Section
+          pw.Row(mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Row(
+                children: [
+                  pw.Checkbox(value:select ==1? true : false , name: 'Bid' , activeColor: PdfColors.red), 
+                 
+                  pw.Text("   Bid", style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.normal,
+                    fontSize: 16.0,
+                  )),
+                ],
+              ),
+              pw.SizedBox(width: 20),
+              pw.Row(
+                children: [
+                  pw.Checkbox(value: select ==2? true : false , name: "D.I.Y", activeColor: PdfColors.red),
+                  pw.Text("   D.I.Y", style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.normal,
+                    fontSize: 16.0,
+                  )),
+                ],
+              ),
+              pw.SizedBox(width: 20),
+              pw.Row(
+                children: [
+                  pw.Checkbox(value: select ==3? true : false,name: "Pass", activeColor: PdfColors.red), 
+                  pw.Text("   Pass", style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.normal,
+                    fontSize: 16.0,
+                  )),
+                ],
+              ),
+            ],
+          ),
+                    pw.SizedBox(height: 20),
+         pw.Align(
+        alignment: pw.Alignment.centerLeft,
+        child:  pw.Container(
+            width: size.width * 0.95,
+            padding: const pw.EdgeInsets.symmetric(horizontal: 8.0),
+            child: pw.Column( crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text("\$200k", style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.normal,
+                    fontSize: 16.0,
+                  )),
+                    pw.Text("\$1.5M", style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.normal,
+                    fontSize: 16.0,
+                  )), // Example for middle value
+                    pw.Text("\$2M", style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.normal,
+                    fontSize: 16.0,
+                  )),
+                  ],
+                ),
+                pw.SizedBox(height: 15),
+                pw.Container(
+                  height: 20,
+                  child: pw.Stack(
+                    alignment: pw.Alignment.centerLeft,
+                    children: [
+                      pw.Container(
+                        width: size.width * 0.95,
+                        decoration: pw.BoxDecoration(
+                          color: PdfColors.grey300,
+                          borderRadius: pw.BorderRadius.circular(10),
+                        ),
+                      ),
+                      pw.Container(
+                        width: (size.width * 0.40) * 0.75, // 75% progress
+                        decoration: pw.BoxDecoration(
+                          color: PdfColors.red,
+                          borderRadius: pw.BorderRadius.circular(10),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+         ),
+         pw.SizedBox(height: 20),
+         pw.Row(children: [
+               pw.Text("Estimated DAZL value :-  ", style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.normal,
+                    fontSize: 16.0,
+                  )),
+                       pw.Text("\$${NumberFormat.compactCurrency(decimalDigits: 2, symbol: "").format(int.parse(price))} ", style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.bold,
+                    fontSize: 16.0,
+                    color: PdfColors.red
+                  )),
+         ]),
+     
+   
             ],
           );
         },

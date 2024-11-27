@@ -92,17 +92,32 @@ class DioClient {
       return e.response;
     }
   }
+  Future<dynamic> postwithRowData(
+      {required String apiEnd,
+      Map<String, dynamic>? Data,
+      }) async {
+    log( '=--=-=. ' +Data.toString());
+    try {
+      final res =
+          await _dio.post(apiEnd, data: Data,);
+      return res;
+    } catch (e) {
+      print('error :- ' +e.toString() );
+      throw e;
+    }
+  }
 
   Future<dynamic> patchwithRowData(
       {required String apiEnd,
       Map<String, dynamic>? Data,
       Map<String, dynamic>? queryParameter}) async {
+    log(Data.toString());
     try {
       final res =
           await _dio.patch(apiEnd, data: Data, queryParameters: queryParameter);
       return res;
     } catch (e) {
-      print(e);
+      print('error :- ' +e.toString() );
       throw e;
     }
   }
@@ -264,7 +279,7 @@ Future<String> login(index, String email, String password, BuildContext context,
           }),
           (route) => false,
         );
-         toastShowSuccess(context, 'Login Sucessfully');
+        toastShowSuccess(context, 'Login Sucessfully');
         // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         //   content: Text('Login Sucessfully'),
         //   backgroundColor: Colors.green,
@@ -296,14 +311,14 @@ Future<String> login(index, String email, String password, BuildContext context,
           }),
           (route) => false,
         );
-         toastShowSuccess(context, 'Login Sucessfully');
+        toastShowSuccess(context, 'Login Sucessfully');
         // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         //     content: Text('Login Sucessfully'), backgroundColor: Colors.green));
       }
       loading = false;
     } else {
       // print('fail' + response.data.toString());
-       toastShowError(context, response.data['message'].toString());
+      toastShowError(context, response.data['message'].toString());
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //     content: Text(response.data['message'].toString()),
       //     backgroundColor: Colors.red));
@@ -370,7 +385,7 @@ Future<void> signupRealtor(
           builder: (context) => LoginScreen(),
         ),
       );
-        toastShowSuccess(context, 'Registerd Sucessfully');
+      toastShowSuccess(context, 'Registerd Sucessfully');
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //     content: Text('Registerd Sucessfully'),
       //     backgroundColor: Colors.green));
@@ -378,7 +393,7 @@ Future<void> signupRealtor(
       print('fail');
     }
   } catch (e) {
-     toastShowError(context, (e as DioError).response!.toString());
+    toastShowError(context, (e as DioError).response!.toString());
     print((e as DioError).response!.data.toString());
     // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     //     content: Text((e as DioError).response!.toString()),
@@ -478,7 +493,7 @@ Future<void> signupProfessional({
     if (response.statusCode == 201) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginScreen()));
-               toastShowSuccess(context, 'Registerd Sucessfully');
+      toastShowSuccess(context, 'Registerd Sucessfully');
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //     content: Text('Registerd Sucessfully'),
       //     backgroundColor: Colors.green));
@@ -519,7 +534,7 @@ Future<void> signupCustomer(
     if (response.statusCode == 201) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginScreen()));
-               toastShowSuccess(context, 'Registerd Sucessfully');
+      toastShowSuccess(context, 'Registerd Sucessfully');
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //     content: Text('Registerd Sucessfully'),
       //     backgroundColor: Colors.green));

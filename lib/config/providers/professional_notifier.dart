@@ -56,16 +56,16 @@ class ProfessionalNotifier extends BaseNotifier {
     notifyListeners();
   }
 
-  Future deleteProjectProfessional(int projectid, BuildContext context) async {
+  Future deleteProjectProfessional(int projectid, ) async {
     // log('${deleteProject + '${projectid}'}');
     Response res = await dioClient.deletewithRowData(
       apiEnd: '${deleteProject + '${projectid}'}',
     );
     log("${res.statusCode}");
-        toastShowSuccess(context,'Delete project sucessfully');
+        // toastShowSuccess(context,'Delete project sucessfully');
     //  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     //         content: Text('Delete project sucessfully'), backgroundColor: Colors.green));
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
    
     notifyListeners();
   }

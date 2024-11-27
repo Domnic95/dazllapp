@@ -558,7 +558,8 @@ class RealtorRooms extends ConsumerStatefulWidget {
   final Room passedRoom;
   final String? projectid;
   final bool? customer;
-  const RealtorRooms({Key? key, required this.passedRoom, this.projectid, this.customer});
+  const RealtorRooms(
+      {Key? key, required this.passedRoom, this.projectid, this.customer});
 
   @override
   ConsumerState<RealtorRooms> createState() => _RealtorRoomsState();
@@ -643,7 +644,11 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
               )
             : Column(
                 children: [
-                  CommonHeader(title: widget.projectid != null ?'Project creation': "Create a project", isback: false),
+                  CommonHeader(
+                      title: widget.projectid != null
+                          ? 'Project creation'
+                          : "Create a project",
+                      isback: false),
                   TabBar(
                       unselectedLabelStyle: TextStyle(color: blackColor),
                       unselectedLabelColor: blackColor,
@@ -821,11 +826,16 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                           ? GestureDetector(
                               onTap: () async {
                                 Utils.loaderDialog(context, true);
-                                await realtorRoomProvider.loadData(widget.projectid != null? widget.projectid : null );
+                                await realtorRoomProvider.loadData(
+                                    widget.projectid != null
+                                        ? widget.projectid
+                                        : null);
 
-                                if(widget.customer == true && widget.projectid != null){
-                                    Utils.loaderDialog(context, false);
-                                  await realtorRoomProvider.updateProjectCustomer();
+                                if (widget.customer == true &&
+                                    widget.projectid != null) {
+                                  Utils.loaderDialog(context, false);
+                                  await realtorRoomProvider
+                                      .updateProjectCustomer();
                                   Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
@@ -834,10 +844,9 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                       (route) => false);
                                   toastShowSuccess(
                                       context, 'Project Update sucessfully');
-                                }
-
-                               else if(widget.projectid != null){
-                                    Utils.loaderDialog(context, false);
+                                } else if (widget.projectid != null) {
+                                  log("=====->. ");
+                                  Utils.loaderDialog(context, false);
                                   await realtorRoomProvider.updateProject();
                                   Navigator.pushAndRemoveUntil(
                                       context,
@@ -847,8 +856,9 @@ class _RealtorRoomsState extends ConsumerState<RealtorRooms>
                                       (route) => false);
                                   toastShowSuccess(
                                       context, 'Project Update sucessfully');
-                                }
-                               else if (!realtorRoomProvider.dataListItemIsEmpty && widget.projectid == null) {
+                                } else if (!realtorRoomProvider
+                                        .dataListItemIsEmpty &&
+                                    widget.projectid == null) {
                                   Utils.loaderDialog(context, false);
                                   await realtorRoomProvider.createproject();
                                   Navigator.pushAndRemoveUntil(

@@ -14,6 +14,10 @@
 	<string>Dazl</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+  	<string>mailto</string>
+	</array>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>

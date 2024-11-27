@@ -153,7 +153,7 @@ class Feature {
   final dynamic featureissue;
   final String? inspectionNotes;
   final String? status;
-  final List<dynamic>? images;
+  final List<String>? images;
 
   Feature({
     this.featureName,
@@ -164,7 +164,29 @@ class Feature {
     this.status,
     this.images,
   });
+// static List<String> _parseImages(dynamic images) {
+//   if (images == null) {
+//     return [];
+//   }
 
+//   if (images is String) {
+//     try {
+//       final decoded = jsonDecode(images);
+//       if (decoded is List) {
+//         return List<String>.from(decoded);
+//       }
+//     } catch (e) {
+//       return [images];
+//     }
+//   }
+
+//   if (images is List) {
+//     return List<String>.from(images.map((e) => e.toString()));
+//   }
+
+
+//   return [];
+// }
   factory Feature.fromJson(Map<String, dynamic> json) => Feature(
         featureName: json["feature_name"],
         featureoption: json["featureoption"],
@@ -172,9 +194,7 @@ class Feature {
         featureissue: json["featureissue"],
         inspectionNotes: json["inspectionNotes"],
         status: json["status"],
-        images: json["images"] == null
-            ? []
-            : List<dynamic>.from(json["images"]!.map((x) => x)),
+        images: json["images"] is List ?  List<String>.from(json["images"].map((x) => x)) : [json['images']],
       );
 
   Map<String, dynamic> toJson() => {
@@ -184,8 +204,8 @@ class Feature {
         "featureissue": featureissue,
         "inspectionNotes": inspectionNotes,
         "status": status,
-        "images":
-            images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
+        "images": images is List ? 
+            List<dynamic>.from(images!.map((x) => x)) : images,
       };
 }
 

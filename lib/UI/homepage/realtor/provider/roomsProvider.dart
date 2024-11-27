@@ -431,33 +431,6 @@ class RealtorRoomProvider extends BaseNotifier {
                       .text
                       .toString(),
                 "roomId": allRoomFeature[i][j].selectedFeatureForOneTabs.roomId,
-
-                // "inspectionNotes":
-                //     //"test",
-                //     DescrptionController[i][j].text.toString() != ''
-                //         ? DescrptionController[i][j].text.toString()
-                //         : "test",
-                // "issuetext": "test",
-                // "roomId": allRoomFeature[i][j].selectedFeatureForOneTabs.roomId,
-
-                // "roomId": allRoomFeature[i][j].selectedFeatureForOneTabs.roomId,
-                // // "realtor_id": SpHelpers.getString(SharedPrefsKeys.Realtor_id),
-                // "features": [
-                //   {
-                //     "features":
-                //         allRoomFeature[i][j].selectedFeatureForOneTabs.featureId,
-                //     "inspectionNotes": allRoomFeature[i][j]
-                //         .selectedFeatureForOneTabs
-                //         .descrptionController
-                //         .text
-                //         .toString(),
-                //     "images": [
-                //       allRoomFeature[i][j].selectedFeatureForOneTabs.images
-                //     ],
-                //     "issuetext": "test",
-                //     "imageDesc": []
-                //   },
-                // ]
               });
             }
           } else {
@@ -466,6 +439,7 @@ class RealtorRoomProvider extends BaseNotifier {
             notifyListeners();
             break;
           }
+          // log(allData.toString());
 
           allData2 = {
             // "realtor_id": SpHelpers.getString(SharedPrefsKeys.Realtor_id),
@@ -473,6 +447,7 @@ class RealtorRoomProvider extends BaseNotifier {
             "name": "",
             "projectID": projectId
           };
+          // log('=-==   ' +allData2.toString());
         } else {
           checkBoxCheking.add(false);
         }
@@ -515,7 +490,7 @@ class RealtorRoomProvider extends BaseNotifier {
     // log("=-=->> data ===>>  ${json.encode(allData2.toString())}");
 
     Response res = await dioClient.rawwithFormData2(
-        apiEnd: updateRealtor2, Data: allData2);
+        apiEnd: realtorprojects, Data: allData2);
 
     log("statusCode === " + {res.statusCode}.toString());
     // log("sjljlflzs === data " + res.toString());
@@ -525,7 +500,8 @@ class RealtorRoomProvider extends BaseNotifier {
     return int.parse(res.data['project_id'].toString());
   }
 
-    Future<int> updateProjectCustomer() async {
+  Future<int> updateProjectCustomer() async {
+    log("message");
     log("=-=->> data ${json.encode(allData2['projectID'].toString())}");
     // log("=-=->> data ===>>  ${json.encode(allData2.toString())}");
 

@@ -75,15 +75,21 @@ class RealtorNotifier extends BaseNotifier {
   }
 
   Future getSingleComplitedPhd({required String id}) async {
+    log('${single_complited_phd_realtor + id}');
     try {
       Response res =
           await dioClient.getRequest(apiEnd: single_complited_phd_realtor + id);
+      log(res.statusCode.toString());
 
-      log('${single_complited_phd_realtor + id}');
+      // log('${single_complited_phd_realtor + id}');
+      // log('${res.data}');
       singleComplitedPhdReport = GetComplitedPhdRealtor.fromJson(res.data);
       notifyListeners();
     } catch (e) {
-      log('error is... getSingleComplitedPhd' + e.toString());
+      singleComplitedPhdReport =
+          GetComplitedPhdRealtor.fromJson({"reports": []});
+      ;
+      log('error is... getSingleComplitedPhd ' + e.toString());
     }
   }
 
@@ -156,15 +162,15 @@ class RealtorNotifier extends BaseNotifier {
     return res.data['project_id'];
   }
 
-  Future<int> updateprojectrealtor(Map<String, dynamic> data) async {
-       log("data  " + data['projectID'].toString());
-    Response res = await dioClient.rawwithFormData2(
-        apiEnd: updateRealtor2, Data: data);
+  Future updateprojectrealtor(Map<String, dynamic> data, int projectId) async {
+    log(projectId.toString());
+
+    Response res = await dioClient.PostwithFormData(
+        apiEnd: updateRealtor2 + projectId.toString(), Data: data);
 
     log({res.statusCode}.toString());
     log("data  " + data.toString());
-    log("res.data['project_id']  " + res.data.toString());
-    return int.parse(res.data['project_id'].toString());
+    return res.data;
   }
 
   Future<Response> createPhdReport(Map<String, dynamic> data) async {
@@ -181,7 +187,7 @@ class RealtorNotifier extends BaseNotifier {
           apiEnd: delete_phd_realtor + '/${projectId}');
       log("Response === ${res.statusCode}");
       if (res.statusCode == 200) {
-        toastShowSuccess(context, 'Delete Successfully');
+        // toastShowSuccess(context, 'Delete Successfully');
         // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         //   content: Text('Delete Successfully'),
         //   backgroundColor: primaryColor,
@@ -190,7 +196,7 @@ class RealtorNotifier extends BaseNotifier {
       return res;
     } catch (e) {
       Navigator.of(context).pop();
-      toastShowError(context, 'Something Went to wrong!');
+      // toastShowError(context, 'Something Went to wrong!');
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //   content: Text('Something Went to wrong!'),
       //   backgroundColor: primaryColor,
@@ -243,6 +249,7 @@ class RealtorNotifier extends BaseNotifier {
   Future getrealtorproject(BuildContext contex) async {
     try {
       Response res = await dioClient.getRequest(apiEnd: realtorcustomerproject);
+  
       listofrealtorproject = List<ProjectList>.from(
           res.data['data'].map((x) => ProjectList.fromJson(x)));
 

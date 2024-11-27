@@ -33,6 +33,8 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
 
   File? _image;
   File? _image2;
+  File? _image3;
+  File? _image4;
   final ImagePicker _picker = ImagePicker();
   final _yearsinbussiness = TextEditingController();
   final email = TextEditingController();
@@ -115,6 +117,70 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
     );
   }
 
+ void _showPickerDialog3() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Select Image Source"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera),
+                title: const Text("Camera"),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _pickImage3(ImageSource.camera);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text("Gallery"),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _pickImage3(ImageSource.gallery);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+ void _showPickerDialog4() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Select Image Source"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera),
+                title: const Text("Camera"),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _pickImage4(ImageSource.camera);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text("Gallery"),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _pickImage4(ImageSource.gallery);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+ 
   // Function to pick an image
   Future<void> _pickImage(ImageSource source) async {
     try {
@@ -135,6 +201,30 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
       if (pickedFile != null) {
         setState(() {
           _image2 = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+    }
+  }
+  Future<void> _pickImage3(ImageSource source) async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(source: source);
+      if (pickedFile != null) {
+        setState(() {
+          _image3 = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+    }
+  }
+  Future<void> _pickImage4(ImageSource source) async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(source: source);
+      if (pickedFile != null) {
+        setState(() {
+          _image4 = File(pickedFile.path);
         });
       }
     } catch (e) {
@@ -289,6 +379,24 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                                             : '')
                                         : await _profileNotifier
                                             .uploadImage(_image2!),
+                                               'images3': _image3 == null
+                                        ? (_profileNotifier
+                                                    .professionalData.images3 !=
+                                                null
+                                            ? _profileNotifier
+                                                .professionalData.images3
+                                            : '')
+                                        : await _profileNotifier
+                                            .uploadImage(_image3!),
+                                               'images4': _image4 == null
+                                        ? (_profileNotifier
+                                                    .professionalData.images4 !=
+                                                null
+                                            ? _profileNotifier
+                                                .professionalData.images4
+                                            : '')
+                                        : await _profileNotifier
+                                            .uploadImage(_image4!),
                                     // "insurance_certificate": "",
                                   };
                                   _profileNotifier
@@ -325,6 +433,8 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                                   _insuranceNumber.clear();
                                   _image = null;
                                   _image2 = null;
+                                  _image3 = null;
+                                  _image4 = null;
                                 }
                               },
                               child: Row(
@@ -740,127 +850,260 @@ class _Edit_profileState extends ConsumerState<Edit_profile> {
                       //   height: 20,
                       // ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      Wrap(
+                     
                         children: [
-                          Column(
-                            children: [
-                              _image != null
-                                  ? Image.file(
-                                      _image!,
-                                      height: 100,
-                                      width: 100,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : _profileNotifier.professionalData.images1 !=
-                                          null
-                                      ? Container(
-                                          height: 100,
-                                          width: 100,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      _profileNotifier
-                                                          .professionalData
-                                                          .images1
-                                                          .toString()),
-                                                  fit: BoxFit.cover),
-                                              border: Border.all(
-                                                  color: primaryColor)),
-                                        )
-                                      : Container(
-                                          height: 100,
-                                          width: 100,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              border: Border.all(
-                                                  color: primaryColor)),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.upload,
-                                                color:
-                                                    blackColor.withOpacity(0.5),
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Center(
-                                                  child: Text(
-                                                      "Profile".toUpperCase())),
-                                            ],
-                                          )),
-                              const SizedBox(height: 20),
-                              ElevatedButton(
-                                onPressed: _showPickerDialog,
-                                child: Text("Choose Image".toUpperCase()),
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                _image != null
+                                    ? Image.file(
+                                        _image!,
+                                        height: 100,
+                                        width: 100,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : _profileNotifier.professionalData.images1 !=
+                                            null
+                                        ? Container(
+                                            height: 100,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        _profileNotifier
+                                                            .professionalData
+                                                            .images1
+                                                            .toString()),
+                                                    fit: BoxFit.cover),
+                                                border: Border.all(
+                                                    color: primaryColor)),
+                                          )
+                                        : Container(
+                                            height: 100,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                border: Border.all(
+                                                    color: primaryColor)),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.upload,
+                                                  color:
+                                                      blackColor.withOpacity(0.5),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Center(
+                                                    child: Text(
+                                                        "Profile".toUpperCase())),
+                                              ],
+                                            )),
+                                const SizedBox(height: 20),
+                                ElevatedButton(
+                                  onPressed: _showPickerDialog,
+                                  child: Text("Choose Image".toUpperCase()),
+                                ),
+                              ],
+                            ),
                           ),
-                          Column(
-                            children: [
-                              _image2 != null
-                                  ? Image.file(
-                                      _image2!,
-                                      height: 100,
-                                      width: 100,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : _profileNotifier.professionalData.images2 !=
-                                          null
-                                      ? Container(
-                                          height: 100,
-                                          width: 100,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      _profileNotifier
-                                                          .professionalData
-                                                          .images2
-                                                          .toString()),
-                                                  fit: BoxFit.cover),
-                                              border: Border.all(
-                                                  color: primaryColor)),
-                                        )
-                                      : Container(
-                                          height: 100,
-                                          width: 100,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              border: Border.all(
-                                                  color: primaryColor)),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.upload,
-                                                color:
-                                                    blackColor.withOpacity(0.5),
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Center(
-                                                  child: Text(
-                                                      "Profile".toUpperCase())),
-                                            ],
-                                          )),
-                              const SizedBox(height: 20),
-                              ElevatedButton(
-                                onPressed: _showPickerDialog2,
-                                child: Text("Choose Image".toUpperCase()),
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                _image2 != null
+                                    ? Image.file(
+                                        _image2!,
+                                        height: 100,
+                                        width: 100,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : _profileNotifier.professionalData.images2 !=
+                                            null
+                                        ? Container(
+                                            height: 100,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        _profileNotifier
+                                                            .professionalData
+                                                            .images2
+                                                            .toString()),
+                                                    fit: BoxFit.cover),
+                                                border: Border.all(
+                                                    color: primaryColor)),
+                                          )
+                                        : Container(
+                                            height: 100,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                border: Border.all(
+                                                    color: primaryColor)),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.upload,
+                                                  color:
+                                                      blackColor.withOpacity(0.5),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Center(
+                                                    child: Text(
+                                                        "Profile".toUpperCase())),
+                                              ],
+                                            )),
+                                const SizedBox(height: 20),
+                                ElevatedButton(
+                                  onPressed: _showPickerDialog2,
+                                  child: Text("Choose Image".toUpperCase()),
+                                ),
+                              ],
+                            ),
                           )
+                       
+                       
+                        ,Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                              children: [
+                                _image3 != null
+                                    ? Image.file(
+                                        _image3!,
+                                        height: 100,
+                                        width: 100,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : _profileNotifier.professionalData.images3 !=
+                                            null
+                                        ? Container(
+                                            height: 100,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        _profileNotifier
+                                                            .professionalData
+                                                            .images3
+                                                            .toString()),
+                                                    fit: BoxFit.cover),
+                                                border: Border.all(
+                                                    color: primaryColor)),
+                                          )
+                                        : Container(
+                                            height: 100,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                border: Border.all(
+                                                    color: primaryColor)),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.upload,
+                                                  color:
+                                                      blackColor.withOpacity(0.5),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Center(
+                                                    child: Text(
+                                                        "Profile".toUpperCase())),
+                                              ],
+                                            )),
+                                const SizedBox(height: 20),
+                                ElevatedButton(
+                                  onPressed: _showPickerDialog3,
+                                  child: Text("Choose Image".toUpperCase()),
+                                ),
+                              ],
+                            ),
+                        ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                _image4 != null
+                                    ? Image.file(
+                                        _image4!,
+                                        height: 100,
+                                        width: 100,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : _profileNotifier.professionalData.images4 !=
+                                            null
+                                        ? Container(
+                                            height: 100,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        _profileNotifier
+                                                            .professionalData
+                                                            .images4
+                                                            .toString()),
+                                                    fit: BoxFit.cover),
+                                                border: Border.all(
+                                                    color: primaryColor)),
+                                          )
+                                        : Container(
+                                            height: 100,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                border: Border.all(
+                                                    color: primaryColor)),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.upload,
+                                                  color:
+                                                      blackColor.withOpacity(0.5),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Center(
+                                                    child: Text(
+                                                        "Profile".toUpperCase())),
+                                              ],
+                                            )),
+                                const SizedBox(height: 20),
+                                ElevatedButton(
+                                  onPressed: _showPickerDialog4,
+                                  child: Text("Choose Image".toUpperCase()),
+                                ),
+                              ],
+                            ),
+                          )
+                       
                         ],
                       ),
                       // TextField(

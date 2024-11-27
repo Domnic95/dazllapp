@@ -515,7 +515,8 @@ class _Project_DetailsState extends ConsumerState<Project_Details> {
                                                                             data: {
                                                                               "inspectionNotes": _editCommetController[subindex].text,
                                                                               "feature_id": projectprovider!.listofproject[widget.index].roominfo![index].feature![subindex].featureId,
-                                                                              "images": projectprovider!.listofproject[widget.index].roominfo![index].feature![subindex].images ?? <String>[]
+                                                                              "images": projectprovider!.listofproject[widget.index].roominfo![index].feature![subindex].images ?? <String>[],
+                                                                              "room_id": projectprovider!.listofproject[widget.index].roominfo![index].roomId
                                                                             },
                                                                             projectId:
                                                                                 projectprovider!.listofproject[widget.index].projectId!).then(

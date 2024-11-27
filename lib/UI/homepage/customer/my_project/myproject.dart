@@ -200,110 +200,125 @@ class _myprojectState extends ConsumerState<myproject> {
                                             .isEmpty
                                         ? SizedBox()
                                         : Column(
-                                          children: [
+                                            children: [
                                               SizedBox(
-                                              height: 20,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(
-                                                  // width: 300,
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 5),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                    color: primaryColor,
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(5),
-                                                    child: InkWell(
-                                                      onTap: () async {
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                Start_project(projectid:  projectprovider!
-                                                                .listofproject[
-                                                                    widgetIndex]
-                                                                .projectId!.toString(),customer: true),
-                                                          ),
-                                                        );
-                                                      },
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: [
-                                                          Text(
-                                                              " Add Another Room ",
-                                                              style: TextStyle(
-                                                                  color: AppTheme
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      14)),
-                                                        ],
+                                                height: 20,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    // width: 300,
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 5),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      color: primaryColor,
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              5),
+                                                      child: InkWell(
+                                                        onTap: () async {
+                                                          Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) => Start_project(
+                                                                  projectid: projectprovider!
+                                                                      .listofproject[
+                                                                          widgetIndex]
+                                                                      .projectId!
+                                                                      .toString(),
+                                                                  customer:
+                                                                      true),
+                                                            ),
+                                                          );
+                                                        },
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Text(
+                                                                " Add Another Room ",
+                                                                style: TextStyle(
+                                                                    color: AppTheme
+                                                                        .white,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        14)),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  // width: 300,
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 5),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                    color: primaryColor,
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(5),
-                                                    child: InkWell(
-                                                      onTap: () async {
-                                                        setState(() {});
-                                                      
+                                                  Container(
+                                                    // width: 300,
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 5),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      color: primaryColor,
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              5),
+                                                      child: InkWell(
+                                                        onTap: () async {
+                                                          setState(() {});
 
-                                                        setState(() {});
-                                                      },
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: [
-                                                          Text(
-                                                              " Delete Project ",
-                                                              style: TextStyle(
-                                                                  color: AppTheme
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      14)),
-                                                          Icon(
-                                                            Icons.delete,
-                                                            color:
-                                                                AppTheme.white,
-                                                          )
-                                                        ],
+                                                          await projectprovider!
+                                                              .deleteCustomerProjects(
+                                                                  projectprovider!
+                                                                      .listofproject[
+                                                                          widgetIndex]
+                                                                      .projectId!,
+                                                                  context);
+                                                          await load();
+
+                                                          setState(() {});
+                                                        },
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Text(
+                                                                " Delete Project ",
+                                                                style: TextStyle(
+                                                                    color: AppTheme
+                                                                        .white,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        14)),
+                                                            Icon(
+                                                              Icons.delete,
+                                                              color: AppTheme
+                                                                  .white,
+                                                            )
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                           
-                                            GestureDetector(
+                                                ],
+                                              ),
+                                              GestureDetector(
                                                 onTap: () {
-                                                  FocusScope.of(context).unfocus();
+                                                  FocusScope.of(context)
+                                                      .unfocus();
                                                   // projectprovider
                                                   //         .listofproject[widgetIndex]
                                                   //         .roominfo!
@@ -321,34 +336,37 @@ class _myprojectState extends ConsumerState<myproject> {
                                                 child: Container(
                                                   // height: 80,
                                                   child: Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        bottom: 10.0),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 10.0),
                                                     child: Card(
-                                                      shape: RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                  12.0)),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          12.0)),
                                                       child: Column(
                                                         mainAxisAlignment:
-                                                            MainAxisAlignment.start,
+                                                            MainAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Container(
                                                             decoration: BoxDecoration(
                                                                 color: AppTheme
                                                                     .colorPrimary,
                                                                 borderRadius:
-                                                                    BorderRadius.vertical(
-                                                                        top: Radius
-                                                                            .circular(
-                                                                                10))),
+                                                                    BorderRadius
+                                                                        .vertical(
+                                                                            top:
+                                                                                Radius.circular(10))),
                                                             child: ListTile(
                                                               contentPadding:
-                                                                  EdgeInsets
-                                                                      .symmetric(
-                                                                          vertical:
-                                                                              8,
-                                                                          horizontal:
-                                                                              8),
+                                                                  EdgeInsets.symmetric(
+                                                                      vertical:
+                                                                          8,
+                                                                      horizontal:
+                                                                          8),
                                                               title: Row(
                                                                 crossAxisAlignment:
                                                                     CrossAxisAlignment
@@ -430,15 +448,12 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                     children: [
                                                                       Text(
                                                                           'Project No : ' +
-                                                                              projectprovider!
-                                                                                  .listofproject[
-                                                                                      widgetIndex]
-                                                                                  .projectId
+                                                                              projectprovider!.listofproject[widgetIndex].projectId
                                                                                   .toString(),
                                                                           style:
                                                                               TextStyle(
-                                                                            color: Colors
-                                                                                .white,
+                                                                            color:
+                                                                                Colors.white,
                                                                             fontSize:
                                                                                 14,
                                                                             fontWeight:
@@ -456,25 +471,16 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                               "No Data",
                                                                               style:
                                                                                   TextStyle(
-                                                                                fontSize:
-                                                                                    14,
-                                                                                color:
-                                                                                    Colors.grey,
-                                                                                fontWeight:
-                                                                                    FontWeight.bold,
+                                                                                fontSize: 14,
+                                                                                color: Colors.grey,
+                                                                                fontWeight: FontWeight.bold,
                                                                               ))
                                                                           : Text(
-                                                                              'Room Name : ' +
-                                                                                  projectprovider!.listofproject[widgetIndex].roominfo!.first.roomName
-                                                                                      .toString(),
-                                                                              style:
-                                                                                  TextStyle(
-                                                                                fontSize:
-                                                                                    14,
-                                                                                color:
-                                                                                    Colors.white,
-                                                                                fontWeight:
-                                                                                    FontWeight.bold,
+                                                                              'Room Name : ' + projectprovider!.listofproject[widgetIndex].roominfo!.first.roomName.toString(),
+                                                                              style: TextStyle(
+                                                                                fontSize: 14,
+                                                                                color: Colors.white,
+                                                                                fontWeight: FontWeight.bold,
                                                                               ))
                                                                     ],
                                                                   ),
@@ -488,11 +494,11 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                     .all(8.0),
                                                             child: Column(
                                                               children: [
-                                                                
-                                                                SizedBox(height: 5),
-                                            
                                                                 SizedBox(
-                                                                  width: size.width,
+                                                                    height: 5),
+                                                                SizedBox(
+                                                                  width: size
+                                                                      .width,
                                                                   child: Column(
                                                                     crossAxisAlignment:
                                                                         CrossAxisAlignment
@@ -503,8 +509,7 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                               10),
                                                                       Container(
                                                                         padding:
-                                                                            EdgeInsets.all(
-                                                                                8.0),
+                                                                            EdgeInsets.all(8.0),
                                                                         // width: size.width,
                                                                         decoration: BoxDecoration(
                                                                             // color:
@@ -513,10 +518,8 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                         child: Text(
                                                                             "Customer Details :-",
                                                                             style: TextStyle(
-                                                                                color:
-                                                                                    blackColor,
-                                                                                fontWeight:
-                                                                                    FontWeight.bold,
+                                                                                color: blackColor,
+                                                                                fontWeight: FontWeight.bold,
                                                                                 fontSize: 18)),
                                                                       ),
                                                                       Padding(
@@ -529,29 +532,20 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                         child:
                                                                             Column(
                                                                           crossAxisAlignment:
-                                                                              CrossAxisAlignment
-                                                                                  .start,
+                                                                              CrossAxisAlignment.start,
                                                                           children: [
                                                                             propertyDetailIteams(
-                                                                                key:
-                                                                                    "Homeowners Name",
-                                                                                value:
-                                                                                    "${projectprovider!.customerProfile!.customer!.firstName ?? ''} ${projectprovider!.customerProfile!.customer!.lastName ?? ''}"),
+                                                                                key: "Homeowners Name",
+                                                                                value: "${projectprovider?.customerProfile?.customer?.firstName ?? ''} ${projectprovider?.customerProfile?.customer?.lastName ?? ''}"),
                                                                             propertyDetailIteams(
-                                                                                key:
-                                                                                    "Email Address",
-                                                                                value:
-                                                                                    "${projectprovider!.customerProfile!.customer!.email ?? ""}"),
+                                                                                key: "Email Address",
+                                                                                value: "${projectprovider?.customerProfile?.customer?.email ?? ""}"),
                                                                             propertyDetailIteams(
-                                                                                key:
-                                                                                    "Phone Number",
-                                                                                value:
-                                                                                    "${projectprovider!.customerProfile!.customer!.phoneNumber ?? "Unknown"}"),
+                                                                                key: "Phone Number",
+                                                                                value: "${projectprovider?.customerProfile?.customer?.phoneNumber ?? "Unknown"}"),
                                                                             propertyDetailIteams(
-                                                                                key:
-                                                                                    "Zip Code",
-                                                                                value:
-                                                                                    "${projectprovider!.customerProfile!.customer!.zipCode ?? "Unknown"}"),
+                                                                                key: "Zip Code",
+                                                                                value: "${projectprovider?.customerProfile?.customer?.zipCode ?? "Unknown"}"),
                                                                           ],
                                                                         ),
                                                                       ),
@@ -563,8 +557,10 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                 ),
                                                                 Text(
                                                                   "Features",
-                                                                  style: TextStyle(
-                                                                    fontSize: 16,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        16,
                                                                     color: AppTheme
                                                                         .colorPrimary,
                                                                     fontWeight:
@@ -575,8 +571,10 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                 SizedBox(
                                                                   height: 15,
                                                                 ),
-                                                                ListView.builder(
-                                                                  shrinkWrap: true,
+                                                                ListView
+                                                                    .builder(
+                                                                  shrinkWrap:
+                                                                      true,
                                                                   padding:
                                                                       EdgeInsets
                                                                           .zero,
@@ -600,40 +598,25 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                         child:
                                                                             Column(
                                                                           crossAxisAlignment:
-                                                                              CrossAxisAlignment
-                                                                                  .start,
+                                                                              CrossAxisAlignment.start,
                                                                           children: [
                                                                             Text(
                                                                               " ${projectprovider!.listofproject[widgetIndex].roominfo![index].roomName}",
-                                                                              style:
-                                                                                  TextStyle(
-                                                                                fontSize:
-                                                                                    16,
-                                                                                color:
-                                                                                    AppTheme.colorPrimary,
-                                                                                fontWeight:
-                                                                                    FontWeight.bold,
+                                                                              style: TextStyle(
+                                                                                fontSize: 16,
+                                                                                color: AppTheme.colorPrimary,
+                                                                                fontWeight: FontWeight.bold,
                                                                               ),
                                                                             ),
                                                                             SizedBox(
-                                                                              height:
-                                                                                  5,
+                                                                              height: 5,
                                                                             ),
-                                                                            ListView
-                                                                                .builder(
-                                                                              shrinkWrap:
-                                                                                  true,
-                                                                              padding:
-                                                                                  EdgeInsets.zero,
-                                                                              physics:
-                                                                                  NeverScrollableScrollPhysics(),
-                                                                              itemCount: projectprovider!
-                                                                                  .listofproject[widgetIndex]
-                                                                                  .roominfo![index]
-                                                                                  .feature!
-                                                                                  .length,
-                                                                              itemBuilder:
-                                                                                  (context, subindex) {
+                                                                            ListView.builder(
+                                                                              shrinkWrap: true,
+                                                                              padding: EdgeInsets.zero,
+                                                                              physics: NeverScrollableScrollPhysics(),
+                                                                              itemCount: projectprovider!.listofproject[widgetIndex].roominfo![index].feature!.length,
+                                                                              itemBuilder: (context, subindex) {
                                                                                 return Card(
                                                                                   child: Theme(
                                                                                     data: Theme.of(context).copyWith(colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black)),
@@ -661,12 +644,16 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                                                               Utils.imageInfoDialog(context: context, url: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images![imgindex], description: "");
                                                                                                             },
                                                                                                             child: Container(
-                                                                                                              width: 80,
-                                                                                                              height: 80,
+                                                                                                              height: 100,
+                                                                                                              width: 100,
                                                                                                               padding: const EdgeInsets.only(right: 3),
                                                                                                               child: ClipRRect(
                                                                                                                 borderRadius: BorderRadius.circular(5),
-                                                                                                                child: CachedNetworkImage(errorWidget: (context, url, error) => Image.asset("assets/images/noimage.png"), imageUrl: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images![imgindex]),
+                                                                                                                child: CachedNetworkImage(
+                                                                                                                  errorWidget: (context, url, error) => Image.asset("assets/images/noimage.png"),
+                                                                                                                  imageUrl: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images![imgindex],
+                                                                                                                  fit: BoxFit.cover,
+                                                                                                                ),
                                                                                                               ),
                                                                                                             ),
                                                                                                           );
@@ -702,13 +689,13 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                                                             ),
                                                                                                           );
                                                                                                         }
-                                            
+
                                                                                                         // Display existing images
                                                                                                         String image = images[widgetIndex][index][subindex][subIndex - 1];
                                                                                                         if (image.isEmpty) {
                                                                                                           return SizedBox();
                                                                                                         }
-                                            
+
                                                                                                         return Container(
                                                                                                           height: 100,
                                                                                                           decoration: BoxDecoration(
@@ -723,6 +710,7 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                                                                 child: CachedNetworkImage(
                                                                                                                   imageUrl: image,
                                                                                                                   height: 100,
+                                                                                                                  width: 100,
                                                                                                                   placeholder: (context, url) => CircularProgressIndicator(),
                                                                                                                   errorWidget: (context, url, error) => Image.asset("assets/images/noimage.png"),
                                                                                                                   fit: BoxFit.cover,
@@ -749,45 +737,6 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                                                         );
                                                                                                       },
                                                                                                     ),
-                                            
-                                                                                            // projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images == null || projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images!.isEmpty
-                                                                                            //     ? SizedBox()
-                                                                                            //     : SizedBox(
-                                                                                            //         height: isEdit[widgetIndex][index][subindex] ? 110 : 90,
-                                                                                            //         child: ListView.builder(
-                                                                                            //           shrinkWrap: true,
-                                                                                            //           scrollDirection: Axis.horizontal,
-                                                                                            //           itemCount: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images!.length,
-                                                                                            //           itemBuilder: (context, expansionTileIndex) {
-                                                                                            //             return Column(
-                                                                                            //               children: [
-                                                                                            //                 InkWell(
-                                                                                            //                   onTap: () {
-                                                                                            //                     Utils.imageInfoDialog(context: context, url: projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images![expansionTileIndex], description: "");
-                                                                                            //                   },
-                                                                                            //                   child: Container(
-                                                                                            //                     width: 80,
-                                                                                            //                     height: 80,
-                                                                                            //                     padding: const EdgeInsets.only(right: 5),
-                                                                                            //                     child: ClipRRect(
-                                                                                            //                       borderRadius: BorderRadius.circular(5),
-                                                                                            //                       child: Image.network(
-                                                                                            //                         projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images![expansionTileIndex],
-                                                                                            //                         fit: BoxFit.fill,
-                                                                                            //                       ),
-                                                                                            //                     ),
-                                                                                            //                   ),
-                                                                                            //                 ),
-                                                                                            //                 SizedBox(
-                                                                                            //                   height: 5,
-                                                                                            //                 ),
-                                            
-                                                                                            //               ],
-                                                                                            //             );
-                                                                                            //           },
-                                                                                            //         ),
-                                                                                            //       ),
-                                            
                                                                                             projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureoption == null || projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureoption!.isEmpty
                                                                                                 ? SizedBox()
                                                                                                 : projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureoption != null
@@ -829,39 +778,21 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                                                           isEdit[widgetIndex][index][subindex] = !isEdit[widgetIndex][index][subindex];
                                                                                                           isBtnLoading[widgetIndex][index][subindex] = true;
                                                                                                           setState(() {});
-                                                                                                          // log("djxfjdlgjlfdj    " + isEdit[widgetIndex].toString());
-                                                                                                          // await projectprovider!.updateReport(data: {
-                                                                                                          //   "inspectionNotes": _editCommetController[widgetIndex][index][subindex].text,
-                                                                                                          //   "feature_id": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureId,
-                                                                                                          //   "images": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].images ?? <String>[]
-                                                                                                          // }, projectId: projectprovider!.listofproject[widgetIndex].projectId!).then((value) {
-                                                                                                          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.green, content: Text("${value["message"]}")));
-                                                                                                          // });
-                                                                                                          // await ref.read(customernotifier).myproject();
-                                                                                                          // loadData(widgetIndex);
-                                                                                                          log("==-=-=-=->> ${projectprovider!.listofproject[widgetIndex].projectId!}");
+
                                                                                                           await projectprovider!.updateReport(data: {
-                                                                                                            'data': [
-                                                                                                              {
-                                                                                                                "inspectionNotes": _editCommetController[widgetIndex][index][subindex].text,
-                                                                                                                // "feature_id": projectprovider!.listofrealtorproject[widgetIndex].roominfo![index].feature![subindex].,
-                                                                                                                "images": images[widgetIndex][index][subindex].isEmpty ? [] : images[widgetIndex][index][subindex],
-                                                                                                                "roomId": projectprovider!.listofproject[widgetIndex].roominfo![index].roomId
-                                                                                                              }
-                                                                                                            ],
-                                                                                                            "name": "",
-                                                                                                            'projectID': projectprovider!.listofproject[widgetIndex].projectId!
+                                                                                                            "inspectionNotes": _editCommetController[widgetIndex][index][subindex].text,
+                                                                                                            "feature_id": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureId,
+                                                                                                            "images": images[widgetIndex][index][subindex].isEmpty ? [] : images[widgetIndex][index][subindex],
+                                                                                                            "room_id": projectprovider!.listofproject[widgetIndex].roominfo![index].roomId
                                                                                                           }, projectId: projectprovider!.listofproject[widgetIndex].projectId!).then((value) {
                                                                                                             toastShowSuccess(context, value["message"]);
-                                                                                                            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.green, content: Text("${value["message"]}")));
                                                                                                           });
-                                            
-                                                                                                          log("djxfjdlgjlfdj    " + isEdit[widgetIndex].toString());
-                                            
+                                                                                                          await load();
+
                                                                                                           isBtnLoading[widgetIndex][index][subindex] = false;
                                                                                                           isEdit[widgetIndex][index][subindex] = false;
                                                                                                         }
-                                            
+
                                                                                                         setState(() {});
                                                                                                       },
                                                                                                       child: isBtnLoading[widgetIndex][index][subindex]
@@ -900,26 +831,11 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                                                       onPressed: () async {
                                                                                                         isDeleteBtnLoading[widgetIndex][index][subindex] = true;
                                                                                                         setState(() {});
-                                                                                                        // var data = {
-                                                                                                        //   "inspectionNotes": "",
-                                                                                                        //   "feature_id": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureId,
-                                                                                                        //   "images": <String>[]
-                                                                                                        // };
-                                                                                                        // log("gsdjjsdfjhf === $data");
-                                                                                                        // await projectprovider!.updateReport(data: {
-                                                                                                        //   "inspectionNotes": "",
-                                                                                                        //   "feature_id": projectprovider!.listofproject[widgetIndex].roominfo![index].feature![subindex].featureId,
-                                                                                                        //   "images": <String>[]
-                                                                                                        // }, projectId: projectprovider!.listofproject[widgetIndex].projectId!).then((value) {
-                                                                                                        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: primaryColor, content: Text("${value["message"]}")));
-                                                                                                        // });
-                                                                                                        // await ref.read(customernotifier).myproject();
-                                                                                                        // loadData(widgetIndex);
-                                            
-                                                                                                        await projectprovider!.deleteCustomerProjects(projectprovider!.listofproject[widgetIndex].projectId!, context);
-                                                                                                        await load();
+
+                                                                                                        // await projectprovider!.deleteCustomerProjects(projectprovider!.listofproject[widgetIndex].projectId!, context);
+                                                                                                        // await load();
                                                                                                         isEdit[widgetIndex][index][subindex] = false;
-                                            
+
                                                                                                         isDeleteBtnLoading[widgetIndex][index][subindex] = false;
                                                                                                         setState(() {});
                                                                                                       },
@@ -960,6 +876,45 @@ class _myprojectState extends ConsumerState<myproject> {
                                                                                 );
                                                                               },
                                                                             )
+                                                                         ,
+                                          //                                  InkWell(
+                                          // onTap: () {
+                                          //   isInterested = null;
+                                          //   _controller.text = '';
+                                          //   showDialogeForSendResponse(
+                                          //     customerId: projectprovider!.listofproject[widgetIndex].customer!.id!,
+                                          //     projectId: projectprovider!.listofproject[widgetIndex].projectId!,
+                                          //     email:
+                                          //         projectprovider!.listofproject[widgetIndex].customer!.email!.isEmpty
+                                          //             ? ''
+                                          //             : projectprovider!.listofproject[widgetIndex].customer!.email!,
+                                          //     homeOwnerName: projectprovider!.listofproject[widgetIndex].customer!
+                                          //             .firstName!.isEmpty
+                                          //         ? ''
+                                          //         : projectprovider!.listofproject[widgetIndex].customer!.firstName!,
+                                          //   );
+                                          // },
+                                          // child: Padding(
+                                          //   padding: const EdgeInsets.all(8.0),
+                                          //   child: Card(
+                                          //     shape: OutlineInputBorder(
+                                          //         borderRadius:
+                                          //             BorderRadius.circular(10),
+                                          //         borderSide: BorderSide.none),
+                                          //     color: primaryColor,
+                                          //     child: Padding(
+                                          //       padding:
+                                          //           const EdgeInsets.all(12.0),
+                                          //       child: Text(
+                                          //         "Send Your Response",
+                                          //         style: TextStyle(
+                                          //             fontWeight:
+                                          //                 FontWeight.bold,
+                                          //             color: lightColor),
+                                          //       ),
+                                          //     ),
+                                          //   ),
+                                          // )),
                                                                           ],
                                                                         ),
                                                                       ),
@@ -975,8 +930,8 @@ class _myprojectState extends ConsumerState<myproject> {
                                                   ),
                                                 ),
                                               ),
-                                          ],
-                                        );
+                                            ],
+                                          );
                                   },
                                 ),
                               ),
@@ -1217,4 +1172,164 @@ class _myprojectState extends ConsumerState<myproject> {
     Utils.loaderDialog(context, false);
     setState(() {});
   }
+    bool? isInterested = false;
+  TextEditingController _controller = TextEditingController();
+
+   void showDialogeForSendResponse(
+      {required int customerId,
+      required int projectId,
+      required String email,
+      required String homeOwnerName}) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(builder: (context, dialogeState) {
+          return Dialog(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Your Response",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: primaryColor,
+                        fontSize: 18),
+                  ),
+                  Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            children: [
+                              Checkbox(
+                                visualDensity: VisualDensity.compact,
+                                splashRadius: 5,
+                                value: isInterested ?? false,
+                                onChanged: (value) {
+                                  isInterested = value;
+                                  dialogeState(() {});
+                                },
+                              ),
+                              Text("I'M INTERESTED"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Checkbox(
+                                splashRadius: 5,
+                                visualDensity: VisualDensity.compact,
+                                value: isInterested == null
+                                    ? false
+                                    : !isInterested!,
+                                onChanged: (value) {
+                                  isInterested = !value!;
+                                  dialogeState(() {});
+                                },
+                              ),
+                              Text("I'M NOT INTERESTED"),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "  Message :",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: darkTextColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: CustomTextField(
+                        minLine: 5, controller: _controller, label: ""),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      
+                    },
+                      // onPressed: () {
+                      //   if (_controller.text.isNotEmpty &&
+                      //       isInterested != null) {
+                      //     _professionalNotifier!.sendProjectOpportunities({
+                      //       "homeOwnerMail": email,
+                      //       "homeOwnerName": homeOwnerName,
+                      //       'isInterested': isInterested,
+                      //       'projectId': projectId,
+                      //       'message': _controller.text,
+                      //       // 'interest_date':
+                      //       //     DateFormat("yyyy-MM-dd").format(DateTime.now()),
+                      //       // 'customer_id': customerId,
+                      //       // 'professional_id':
+                      //       //     SpHelpers.getString(SharedPrefsKeys.Prof_id)
+                      //     }).then((value) {
+                      //       if (value != null) {
+                      //         Navigator.of(context).pop();
+                      //         toastShowSuccess(
+                      //             context, 'message send succefully');
+                      //         // ScaffoldMessenger.of(context).showSnackBar(
+                      //         //     SnackBar(
+                      //         //         content:
+                      //         //             Text('message send succefully')));
+                      //       } else {
+                      //         toastShowError(
+                      //             context, "Something went to wrong!");
+                      //         // ScaffoldMessenger.of(context).showSnackBar(
+                      //         //     SnackBar(
+                      //         //         content:
+                      //         //             Text("Something went to wrong!")));
+                      //       }
+                      //     });
+                      //   } else if (isInterested == null) {
+                      //     toastShowError(context,
+                      //         "Please select you are interested or not");
+                      //     // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      //     //     content: Text(
+                      //     //         "Please select you are interested or not")));
+                      //   } else if (_controller.text.isEmpty) {
+                      //     toastShowError(context, "Message is reqired");
+                      //     // ScaffoldMessenger.of(context).showSnackBar(
+                      //     //     SnackBar(content: Text("Message is reqired")));
+                      //   }
+                      // },
+                      child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Send",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: primaryColor)),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Icon(
+                              Icons.send,
+                              color: primaryColor,
+                            )
+                          ]))
+                ],
+              ),
+            ),
+          );
+        });
+      },
+    );
+  }
+
+  
 }

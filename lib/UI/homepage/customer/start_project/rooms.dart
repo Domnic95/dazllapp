@@ -572,6 +572,7 @@ import 'package:dazllapp/UI/homepage/customer/my_project/myproject.dart';
 import 'package:dazllapp/UI/homepage/customer/provider/roomsProvider.dart';
 import 'package:dazllapp/UI/homepage/customer/start_project/needs_attention.dart';
 import 'package:dazllapp/config/Utils/utils.dart';
+import 'package:dazllapp/config/apicall.dart';
 import 'package:dazllapp/config/app_theme.dart';
 import 'package:dazllapp/config/providers/customer_notifier.dart';
 import 'package:dazllapp/config/providers/providers.dart';
@@ -865,12 +866,13 @@ class _CustomerRoomsState extends ConsumerState<CustomerRooms>
                                       MaterialPageRoute(
                                           builder: (context) => myproject()),
                                       (route) => false);
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content:
-                                        Text('Project created sucessfully'),
-                                    backgroundColor: teamColor,
-                                  ));
+                                      toastShowSuccess(context,'Project created sucessfully');
+                                  // ScaffoldMessenger.of(context)
+                                  //     .showSnackBar(SnackBar(
+                                  //   content:
+                                  //       Text('Project created sucessfully'),
+                                  //   backgroundColor: teamColor,
+                                  // ));
                                 } else {
                                   Utils.loaderDialog(context, false);
                                   ScaffoldMessenger.of(context)

@@ -197,7 +197,151 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                                           .listofrealtorproject[widgetIndex]
                                           .roominfo!
                                           .isEmpty
-                                      ? SizedBox()
+                                      ? Column(
+                                        children: [
+                                           SizedBox(height: 10,),
+                                          Card(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                      SizedBox(height: 20,),
+                                                       Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Container(
+                                                          // width: 300,
+                                                          margin: EdgeInsets.symmetric(
+                                                              horizontal: 5),
+                                                          decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                    5),
+                                                            color: primaryColor,
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets.all(5),
+                                                            child: InkWell(
+                                                              onTap: () async {
+                                                                Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder: (context) => Start_project(
+                                                                        projectid: projectprovider!
+                                                                            .listofrealtorproject[
+                                                                                widgetIndex]
+                                                                            .projectId!
+                                                                            .toString(),
+                                                                        customer:
+                                                                            false),
+                                                                  ),
+                                                                );
+                                                              },
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize.min,
+                                                                children: [
+                                                                  Text(
+                                                                      " Add Another Room ",
+                                                                      style: TextStyle(
+                                                                          color: AppTheme
+                                                                              .white,
+                                                                          fontWeight:
+                                                                              FontWeight
+                                                                                  .bold,
+                                                                          fontSize:
+                                                                              14)),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          // width: 300,
+                                                          margin: EdgeInsets.symmetric(
+                                                              horizontal: 5),
+                                                          decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                    5),
+                                                            color: primaryColor,
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets.all(5),
+                                                            child: InkWell(
+                                                              onTap: () async {
+                                                                setState(() {});
+                                                                // await projectprovider!.deletePhdReport(
+                                                                //     projectprovider!
+                                                                //         .listofrealtorproject[
+                                                                //             widgetIndex]
+                                                                //         .projectId!,
+                                                                //     context);
+                                                                deleteProjectDilouge(
+                                                                    context,
+                                                                    projectprovider!
+                                                                        .listofrealtorproject[
+                                                                            widgetIndex]
+                                                                        .projectId!);
+                                                                // await load();
+                                              
+                                                                setState(() {});
+                                                              },
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize.min,
+                                                                children: [
+                                                                  Text(
+                                                                      " Delete Project ",
+                                                                      style: TextStyle(
+                                                                          color: AppTheme
+                                                                              .white,
+                                                                          fontWeight:
+                                                                              FontWeight
+                                                                                  .bold,
+                                                                          fontSize:
+                                                                              14)),
+                                                                  Icon(
+                                                                    Icons.delete,
+                                                                    color:
+                                                                        AppTheme.white,
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                 SizedBox(height: 10,),
+                                                  Text("  Project No : ${_realtorprovider
+                                          .listofrealtorproject[widgetIndex].projectId}",style: TextStyle(color: blackColor,fontWeight: FontWeight.normal,fontSize: 16),),
+                                                         
+                                                    Card(child: Padding(
+                                                      padding: const EdgeInsets.all(20),
+                                                      child: Container(
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                          Text("Service Pro Replies:",style: TextStyle(color: primaryColor,fontWeight: FontWeight.normal,fontSize: 16),),
+                                                          Text("You have 0 replies",style: TextStyle(color: blackColor,fontWeight: FontWeight.normal,fontSize: 16),),
+                                                        ],),
+                                                      ),
+                                                    )),
+                                                      SizedBox(height: 10,),
+                                                  ],
+                                                ),
+                                            ),
+                                          ),
+                               
+                                        ],
+                                      )
+
+                                  
                                       : Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -228,11 +372,14 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                                                         Navigator.push(
                                                           context,
                                                           MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                Start_project(projectid:  projectprovider!
-                                                                .listofrealtorproject[
-                                                                    widgetIndex]
-                                                                .projectId!.toString(),customer: false),
+                                                            builder: (context) => Start_project(
+                                                                projectid: projectprovider!
+                                                                    .listofrealtorproject[
+                                                                        widgetIndex]
+                                                                    .projectId!
+                                                                    .toString(),
+                                                                customer:
+                                                                    false),
                                                           ),
                                                         );
                                                       },
@@ -523,7 +670,7 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                                                             ),
                                                           ),
                                                           SizedBox(
-                                                            height: 20,
+                                                            height: 10,
                                                           ),
                                                           Center(
                                                             child: Text(
@@ -627,12 +774,13 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                                                                                                       Utils.imageInfoDialog(context: context, url: Detailsprovider.listofrealtorproject[widgetIndex].roominfo![index].feature![subindex].images![imgindex], description: "");
                                                                                                     },
                                                                                                     child: Container(
-                                                                                                      width: 80,
-                                                                                                      height: 80,
-                                                                                                      padding: const EdgeInsets.only(right: 3),
+                                                                                                      width: 100,
+                                                                                                      height: 100,
+
+                                                                                                      padding: const EdgeInsets.only(right: 10),
                                                                                                       child: ClipRRect(
                                                                                                         borderRadius: BorderRadius.circular(5),
-                                                                                                        child: CachedNetworkImage(errorWidget: (context, url, error) => Image.asset("assets/images/noimage.png"), imageUrl: Detailsprovider.listofrealtorproject[widgetIndex].roominfo![index].feature![subindex].images![imgindex]),
+                                                                                                        child: CachedNetworkImage(errorWidget: (context, url, error) => Image.asset("assets/images/noimage.png"), imageUrl: Detailsprovider.listofrealtorproject[widgetIndex].roominfo![index].feature![subindex].images![imgindex],fit: BoxFit.cover,),
                                                                                                       ),
                                                                                                     ),
                                                                                                   );
@@ -677,9 +825,11 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
 
                                                                                                 return Container(
                                                                                                   height: 100,
+                                                                                                   width: 100,
                                                                                                   decoration: BoxDecoration(
                                                                                                     border: Border.all(color: Colors.black),
                                                                                                     borderRadius: BorderRadius.circular(10),
+                                                                                                
                                                                                                   ),
                                                                                                   child: Stack(
                                                                                                     alignment: Alignment.center,
@@ -689,6 +839,7 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                                                                                                         child: CachedNetworkImage(
                                                                                                           imageUrl: image,
                                                                                                           height: 100,
+                                                                                                          width: 100,
                                                                                                           placeholder: (context, url) => CircularProgressIndicator(),
                                                                                                           errorWidget: (context, url, error) => Image.asset("assets/images/noimage.png"),
                                                                                                           fit: BoxFit.cover,
@@ -758,25 +909,36 @@ class _Realtor_projectState extends ConsumerState<Realtor_project> {
                                                                                                   isEdit[widgetIndex][index][subindex] = !isEdit[widgetIndex][index][subindex];
                                                                                                   isBtnLoading[widgetIndex][index][subindex] = true;
                                                                                                   setState(() {});
-                                                                                                  // log("djxfjdlgjlfdj    " + isEdit[widgetIndex].toString());
+                                                                                                  log("djxfjdlgjlfdj    " + images[widgetIndex][index][subindex].toString());
                                                                                                   log("room id    " + projectprovider!.listofrealtorproject[widgetIndex].roominfo![index].roomId.toString());
-                                                                                                  await projectprovider!.updateprojectrealtor(
-                                                                                                    {
-                                                                                                      'data': [
-                                                                                                        {
-                                                                                                          "inspectionNotes": _editCommetController[widgetIndex][index][subindex].text,
-                                                                                                          "feature_id": projectprovider!.listofrealtorproject[widgetIndex].roominfo![index].feature![subindex].featureId,
-                                                                                                          "images": images[widgetIndex][index][subindex].isEmpty ? [] : images[widgetIndex][index][subindex],
-                                                                                                          "roomId": projectprovider!.listofrealtorproject[widgetIndex].roominfo![index].roomId.toString()
-                                                                                                        }
-                                                                                                      ],
-                                                                                                      "name": "",
-                                                                                                      'projectID': projectprovider!.listofrealtorproject[widgetIndex].projectId.toString()
-                                                                                                    },
-                                                                                                    //  projectId: projectprovider!.listofrealtorproject[widgetIndex].projectId!).then((value) {
-                                                                                                    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.green, content: Text("${value["message"]}")));
-                                                                                                    // }
-                                                                                                  );
+                                                                                                  await projectprovider!.updateprojectrealtor({
+                                                                                                    "inspectionNotes": _editCommetController[widgetIndex][index][subindex].text,
+                                                                                                    "feature_id": projectprovider!.listofrealtorproject[widgetIndex].roominfo![index].feature![subindex].featureId,
+                                                                                                    "images": images[widgetIndex][index][subindex].isEmpty ? [] : images[widgetIndex][index][subindex],
+                                                                                                    "room_id": projectprovider!.listofrealtorproject[widgetIndex].roominfo![index].roomId.toString()
+                                                                                                  },
+                                                                                                  
+                                                                                                      // {
+                                                                                                      //   'data': [
+                                                                                                      //     {
+                                                                                                      //       "inspectionNotes": _editCommetController[widgetIndex][index][subindex].text,
+                                                                                                      //       "feature_id": projectprovider!.listofrealtorproject[widgetIndex].roominfo![index].feature![subindex].featureId,
+                                                                                                      //       "images": images[widgetIndex][index][subindex].isEmpty ? [] : images[widgetIndex][index][subindex],
+                                                                                                      //       "roomId": projectprovider!.listofrealtorproject[widgetIndex].roominfo![index].roomId.toString()
+                                                                                                      //     }
+                                                                                                      //   ],
+                                                                                                      //   "name": "",
+                                                                                                      //   'projectID': projectprovider!.listofrealtorproject[widgetIndex].projectId.toString()
+                                                                                                      // },
+
+                                                                                                      //  projectId: projectprovider!.listofrealtorproject[widgetIndex].projectId!).then((value) {
+                                                                                                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.green, content: Text("${value["message"]}")));
+                                                                                                      // }
+                                                                                                      projectprovider!.listofrealtorproject[widgetIndex].projectId!,
+
+
+                                                                                                      
+                                                                                                      );
                                                                                                   // await ref.read(realtorprovider).getrealtorproject(context);
                                                                                                   load();
 

@@ -276,6 +276,7 @@ class PhdProvider extends BaseNotifier {
   final imgPicker = ImagePicker();
   bool dataListItemIsEmpty = false;
   Map<String, dynamic> allData = {};
+  Map<String, dynamic> updteAllData = {};
   int tabIndex = 0;
   int roomId = -1;
   int startRange = 450;
@@ -374,6 +375,7 @@ class PhdProvider extends BaseNotifier {
   loadData(
       {required BuildContext context,
       required RealtorNotifier realtorProvider}) {
+    // log(realtorProvider.housedata!.type.toString());
     allData = {};
     dataListItemIsEmpty = false;
     allData = {
@@ -382,7 +384,9 @@ class PhdProvider extends BaseNotifier {
       'first_name': firstName,
       'last_name': lastName,
       'client_email': clientEmail,
-      'type': realtorProvider.housedata!.type,
+      'type': realtorProvider.housedata?.type == null
+          ? ""
+          : realtorProvider.housedata!.type,
       "year_built": realtorProvider.housedata!.yearBuilt,
       "bedrooms": realtorProvider.housedata!.bedrooms,
       "bathrooms": realtorProvider.housedata!.bathrooms,
@@ -408,8 +412,10 @@ class PhdProvider extends BaseNotifier {
       "final": 1,
       "slider_value": realtorProvider.sliderValue,
       "selectedOptionValue": selectedOptionValue,
-      "selectedPrice":selectedPrice == 'Other' ? 0 :  int.parse(selectedPrice),
-      "customPrice":ohterPrice.text.isEmpty ? 0 : int.parse( ohterPrice.text),
+      "selectedPrice": selectedPrice == 'Other'
+          ? 0
+          : int.parse(selectedPrice == '' ? "0" : selectedPrice),
+      "customPrice": ohterPrice.text.isEmpty ? 0 : int.parse(ohterPrice.text),
     };
 
     for (var i = 0; i < allRoomsData.length; i++) {
@@ -479,9 +485,155 @@ class PhdProvider extends BaseNotifier {
     }
   }
 
+    // Map<String, dynamic> updteAllData = {};
+  updateData({
+    required BuildContext context,
+    required RealtorNotifier realtorProvider,
+    required int phdId,
+  }) {
+    bool dataListItemIsEmpty = false;
+
+    int roomId = 0;
+    String phdDescription = '';
+    String status = '';
+    List<AddValueData> additionalValues = [];
+    List<Map<String, dynamic>> mainImages = [];
+    List<Map<String, dynamic>> roadBlockImages = [];
+    List<Map<String, dynamic>> roadBlocks = [];
+    int imageIdCounter = 0;
+    int imageIdCounter2 = 0;
+
+    // Check if allRoomsData is empty
+    if (allRoomsData.isEmpty) {
+      log("Error: allRoomsData is empty");
+      dataListItemIsEmpty = true;
+      updteAllData = {};
+      notifyListeners();
+    }
+    log("allRoomsData.length ${allRoomsData.length}");
+
+    for (var i = 0; i < allRoomsData.length; i++) {
+      List<bool> checkBoxCheking = [];
+      roomId = allRoomsData[i].roomId ?? 0;
+
+      if (allRoomsData[i].singleTabController?.text.isNotEmpty ?? false) {
+        phdDescription = allRoomsData[i].singleTabController!.text.toString();
+      }
+
+      if (allRoomsData[i].images?.isNotEmpty ?? false) {
+        for (var j = 0; j < allRoomsData[i].images!.length; j++) {
+          mainImages.add(
+              {'id': imageIdCounter++, 'responseImage': allRoomsData[i].images![j]});
+        }
+      }
+
+      if (allRoomsData[i].impressions?.isNotEmpty ?? false) {
+        status = allRoomsData[i].impressions!;
+      }
+
+      for (var k = 0; k < allRoomsData[i].addValueData!.length; k++) {
+        if (allRoomsData[i].addValueData![k].optionSelected ?? false) {
+          additionalValues.add(allRoomsData[i].addValueData![k]);
+        }
+      }
+
+      for (var j = 0; j < allRoomsData[i].data!.length; j++) {
+        SelectedFeatureModel itemModel =
+            allRoomsData[i].data![j].selectedFeatureForOneTabs;
+        if (itemModel.checkBox) {
+          checkBoxCheking.add(true);
+          if (itemModel.descrptionController.text.isNotEmpty &&
+              itemModel.images.isNotEmpty) {
+            for (var s = 0; s < itemModel.images.length; s++) {
+              roadBlockImages.add(
+                  {'id': imageIdCounter2++, 'responseImage': itemModel.images[s]});
+            }
+            log('room id  ${itemModel.roomId}');
+            log('featureId  ${itemModel.featureId}');
+            roadBlocks.add({
+              'id': itemModel.featureId,
+              'roadBlockDescription': itemModel.descrptionController.text,
+              'isChecked': itemModel.checkBox,
+              "roadBlockImages": roadBlockImages,
+            });
+          } else {
+            log("Error: Missing road block data for room ${i + 1}");
+            dataListItemIsEmpty = true;
+            updteAllData = {};
+            notifyListeners();
+          }
+        } else {
+          checkBoxCheking.add(false);
+        }
+      }
+
+      if (!checkBoxCheking.contains(true)) {
+        log("Error: No checkbox selected in room ${i + 1}");
+        dataListItemIsEmpty = true;
+        updteAllData = {};
+        notifyListeners();
+      }
+    }
+
+    updteAllData = {
+      "data": [
+        {
+          "roomId": roomId,
+          "description": phdDescription,
+          "status": status,
+          "additionalValues": additionalValues,
+          "customPrice":
+              ohterPrice.text.isEmpty ? 0 : int.parse(ohterPrice.text),
+          "mainImages": mainImages,
+          "roadBlocks": roadBlocks,
+          "selectedOptionValue": selectedOptionValue,
+          "selectedPrice": selectedPrice == 'Other'
+              ? 0
+              : int.parse(selectedPrice.isEmpty ? "0" : selectedPrice),
+          "id": phdId.toString(),
+        }
+      ]
+    };
+
+    log("Updated Data: $updteAllData");
+    notifyListeners();
+  }
+
   Future createPhdReport({required BuildContext context}) async {
+    log('=-=-=>  ' + allData.toString());
     Response response = await dioClient.PostwithFormData(
         apiEnd: create_phd_realtor, Data: allData);
+
+    Utils.loaderDialog(context, false);
+
+    log("response.statusCode =-=->>  ${response.statusCode}");
+    log("allData =-=->>  ${allData}");
+    log("res =-=->>  ${response}");
+
+    if (response.statusCode == 200) {
+      log("=-====---=-=-======--->>>>44  ");
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text('PHD created sucessfully'),
+      //   backgroundColor: teamColor,
+      // ));
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SelectCustomer(),
+          ),
+          (route) => false).then((value) {
+        restartProject();
+      });
+      allRoomsData.clear();
+      log("=-====---=-=-======--->>>>33  ");
+    }
+  }
+
+  Future updatePhdReport(
+      {required BuildContext context, required int projectId}) async {
+    log('=-=-=>data  ' + updteAllData.toString());
+    Response response = await dioClient.postwithRowData(
+        apiEnd: update_phd_realtor + projectId.toString(), Data: updteAllData);
 
     Utils.loaderDialog(context, false);
 
@@ -515,6 +667,7 @@ class PhdProvider extends BaseNotifier {
     isLoading = true;
     dataListItemIsEmpty = false;
     allData = {};
+    updteAllData = {};
     notifyListeners();
   }
 

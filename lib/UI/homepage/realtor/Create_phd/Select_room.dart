@@ -239,10 +239,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class selectRoom extends ConsumerStatefulWidget {
   int slider_value;
-  selectRoom({
-    Key? key,
-    required this.slider_value,
-  }) : super(key: key,);
+  bool update;
+  int projectid;
+  selectRoom({Key? key, required this.slider_value, required this.update , required this.projectid})
+      : super(
+          key: key,
+        );
 
   @override
   ConsumerState<selectRoom> createState() => _selectRoomState();
@@ -250,6 +252,7 @@ class selectRoom extends ConsumerStatefulWidget {
 
 class _selectRoomState extends ConsumerState<selectRoom> {
   late RoomProvider roomProvider;
+
   void initState() {
     super.initState();
     loaddata();
@@ -276,7 +279,10 @@ class _selectRoomState extends ConsumerState<selectRoom> {
       body: Container(
         child: Column(
           children: [
-            CommonHeader(title: "Create a new phd", isback: false),
+            CommonHeader(
+                title:
+                    widget.update == true ? 'Update a phd' : "Create a new phd",
+                isback: false),
             Expanded(
               child: loading
                   ? LoadingWidget()
@@ -394,6 +400,8 @@ class _selectRoomState extends ConsumerState<selectRoom> {
                               builder: (context) => Phd(
                                 slider_value: widget.slider_value,
                                 room: _phdProvider.selectedRoom!,
+                                update: widget.update,
+                                projectId: widget.projectid,
                               ),
                             ),
                           );

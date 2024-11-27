@@ -372,8 +372,10 @@ class Feature {
         inspectionNotes: json["inspectionNotes"] == null ? "": json["inspectionNotes"],
         status: json["status"],
         images: json["images"] == null
-            ? []
-            : List<String>.from(json["images"]!.map((x) => x)),
+    ? []
+    : (json["images"] is String
+        ? List<String>.from(jsonDecode(json["images"]))
+        : List<String>.from(json["images"])),
       );
 
   Map<String, dynamic> toJson() => {
